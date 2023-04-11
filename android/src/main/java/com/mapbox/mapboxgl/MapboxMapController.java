@@ -70,6 +70,7 @@ import com.mapbox.mapboxsdk.style.layers.HeatmapLayer;
 import com.mapbox.mapboxsdk.style.layers.HillshadeLayer;
 import com.mapbox.mapboxsdk.style.layers.Layer;
 import com.mapbox.mapboxsdk.style.layers.LineLayer;
+import com.mapbox.mapboxsdk.style.layers.Property;
 import com.mapbox.mapboxsdk.style.layers.PropertyValue;
 import com.mapbox.mapboxsdk.style.layers.RasterLayer;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
@@ -1315,7 +1316,7 @@ final class MapboxMapController
 
           Layer layer = style.getLayer(layerId);
 
-          layer.setProperties(PropertyFactory.visibility(visible ? "visible" : "none"));
+          layer.setProperties(PropertyFactory.visibility(visible ? Property.VISIBLE : Property.NONE));
 
           result.success(null);
           break;

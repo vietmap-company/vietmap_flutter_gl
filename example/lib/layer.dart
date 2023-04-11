@@ -252,6 +252,7 @@ const _points = {
         "type": "Point",
         "coordinates": [151.184913929732943, -33.874874486427181]
       }
+      
     },
     {
       "type": "Feature",

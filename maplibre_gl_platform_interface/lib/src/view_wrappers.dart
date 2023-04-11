@@ -127,7 +127,7 @@ class TextureAndroidViewControllerWrapper
   int get viewId => _controller.viewId;
 
   //@override
-  bool get requiresViewComposition => _controller.requiresViewComposition;
+  // bool get requiresViewComposition => _controller.requiresViewComposition;
 }
 
 class AndroidViewWithWrappedController extends StatefulWidget {

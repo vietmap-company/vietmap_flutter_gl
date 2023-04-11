@@ -9,7 +9,13 @@
 	"sources": {
 		"demotiles": {
 			"type": "vector",
-			"url": "https://demotiles.maplibre.org/tiles/tiles.json"
+
+			"url": "https://maps.vietmap.vn/tm/{z}/{x}/{y}@2x.png?apikey=95f852d9f8c38e08ceacfd456b59059d0618254a50d3854c"
+		},
+		"tiles": {
+			"type": "vector",
+
+			"url": "https://maps.vietmap.vn/tm/{z}/{x}/{y}@2x.png?apikey=95f852d9f8c38e08ceacfd456b59059d0618254a50d3854c"
 		}
 	},
 	"sprite": "",
