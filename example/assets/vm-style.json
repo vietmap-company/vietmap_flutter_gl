@@ -1,0 +1,21 @@
+{
+    "version": 8,
+    "sources": {
+      "VM": {
+        "type": "raster",
+        "tiles": [
+         "https://maps.vietmap.vn/tm/{z}/{x}/{y}@2x.png?apikey=95f852d9f8c38e08ceacfd456b59059d0618254a50d3854c"
+        ],
+        "tileSize": 256,
+        "attribution": "© Vietmap contributors",
+        "maxzoom": 20
+      }
+    },
+    "layers": [
+      {
+        "id": "VietMap-layer",
+        "source": "VM",
+        "type": "raster"
+      }
+    ]
+  }

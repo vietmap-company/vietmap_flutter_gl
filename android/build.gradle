@@ -42,11 +42,8 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     dependencies {
-//       implementation 'org.maplibre.gl:android-sdk:10.0.2'
-        implementation 'com.github.nhatpham0301:vietmap-sdk:v1.0.0'
-        implementation 'org.maplibre.gl:android-plugin-annotation-v9:1.0.0'
-        implementation 'org.maplibre.gl:android-plugin-localization-v9:1.0.0'
-        implementation 'org.maplibre.gl:android-plugin-offline-v9:1.0.0'
+        implementation 'com.github.nhatpham0301:vietmap-sdk:1.0.3'
+        implementation 'com.github.nhatpham0301:vietmap-plugin-localization:1.0.1'
         implementation 'org.maplibre.gl:android-sdk-geojson:5.9.0'
         implementation 'com.squareup.okhttp3:okhttp:4.9.3'
         implementation 'com.google.code.gson:gson:2.10.1'

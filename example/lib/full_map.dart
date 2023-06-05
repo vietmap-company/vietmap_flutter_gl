@@ -54,7 +54,8 @@ class FullMapState extends State<FullMap> {
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0)),
       onStyleLoadedCallback: _onStyleLoadedCallback,
-      // styleString: "assets/style.json",
+      styleString:
+          "https://run.mocky.io/v3/2cdf49bc-40fe-4aa5-a992-1954c8fb298f",
     ));
   }
 }
