@@ -175,3 +175,11 @@ Note : iOS will display the error : `NSPredicate: Use of 'mgl_does:have:' as an 
 
 
 [Feedback](https://github.com/maplibre/flutter-maplibre-gl/issues) and contributions are very welcome!
+
+
+Build and publish 
+1. Change version in pubspec.yaml file
+2. Run below command to publish
+```cmd
+flutter packages pub publish
+```

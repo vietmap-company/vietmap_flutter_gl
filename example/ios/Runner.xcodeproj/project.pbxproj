@@ -522,7 +522,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.mapboxGlExamplevmfltt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapbox.mapboxGlExamplevmflttt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";

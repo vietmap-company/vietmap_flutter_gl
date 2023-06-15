@@ -1,6 +1,6 @@
 source 'https://cdn.cocoapods.org/'
-source 'https://github.com/thanhdt1998/vietmap-flutter-podspec'
-
+source 'https://github.com/vietmap-company/vietmap-flutter-podspecs'
+source 'https://github.com/CocoaPods/Specs.git'
 # Uncomment this line to define a global platform for your project
 platform :ios, '11.0'
 

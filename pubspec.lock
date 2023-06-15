@@ -84,7 +84,7 @@ packages:
     source: path
     version: "0.16.0"
   maplibre_gl_web:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: maplibre_gl_web
       relative: true

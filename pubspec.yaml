@@ -1,21 +1,23 @@
-name: maplibre_gl
+name: vietmap_flutter_gl
 description: A Flutter plugin for integrating Maplibre Maps inside a Flutter application on Android, iOS and web platforms.
-version: 0.16.0
+version: 0.0.3
 homepage: https://github.com/maplibre/flutter-maplibre-gl
+
 
 dependencies:
   flutter:
     sdk: flutter
-  maplibre_gl_platform_interface:
-    git:
-      url: https://github.com/maplibre/flutter-maplibre-gl.git
-      path: maplibre_gl_platform_interface
-      ref: main
-  maplibre_gl_web:
-    git:
-      url: https://github.com/maplibre/flutter-maplibre-gl.git
-      path: maplibre_gl_web
-      ref: main
+  maplibre_gl_platform_interface: ^0.16.0
+  # maplibre_gl_platform_interface:
+    # git:
+    #   url: https://github.com/maplibre/flutter-maplibre-gl.git
+    #   path: maplibre_gl_platform_interface
+    #   ref: main
+  # maplibre_gl_web:
+  #   git:
+  #     url: https://github.com/maplibre/flutter-maplibre-gl.git
+  #     path: maplibre_gl_web
+  #     ref: main
 
 dependency_overrides:
   maplibre_gl_platform_interface:
