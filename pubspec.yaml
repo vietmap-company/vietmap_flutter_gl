@@ -1,7 +1,7 @@
 name: vietmap_flutter_gl
-description: A Flutter plugin for integrating Maplibre Maps inside a Flutter application on Android, iOS and web platforms.
-version: 0.0.3
-homepage: https://github.com/maplibre/flutter-maplibre-gl
+description: A Flutter plugin for integrating Vietmap sdk inside a Flutter application on Android, iOS platforms.
+version: 0.0.4
+homepage: https://github.com/vietmap-company/flutter-map-sdk.git
 
 
 dependencies:
