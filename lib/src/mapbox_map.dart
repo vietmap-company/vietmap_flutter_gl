@@ -6,10 +6,10 @@ part of vietmap_flutter_gl;
 
 enum AnnotationType { fill, line, circle, symbol }
 
-typedef void MapCreatedCallback(MaplibreMapController controller);
+typedef void MapCreatedCallback(VietmapController controller);
 
-class MaplibreMap extends StatefulWidget {
-  const MaplibreMap({
+class VietmapGL extends StatefulWidget {
+  const VietmapGL({
     Key? key,
     required this.initialCameraPosition,
     this.onMapCreated,
@@ -223,22 +223,22 @@ class MaplibreMap extends StatefulWidget {
   /// (better for Android 9 and below but may result in errors on Android 12)
   /// or leave it `true` (default) to use Hybrid composition (Slower on Android 9 and below).
   static bool get useHybridComposition =>
-      MethodChannelMaplibreGl.useHybridComposition;
+      MethodChannelVietmapGl.useHybridComposition;
 
   static set useHybridComposition(bool useHybridComposition) =>
-      MethodChannelMaplibreGl.useHybridComposition = useHybridComposition;
+      MethodChannelVietmapGl.useHybridComposition = useHybridComposition;
 
   @override
-  State createState() => _MaplibreMapState();
+  State createState() => _VietmapGLState();
 }
 
-class _MaplibreMapState extends State<MaplibreMap> {
-  final Completer<MaplibreMapController> _controller =
-      Completer<MaplibreMapController>();
+class _VietmapGLState extends State<VietmapGL> {
+  final Completer<VietmapController> _controller =
+      Completer<VietmapController>();
 
-  late _MapboxMapOptions _mapboxMapOptions;
-  final MapLibreGlPlatform _mapboxGlPlatform =
-      MapLibreGlPlatform.createInstance();
+  late _VietmapOptions _mapboxMapOptions;
+  final VietmapGlPlatform _mapboxGlPlatform =
+      VietmapGlPlatform.createInstance();
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +247,7 @@ class _MaplibreMapState extends State<MaplibreMap> {
         "annotationOrder must not have duplicate types");
     final Map<String, dynamic> creationParams = <String, dynamic>{
       'initialCameraPosition': widget.initialCameraPosition.toMap(),
-      'options': _MapboxMapOptions.fromWidget(widget).toMap(),
+      'options': _VietmapOptions.fromWidget(widget).toMap(),
       //'onAttributionClickOverride': widget.onAttributionClick != null,
       'dragEnabled': widget.dragEnabled,
       'useDelayedDisposal': widget.useDelayedDisposal,
@@ -260,7 +260,7 @@ class _MaplibreMapState extends State<MaplibreMap> {
   @override
   void initState() {
     super.initState();
-    _mapboxMapOptions = _MapboxMapOptions.fromWidget(widget);
+    _mapboxMapOptions = _VietmapOptions.fromWidget(widget);
   }
 
   @override
@@ -273,9 +273,9 @@ class _MaplibreMapState extends State<MaplibreMap> {
   }
 
   @override
-  void didUpdateWidget(MaplibreMap oldWidget) {
+  void didUpdateWidget(VietmapGL oldWidget) {
     super.didUpdateWidget(oldWidget);
-    final _MapboxMapOptions newOptions = _MapboxMapOptions.fromWidget(widget);
+    final _VietmapOptions newOptions = _VietmapOptions.fromWidget(widget);
     final Map<String, dynamic> updates =
         _mapboxMapOptions.updatesMap(newOptions);
     _updateOptions(updates);
@@ -286,12 +286,12 @@ class _MaplibreMapState extends State<MaplibreMap> {
     if (updates.isEmpty) {
       return;
     }
-    final MaplibreMapController controller = await _controller.future;
+    final VietmapController controller = await _controller.future;
     controller._updateMapOptions(updates);
   }
 
   Future<void> onPlatformViewCreated(int id) async {
-    final MaplibreMapController controller = MaplibreMapController(
+    final VietmapController controller = VietmapController(
       mapboxGlPlatform: _mapboxGlPlatform,
       initialCameraPosition: widget.initialCameraPosition,
       onStyleLoadedCallback: () {
@@ -323,8 +323,8 @@ class _MaplibreMapState extends State<MaplibreMap> {
 ///
 /// When used to change configuration, null values will be interpreted as
 /// "do not change this configuration option".
-class _MapboxMapOptions {
-  _MapboxMapOptions({
+class _VietmapOptions {
+  _VietmapOptions({
     this.compassEnabled,
     this.cameraTargetBounds,
     this.styleString,
@@ -345,8 +345,8 @@ class _MapboxMapOptions {
     this.attributionButtonMargins,
   });
 
-  static _MapboxMapOptions fromWidget(MaplibreMap map) {
-    return _MapboxMapOptions(
+  static _VietmapOptions fromWidget(VietmapGL map) {
+    return _VietmapOptions(
       compassEnabled: map.compassEnabled,
       cameraTargetBounds: map.cameraTargetBounds,
       styleString: map.styleString,
@@ -454,7 +454,7 @@ class _MapboxMapOptions {
     return optionsMap;
   }
 
-  Map<String, dynamic> updatesMap(_MapboxMapOptions newOptions) {
+  Map<String, dynamic> updatesMap(_VietmapOptions newOptions) {
     final Map<String, dynamic> prevOptionsMap = toMap();
     final newOptionsMap = newOptions.toMap();
 

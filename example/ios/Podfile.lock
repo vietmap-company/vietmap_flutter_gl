@@ -14,7 +14,7 @@ DEPENDENCIES:
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
   - location (from `.symlinks/plugins/location/ios`)
-  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - vietmap_flutter_gl (from `.symlinks/plugins/vietmap_flutter_gl/ios`)
 
 EXTERNAL SOURCES:
@@ -25,7 +25,7 @@ EXTERNAL SOURCES:
   location:
     :path: ".symlinks/plugins/location/ios"
   path_provider_foundation:
-    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+    :path: ".symlinks/plugins/path_provider_foundation/ios"
   vietmap_flutter_gl:
     :path: ".symlinks/plugins/vietmap_flutter_gl/ios"
 
@@ -36,6 +36,6 @@ SPEC CHECKSUMS:
   path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
   vietmap_flutter_gl: c4c127108273b6f91ecf43e38bb06089579577ed
 
-PODFILE CHECKSUM: 542d5812d0dfd00321407c7f5abb78b78bf32c98
+PODFILE CHECKSUM: 6c2920de6de7bc7e5e3b4e04d981a85183cbde24
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.12.0

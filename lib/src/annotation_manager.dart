@@ -1,7 +1,7 @@
 part of vietmap_flutter_gl;
 
 abstract class AnnotationManager<T extends Annotation> {
-  final MaplibreMapController controller;
+  final VietmapController controller;
   final _idToAnnotation = <String, T>{};
   final _idToLayerIndex = <String, int>{};
 
@@ -168,7 +168,7 @@ abstract class AnnotationManager<T extends Annotation> {
 }
 
 class LineManager extends AnnotationManager<Line> {
-  LineManager(MaplibreMapController controller,
+  LineManager(VietmapController controller,
       {void Function(Line)? onTap, bool enableInteraction = true})
       : super(
           controller,
@@ -196,7 +196,7 @@ class LineManager extends AnnotationManager<Line> {
 
 class FillManager extends AnnotationManager<Fill> {
   FillManager(
-    MaplibreMapController controller, {
+    VietmapController controller, {
     void Function(Fill)? onTap,
     bool enableInteraction = true,
   }) : super(
@@ -223,7 +223,7 @@ class FillManager extends AnnotationManager<Fill> {
 
 class CircleManager extends AnnotationManager<Circle> {
   CircleManager(
-    MaplibreMapController controller, {
+    VietmapController controller, {
     void Function(Circle)? onTap,
     bool enableInteraction = true,
   }) : super(
@@ -247,7 +247,7 @@ class CircleManager extends AnnotationManager<Circle> {
 
 class SymbolManager extends AnnotationManager<Symbol> {
   SymbolManager(
-    MaplibreMapController controller, {
+    VietmapController controller, {
     void Function(Symbol)? onTap,
     bool iconAllowOverlap = false,
     bool textAllowOverlap = false,

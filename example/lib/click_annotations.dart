@@ -29,9 +29,9 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
   ClickAnnotationBodyState();
   static const LatLng center = const LatLng(-33.88, 151.16);
 
-  MaplibreMapController? controller;
+  VietmapController? controller;
 
-  void _onMapCreated(MaplibreMapController controller) {
+  void _onMapCreated(VietmapController controller) {
     this.controller = controller;
     controller.onFillTapped.add(_onFillTapped);
     controller.onCircleTapped.add(_onCircleTapped);
@@ -133,7 +133,7 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
 
   @override
   Widget build(BuildContext context) {
-    return MaplibreMap(
+    return VietmapGL(
       annotationOrder: [
         AnnotationType.fill,
         AnnotationType.line,

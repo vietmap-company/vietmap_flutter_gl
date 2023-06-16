@@ -34,12 +34,12 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
 
   static final LatLng center = const LatLng(-33.86711, 151.1947171);
 
-  MaplibreMapController? controller;
+  VietmapController? controller;
   int _symbolCount = 0;
   Symbol? _selectedSymbol;
   bool _iconAllowOverlap = false;
 
-  void _onMapCreated(MaplibreMapController controller) {
+  void _onMapCreated(VietmapController controller) {
     this.controller = controller;
     controller.onSymbolTapped.add(_onSymbolTapped);
   }
@@ -289,7 +289,7 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
           child: SizedBox(
             width: 300.0,
             height: 200.0,
-            child: MaplibreMap(
+            child: VietmapGL(
               onMapCreated: _onMapCreated,
               onStyleLoadedCallback: _onStyleLoaded,
               initialCameraPosition: const CameraPosition(

@@ -2,18 +2,18 @@
 
 part of maplibre_gl_platform_interface;
 
-/// The default instance of [MapLibreGlPlatform] to use.
+/// The default instance of [VietmapGlPlatform] to use.
 typedef OnPlatformViewCreatedCallback = void Function(int);
 
-abstract class MapLibreGlPlatform {
+abstract class VietmapGlPlatform {
   /// The default instance of [MapboxGlPlatform] to use.
   ///
-  /// Defaults to [MethodChannelMaplibreGl].
+  /// Defaults to [MethodChannelVietmapGl].
   ///
   /// Platform-specific plugins should set this with their own platform-specific
-  /// class that extends [MapLibreGlPlatform] when they register themselves.
-  static MapLibreGlPlatform Function() createInstance =
-      () => MethodChannelMaplibreGl();
+  /// class that extends [VietmapGlPlatform] when they register themselves.
+  static VietmapGlPlatform Function() createInstance =
+      () => MethodChannelVietmapGl();
 
   final onInfoWindowTappedPlatform = ArgumentCallbacks<String>();
 

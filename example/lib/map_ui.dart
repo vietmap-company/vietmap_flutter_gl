@@ -39,7 +39,7 @@ class MapUiBodyState extends State<MapUiBody> {
     zoom: 11.0,
   );
 
-  MaplibreMapController? mapController;
+  VietmapController? mapController;
   CameraPosition _position = _kInitialPosition;
   bool _isMoving = false;
   bool _compassEnabled = true;
@@ -53,7 +53,7 @@ class MapUiBodyState extends State<MapUiBody> {
     "https://demotiles.maplibre.org/style.json",
     "assets/style.json"
   ];
-  List<String> _styleStringLabels = ["Maplibre demo style", "Local style file"];
+  List<String> _styleStringLabels = ["Vietmap demo style", "Local style file"];
   bool _rotateGesturesEnabled = true;
   bool _scrollGesturesEnabled = true;
   bool? _doubleClickToZoomEnabled;
@@ -345,7 +345,7 @@ class MapUiBodyState extends State<MapUiBody> {
 
   @override
   Widget build(BuildContext context) {
-    final MaplibreMap mapboxMap = MaplibreMap(
+    final VietmapGL mapboxMap = VietmapGL(
       onMapCreated: onMapCreated,
       initialCameraPosition: _kInitialPosition,
       trackCameraPosition: true,
@@ -456,7 +456,7 @@ class MapUiBodyState extends State<MapUiBody> {
     );
   }
 
-  void onMapCreated(MaplibreMapController controller) {
+  void onMapCreated(VietmapController controller) {
     mapController = controller;
     mapController!.addListener(_onMapChanged);
     _extractMapInfo();

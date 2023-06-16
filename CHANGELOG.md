@@ -23,7 +23,7 @@
 ## 0.14.0
 ### Breaking changes:
 * Remove access token, update libraries, replace example styles [#25](https://github.com/m0nac0/flutter-maplibre-gl/pull/25) (also see [#21](https://github.com/m0nac0/flutter-maplibre-gl/issues/21))
-  * The parameter `accessToken` of class `MaplibreMap` was removed. If you want to continue using a tile provider that requires an API key, specify that key directly in the URL of the tile source (see [https://github.com/m0nac0/flutter-maplibre-gl#tile-sources-requiring-an-api-key](https://github.com/m0nac0/flutter-maplibre-gl#tile-sources-requiring-an-api-key))
+  * The parameter `accessToken` of class `VietmapGL` was removed. If you want to continue using a tile provider that requires an API key, specify that key directly in the URL of the tile source (see [https://github.com/m0nac0/flutter-maplibre-gl#tile-sources-requiring-an-api-key](https://github.com/m0nac0/flutter-maplibre-gl#tile-sources-requiring-an-api-key))
   * The built-in constants for specific styles were also removed. You can continue using these styles by using the styles' URL
 
 ### Other changes:

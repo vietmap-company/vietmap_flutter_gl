@@ -4,7 +4,7 @@
 
 part of maplibre_gl_platform_interface;
 
-class MaplibreStyles {
+class VietmapStyles {
   /// A very simple MapLibre demo style
   static const String DEMO = "https://demotiles.maplibre.org/style.json";
 }

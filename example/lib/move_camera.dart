@@ -23,9 +23,9 @@ class MoveCamera extends StatefulWidget {
 }
 
 class MoveCameraState extends State<MoveCamera> {
-  late MaplibreMapController mapController;
+  late VietmapController mapController;
 
-  void _onMapCreated(MaplibreMapController controller) {
+  void _onMapCreated(VietmapController controller) {
     mapController = controller;
   }
 
@@ -39,7 +39,7 @@ class MoveCameraState extends State<MoveCamera> {
           child: SizedBox(
             width: 300.0,
             height: 200.0,
-            child: MaplibreMap(
+            child: VietmapGL(
               onMapCreated: _onMapCreated,
               onCameraIdle: () => print("onCameraIdle"),
               initialCameraPosition:

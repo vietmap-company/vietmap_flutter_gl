@@ -29,7 +29,7 @@ typedef void OnCameraIdleCallback();
 
 typedef void OnMapIdleCallback();
 
-/// Controller for a single MaplibreMap instance running on the host platform.
+/// Controller for a single Vietmap instance running on the host platform.
 ///
 /// Change listeners are notified upon changes to any of
 ///
@@ -44,9 +44,9 @@ typedef void OnMapIdleCallback();
 /// Symbol tap events can be received by adding callbacks to [onSymbolTapped].
 /// Line tap events can be received by adding callbacks to [onLineTapped].
 /// Circle tap events can be received by adding callbacks to [onCircleTapped].
-class MaplibreMapController extends ChangeNotifier {
-  MaplibreMapController({
-    required MapLibreGlPlatform mapboxGlPlatform,
+class VietmapController extends ChangeNotifier {
+  VietmapController({
+    required VietmapGlPlatform mapboxGlPlatform,
     required CameraPosition initialCameraPosition,
     required Iterable<AnnotationType> annotationOrder,
     required Iterable<AnnotationType> annotationConsumeTapEvents,
@@ -235,7 +235,7 @@ class MaplibreMapController extends ChangeNotifier {
   CameraPosition? get cameraPosition => _cameraPosition;
   CameraPosition? _cameraPosition;
 
-  final MapLibreGlPlatform _mapboxGlPlatform; //ignore: unused_field
+  final VietmapGlPlatform _mapboxGlPlatform; //ignore: unused_field
 
   /// Updates configuration options of the map user interface.
   ///

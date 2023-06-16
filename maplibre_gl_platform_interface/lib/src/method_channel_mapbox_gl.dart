@@ -1,6 +1,6 @@
 part of maplibre_gl_platform_interface;
 
-class MethodChannelMaplibreGl extends MapLibreGlPlatform {
+class MethodChannelVietmapGl extends VietmapGlPlatform {
   late MethodChannel _channel;
   static bool useHybridComposition = false;
 

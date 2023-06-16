@@ -6,7 +6,7 @@
 
     <application
         android:name="${applicationName}"
-        android:label="mapbox_gl_example"
+        android:label="vietmap_gl_example"
         android:icon="@mipmap/ic_launcher">
 
         <!-- TODO: removed android:exported="false" from https://github.com/flutter-mapbox-gl/maps/pull/904 (caused launch issues)-->

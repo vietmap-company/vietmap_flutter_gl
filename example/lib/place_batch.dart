@@ -69,9 +69,9 @@ class BatchAddBodyState extends State<BatchAddBody> {
 
   static final LatLng center = const LatLng(-33.86711, 151.1947171);
 
-  late MaplibreMapController controller;
+  late VietmapController controller;
 
-  void _onMapCreated(MaplibreMapController controller) {
+  void _onMapCreated(VietmapController controller) {
     this.controller = controller;
   }
 
@@ -145,7 +145,7 @@ class BatchAddBodyState extends State<BatchAddBody> {
         Center(
           child: SizedBox(
             height: 200.0,
-            child: MaplibreMap(
+            child: VietmapGL(
               onMapCreated: _onMapCreated,
               onStyleLoadedCallback: () => addImageFromAsset(controller,
                   "custom-marker", "assets/symbols/custom-marker.png"),

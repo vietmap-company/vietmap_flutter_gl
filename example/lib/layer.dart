@@ -22,14 +22,14 @@ class LayerBody extends StatefulWidget {
 class LayerState extends State {
   static final LatLng center = const LatLng(-33.86711, 151.1947171);
 
-  late MaplibreMapController controller;
+  late VietmapController controller;
   Timer? bikeTimer;
   Timer? filterTimer;
   int filteredId = 0;
 
   @override
   Widget build(BuildContext context) {
-    return MaplibreMap(
+    return VietmapGL(
       dragEnabled: false,
       myLocationEnabled: true,
       onMapCreated: _onMapCreated,
@@ -44,7 +44,7 @@ class LayerState extends State {
     );
   }
 
-  void _onMapCreated(MaplibreMapController controller) {
+  void _onMapCreated(VietmapController controller) {
     this.controller = controller;
 
     controller.onFeatureTapped.add(onFeatureTap);
@@ -252,7 +252,6 @@ const _points = {
         "type": "Point",
         "coordinates": [151.184913929732943, -33.874874486427181]
       }
-      
     },
     {
       "type": "Feature",

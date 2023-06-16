@@ -34,8 +34,8 @@ to get a more stable version.
 
 
 Compared to flutter-mapbox-gl, the only breaking API changes are: 
-- `MapboxMap` <--> `MaplibreMap`
-- `MapboxMapController` <--> `MaplibreMapController`
+- `MapboxMap` <--> `VietmapGL`
+- `MapboxMapController` <--> `VietmapController`
 
 
 ### Documentation
