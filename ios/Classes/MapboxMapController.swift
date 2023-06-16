@@ -1,6 +1,6 @@
 import Flutter
 import Mapbox
-import MapLibreAnnotationExtension
+import MapboxAnnotationExtension
 
 class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, MapboxMapOptionsSink,
     UIGestureRecognizerDelegate
@@ -39,7 +39,6 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
     ) {
         mapView = MGLMapView(frame: frame)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.logoView.isHidden = true
         self.registrar = registrar
 
         super.init()

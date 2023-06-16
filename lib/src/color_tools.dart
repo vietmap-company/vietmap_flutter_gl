@@ -1,4 +1,4 @@
-part of maplibre_gl;
+part of vietmap_flutter_gl;
 
 extension MapBoxColorConversion on Color {
   String toHexStringRGB() {

@@ -22,7 +22,7 @@ You can use it by referencing it in your `pubspec.yaml` like this:
 ```yaml
 dependencies:
     ...
-    maplibre_gl:
+    vietmap_flutter_gl:
       git:
         url: https://github.com/maplibre/flutter-maplibre-gl.git
         ref: main

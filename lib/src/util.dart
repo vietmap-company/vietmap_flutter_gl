@@ -1,4 +1,4 @@
-part of maplibre_gl;
+part of vietmap_flutter_gl;
 
 Map<String, dynamic> buildFeatureCollection(
     List<Map<String, dynamic>> features) {
