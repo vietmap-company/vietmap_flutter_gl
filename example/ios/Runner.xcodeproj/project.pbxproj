@@ -249,21 +249,21 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/MapLibreAnnotationExtension-framework/MapLibreAnnotationExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/device_info_plus/device_info_plus.framework",
 				"${BUILT_PRODUCTS_DIR}/location/location.framework",
 				"${BUILT_PRODUCTS_DIR}/path_provider_foundation/path_provider_foundation.framework",
 				"${BUILT_PRODUCTS_DIR}/vietmap_flutter_gl/vietmap_flutter_gl.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/MapLibre/Mapbox.framework/Mapbox",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/vietmap_flutter_gl/Mapbox.framework/Mapbox",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/vietmap_flutter_gl/MapboxAnnotationExtension.framework/MapboxAnnotationExtension",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapLibreAnnotationExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/device_info_plus.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/location.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/path_provider_foundation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/vietmap_flutter_gl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxAnnotationExtension.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
