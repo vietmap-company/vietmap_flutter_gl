@@ -1,4 +1,4 @@
-part of maplibre_gl;
+part of vietmap_flutter_gl;
 
 abstract class AnnotationManager<T extends Annotation> {
   final MaplibreMapController controller;

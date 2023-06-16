@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/mapbox_gl.dart';
 
 /// Adds an asset image to the currently displayed style
 Future<void> addImageFromAsset(
