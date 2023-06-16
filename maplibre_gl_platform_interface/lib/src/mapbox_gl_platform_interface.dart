@@ -6,7 +6,7 @@ part of maplibre_gl_platform_interface;
 typedef OnPlatformViewCreatedCallback = void Function(int);
 
 abstract class VietmapGlPlatform {
-  /// The default instance of [MapboxGlPlatform] to use.
+  /// The default instance of [VietmapGlPlatform] to use.
   ///
   /// Defaults to [MethodChannelVietmapGl].
   ///

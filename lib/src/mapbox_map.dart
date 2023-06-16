@@ -292,7 +292,7 @@ class _VietmapGLState extends State<VietmapGL> {
 
   Future<void> onPlatformViewCreated(int id) async {
     final VietmapController controller = VietmapController(
-      mapboxGlPlatform: _mapboxGlPlatform,
+      vietmapGlPlatform: _mapboxGlPlatform,
       initialCameraPosition: widget.initialCameraPosition,
       onStyleLoadedCallback: () {
         if (_controller.isCompleted) {
