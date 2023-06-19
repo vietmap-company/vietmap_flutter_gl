@@ -31,7 +31,7 @@ import 'place_batch.dart';
 import 'layer.dart';
 import 'sources.dart';
 
-import 'package:vietmap_flutter_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 final List<ExamplePage> _allPages = <ExamplePage>[
   MapUiPage(),

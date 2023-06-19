@@ -173,7 +173,7 @@ class UserLocation {
   final LatLng position;
 
   /// User's altitude in meters
-  final double? altitude;
+  final double? latitude;
 
   /// Direction user is traveling, measured in degrees
   final double? bearing;
@@ -195,7 +195,7 @@ class UserLocation {
 
   const UserLocation(
       {required this.position,
-      required this.altitude,
+      required this.latitude,
       required this.bearing,
       required this.speed,
       required this.horizontalAccuracy,

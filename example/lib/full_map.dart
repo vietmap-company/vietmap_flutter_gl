@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vietmap_flutter_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'page.dart';
 
@@ -54,6 +54,12 @@ class FullMapState extends State<FullMap> {
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0)),
       onStyleLoadedCallback: _onStyleLoadedCallback,
+      myLocationEnabled: true,
+      myLocationRenderMode: MyLocationRenderMode.GPS,
+      myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
+      onUserLocationUpdated: (location) {
+        print(location.latitude);
+      },
       styleString:
           "https://run.mocky.io/v3/2cdf49bc-40fe-4aa5-a992-1954c8fb298f",
     ));

@@ -490,7 +490,7 @@ class VietmapController extends VietmapGlPlatform
       _myLastLocation = LatLng(e.coords.latitude, e.coords.longitude);
       onUserLocationUpdatedPlatform(UserLocation(
           position: LatLng(e.coords.latitude, e.coords.longitude),
-          altitude: e.coords.altitude,
+          latitude: e.coords.altitude,
           bearing: e.coords.heading,
           speed: e.coords.speed,
           horizontalAccuracy: e.coords.accuracy,

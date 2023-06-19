@@ -100,7 +100,7 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
               userLocation['position'][0],
               userLocation['position'][1],
             ),
-            altitude: userLocation['altitude'],
+            latitude: userLocation['altitude'],
             bearing: userLocation['bearing'],
             speed: userLocation['speed'],
             horizontalAccuracy: userLocation['horizontalAccuracy'],
