@@ -54,14 +54,13 @@ class FullMapState extends State<FullMap> {
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0)),
       onStyleLoadedCallback: _onStyleLoadedCallback,
-      myLocationEnabled: true,
       myLocationRenderMode: MyLocationRenderMode.GPS,
       myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
       onUserLocationUpdated: (location) {
         print(location.latitude);
       },
       styleString:
-          "https://run.mocky.io/v3/2cdf49bc-40fe-4aa5-a992-1954c8fb298f",
+          "https://run.mocky.io/v3/06602373-c116-41cc-9af6-1ce0dc7807ae",
     ));
   }
 }

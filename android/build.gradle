@@ -42,7 +42,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     dependencies {
-        implementation 'com.github.vietmap-company:maps-sdk-android:1.0.0'
+        implementation 'com.github.vietmap-company:maps-sdk-android:1.0.3'
         implementation 'com.github.vietmap-company:maps-sdk-plugin-localization-android:1.0.0'
         implementation 'com.github.vietmap-company:vietmap-services-geojson-android:1.0.0'
         implementation 'com.squareup.okhttp3:okhttp:4.9.3'

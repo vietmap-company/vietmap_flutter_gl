@@ -51,6 +51,7 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
   VietmapController? controller;
   int _fillCount = 0;
   Fill? _selectedFill;
+  bool isSelected = false;
 
   void _onMapCreated(VietmapController controller) {
     this.controller = controller;
@@ -98,7 +99,10 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
   void _onFillTapped(Fill fill) {
     setState(() {
       _selectedFill = fill;
+
+      isSelected = true;
     });
+    print('Fill selected');
   }
 
   void _updateSelectedFill(FillOptions changes) {
@@ -271,6 +275,9 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
                           onPressed:
                               (_selectedFill == null) ? null : _changeDraggable,
                         ),
+                        Text(isSelected
+                            ? "You selected a fill"
+                            : "No fill has been selected")
                       ],
                     ),
                   ],
