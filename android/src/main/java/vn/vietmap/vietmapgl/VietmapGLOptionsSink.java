@@ -2,12 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package com.mapbox.mapboxgl;
+package vn.vietmap.vietmapgl;
 
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
+import vn.vietmap.vietmapsdk.geometry.LatLngBounds;
 
-/** Receiver of MapboxMap configuration options. */
-interface MapboxMapOptionsSink {
+/** Receiver of VietMapGL configuration options. */
+interface VietmapGLOptionsSink {
   void setCameraTargetBounds(
       LatLngBounds bounds); // todo: dddd replace with CameraPosition.Builder target
 

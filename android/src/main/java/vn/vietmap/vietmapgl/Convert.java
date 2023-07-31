@@ -2,25 +2,25 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package com.mapbox.mapboxgl;
+package vn.vietmap.vietmapgl;
 
 import android.content.Context;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
 import com.mapbox.geojson.Polygon;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
+import vn.vietmap.vietmapsdk.camera.CameraPosition;
+import vn.vietmap.vietmapsdk.camera.CameraUpdate;
+import vn.vietmap.vietmapsdk.camera.CameraUpdateFactory;
+import vn.vietmap.vietmapsdk.geometry.LatLng;
+import vn.vietmap.vietmapsdk.geometry.LatLngBounds;
+import vn.vietmap.vietmapsdk.maps.VietMapGL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/** Conversions between JSON-like values and MapboxMaps data types. */
+/** Conversions between JSON-like values and VietmapGL data types. */
 class Convert {
 
   private static final String TAG = "Convert";
@@ -43,7 +43,7 @@ class Convert {
     return toString(toList(o).get(0)).equals("scrollBy");
   }
 
-  static CameraUpdate toCameraUpdate(Object o, MapboxMap mapboxMap, float density) {
+  static CameraUpdate toCameraUpdate(Object o, VietMapGL vietmapGL, float density) {
     final List<?> data = toList(o);
     switch (toString(data.get(0))) {
       case "newCameraPosition":
@@ -60,7 +60,7 @@ class Convert {
       case "newLatLngZoom":
         return CameraUpdateFactory.newLatLngZoom(toLatLng(data.get(1)), toFloat(data.get(2)));
       case "scrollBy":
-        mapboxMap.scrollBy(
+        vietmapGL.scrollBy(
             toFractionalPixels(data.get(1), density), toFractionalPixels(data.get(2), density));
         return null;
       case "zoomBy":
@@ -205,7 +205,7 @@ class Convert {
     return (String) o;
   }
 
-  static void interpretMapboxMapOptions(Object o, MapboxMapOptionsSink sink, Context context) {
+  static void interpretVietmapGLOptions(Object o, VietmapGLOptionsSink sink, Context context) {
     final DisplayMetrics metrics = context.getResources().getDisplayMetrics();
     final Map<?, ?> data = toMap(o);
     final Object cameraTargetBounds = data.get("cameraTargetBounds");

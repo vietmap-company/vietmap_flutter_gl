@@ -73,8 +73,8 @@ class FillOptions {
       this.draggable});
 
   final double? fillOpacity;
-  final String? fillColor;
-  final String? fillOutlineColor;
+  final Color? fillColor;
+  final Color? fillOutlineColor;
   final String? fillPattern;
   final List<List<LatLng>>? geometry;
   final bool? draggable;
@@ -102,8 +102,8 @@ class FillOptions {
     }
 
     addIfPresent('fillOpacity', fillOpacity);
-    addIfPresent('fillColor', fillColor);
-    addIfPresent('fillOutlineColor', fillOutlineColor);
+    addIfPresent('fillColor', fillColor.toHex());
+    addIfPresent('fillOutlineColor', fillOutlineColor.toHex());
     addIfPresent('fillPattern', fillPattern);
     if (addGeometry) {
       addIfPresent(

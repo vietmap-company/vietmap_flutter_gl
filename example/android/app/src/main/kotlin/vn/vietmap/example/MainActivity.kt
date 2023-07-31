@@ -1,4 +1,4 @@
-package com.mapbox.example
+package vn.vietmap.example
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

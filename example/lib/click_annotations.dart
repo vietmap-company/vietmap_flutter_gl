@@ -79,7 +79,7 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
     controller!.addCircle(
       CircleOptions(
         geometry: LatLng(-33.881979408447314, 151.171361438502117),
-        circleStrokeColor: "#00FF00",
+        circleStrokeColor: Color(0xFF00FF00),
         circleStrokeWidth: 2,
         circleRadius: 16,
       ),
@@ -87,7 +87,7 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
     controller!.addCircle(
       CircleOptions(
         geometry: LatLng(-33.894372606072309, 151.17576679759523),
-        circleStrokeColor: "#00FF00",
+        circleStrokeColor: Color(0xFF00FF00),
         circleStrokeWidth: 2,
         circleRadius: 30,
       ),
@@ -107,7 +107,7 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
           LatLng(-33.894372606072309, 151.17576679759523),
           LatLng(-33.900060683994681, 151.15765587687909),
         ],
-        lineColor: "#0000FF",
+        lineColor: Colors.red,
         lineWidth: 20,
       ),
     );
@@ -125,8 +125,8 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
             LatLng(-33.901517742631846, 151.178099204457737),
           ],
         ],
-        fillColor: "#FF0000",
-        fillOutlineColor: "#000000",
+        fillColor: Color(0xFFFF0000),
+        fillOutlineColor: Colors.black,
       ),
     );
   }

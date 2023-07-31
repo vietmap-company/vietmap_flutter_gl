@@ -333,8 +333,8 @@ class MapUiBodyState extends State<MapUiBody> {
           .cast<List<LatLng>>();
       Fill fill = await mapController!.addFill(FillOptions(
         geometry: geometry,
-        fillColor: "#FF0000",
-        fillOutlineColor: "#FF0000",
+        fillColor: Color(0xFFFF0000),
+        fillOutlineColor: Color(0xFFFF0000),
         fillOpacity: 0.6,
       ));
       setState(() {

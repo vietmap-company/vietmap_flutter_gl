@@ -1,6 +1,6 @@
 name: vietmap_flutter_gl
 description: A Flutter plugin for integrating Vietmap sdk inside a Flutter application on Android, iOS platforms.
-version: 0.1.2
+version: 0.1.3
 homepage: https://github.com/vietmap-company
 
 
@@ -29,8 +29,8 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.mapbox.mapboxgl
-        pluginClass: MapboxMapsPlugin
+        package: vn.vietmap.vietmapgl
+        pluginClass: VietmapGLPlugin
       ios:
         pluginClass: MapboxMapsPlugin
       web:

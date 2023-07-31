@@ -1,4 +1,4 @@
-package com.mapbox.mapboxglexample;
+package vn.vietmap.vietmapglexample;
 
 import io.flutter.embedding.android.FlutterActivity;
 

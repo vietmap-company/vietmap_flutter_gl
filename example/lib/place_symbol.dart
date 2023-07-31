@@ -119,9 +119,9 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
             textSize: 12.5,
             textOffset: Offset(0, 0.8),
             textAnchor: 'top',
-            textColor: '#000000',
+            textColor: Colors.black,
             textHaloBlur: 1,
-            textHaloColor: '#ffffff',
+            textHaloColor: Colors.white,
             textHaloWidth: 0.8,
           )
         : SymbolOptions(

@@ -56,13 +56,13 @@ class LineBodyState extends State<LineBody> {
 
   _onLineTapped(Line line) async {
     await _updateSelectedLine(
-      LineOptions(lineColor: "#ff0000"),
+      LineOptions(lineColor: Colors.red),
     );
     setState(() {
       _selectedLine = line;
     });
     await _updateSelectedLine(
-      LineOptions(lineColor: "#ffe100"),
+      LineOptions(lineColor: Colors.red),
     );
   }
 
@@ -79,7 +79,7 @@ class LineBodyState extends State<LineBody> {
             LatLng(-32.86711, 151.1947171),
             LatLng(-33.86711, 152.1947171),
           ],
-          lineColor: "#ff0000",
+          lineColor:Colors.red,
           lineWidth: 14.0,
           lineOpacity: 0.5,
           draggable: true),
@@ -144,7 +144,7 @@ class LineBodyState extends State<LineBody> {
     await controller!.addLine(
       LineOptions(
         geometry: [LatLng(37.4220, -122.0841), LatLng(37.4240, -122.0941)],
-        lineColor: "#ff0000",
+        lineColor: Colors.red,
         lineWidth: 14.0,
         lineOpacity: 0.5,
       ),

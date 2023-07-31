@@ -110,12 +110,11 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
   }
 
   void _add() {
-    controller!.addFill(
-      FillOptions(
-          geometry: _defaultGeometry,
-          fillColor: "#FF0000",
-          fillOutlineColor: "#FF0000"),
-    );
+    controller!.addFill(FillOptions(
+      geometry: _defaultGeometry,
+      fillColor: Color(0xFFFF0000),
+      fillOutlineColor: Color(0xFFFF0000),
+    ));
     setState(() {
       _fillCount += 1;
     });
@@ -170,26 +169,26 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
   }
 
   Future<void> _changeFillColor() async {
-    String? current = _selectedFill!.options.fillColor;
+    Color? current = _selectedFill!.options.fillColor;
     if (current == null) {
       // default value
-      current = "#FF0000";
+      current = Color(0xFFFF0000);
     }
 
     _updateSelectedFill(
-      FillOptions(fillColor: "#FFFF00"),
+      FillOptions(fillColor: Color(0xFFFF0000)),
     );
   }
 
   Future<void> _changeFillOutlineColor() async {
-    String? current = _selectedFill!.options.fillOutlineColor;
+    Color? current = _selectedFill!.options.fillOutlineColor;
     if (current == null) {
       // default value
-      current = "#FF0000";
+      current = Color(0xFFFF0000);
     }
 
     _updateSelectedFill(
-      FillOptions(fillOutlineColor: "#FFFF00"),
+      FillOptions(fillOutlineColor: Color(0xFFFFFF00)),
     );
   }
 

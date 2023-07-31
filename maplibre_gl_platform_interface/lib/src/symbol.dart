@@ -107,13 +107,13 @@ class SymbolOptions {
   final String? textTransform;
   final Offset? textOffset;
   final double? iconOpacity;
-  final String? iconColor;
-  final String? iconHaloColor;
+  final Color? iconColor;
+  final Color? iconHaloColor;
   final double? iconHaloWidth;
   final double? iconHaloBlur;
   final double? textOpacity;
-  final String? textColor;
-  final String? textHaloColor;
+  final Color? textColor;
+  final Color? textHaloColor;
   final double? textHaloWidth;
   final double? textHaloBlur;
   final LatLng? geometry;
@@ -180,13 +180,13 @@ class SymbolOptions {
     addIfPresent('textTransform', textTransform);
     addIfPresent('textOffset', _offsetToJson(textOffset));
     addIfPresent('iconOpacity', iconOpacity);
-    addIfPresent('iconColor', iconColor);
-    addIfPresent('iconHaloColor', iconHaloColor);
+    addIfPresent('iconColor', iconColor.toHex());
+    addIfPresent('iconHaloColor', iconHaloColor.toHex());
     addIfPresent('iconHaloWidth', iconHaloWidth);
     addIfPresent('iconHaloBlur', iconHaloBlur);
     addIfPresent('textOpacity', textOpacity);
-    addIfPresent('textColor', textColor);
-    addIfPresent('textHaloColor', textHaloColor);
+    addIfPresent('textColor', textColor.toHex());
+    addIfPresent('textHaloColor', textHaloColor.toHex());
     addIfPresent('textHaloWidth', textHaloWidth);
     addIfPresent('textHaloBlur', textHaloBlur);
     if (addGeometry) {

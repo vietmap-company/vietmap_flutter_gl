@@ -1,10 +1,10 @@
-package com.mapbox.mapboxgl;
+package vn.vietmap.vietmapgl;
 
 import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.mapbox.mapboxsdk.net.ConnectivityReceiver;
+import vn.vietmap.vietmapsdk.net.ConnectivityReceiver;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
@@ -70,7 +70,7 @@ class GlobalMethodHandler implements MethodChannel.MethodCallHandler {
 
   @Override
   public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
-    MapBoxUtils.getMapbox(context);
+    VietmapUtils.getVietmap(context);
 
     switch (methodCall.method) {
       case "installOfflineMapTiles":
@@ -92,7 +92,7 @@ class GlobalMethodHandler implements MethodChannel.MethodCallHandler {
         break;
       case "setHttpHeaders":
         Map<String, String> headers = (Map<String, String>) methodCall.argument("headers");
-        MapboxHttpRequestUtil.setHttpHeaders(headers, result);
+        VietmapHttpRequestUtil.setHttpHeaders(headers, result);
         break;
       case "downloadOfflineRegion#setup":
         String channelName = methodCall.argument("channelName");

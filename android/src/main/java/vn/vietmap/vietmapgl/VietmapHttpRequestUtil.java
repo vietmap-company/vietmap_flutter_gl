@@ -1,12 +1,12 @@
-package com.mapbox.mapboxgl;
+package vn.vietmap.vietmapgl;
 
-import com.mapbox.mapboxsdk.module.http.HttpRequestUtil;
+import vn.vietmap.vietmapsdk.module.http.HttpRequestUtil;
 import io.flutter.plugin.common.MethodChannel;
 import java.util.Map;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-abstract class MapboxHttpRequestUtil {
+abstract class VietmapHttpRequestUtil {
 
   public static void setHttpHeaders(Map<String, String> headers, MethodChannel.Result result) {
     HttpRequestUtil.setOkHttpClient(getOkHttpClient(headers, result).build());

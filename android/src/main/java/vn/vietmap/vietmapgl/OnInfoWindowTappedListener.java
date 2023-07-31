@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package com.mapbox.mapboxgl;
+package vn.vietmap.vietmapgl;
 
-import com.mapbox.mapboxsdk.annotations.Marker;
+import vn.vietmap.vietmapsdk.annotations.Marker;
 
 public interface OnInfoWindowTappedListener {
   void onInfoWindowTapped(Marker marker);

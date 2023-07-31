@@ -125,7 +125,7 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
     controller.addLine(
       LineOptions(
         draggable: false,
-        lineColor: "#ff0000",
+        lineColor: Colors.red,
         lineWidth: 7.0,
         lineOpacity: 1,
         geometry: [
@@ -141,7 +141,7 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
     controller.addFill(
       FillOptions(
         draggable: false,
-        fillColor: "#008888",
+        fillColor: Color(0xFF008888),
         fillOpacity: 0.3,
         geometry: [
           [

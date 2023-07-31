@@ -63,11 +63,11 @@ class CircleOptions {
   });
 
   final double? circleRadius;
-  final String? circleColor;
+  final Color? circleColor;
   final double? circleBlur;
   final double? circleOpacity;
   final double? circleStrokeWidth;
-  final String? circleStrokeColor;
+  final Color? circleStrokeColor;
   final double? circleStrokeOpacity;
   final LatLng? geometry;
   final bool? draggable;
@@ -98,11 +98,11 @@ class CircleOptions {
     }
 
     addIfPresent('circleRadius', circleRadius);
-    addIfPresent('circleColor', circleColor);
+    addIfPresent('circleColor', circleColor.toHex());
     addIfPresent('circleBlur', circleBlur);
     addIfPresent('circleOpacity', circleOpacity);
     addIfPresent('circleStrokeWidth', circleStrokeWidth);
-    addIfPresent('circleStrokeColor', circleStrokeColor);
+    addIfPresent('circleStrokeColor', circleStrokeColor.toHex());
     addIfPresent('circleStrokeOpacity', circleStrokeOpacity);
     if (addGeometry) {
       addIfPresent('geometry', geometry?.toJson());

@@ -248,6 +248,10 @@ class VietmapController extends ChangeNotifier {
     notifyListeners();
   }
 
+  VietmapGlPlatform get getPlatform {
+    return _vietmapGlPlatform;
+  }
+
   /// Triggers a resize event for the map on web (ignored on Android or iOS).
   ///
   /// Checks first if a resize is required or if it looks like it is already correctly resized.
@@ -1100,7 +1104,8 @@ class VietmapController extends ChangeNotifier {
   /// Adds a Mapbox image layer to the map's style at render time.
   Future<void> addImageLayer(String layerId, String imageSourceId,
       {double? minzoom, double? maxzoom}) {
-    return _vietmapGlPlatform.addLayer(layerId, imageSourceId, minzoom, maxzoom);
+    return _vietmapGlPlatform.addLayer(
+        layerId, imageSourceId, minzoom, maxzoom);
   }
 
   /// Adds a Mapbox image layer below the layer provided with belowLayerId to the map's style at render time.

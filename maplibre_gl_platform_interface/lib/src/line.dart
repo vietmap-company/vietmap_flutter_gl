@@ -66,7 +66,7 @@ class LineOptions {
 
   final String? lineJoin;
   final double? lineOpacity;
-  final String? lineColor;
+  final Color? lineColor;
   final double? lineWidth;
   final double? lineGapWidth;
   final double? lineOffset;
@@ -103,7 +103,7 @@ class LineOptions {
 
     addIfPresent('lineJoin', lineJoin);
     addIfPresent('lineOpacity', lineOpacity);
-    addIfPresent('lineColor', lineColor);
+    addIfPresent('lineColor', lineColor.toHex());
     addIfPresent('lineWidth', lineWidth);
     addIfPresent('lineGapWidth', lineGapWidth);
     addIfPresent('lineOffset', lineOffset);

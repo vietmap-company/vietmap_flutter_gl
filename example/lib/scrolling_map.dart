@@ -134,7 +134,7 @@ class _ScrollingMapBodyState extends State<ScrollingMapBody> {
           LatLng(-32.86711, 151.1947171),
           LatLng(-33.86711, 152.1947171),
         ],
-        lineColor: "#ff0000",
+        lineColor: Colors.red,
         lineWidth: 7.0,
         lineOpacity: 0.5,
       ),

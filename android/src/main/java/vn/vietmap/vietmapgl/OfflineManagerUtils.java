@@ -1,16 +1,16 @@
-package com.mapbox.mapboxgl;
+package vn.vietmap.vietmapgl;
 
 import android.content.Context;
 import android.util.Log;
 import com.google.gson.Gson;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.offline.OfflineManager;
-import com.mapbox.mapboxsdk.offline.OfflineRegion;
-import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition;
-import com.mapbox.mapboxsdk.offline.OfflineRegionError;
-import com.mapbox.mapboxsdk.offline.OfflineRegionStatus;
-import com.mapbox.mapboxsdk.offline.OfflineTilePyramidRegionDefinition;
+import vn.vietmap.vietmapsdk.geometry.LatLng;
+import vn.vietmap.vietmapsdk.geometry.LatLngBounds;
+import vn.vietmap.vietmapsdk.offline.OfflineManager;
+import vn.vietmap.vietmapsdk.offline.OfflineRegion;
+import vn.vietmap.vietmapsdk.offline.OfflineRegionDefinition;
+import vn.vietmap.vietmapsdk.offline.OfflineRegionError;
+import vn.vietmap.vietmapsdk.offline.OfflineRegionStatus;
+import vn.vietmap.vietmapsdk.offline.OfflineTilePyramidRegionDefinition;
 import io.flutter.plugin.common.MethodChannel;
 import java.util.ArrayList;
 import java.util.Arrays;

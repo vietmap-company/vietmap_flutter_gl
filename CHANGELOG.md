@@ -1,3 +1,6 @@
+
+## 0.1.3, July 28, 2023
+* refactor native sdk
 ## 0.16.0, Jun 28, 2022
 * cherry-picked all commits from upstream up to [https://github.com/flutter-mapbox-gl/maps/commit/3496907955cd4b442e4eb905d67e8d46692174f1), including up to release 0.16.0 from upstream
 * updated Maplibre GL JS for web

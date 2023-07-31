@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package com.mapbox.mapboxgl;
+package vn.vietmap.vietmapgl;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -28,59 +28,52 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-// import com.mapbox.android.core.location.LocationEngine;
-// import com.mapbox.android.core.location.LocationEngineCallback;
-// import com.mapbox.android.core.location.LocationEngineProvider;
-// import com.mapbox.android.core.location.LocationEngineResult;
-import com.mapbox.android.gestures.AndroidGesturesManager;
-// import com.mapbox.android.telemetry.TelemetryEnabler;
-import com.mapbox.android.gestures.MoveGestureDetector;
+import vn.vietmap.android.gestures.AndroidGesturesManager;
+import vn.vietmap.android.gestures.MoveGestureDetector;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.geojson.BoundingBox;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.constants.MapboxConstants;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.geometry.LatLngQuad;
-import com.mapbox.mapboxsdk.geometry.VisibleRegion;
-import com.mapbox.mapboxsdk.location.LocationComponent;
-import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
-import com.mapbox.mapboxsdk.location.LocationComponentOptions;
-import com.mapbox.mapboxsdk.location.OnCameraTrackingChangedListener;
-import com.mapbox.mapboxsdk.location.engine.LocationEngine;
-import com.mapbox.mapboxsdk.location.engine.LocationEngineCallback;
-//import com.mapbox.mapboxsdk.location.engine.LocationEngineProvider;
-import com.mapbox.mapboxsdk.location.engine.LocationEngineResult;
-import com.mapbox.mapboxsdk.location.modes.CameraMode;
-import com.mapbox.mapboxsdk.location.modes.RenderMode;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.mapboxsdk.offline.OfflineManager;
-import com.mapbox.mapboxsdk.plugins.localization.LocalizationPlugin;
-import com.mapbox.mapboxsdk.style.expressions.Expression;
-import com.mapbox.mapboxsdk.style.layers.CircleLayer;
-import com.mapbox.mapboxsdk.style.layers.FillExtrusionLayer;
-import com.mapbox.mapboxsdk.style.layers.FillLayer;
-import com.mapbox.mapboxsdk.style.layers.HeatmapLayer;
-import com.mapbox.mapboxsdk.style.layers.HillshadeLayer;
-import com.mapbox.mapboxsdk.style.layers.Layer;
-import com.mapbox.mapboxsdk.style.layers.LineLayer;
-import com.mapbox.mapboxsdk.style.layers.Property;
-import com.mapbox.mapboxsdk.style.layers.PropertyValue;
-import com.mapbox.mapboxsdk.style.layers.RasterLayer;
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory;
-import com.mapbox.mapboxsdk.style.sources.CustomGeometrySource;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
-import com.mapbox.mapboxsdk.style.sources.ImageSource;
-import com.mapbox.mapboxsdk.style.sources.Source;
-import com.mapbox.mapboxsdk.style.sources.VectorSource;
+import vn.vietmap.vietmapsdk.camera.CameraPosition;
+import vn.vietmap.vietmapsdk.camera.CameraUpdate;
+import vn.vietmap.vietmapsdk.camera.CameraUpdateFactory;
+import vn.vietmap.vietmapsdk.constants.VietMapConstants;
+import vn.vietmap.vietmapsdk.geometry.LatLng;
+import vn.vietmap.vietmapsdk.geometry.LatLngBounds;
+import vn.vietmap.vietmapsdk.geometry.LatLngQuad;
+import vn.vietmap.vietmapsdk.geometry.VisibleRegion;
+import vn.vietmap.vietmapsdk.location.LocationComponent;
+import vn.vietmap.vietmapsdk.location.LocationComponentActivationOptions;
+import vn.vietmap.vietmapsdk.location.LocationComponentOptions;
+import vn.vietmap.vietmapsdk.location.OnCameraTrackingChangedListener;
+import vn.vietmap.vietmapsdk.location.engine.LocationEngine;
+import vn.vietmap.vietmapsdk.location.engine.LocationEngineCallback;
+import vn.vietmap.vietmapsdk.location.engine.LocationEngineResult;
+import vn.vietmap.vietmapsdk.location.modes.CameraMode;
+import vn.vietmap.vietmapsdk.location.modes.RenderMode;
+import vn.vietmap.vietmapsdk.maps.MapView;
+import vn.vietmap.vietmapsdk.maps.VietMapGL;
+import vn.vietmap.vietmapsdk.maps.OnMapReadyCallback;
+import vn.vietmap.vietmapsdk.maps.Style;
+import vn.vietmap.vietmapsdk.maps.VietMapGLOptions;
+import vn.vietmap.vietmapsdk.offline.OfflineManager;
+import vn.vietmap.vietmapsdk.plugins.localization.LocalizationPlugin;
+import vn.vietmap.vietmapsdk.style.expressions.Expression;
+import vn.vietmap.vietmapsdk.style.layers.CircleLayer;
+import vn.vietmap.vietmapsdk.style.layers.FillExtrusionLayer;
+import vn.vietmap.vietmapsdk.style.layers.FillLayer;
+import vn.vietmap.vietmapsdk.style.layers.HeatmapLayer;
+import vn.vietmap.vietmapsdk.style.layers.HillshadeLayer;
+import vn.vietmap.vietmapsdk.style.layers.Layer;
+import vn.vietmap.vietmapsdk.style.layers.LineLayer;
+import vn.vietmap.vietmapsdk.style.layers.Property;
+import vn.vietmap.vietmapsdk.style.layers.PropertyValue;
+import vn.vietmap.vietmapsdk.style.layers.RasterLayer;
+import vn.vietmap.vietmapsdk.style.layers.SymbolLayer;
+import vn.vietmap.vietmapsdk.style.layers.PropertyFactory;
+import vn.vietmap.vietmapsdk.style.sources.CustomGeometrySource;
+import vn.vietmap.vietmapsdk.style.sources.GeoJsonSource;
+import vn.vietmap.vietmapsdk.style.sources.ImageSource;
+import vn.vietmap.vietmapsdk.style.sources.Source;
+import vn.vietmap.vietmapsdk.style.sources.VectorSource;
 
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
@@ -98,30 +91,30 @@ import java.util.Map;
 import java.util.Set;
 
 
-/** Controller of a single MapboxMaps MapView instance. */
+/** Controller of a single VietmapGL MapView instance. */
 @SuppressLint("MissingPermission")
-final class MapboxMapController
+final class VietmapGLController
     implements DefaultLifecycleObserver,
-        MapboxMap.OnCameraIdleListener,
-        MapboxMap.OnCameraMoveListener,
-        MapboxMap.OnCameraMoveStartedListener,
+        VietMapGL.OnCameraIdleListener,
+        VietMapGL.OnCameraMoveListener,
+        VietMapGL.OnCameraMoveStartedListener,
         MapView.OnDidBecomeIdleListener,
-        MapboxMap.OnMapClickListener,
-        MapboxMap.OnMapLongClickListener,
-        MapboxMapOptionsSink,
+        VietMapGL.OnMapClickListener,
+        VietMapGL.OnMapLongClickListener,
+        VietmapGLOptionsSink,
         MethodChannel.MethodCallHandler,
         OnMapReadyCallback,
         OnCameraTrackingChangedListener,
         PlatformView {
-  private static final String TAG = "MapboxMapController";
+  private static final String TAG = "VietmapGLController";
   private final int id;
   private final MethodChannel methodChannel;
-  private final MapboxMapsPlugin.LifecycleProvider lifecycleProvider;
+  private final VietmapGLPlugin.LifecycleProvider lifecycleProvider;
   private final float density;
   private final Context context;
   private final String styleStringInitial;
   private MapView mapView;
-  private MapboxMap mapboxMap;
+  private VietMapGL vietmapGL;
   private boolean trackCameraPosition = false;
   private boolean myLocationEnabled = false;
   private int myLocationTrackingMode = 0;
@@ -148,7 +141,7 @@ final class MapboxMapController
       new Style.OnStyleLoaded() {
         @Override
         public void onStyleLoaded(@NonNull Style style) {
-          MapboxMapController.this.style = style;
+          VietmapGLController.this.style = style;
 
           // commented out while cherry-picking upstream956
           // if (myLocationEnabled) {
@@ -159,26 +152,26 @@ final class MapboxMapController
           updateMyLocationEnabled();
 
           if (null != bounds) {
-            mapboxMap.setLatLngBoundsForCameraTarget(bounds);
+            vietmapGL.setLatLngBoundsForCameraTarget(bounds);
           }
 
-          mapboxMap.addOnMapClickListener(MapboxMapController.this);
-          mapboxMap.addOnMapLongClickListener(MapboxMapController.this);
-          localizationPlugin = new LocalizationPlugin(mapView, mapboxMap, style);
+          vietmapGL.addOnMapClickListener(VietmapGLController.this);
+          vietmapGL.addOnMapLongClickListener(VietmapGLController.this);
+          localizationPlugin = new LocalizationPlugin(mapView, vietmapGL, style);
 
           methodChannel.invokeMethod("map#onStyleLoaded", null);
         }
       };
 
-  MapboxMapController(
+  VietmapGLController(
       int id,
       Context context,
       BinaryMessenger messenger,
-      MapboxMapsPlugin.LifecycleProvider lifecycleProvider,
-      MapboxMapOptions options,
+      VietmapGLPlugin.LifecycleProvider lifecycleProvider,
+      VietMapGLOptions options,
       String styleStringInitial,
       boolean dragEnabled) {
-    MapBoxUtils.getMapbox(context);
+    VietmapUtils.getVietmap(context);
     this.id = id;
     this.context = context;
     this.dragEnabled = dragEnabled;
@@ -207,27 +200,27 @@ final class MapboxMapController
   }
 
   private void moveCamera(CameraUpdate cameraUpdate) {
-    mapboxMap.moveCamera(cameraUpdate);
+    vietmapGL.moveCamera(cameraUpdate);
   }
 
   private void animateCamera(CameraUpdate cameraUpdate) {
-    mapboxMap.animateCamera(cameraUpdate);
+    vietmapGL.animateCamera(cameraUpdate);
   }
 
   private CameraPosition getCameraPosition() {
-    return trackCameraPosition ? mapboxMap.getCameraPosition() : null;
+    return trackCameraPosition ? vietmapGL.getCameraPosition() : null;
   }
 
   @Override
-  public void onMapReady(MapboxMap mapboxMap) {
-    this.mapboxMap = mapboxMap;
+  public void onMapReady(VietMapGL vietmapGL) {
+    this.vietmapGL = vietmapGL;
     if (mapReadyResult != null) {
       mapReadyResult.success(null);
       mapReadyResult = null;
     }
-    mapboxMap.addOnCameraMoveStartedListener(this);
-    mapboxMap.addOnCameraMoveListener(this);
-    mapboxMap.addOnCameraIdleListener(this);
+    vietmapGL.addOnCameraMoveStartedListener(this);
+    vietmapGL.addOnCameraMoveListener(this);
+    vietmapGL.addOnCameraIdleListener(this);
 
     if (androidGesturesManager != null) {
       androidGesturesManager.setMoveGestureListener(new MoveGestureListener());
@@ -247,7 +240,7 @@ final class MapboxMapController
           DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
           final Bitmap bitmap = getScaledImage(id, displayMetrics.density);
           if (bitmap != null) {
-            mapboxMap.getStyle().addImage(id, bitmap);
+            vietmapGL.getStyle().addImage(id, bitmap);
           }
         });
 
@@ -266,19 +259,19 @@ final class MapboxMapController
     if (styleString == null || styleString.isEmpty()) {
       Log.e(TAG, "setStyleString - string empty or null");
     } else if (styleString.startsWith("{") || styleString.startsWith("[")) {
-      mapboxMap.setStyle(new Style.Builder().fromJson(styleString), onStyleLoadedCallback);
+      vietmapGL.setStyle(new Style.Builder().fromJson(styleString), onStyleLoadedCallback);
     } else if (styleString.startsWith("/")) {
       // Absolute path
-      mapboxMap.setStyle(
+      vietmapGL.setStyle(
           new Style.Builder().fromUri("file://" + styleString), onStyleLoadedCallback);
     } else if (!styleString.startsWith("http://")
         && !styleString.startsWith("https://")
         && !styleString.startsWith("mapbox://")) {
       // We are assuming that the style will be loaded from an asset here.
-      String key = MapboxMapsPlugin.flutterAssets.getAssetFilePathByName(styleString);
-      mapboxMap.setStyle(new Style.Builder().fromUri("asset://" + key), onStyleLoadedCallback);
+      String key = VietmapGLPlugin.flutterAssets.getAssetFilePathByName(styleString);
+      vietmapGL.setStyle(new Style.Builder().fromUri("asset://" + key), onStyleLoadedCallback);
     } else {
-      mapboxMap.setStyle(new Style.Builder().fromUri(styleString), onStyleLoadedCallback);
+      vietmapGL.setStyle(new Style.Builder().fromUri(styleString), onStyleLoadedCallback);
     }
   }
 
@@ -291,7 +284,7 @@ final class MapboxMapController
 //      ineProvider.getBestLocationEngine(context);
       LocationComponentActivationOptions.Builder options = LocationComponentActivationOptions.builder(context, style);
 
-      locationComponent = mapboxMap.getLocationComponent();
+      locationComponent = vietmapGL.getLocationComponent();
 
 //      locationComponent.activateLocationComponent(
 //              context, style, buildLocationComponentOptions(style));
@@ -608,7 +601,7 @@ final class MapboxMapController
       Collections.reverse(layersInOrder);
 
       for (String id : layersInOrder) {
-        List<Feature> features = mapboxMap.queryRenderedFeatures(in, id);
+        List<Feature> features = vietmapGL.queryRenderedFeatures(in, id);
         if (!features.isEmpty()) {
           return features.get(0);
         }
@@ -622,7 +615,7 @@ final class MapboxMapController
 
     switch (call.method) {
       case "map#waitForMap":
-        if (mapboxMap != null) {
+        if (vietmapGL != null) {
           result.success(null);
           return;
         }
@@ -630,7 +623,7 @@ final class MapboxMapController
         break;
       case "map#update":
         {
-          Convert.interpretMapboxMapOptions(call.argument("options"), this, context);
+          Convert.interpretVietmapGLOptions(call.argument("options"), this, context);
           result.success(Convert.toJson(getCameraPosition()));
           break;
         }
@@ -684,7 +677,7 @@ final class MapboxMapController
       case "map#getVisibleRegion":
         {
           Map<String, Object> reply = new HashMap<>();
-          VisibleRegion visibleRegion = mapboxMap.getProjection().getVisibleRegion();
+          VisibleRegion visibleRegion = vietmapGL.getProjection().getVisibleRegion();
           reply.put(
               "sw",
               Arrays.asList(
@@ -701,7 +694,7 @@ final class MapboxMapController
         {
           Map<String, Object> reply = new HashMap<>();
           PointF pointf =
-              mapboxMap
+              vietmapGL
                   .getProjection()
                   .toScreenLocation(
                       new LatLng(call.argument("latitude"), call.argument("longitude")));
@@ -717,7 +710,7 @@ final class MapboxMapController
 
           for (int i = 0; i < param.length; i += 2) {
             PointF pointf =
-                mapboxMap.getProjection().toScreenLocation(new LatLng(param[i], param[i + 1]));
+                vietmapGL.getProjection().toScreenLocation(new LatLng(param[i], param[i + 1]));
             reply[i] = pointf.x;
             reply[i + 1] = pointf.y;
           }
@@ -729,7 +722,7 @@ final class MapboxMapController
         {
           Map<String, Object> reply = new HashMap<>();
           LatLng latlng =
-              mapboxMap
+              vietmapGL
                   .getProjection()
                   .fromScreenLocation(
                       new PointF(
@@ -744,7 +737,7 @@ final class MapboxMapController
         {
           Map<String, Object> reply = new HashMap<>();
           Double retVal =
-              mapboxMap
+              vietmapGL
                   .getProjection()
                   .getMetersPerPixelAtLatitude((Double) call.argument("latitude"));
           reply.put("metersperpixel", retVal);
@@ -754,10 +747,10 @@ final class MapboxMapController
       case "camera#move":
         {
           final CameraUpdate cameraUpdate =
-              Convert.toCameraUpdate(call.argument("cameraUpdate"), mapboxMap, density);
+              Convert.toCameraUpdate(call.argument("cameraUpdate"), vietmapGL, density);
           if (cameraUpdate != null) {
             // camera transformation not handled yet
-            mapboxMap.moveCamera(
+            vietmapGL.moveCamera(
                 cameraUpdate,
                 new OnCameraMoveFinishedListener() {
                   @Override
@@ -782,7 +775,7 @@ final class MapboxMapController
       case "camera#animate":
         {
           final CameraUpdate cameraUpdate =
-              Convert.toCameraUpdate(call.argument("cameraUpdate"), mapboxMap, density);
+              Convert.toCameraUpdate(call.argument("cameraUpdate"), vietmapGL, density);
           final Integer duration = call.argument("duration");
 
           final OnCameraMoveFinishedListener onCameraMoveFinishedListener =
@@ -801,10 +794,10 @@ final class MapboxMapController
               };
           if (cameraUpdate != null && duration != null) {
             // camera transformation not handled yet
-            mapboxMap.animateCamera(cameraUpdate, duration, onCameraMoveFinishedListener);
+            vietmapGL.animateCamera(cameraUpdate, duration, onCameraMoveFinishedListener);
           } else if (cameraUpdate != null) {
             // camera transformation not handled yet
-            mapboxMap.animateCamera(cameraUpdate, onCameraMoveFinishedListener);
+            vietmapGL.animateCamera(cameraUpdate, onCameraMoveFinishedListener);
           } else {
             result.success(false);
           }
@@ -829,7 +822,7 @@ final class MapboxMapController
             Double x = call.argument("x");
             Double y = call.argument("y");
             PointF pixel = new PointF(x.floatValue(), y.floatValue());
-            features = mapboxMap.queryRenderedFeatures(pixel, filterExpression, layerIds);
+            features = vietmapGL.queryRenderedFeatures(pixel, filterExpression, layerIds);
           } else {
             Double left = call.argument("left");
             Double top = call.argument("top");
@@ -838,7 +831,7 @@ final class MapboxMapController
             RectF rectF =
                 new RectF(
                     left.floatValue(), top.floatValue(), right.floatValue(), bottom.floatValue());
-            features = mapboxMap.queryRenderedFeatures(rectF, filterExpression, layerIds);
+            features = vietmapGL.queryRenderedFeatures(rectF, filterExpression, layerIds);
           }
           List<String> featuresJson = new ArrayList<>();
           for (Feature feature : features) {
@@ -1226,7 +1219,7 @@ final class MapboxMapController
                   .include(locationOne) // Northeast
                   .include(locationTwo) // Southwest
                   .build();
-          mapboxMap.easeCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds,
+          vietmapGL.easeCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds,
                   padding), 200);
 
           break;
@@ -1412,7 +1405,7 @@ final class MapboxMapController
   @Override
   public void onCameraMoveStarted(int reason) {
     final Map<String, Object> arguments = new HashMap<>(2);
-    boolean isGesture = reason == MapboxMap.OnCameraMoveStartedListener.REASON_API_GESTURE;
+    boolean isGesture = reason == VietMapGL.OnCameraMoveStartedListener.REASON_API_GESTURE;
     arguments.put("isGesture", isGesture);
     methodChannel.invokeMethod("camera#onMoveStarted", arguments);
   }
@@ -1423,7 +1416,7 @@ final class MapboxMapController
       return;
     }
     final Map<String, Object> arguments = new HashMap<>(2);
-    arguments.put("position", Convert.toJson(mapboxMap.getCameraPosition()));
+    arguments.put("position", Convert.toJson(vietmapGL.getCameraPosition()));
     methodChannel.invokeMethod("camera#onMove", arguments);
   }
 
@@ -1431,7 +1424,7 @@ final class MapboxMapController
   public void onCameraIdle() {
     final Map<String, Object> arguments = new HashMap<>(2);
     if (trackCameraPosition) {
-      arguments.put("position", Convert.toJson(mapboxMap.getCameraPosition()));
+      arguments.put("position", Convert.toJson(vietmapGL.getCameraPosition()));
     }
     methodChannel.invokeMethod("camera#onIdle", arguments);
   }
@@ -1456,7 +1449,7 @@ final class MapboxMapController
 
   @Override
   public boolean onMapClick(@NonNull LatLng point) {
-    PointF pointf = mapboxMap.getProjection().toScreenLocation(point);
+    PointF pointf = vietmapGL.getProjection().toScreenLocation(point);
     RectF rectF = new RectF(pointf.x - 10, pointf.y - 10, pointf.x + 10, pointf.y + 10);
     Feature feature = firstFeatureOnLayers(rectF);
     final Map<String, Object> arguments = new HashMap<>();
@@ -1475,7 +1468,7 @@ final class MapboxMapController
 
   @Override
   public boolean onMapLongClick(@NonNull LatLng point) {
-    PointF pointf = mapboxMap.getProjection().toScreenLocation(point);
+    PointF pointf = vietmapGL.getProjection().toScreenLocation(point);
     final Map<String, Object> arguments = new HashMap<>(5);
     arguments.put("x", pointf.x);
     arguments.put("y", pointf.y);
@@ -1502,7 +1495,7 @@ final class MapboxMapController
   private void moveCamera(CameraUpdate cameraUpdate, MethodChannel.Result result) {
     if (cameraUpdate != null) {
       // camera transformation not handled yet
-      mapboxMap.moveCamera(
+      vietmapGL.moveCamera(
           cameraUpdate,
           new OnCameraMoveFinishedListener() {
             @Override
@@ -1542,10 +1535,10 @@ final class MapboxMapController
         };
     if (cameraUpdate != null && duration != null) {
       // camera transformation not handled yet
-      mapboxMap.animateCamera(cameraUpdate, duration, onCameraMoveFinishedListener);
+      vietmapGL.animateCamera(cameraUpdate, duration, onCameraMoveFinishedListener);
     } else if (cameraUpdate != null) {
       // camera transformation not handled yet
-      mapboxMap.animateCamera(cameraUpdate, onCameraMoveFinishedListener);
+      vietmapGL.animateCamera(cameraUpdate, onCameraMoveFinishedListener);
     } else {
       result.success(false);
     }
@@ -1617,7 +1610,7 @@ final class MapboxMapController
     destroyMapViewIfNecessary();
   }
 
-  // MapboxMapOptionsSink methods
+  // VietmapGLOptionsSink methods
 
   @Override
   public void setCameraTargetBounds(LatLngBounds bounds) {
@@ -1626,7 +1619,7 @@ final class MapboxMapController
 
   @Override
   public void setCompassEnabled(boolean compassEnabled) {
-    mapboxMap.getUiSettings().setCompassEnabled(compassEnabled);
+    vietmapGL.getUiSettings().setCompassEnabled(compassEnabled);
   }
 
   @Override
@@ -1636,28 +1629,28 @@ final class MapboxMapController
 
   @Override
   public void setRotateGesturesEnabled(boolean rotateGesturesEnabled) {
-    mapboxMap.getUiSettings().setRotateGesturesEnabled(rotateGesturesEnabled);
+    vietmapGL.getUiSettings().setRotateGesturesEnabled(rotateGesturesEnabled);
   }
 
   @Override
   public void setScrollGesturesEnabled(boolean scrollGesturesEnabled) {
-    mapboxMap.getUiSettings().setScrollGesturesEnabled(scrollGesturesEnabled);
+    vietmapGL.getUiSettings().setScrollGesturesEnabled(scrollGesturesEnabled);
   }
 
   @Override
   public void setTiltGesturesEnabled(boolean tiltGesturesEnabled) {
-    mapboxMap.getUiSettings().setTiltGesturesEnabled(tiltGesturesEnabled);
+    vietmapGL.getUiSettings().setTiltGesturesEnabled(tiltGesturesEnabled);
   }
 
   @Override
   public void setMinMaxZoomPreference(Float min, Float max) {
-    mapboxMap.setMinZoomPreference(min != null ? min : MapboxConstants.MINIMUM_ZOOM);
-    mapboxMap.setMaxZoomPreference(max != null ? max : MapboxConstants.MAXIMUM_ZOOM);
+    vietmapGL.setMinZoomPreference(min != null ? min : VietMapConstants.MINIMUM_ZOOM);
+    vietmapGL.setMaxZoomPreference(max != null ? max : VietMapConstants.MAXIMUM_ZOOM);
   }
 
   @Override
   public void setZoomGesturesEnabled(boolean zoomGesturesEnabled) {
-    mapboxMap.getUiSettings().setZoomGesturesEnabled(zoomGesturesEnabled);
+    vietmapGL.getUiSettings().setZoomGesturesEnabled(zoomGesturesEnabled);
   }
 
   @Override
@@ -1666,14 +1659,14 @@ final class MapboxMapController
       return;
     }
     this.myLocationEnabled = myLocationEnabled;
-    if (mapboxMap != null) {
+    if (vietmapGL != null) {
       updateMyLocationEnabled();
     }
   }
 
   @Override
   public void setMyLocationTrackingMode(int myLocationTrackingMode) {
-    if (mapboxMap != null) {
+    if (vietmapGL != null) {
       // ensure that location is trackable
       updateMyLocationEnabled();
     }
@@ -1681,7 +1674,7 @@ final class MapboxMapController
       return;
     }
     this.myLocationTrackingMode = myLocationTrackingMode;
-    if (mapboxMap != null && locationComponent != null) {
+    if (vietmapGL != null && locationComponent != null) {
       updateMyLocationTrackingMode();
     }
   }
@@ -1692,49 +1685,49 @@ final class MapboxMapController
       return;
     }
     this.myLocationRenderMode = myLocationRenderMode;
-    if (mapboxMap != null && locationComponent != null) {
+    if (vietmapGL != null && locationComponent != null) {
       updateMyLocationRenderMode();
     }
   }
 
   public void setLogoViewMargins(int x, int y) {
-    mapboxMap.getUiSettings().setLogoMargins(x, 0, 0, y);
+    vietmapGL.getUiSettings().setLogoMargins(x, 0, 0, y);
   }
 
   @Override
   public void setCompassGravity(int gravity) {
     switch (gravity) {
       case 0:
-        mapboxMap.getUiSettings().setCompassGravity(Gravity.TOP | Gravity.START);
+        vietmapGL.getUiSettings().setCompassGravity(Gravity.TOP | Gravity.START);
         break;
       default:
       case 1:
-        mapboxMap.getUiSettings().setCompassGravity(Gravity.TOP | Gravity.END);
+        vietmapGL.getUiSettings().setCompassGravity(Gravity.TOP | Gravity.END);
         break;
       case 2:
-        mapboxMap.getUiSettings().setCompassGravity(Gravity.BOTTOM | Gravity.START);
+        vietmapGL.getUiSettings().setCompassGravity(Gravity.BOTTOM | Gravity.START);
         break;
       case 3:
-        mapboxMap.getUiSettings().setCompassGravity(Gravity.BOTTOM | Gravity.END);
+        vietmapGL.getUiSettings().setCompassGravity(Gravity.BOTTOM | Gravity.END);
         break;
     }
   }
 
   @Override
   public void setCompassViewMargins(int x, int y) {
-    switch (mapboxMap.getUiSettings().getCompassGravity()) {
+    switch (vietmapGL.getUiSettings().getCompassGravity()) {
       case Gravity.TOP | Gravity.START:
-        mapboxMap.getUiSettings().setCompassMargins(x, y, 0, 0);
+        vietmapGL.getUiSettings().setCompassMargins(x, y, 0, 0);
         break;
       default:
       case Gravity.TOP | Gravity.END:
-        mapboxMap.getUiSettings().setCompassMargins(0, y, x, 0);
+        vietmapGL.getUiSettings().setCompassMargins(0, y, x, 0);
         break;
       case Gravity.BOTTOM | Gravity.START:
-        mapboxMap.getUiSettings().setCompassMargins(x, 0, 0, y);
+        vietmapGL.getUiSettings().setCompassMargins(x, 0, 0, y);
         break;
       case Gravity.BOTTOM | Gravity.END:
-        mapboxMap.getUiSettings().setCompassMargins(0, 0, x, y);
+        vietmapGL.getUiSettings().setCompassMargins(0, 0, x, y);
         break;
     }
   }
@@ -1743,43 +1736,43 @@ final class MapboxMapController
   public void setAttributionButtonGravity(int gravity) {
     switch (gravity) {
       case 0:
-        mapboxMap.getUiSettings().setAttributionGravity(Gravity.TOP | Gravity.START);
+        vietmapGL.getUiSettings().setAttributionGravity(Gravity.TOP | Gravity.START);
         break;
       default:
       case 1:
-        mapboxMap.getUiSettings().setAttributionGravity(Gravity.TOP | Gravity.END);
+        vietmapGL.getUiSettings().setAttributionGravity(Gravity.TOP | Gravity.END);
         break;
       case 2:
-        mapboxMap.getUiSettings().setAttributionGravity(Gravity.BOTTOM | Gravity.START);
+        vietmapGL.getUiSettings().setAttributionGravity(Gravity.BOTTOM | Gravity.START);
         break;
       case 3:
-        mapboxMap.getUiSettings().setAttributionGravity(Gravity.BOTTOM | Gravity.END);
+        vietmapGL.getUiSettings().setAttributionGravity(Gravity.BOTTOM | Gravity.END);
         break;
     }
   }
 
   @Override
   public void setAttributionButtonMargins(int x, int y) {
-    switch (mapboxMap.getUiSettings().getAttributionGravity()) {
+    switch (vietmapGL.getUiSettings().getAttributionGravity()) {
       case Gravity.TOP | Gravity.START:
-        mapboxMap.getUiSettings().setAttributionMargins(x, y, 0, 0);
+        vietmapGL.getUiSettings().setAttributionMargins(x, y, 0, 0);
         break;
       default:
       case Gravity.TOP | Gravity.END:
-        mapboxMap.getUiSettings().setAttributionMargins(0, y, x, 0);
+        vietmapGL.getUiSettings().setAttributionMargins(0, y, x, 0);
         break;
       case Gravity.BOTTOM | Gravity.START:
-        mapboxMap.getUiSettings().setAttributionMargins(x, 0, 0, y);
+        vietmapGL.getUiSettings().setAttributionMargins(x, 0, 0, y);
         break;
       case Gravity.BOTTOM | Gravity.END:
-        mapboxMap.getUiSettings().setAttributionMargins(0, 0, x, y);
+        vietmapGL.getUiSettings().setAttributionMargins(0, 0, x, y);
         break;
     }
   }
 
   private void updateMyLocationEnabled() {
     if (this.locationComponent == null && myLocationEnabled) {
-      enableLocationComponent(mapboxMap.getStyle());
+      enableLocationComponent(vietmapGL.getStyle());
     }
 
     if (myLocationEnabled) {
@@ -1832,8 +1825,8 @@ final class MapboxMapController
   }
 
   private void updateMyLocationRenderMode() {
-    int[] mapboxRenderModes = new int[] {RenderMode.NORMAL, RenderMode.COMPASS, RenderMode.GPS};
-    locationComponent.setRenderMode(mapboxRenderModes[this.myLocationRenderMode]);
+    int[] vietmapRenderModes = new int[] {RenderMode.NORMAL, RenderMode.COMPASS, RenderMode.GPS};
+    locationComponent.setRenderMode(vietmapRenderModes[this.myLocationRenderMode]);
   }
 
   private boolean hasLocationPermission() {
@@ -1872,7 +1865,7 @@ final class MapboxMapController
       String assetPath;
       if (i == 1) {
         // If density is 1.0x then simply take the default asset path
-        assetPath = MapboxMapsPlugin.flutterAssets.getAssetFilePathByName(imageId);
+        assetPath = VietmapGLPlugin.flutterAssets.getAssetFilePathByName(imageId);
       } else {
         // Build a resolution aware asset path as follows:
         // <directory asset>/<ratio>/<image name>
@@ -1885,7 +1878,7 @@ final class MapboxMapController
         stringBuilder.append(((float) i) + "x");
         stringBuilder.append("/");
         stringBuilder.append(imagePathList.get(imagePathList.size() - 1));
-        assetPath = MapboxMapsPlugin.flutterAssets.getAssetFilePathByName(stringBuilder.toString());
+        assetPath = VietmapGLPlugin.flutterAssets.getAssetFilePathByName(stringBuilder.toString());
       }
       // Build up a list of resolution aware asset paths.
       assetPathList.add(assetPath);
@@ -1916,7 +1909,7 @@ final class MapboxMapController
     if (detector.getPreviousEvent().getActionMasked() == MotionEvent.ACTION_DOWN
         && detector.getPointersCount() == 1) {
       PointF pointf = detector.getFocalPoint();
-      LatLng origin = mapboxMap.getProjection().fromScreenLocation(pointf);
+      LatLng origin = vietmapGL.getProjection().fromScreenLocation(pointf);
       RectF rectF = new RectF(pointf.x - 10, pointf.y - 10, pointf.x + 10, pointf.y + 10);
       Feature feature = firstFeatureOnLayers(rectF);
       if (feature != null && startDragging(feature, origin)) {
@@ -1928,7 +1921,7 @@ final class MapboxMapController
   }
 
   private void invokeFeatureDrag(PointF pointf, String eventType) {
-    LatLng current = mapboxMap.getProjection().fromScreenLocation(pointf);
+    LatLng current = vietmapGL.getProjection().fromScreenLocation(pointf);
 
     final Map<String, Object> arguments = new HashMap<>(9);
     arguments.put("id", draggedFeature.id());
@@ -1985,7 +1978,7 @@ final class MapboxMapController
   }
 
   /** Simple Listener to listen for the status of camera movements. */
-  public class OnCameraMoveFinishedListener implements MapboxMap.CancelableCallback {
+  public class OnCameraMoveFinishedListener implements VietMapGL.CancelableCallback {
     @Override
     public void onFinish() {}
 
@@ -1997,17 +1990,17 @@ final class MapboxMapController
 
     @Override
     public boolean onMoveBegin(MoveGestureDetector detector) {
-      return MapboxMapController.this.onMoveBegin(detector);
+      return VietmapGLController.this.onMoveBegin(detector);
     }
 
     @Override
     public boolean onMove(MoveGestureDetector detector, float distanceX, float distanceY) {
-      return MapboxMapController.this.onMove(detector);
+      return VietmapGLController.this.onMove(detector);
     }
 
     @Override
     public void onMoveEnd(MoveGestureDetector detector, float velocityX, float velocityY) {
-      MapboxMapController.this.onMoveEnd(detector);
+      VietmapGLController.this.onMoveEnd(detector);
     }
   }
 }

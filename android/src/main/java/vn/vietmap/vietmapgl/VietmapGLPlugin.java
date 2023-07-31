@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package com.mapbox.mapboxgl;
+package vn.vietmap.vietmapgl;
 
 import android.app.Activity;
 import android.app.Application;
@@ -20,19 +20,19 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /**
- * Plugin for controlling a set of MapboxMap views to be shown as overlays on top of the Flutter
+ * Plugin for controlling a set of VietMapGL views to be shown as overlays on top of the Flutter
  * view. The overlay should be hidden during transformations or while Flutter is rendering on top of
- * the map. A Texture drawn using MapboxMap bitmap snapshots can then be shown instead of the
+ * the map. A Texture drawn using VietMapGL bitmap snapshots can then be shown instead of the
  * overlay.
  */
-public class MapboxMapsPlugin implements FlutterPlugin, ActivityAware {
+public class VietmapGLPlugin implements FlutterPlugin, ActivityAware {
 
   private static final String VIEW_TYPE = "plugins.flutter.io/mapbox_gl";
 
   static FlutterAssets flutterAssets;
   private Lifecycle lifecycle;
 
-  public MapboxMapsPlugin() {
+  public VietmapGLPlugin() {
     // no-op
   }
 
@@ -50,7 +50,7 @@ public class MapboxMapsPlugin implements FlutterPlugin, ActivityAware {
         .getPlatformViewRegistry()
         .registerViewFactory(
             "plugins.flutter.io/mapbox_gl",
-            new MapboxMapFactory(
+            new VietmapGLFactory(
                 binding.getBinaryMessenger(),
                 new LifecycleProvider() {
                   @Nullable
@@ -100,7 +100,7 @@ public class MapboxMapsPlugin implements FlutterPlugin, ActivityAware {
           .platformViewRegistry()
           .registerViewFactory(
               VIEW_TYPE,
-              new MapboxMapFactory(
+              new VietmapGLFactory(
                   registrar.messenger(),
                   new LifecycleProvider() {
                     @Override
@@ -113,7 +113,7 @@ public class MapboxMapsPlugin implements FlutterPlugin, ActivityAware {
           .platformViewRegistry()
           .registerViewFactory(
               VIEW_TYPE,
-              new MapboxMapFactory(registrar.messenger(), new ProxyLifecycleProvider(activity)));
+              new VietmapGLFactory(registrar.messenger(), new ProxyLifecycleProvider(activity)));
     }
 
     MethodChannel methodChannel =

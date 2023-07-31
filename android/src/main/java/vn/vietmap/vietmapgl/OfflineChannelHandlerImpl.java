@@ -1,4 +1,4 @@
-package com.mapbox.mapboxgl;
+package vn.vietmap.vietmapgl;
 
 import androidx.annotation.Nullable;
 import com.google.gson.Gson;

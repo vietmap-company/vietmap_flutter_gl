@@ -50,7 +50,7 @@ export 'package:maplibre_gl_platform_interface/maplibre_gl_platform_interface.da
 
 part 'src/controller.dart';
 
-part 'src/vietmap_map.dart';
+part 'src/vietmap_gl.dart';
 
 part 'src/global.dart';
 

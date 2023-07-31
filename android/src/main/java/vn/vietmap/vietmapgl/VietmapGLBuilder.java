@@ -2,19 +2,19 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package com.mapbox.mapboxgl;
+package vn.vietmap.vietmapgl;
 
 import android.content.Context;
 import android.view.Gravity;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.maps.MapboxMapOptions;
+import vn.vietmap.vietmapsdk.camera.CameraPosition;
+import vn.vietmap.vietmapsdk.geometry.LatLngBounds;
+import vn.vietmap.vietmapsdk.maps.VietMapGLOptions;
 import io.flutter.plugin.common.BinaryMessenger;
 
-class MapboxMapBuilder implements MapboxMapOptionsSink {
+class VietmapGLBuilder implements VietmapGLOptionsSink {
   public final String TAG = getClass().getSimpleName();
-  private final MapboxMapOptions options =
-      new MapboxMapOptions().attributionEnabled(true).logoEnabled(false).textureMode(true);
+  private final VietMapGLOptions options =
+      new VietMapGLOptions().attributionEnabled(true).logoEnabled(false).textureMode(true);
   private boolean trackCameraPosition = false;
   private boolean myLocationEnabled = false;
   private boolean dragEnabled = true;
@@ -23,13 +23,13 @@ class MapboxMapBuilder implements MapboxMapOptionsSink {
   private String styleString = "https://demotiles.maplibre.org/style.json";
   private LatLngBounds bounds = null;
 
-  MapboxMapController build(
+  VietmapGLController build(
       int id,
       Context context,
       BinaryMessenger messenger,
-      MapboxMapsPlugin.LifecycleProvider lifecycleProvider) {
-    final MapboxMapController controller =
-        new MapboxMapController(
+      VietmapGLPlugin.LifecycleProvider lifecycleProvider) {
+    final VietmapGLController controller =
+        new VietmapGLController(
             id, context, messenger, lifecycleProvider, options, styleString, dragEnabled);
     controller.init();
     controller.setMyLocationEnabled(myLocationEnabled);
