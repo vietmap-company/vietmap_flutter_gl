@@ -26,7 +26,7 @@ class VietmapGL extends StatefulWidget {
     this.doubleClickZoomEnabled,
     this.dragEnabled = true,
     this.trackCameraPosition = false,
-    this.myLocationEnabled = false,
+    // this.myLocationEnabled = false,
     this.myLocationTrackingMode = MyLocationTrackingMode.None,
     this.myLocationRenderMode = MyLocationRenderMode.COMPASS,
     this.logoViewMargins,
@@ -151,7 +151,7 @@ class VietmapGL extends StatefulWidget {
   /// * On iOS add a `NSLocationWhenInUseUsageDescription` key to your
   /// `Info.plist` file. This will automatically prompt the user for permissions
   /// when the map tries to turn on the My Location layer.
-  final bool myLocationEnabled;
+  // final bool myLocationEnabled;
 
   /// The mode used to let the map's camera follow the device's physical location.
   /// `myLocationEnabled` needs to be true for values other than `MyLocationTrackingMode.None` to work.
@@ -335,7 +335,7 @@ class _VietmapOptions {
     required this.zoomGesturesEnabled,
     required this.doubleClickZoomEnabled,
     this.trackCameraPosition,
-    this.myLocationEnabled,
+    // this.myLocationEnabled,
     this.myLocationTrackingMode,
     this.myLocationRenderMode,
     this.logoViewMargins,
@@ -358,7 +358,7 @@ class _VietmapOptions {
       zoomGesturesEnabled: map.zoomGesturesEnabled,
       doubleClickZoomEnabled:
           map.doubleClickZoomEnabled ?? map.zoomGesturesEnabled,
-      myLocationEnabled: map.myLocationEnabled,
+      // myLocationEnabled: map.myLocationEnabled,
       myLocationTrackingMode: map.myLocationTrackingMode,
       myLocationRenderMode: map.myLocationRenderMode,
       logoViewMargins: map.logoViewMargins,
@@ -389,7 +389,7 @@ class _VietmapOptions {
 
   final bool? trackCameraPosition;
 
-  final bool? myLocationEnabled;
+  // final bool? myLocationEnabled;
 
   final MyLocationTrackingMode? myLocationTrackingMode;
 
@@ -442,7 +442,7 @@ class _VietmapOptions {
     addIfNonNull('doubleClickZoomEnabled', doubleClickZoomEnabled);
 
     addIfNonNull('trackCameraPosition', trackCameraPosition);
-    addIfNonNull('myLocationEnabled', myLocationEnabled);
+    addIfNonNull('myLocationEnabled', false);
     addIfNonNull('myLocationTrackingMode', myLocationTrackingMode?.index);
     addIfNonNull('myLocationRenderMode', myLocationRenderMode?.index);
     addIfNonNull('logoViewMargins', pointToArray(logoViewMargins));

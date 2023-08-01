@@ -4,9 +4,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-part of maplibre_gl_platform_interface;
+part of vietmap_gl_platform_interface;
 
-FillOptions translateFillOptions(FillOptions options, LatLng delta) {
+PolygonOptions translateFillOptions(PolygonOptions options, LatLng delta) {
   if (options.geometry != null) {
     List<List<LatLng>> newGeometry = [];
     for (var ring in options.geometry!) {
@@ -16,13 +16,13 @@ FillOptions translateFillOptions(FillOptions options, LatLng delta) {
       }
       newGeometry.add(newRing);
     }
-    return options.copyWith(FillOptions(geometry: newGeometry));
+    return options.copyWith(PolygonOptions(geometry: newGeometry));
   }
   return options;
 }
 
-class Fill implements Annotation {
-  Fill(this._id, this.options, [this._data]);
+class Polygon implements Annotation {
+  Polygon(this._id, this.options, [this._data]);
 
   /// A unique identifier for this fill.
   ///
@@ -38,7 +38,7 @@ class Fill implements Annotation {
   ///
   /// The returned value does not reflect any changes made to the fill through
   /// touch events. Add listeners to the owning map controller to track those.
-  FillOptions options;
+  PolygonOptions options;
 
   @override
   Map<String, dynamic> toGeoJson() {
@@ -55,38 +55,38 @@ class Fill implements Annotation {
   }
 }
 
-/// Configuration options for [Fill] instances.
+/// Configuration options for [Polygon] instances.
 ///
 /// When used to change configuration, null values will be interpreted as
 /// "do not change this configuration option".
-class FillOptions {
+class PolygonOptions {
   /// Creates a set of fill configuration options.
   ///
   /// By default, every non-specified field is null, meaning no desire to change
   /// fill defaults or current configuration.
-  const FillOptions(
-      {this.fillOpacity,
-      this.fillColor,
-      this.fillOutlineColor,
-      this.fillPattern,
+  const PolygonOptions(
+      {this.polygonOpacity,
+      this.polygonColor,
+      this.polygonOutlineColor,
+      this.polygonPattern,
       this.geometry,
       this.draggable});
 
-  final double? fillOpacity;
-  final Color? fillColor;
-  final Color? fillOutlineColor;
-  final String? fillPattern;
+  final double? polygonOpacity;
+  final Color? polygonColor;
+  final Color? polygonOutlineColor;
+  final String? polygonPattern;
   final List<List<LatLng>>? geometry;
   final bool? draggable;
 
-  static const FillOptions defaultOptions = FillOptions();
+  static const PolygonOptions defaultOptions = PolygonOptions();
 
-  FillOptions copyWith(FillOptions changes) {
-    return FillOptions(
-      fillOpacity: changes.fillOpacity ?? fillOpacity,
-      fillColor: changes.fillColor ?? fillColor,
-      fillOutlineColor: changes.fillOutlineColor ?? fillOutlineColor,
-      fillPattern: changes.fillPattern ?? fillPattern,
+  PolygonOptions copyWith(PolygonOptions changes) {
+    return PolygonOptions(
+      polygonOpacity: changes.polygonOpacity ?? polygonOpacity,
+      polygonColor: changes.polygonColor ?? polygonColor,
+      polygonOutlineColor: changes.polygonOutlineColor ?? polygonOutlineColor,
+      polygonPattern: changes.polygonPattern ?? polygonPattern,
       geometry: changes.geometry ?? geometry,
       draggable: changes.draggable ?? draggable,
     );
@@ -101,10 +101,10 @@ class FillOptions {
       }
     }
 
-    addIfPresent('fillOpacity', fillOpacity);
-    addIfPresent('fillColor', fillColor.toHex());
-    addIfPresent('fillOutlineColor', fillOutlineColor.toHex());
-    addIfPresent('fillPattern', fillPattern);
+    addIfPresent('fillOpacity', polygonOpacity);
+    addIfPresent('fillColor', polygonColor.toHex());
+    addIfPresent('fillOutlineColor', polygonOutlineColor.toHex());
+    addIfPresent('fillPattern', polygonPattern);
     if (addGeometry) {
       addIfPresent(
           'geometry',

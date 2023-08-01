@@ -1270,7 +1270,7 @@ class CircleLayerProperties implements LayerProperties {
   }
 }
 
-class LineLayerProperties implements LayerProperties {
+class PolylineLayerProperties implements LayerProperties {
   // Paint Properties
   /// The opacity at which the line will be drawn.
   ///
@@ -1487,7 +1487,7 @@ class LineLayerProperties implements LayerProperties {
   ///   basic functionality with js, android, ios, macos
   final dynamic visibility;
 
-  const LineLayerProperties({
+  const PolylineLayerProperties({
     this.lineOpacity,
     this.lineColor,
     this.lineTranslate,
@@ -1507,8 +1507,8 @@ class LineLayerProperties implements LayerProperties {
     this.visibility,
   });
 
-  LineLayerProperties copyWith(LineLayerProperties changes) {
-    return LineLayerProperties(
+  PolylineLayerProperties copyWith(PolylineLayerProperties changes) {
+    return PolylineLayerProperties(
       lineOpacity: changes.lineOpacity ?? lineOpacity,
       lineColor: changes.lineColor ?? lineColor,
       lineTranslate: changes.lineTranslate ?? lineTranslate,
@@ -1558,8 +1558,8 @@ class LineLayerProperties implements LayerProperties {
     return json;
   }
 
-  factory LineLayerProperties.fromJson(Map<String, dynamic> json) {
-    return LineLayerProperties(
+  factory PolylineLayerProperties.fromJson(Map<String, dynamic> json) {
+    return PolylineLayerProperties(
       lineOpacity: json['line-opacity'],
       lineColor: json['line-color'],
       lineTranslate: json['line-translate'],
@@ -1581,7 +1581,7 @@ class LineLayerProperties implements LayerProperties {
   }
 }
 
-class FillLayerProperties implements LayerProperties {
+class PolygonLayerProperties implements LayerProperties {
   // Paint Properties
   /// Whether or not the fill should be antialiased.
   ///
@@ -1689,7 +1689,7 @@ class FillLayerProperties implements LayerProperties {
   ///   basic functionality with js, android, ios, macos
   final dynamic visibility;
 
-  const FillLayerProperties({
+  const PolygonLayerProperties({
     this.fillAntialias,
     this.fillOpacity,
     this.fillColor,
@@ -1701,8 +1701,8 @@ class FillLayerProperties implements LayerProperties {
     this.visibility,
   });
 
-  FillLayerProperties copyWith(FillLayerProperties changes) {
-    return FillLayerProperties(
+  PolygonLayerProperties copyWith(PolygonLayerProperties changes) {
+    return PolygonLayerProperties(
       fillAntialias: changes.fillAntialias ?? fillAntialias,
       fillOpacity: changes.fillOpacity ?? fillOpacity,
       fillColor: changes.fillColor ?? fillColor,
@@ -1736,8 +1736,8 @@ class FillLayerProperties implements LayerProperties {
     return json;
   }
 
-  factory FillLayerProperties.fromJson(Map<String, dynamic> json) {
-    return FillLayerProperties(
+  factory PolygonLayerProperties.fromJson(Map<String, dynamic> json) {
+    return PolygonLayerProperties(
       fillAntialias: json['fill-antialias'],
       fillOpacity: json['fill-opacity'],
       fillColor: json['fill-color'],

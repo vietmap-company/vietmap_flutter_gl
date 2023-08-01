@@ -1,4 +1,4 @@
-library maplibre_gl_platform_interface;
+library vietmap_gl_platform_interface;
 
 import 'dart:async';
 import 'dart:convert';
@@ -8,17 +8,17 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:maplibre_gl_platform_interface/extensions/color_extension.dart';
+import 'package:vietmap_gl_platform_interface/extensions/color_extension.dart';
 part 'src/view_wrappers.dart';
 part 'src/annotation.dart';
 part 'src/callbacks.dart';
 part 'src/camera.dart';
 part 'src/circle.dart';
-part 'src/line.dart';
+part 'src/polyline.dart';
 part 'src/location.dart';
 part 'src/method_channel_mapbox_gl.dart';
 part 'src/symbol.dart';
-part 'src/fill.dart';
+part 'src/polygon.dart';
 part 'src/ui.dart';
-part 'src/mapbox_gl_platform_interface.dart';
+part 'src/vietmap_gl_platform_interface.dart';
 part 'src/source_properties.dart';

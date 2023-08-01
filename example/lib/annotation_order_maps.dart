@@ -122,12 +122,12 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
         iconImage: "custom-marker", // "airport-15",
       ),
     );
-    controller.addLine(
-      LineOptions(
+    controller.addPolyline(
+      PolylineOptions(
         draggable: false,
-        lineColor: Colors.red,
-        lineWidth: 7.0,
-        lineOpacity: 1,
+        polylineColor: Colors.red,
+        polylineWidth: 7.0,
+        polylineOpacity: 1,
         geometry: [
           LatLng(35.3649902, 32.0593003),
           LatLng(34.9475098, 31.1187944),
@@ -138,11 +138,11 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
         ],
       ),
     );
-    controller.addFill(
-      FillOptions(
+    controller.addPolygon(
+      PolygonOptions(
         draggable: false,
-        fillColor: Color(0xFF008888),
-        fillOpacity: 0.3,
+        polygonColor: Color(0xFF008888),
+        polygonOpacity: 0.3,
         geometry: [
           [
             LatLng(35.3649902, 32.0593003),

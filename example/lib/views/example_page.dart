@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/src/models/marker_model.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:vietmap_flutter_gl/src/views/marker_layer.dart';
+
 import 'dart:math';
 
-import 'map_demo.dart';
 
-void main() {
-  runApp(MaterialApp(home: VietmapExampleMapView()));
-}
+import '../map_demo.dart';
 
 class VietmapExampleMapView extends StatefulWidget {
   const VietmapExampleMapView({Key? key}) : super(key: key);
@@ -33,7 +31,6 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           title: const Text('Vietmap Flutter GL'),
           actions: [
             IconButton(
-                tooltip: 'Xem ví dụ chi tiết',
                 onPressed: () {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (_) => MapsDemo()));
@@ -85,11 +82,6 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           FloatingActionButton(
             tooltip: 'Add marker',
             onPressed: () {
-              print(_mapController?.cameraPosition?.zoom);
-              if ((_mapController?.cameraPosition?.zoom ?? 0) > 7) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Thu nhỏ bản đồ để xem marker')));
-              }
               for (int i = 0; i < 100; i++) {
                 Random _rnd = new Random();
                 setState(() {

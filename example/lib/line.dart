@@ -10,40 +10,40 @@ import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'page.dart';
 
-class LinePage extends ExamplePage {
-  LinePage() : super(const Icon(Icons.share), 'Line');
+class PolylinePage extends ExamplePage {
+  PolylinePage() : super(const Icon(Icons.share), 'Line');
 
   @override
   Widget build(BuildContext context) {
-    return const LineBody();
+    return const PolylineBody();
   }
 }
 
-class LineBody extends StatefulWidget {
-  const LineBody();
+class PolylineBody extends StatefulWidget {
+  const PolylineBody();
 
   @override
-  State<StatefulWidget> createState() => LineBodyState();
+  State<StatefulWidget> createState() => PolylineBodyState();
 }
 
-class LineBodyState extends State<LineBody> {
-  LineBodyState();
+class PolylineBodyState extends State<PolylineBody> {
+  PolylineBodyState();
 
   static final LatLng center = const LatLng(-33.86711, 151.1947171);
 
   VietmapController? controller;
-  int _lineCount = 0;
-  Line? _selectedLine;
-  final String _linePatternImage = "assets/fill/cat_silhouette_pattern.png";
+  int _polylineCount = 0;
+  Line? _selectedPolyline;
+  final String _polylinePatternImage = "assets/fill/cat_silhouette_pattern.png";
 
   void _onMapCreated(VietmapController controller) {
     this.controller = controller;
-    controller.onLineTapped.add(_onLineTapped);
+    controller.onPolylineTapped.add(_onPolylineTapped);
   }
 
   @override
   void dispose() {
-    controller?.onLineTapped.remove(_onLineTapped);
+    controller?.onPolylineTapped.remove(_onPolylineTapped);
     super.dispose();
   }
 
@@ -54,99 +54,102 @@ class LineBodyState extends State<LineBody> {
     return controller!.addImage(name, list);
   }
 
-  _onLineTapped(Line line) async {
-    await _updateSelectedLine(
-      LineOptions(lineColor: Colors.red),
+  _onPolylineTapped(Line line) async {
+    await _updateSelectedPolyline(
+      PolylineOptions(polylineColor: Colors.red),
     );
     setState(() {
-      _selectedLine = line;
+      _selectedPolyline = line;
     });
-    await _updateSelectedLine(
-      LineOptions(lineColor: Colors.red),
+    await _updateSelectedPolyline(
+      PolylineOptions(polylineColor: Colors.red),
     );
   }
 
-  _updateSelectedLine(LineOptions changes) async {
-    if (_selectedLine != null) controller!.updateLine(_selectedLine!, changes);
+  _updateSelectedPolyline(PolylineOptions changes) async {
+    if (_selectedPolyline != null)
+      controller!.updatePolyline(_selectedPolyline!, changes);
   }
 
-  void _add() {
-    controller!.addLine(
-      LineOptions(
+  void _addPolyline() {
+    controller!.addPolyline(
+      PolylineOptions(
           geometry: [
             LatLng(-33.86711, 151.1947171),
             LatLng(-33.86711, 151.1947171),
             LatLng(-32.86711, 151.1947171),
             LatLng(-33.86711, 152.1947171),
           ],
-          lineColor:Colors.red,
-          lineWidth: 14.0,
-          lineOpacity: 0.5,
+          polylineColor: Colors.red,
+          polylineWidth: 14.0,
+          polylineOpacity: 0.5,
           draggable: true),
     );
+
     setState(() {
-      _lineCount += 1;
+      _polylineCount += 1;
     });
   }
 
   _move() async {
-    final currentStart = _selectedLine!.options.geometry![0];
-    final currentEnd = _selectedLine!.options.geometry![1];
+    final currentStart = _selectedPolyline!.options.geometry![0];
+    final currentEnd = _selectedPolyline!.options.geometry![1];
     final end =
         LatLng(currentEnd.latitude + 0.001, currentEnd.longitude + 0.001);
     final start =
         LatLng(currentStart.latitude - 0.001, currentStart.longitude - 0.001);
-    await controller!
-        .updateLine(_selectedLine!, LineOptions(geometry: [start, end]));
+    await controller!.updatePolyline(
+        _selectedPolyline!, PolylineOptions(geometry: [start, end]));
   }
 
   void _remove() {
-    controller!.removeLine(_selectedLine!);
+    controller!.removePolyline(_selectedPolyline!);
     setState(() {
-      _selectedLine = null;
-      _lineCount -= 1;
+      _selectedPolyline = null;
+      _polylineCount -= 1;
     });
   }
 
-  Future<void> _changeLinePattern() async {
-    String? current =
-        _selectedLine!.options.linePattern == null ? "assetImage" : null;
-    await _updateSelectedLine(
-      LineOptions(linePattern: current),
+  Future<void> _changePolylinePattern() async {
+    String? current = _selectedPolyline!.options.polylinePattern == null
+        ? "assetImage"
+        : null;
+    await _updateSelectedPolyline(
+      PolylineOptions(polylinePattern: current),
     );
   }
 
   Future<void> _changeAlpha() async {
-    double? current = _selectedLine!.options.lineOpacity;
+    double? current = _selectedPolyline!.options.polylineOpacity;
     if (current == null) {
       // default value
       current = 1.0;
     }
 
-    await _updateSelectedLine(
-      LineOptions(lineOpacity: current < 0.1 ? 1.0 : current * 0.75),
+    await _updateSelectedPolyline(
+      PolylineOptions(polylineOpacity: current < 0.1 ? 1.0 : current * 0.75),
     );
   }
 
   Future<void> _toggleVisible() async {
-    double? current = _selectedLine!.options.lineOpacity;
+    double? current = _selectedPolyline!.options.polylineOpacity;
     if (current == null) {
       // default value
       current = 1.0;
     }
-    await _updateSelectedLine(
-      LineOptions(lineOpacity: current == 0.0 ? 1.0 : 0.0),
+    await _updateSelectedPolyline(
+      PolylineOptions(polylineOpacity: current == 0.0 ? 1.0 : 0.0),
     );
   }
 
   _onStyleLoadedCallback() async {
-    addImageFromAsset("assetImage", _linePatternImage);
-    await controller!.addLine(
-      LineOptions(
+    addImageFromAsset("assetImage", _polylinePatternImage);
+    await controller!.addPolyline(
+      PolylineOptions(
         geometry: [LatLng(37.4220, -122.0841), LatLng(37.4240, -122.0941)],
-        lineColor: Colors.red,
-        lineWidth: 14.0,
-        lineOpacity: 0.5,
+        polylineColor: Colors.red,
+        polylineWidth: 14.0,
+        polylineOpacity: 0.5,
       ),
     );
   }
@@ -181,15 +184,17 @@ class LineBodyState extends State<LineBody> {
                       children: <Widget>[
                         TextButton(
                           child: const Text('add'),
-                          onPressed: (_lineCount == 12) ? null : _add,
+                          onPressed:
+                              (_polylineCount == 12) ? null : _addPolyline,
                         ),
                         TextButton(
                           child: const Text('remove'),
-                          onPressed: (_selectedLine == null) ? null : _remove,
+                          onPressed:
+                              (_selectedPolyline == null) ? null : _remove,
                         ),
                         TextButton(
                           child: const Text('move'),
-                          onPressed: (_selectedLine == null)
+                          onPressed: (_selectedPolyline == null)
                               ? null
                               : () async {
                                   await _move();
@@ -197,9 +202,9 @@ class LineBodyState extends State<LineBody> {
                         ),
                         TextButton(
                           child: const Text('change line-pattern'),
-                          onPressed: (_selectedLine == null)
+                          onPressed: (_selectedPolyline == null)
                               ? null
-                              : _changeLinePattern,
+                              : _changePolylinePattern,
                         ),
                       ],
                     ),
@@ -208,20 +213,21 @@ class LineBodyState extends State<LineBody> {
                         TextButton(
                           child: const Text('change alpha'),
                           onPressed:
-                              (_selectedLine == null) ? null : _changeAlpha,
+                              (_selectedPolyline == null) ? null : _changeAlpha,
                         ),
                         TextButton(
                           child: const Text('toggle visible'),
-                          onPressed:
-                              (_selectedLine == null) ? null : _toggleVisible,
+                          onPressed: (_selectedPolyline == null)
+                              ? null
+                              : _toggleVisible,
                         ),
                         TextButton(
                           child: const Text('print current LatLng'),
-                          onPressed: (_selectedLine == null)
+                          onPressed: (_selectedPolyline == null)
                               ? null
                               : () async {
                                   var latLngs = await controller!
-                                      .getLineLatLngs(_selectedLine!);
+                                      .getLineLatLngs(_selectedPolyline!);
                                   for (var latLng in latLngs) {
                                     print(latLng.toString());
                                   }

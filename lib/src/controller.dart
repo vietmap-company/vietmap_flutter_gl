@@ -42,7 +42,7 @@ typedef void OnMapIdleCallback();
 /// Listeners are notified after changes have been applied on the platform side.
 ///
 /// Symbol tap events can be received by adding callbacks to [onSymbolTapped].
-/// Line tap events can be received by adding callbacks to [onLineTapped].
+/// Line tap events can be received by adding callbacks to [onPolylineTapped].
 /// Circle tap events can be received by adding callbacks to [onCircleTapped].
 class VietmapController extends ChangeNotifier {
   VietmapController({
@@ -109,12 +109,12 @@ class VietmapController extends ChangeNotifier {
         final enableInteraction = interactionEnabled.contains(type);
         switch (type) {
           case AnnotationType.fill:
-            fillManager = FillManager(this,
-                onTap: onFillTapped, enableInteraction: enableInteraction);
+            polygonManager = PolygonManager(this,
+                onTap: onPolygonTapped, enableInteraction: enableInteraction);
             break;
           case AnnotationType.line:
-            lineManager = LineManager(this,
-                onTap: onLineTapped, enableInteraction: enableInteraction);
+            polylineManager = PolylineManager(this,
+                onTap: onPolylineTapped, enableInteraction: enableInteraction);
             break;
           case AnnotationType.circle:
             circleManager = CircleManager(this,
@@ -166,8 +166,8 @@ class VietmapController extends ChangeNotifier {
     });
   }
 
-  FillManager? fillManager;
-  LineManager? lineManager;
+  PolygonManager? polygonManager;
+  PolylineManager? polylineManager;
   CircleManager? circleManager;
   SymbolManager? symbolManager;
 
@@ -191,7 +191,8 @@ class VietmapController extends ChangeNotifier {
   final ArgumentCallbacks<Circle> onCircleTapped = ArgumentCallbacks<Circle>();
 
   /// Callbacks to receive tap events for fills placed on this map.
-  final ArgumentCallbacks<Fill> onFillTapped = ArgumentCallbacks<Fill>();
+  final ArgumentCallbacks<Polygon> onPolygonTapped =
+      ArgumentCallbacks<Polygon>();
 
   /// Callbacks to receive tap events for features (geojson layer) placed on this map.
   final onFeatureTapped = <OnFeatureInteractionCallback>[];
@@ -209,12 +210,12 @@ class VietmapController extends ChangeNotifier {
   Set<Symbol> get symbols => symbolManager!.annotations;
 
   /// Callbacks to receive tap events for lines placed on this map.
-  final ArgumentCallbacks<Line> onLineTapped = ArgumentCallbacks<Line>();
+  final ArgumentCallbacks<Line> onPolylineTapped = ArgumentCallbacks<Line>();
 
   /// The current set of lines on this map.
   ///
   /// The returned set will be a detached snapshot of the lines collection.
-  Set<Line> get lines => lineManager!.annotations;
+  Set<Line> get polylines => polylineManager!.annotations;
 
   /// The current set of circles on this map.
   ///
@@ -224,7 +225,7 @@ class VietmapController extends ChangeNotifier {
   /// The current set of fills on this map.
   ///
   /// The returned set will be a detached snapshot of the fills collection.
-  Set<Fill> get fills => fillManager!.annotations;
+  Set<Polygon> get polygons => polygonManager!.annotations;
 
   /// True if the map camera is currently moving.
   bool get isCameraMoving => _isCameraMoving;
@@ -402,7 +403,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// [expressions]: https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions
   Future<void> addLineLayer(
-      String sourceId, String layerId, LineLayerProperties properties,
+      String sourceId, String layerId, PolylineLayerProperties properties,
       {String? belowLayerId,
       String? sourceLayer,
       double? minzoom,
@@ -442,7 +443,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// [expressions]: https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions
   Future<void> addFillLayer(
-      String sourceId, String layerId, FillLayerProperties properties,
+      String sourceId, String layerId, PolygonLayerProperties properties,
       {String? belowLayerId,
       String? sourceLayer,
       double? minzoom,
@@ -723,10 +724,10 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes with the added line once listeners have
   /// been notified.
-  Future<Line> addLine(LineOptions options, [Map? data]) async {
-    final effectiveOptions = LineOptions.defaultOptions.copyWith(options);
+  Future<Line> addPolyline(PolylineOptions options, [Map? data]) async {
+    final effectiveOptions = PolylineOptions.defaultOptions.copyWith(options);
     final line = Line(getRandomString(), effectiveOptions, data);
-    await lineManager!.add(line);
+    await polylineManager!.add(line);
     notifyListeners();
     return line;
   }
@@ -738,29 +739,29 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes with the added line once listeners have
   /// been notified.
-  Future<List<Line>> addLines(List<LineOptions> options,
+  Future<List<Line>> addPolylines(List<PolylineOptions> options,
       [List<Map>? data]) async {
     final lines = [
       for (var i = 0; i < options.length; i++)
-        Line(getRandomString(), LineOptions.defaultOptions.copyWith(options[i]),
-            data?[i])
+        Line(getRandomString(),
+            PolylineOptions.defaultOptions.copyWith(options[i]), data?[i])
     ];
-    await lineManager!.addAll(lines);
+    await polylineManager!.addAll(lines);
 
     notifyListeners();
     return lines;
   }
 
   /// Updates the specified [line] with the given [changes]. The line must
-  /// be a current member of the [lines] set.‚
+  /// be a current member of the [polylines] set.‚
   ///
   /// Change listeners are notified once the line has been updated on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> updateLine(Line line, LineOptions changes) async {
+  Future<void> updatePolyline(Line line, PolylineOptions changes) async {
     line.options = line.options.copyWith(changes);
-    await lineManager!.set(line);
+    await polylineManager!.set(line);
     notifyListeners();
   }
 
@@ -772,14 +773,14 @@ class VietmapController extends ChangeNotifier {
   }
 
   /// Removes the specified [line] from the map. The line must be a current
-  /// member of the [lines] set.
+  /// member of the [polylines] set.
   ///
   /// Change listeners are notified once the line has been removed on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> removeLine(Line line) async {
-    await lineManager!.remove(line);
+  Future<void> removePolyline(Line line) async {
+    await polylineManager!.remove(line);
     notifyListeners();
   }
 
@@ -791,18 +792,18 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> removeLines(Iterable<Line> lines) async {
-    await lineManager!.removeAll(lines);
+    await polylineManager!.removeAll(lines);
     notifyListeners();
   }
 
-  /// Removes all [lines] from the map.
+  /// Removes all [polylines] from the map.
   ///
   /// Change listeners are notified once all lines have been removed on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> clearLines() async {
-    await lineManager!.clear();
+    await polylineManager!.clear();
     notifyListeners();
   }
 
@@ -908,13 +909,13 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes with the added fill once listeners have
   /// been notified.
-  Future<Fill> addFill(FillOptions options, [Map? data]) async {
-    final FillOptions effectiveOptions =
-        FillOptions.defaultOptions.copyWith(options);
-    final fill = Fill(getRandomString(), effectiveOptions, data);
-    await fillManager!.add(fill);
+  Future<Polygon> addPolygon(PolygonOptions options, [Map? data]) async {
+    final PolygonOptions effectiveOptions =
+        PolygonOptions.defaultOptions.copyWith(options);
+    final polygon = Polygon(getRandomString(), effectiveOptions, data);
+    await polygonManager!.add(polygon);
     notifyListeners();
-    return fill;
+    return polygon;
   }
 
   /// Adds multiple fills to the map, configured using the specified custom
@@ -925,29 +926,29 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes with the added fills once listeners have
   /// been notified.
-  Future<List<Fill>> addFills(List<FillOptions> options,
+  Future<List<Polygon>> addPolygons(List<PolygonOptions> options,
       [List<Map>? data]) async {
-    final fills = [
+    final polygons = [
       for (var i = 0; i < options.length; i++)
-        Fill(getRandomString(), FillOptions.defaultOptions.copyWith(options[i]),
-            data?[i])
+        Polygon(getRandomString(),
+            PolygonOptions.defaultOptions.copyWith(options[i]), data?[i])
     ];
-    await fillManager!.addAll(fills);
+    await polygonManager!.addAll(polygons);
 
     notifyListeners();
-    return fills;
+    return polygons;
   }
 
-  /// Updates the specified [fill] with the given [changes]. The fill must
-  /// be a current member of the [fills] set.
+  /// Updates the specified [polygon] with the given [changes]. The fill must
+  /// be a current member of the [polygons] set.
   ///
   /// Change listeners are notified once the fill has been updated on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> updateFill(Fill fill, FillOptions changes) async {
-    fill.options = fill.options.copyWith(changes);
-    await fillManager!.set(fill);
+  Future<void> updatePolygon(Polygon polygon, PolygonOptions changes) async {
+    polygon.options = polygon.options.copyWith(changes);
+    await polygonManager!.set(polygon);
 
     notifyListeners();
   }
@@ -958,33 +959,33 @@ class VietmapController extends ChangeNotifier {
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> clearFills() async {
-    await fillManager!.clear();
+  Future<void> clearPolygons() async {
+    await polygonManager!.clear();
 
     notifyListeners();
   }
 
-  /// Removes the specified [fill] from the map. The fill must be a current
-  /// member of the [fills] set.
+  /// Removes the specified [polygon] from the map. The fill must be a current
+  /// member of the [polygons] set.
   ///
   /// Change listeners are notified once the fill has been removed on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> removeFill(Fill fill) async {
-    await fillManager!.remove(fill);
+  Future<void> removePolygon(Polygon polygon) async {
+    await polygonManager!.remove(polygon);
     notifyListeners();
   }
 
-  /// Removes the specified [fills] from the map. The fills must be current
-  /// members of the [fills] set.
+  /// Removes the specified [polygons] from the map. The fills must be current
+  /// members of the [polygons] set.
   ///
   /// Change listeners are notified once the fills have been removed on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> removeFills(Iterable<Fill> fills) async {
-    await fillManager!.removeAll(fills);
+  Future<void> removePolygons(Iterable<Polygon> polygons) async {
+    await polygonManager!.removeAll(polygons);
     notifyListeners();
   }
 
@@ -1212,7 +1213,7 @@ class VietmapController extends ChangeNotifier {
       double? minzoom,
       double? maxzoom,
       dynamic filter}) async {
-    if (properties is FillLayerProperties) {
+    if (properties is PolygonLayerProperties) {
       addFillLayer(sourceId, layerId, properties,
           belowLayerId: belowLayerId,
           enableInteraction: enableInteraction,
@@ -1220,7 +1221,7 @@ class VietmapController extends ChangeNotifier {
           minzoom: minzoom,
           maxzoom: maxzoom,
           filter: filter);
-    } else if (properties is LineLayerProperties) {
+    } else if (properties is PolylineLayerProperties) {
       addLineLayer(sourceId, layerId, properties,
           belowLayerId: belowLayerId,
           enableInteraction: enableInteraction,

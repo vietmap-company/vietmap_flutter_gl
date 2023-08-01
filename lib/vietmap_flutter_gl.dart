@@ -13,9 +13,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:maplibre_gl_platform_interface/maplibre_gl_platform_interface.dart';
+import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
 
-export 'package:maplibre_gl_platform_interface/maplibre_gl_platform_interface.dart'
+export 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart'
     show
         LatLng,
         LatLngBounds,
@@ -37,9 +37,9 @@ export 'package:maplibre_gl_platform_interface/maplibre_gl_platform_interface.da
         Circle,
         CircleOptions,
         Line,
-        LineOptions,
-        Fill,
-        FillOptions,
+        PolylineOptions,
+        Polygon,
+        PolygonOptions,
         SourceProperties,
         RasterSourceProperties,
         VectorSourceProperties,

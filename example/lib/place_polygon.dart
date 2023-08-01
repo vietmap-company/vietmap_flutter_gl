@@ -10,27 +10,27 @@ import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'page.dart';
 
-class PlaceFillPage extends ExamplePage {
-  PlaceFillPage() : super(const Icon(Icons.check_circle), 'Place fill');
+class PlacePolygonPage extends ExamplePage {
+  PlacePolygonPage() : super(const Icon(Icons.check_circle), 'Place polygon');
 
   @override
   Widget build(BuildContext context) {
-    return const PlaceFillBody();
+    return const PlacePolygonBody();
   }
 }
 
-class PlaceFillBody extends StatefulWidget {
-  const PlaceFillBody();
+class PlacePolygonBody extends StatefulWidget {
+  const PlacePolygonBody();
 
   @override
-  State<StatefulWidget> createState() => PlaceFillBodyState();
+  State<StatefulWidget> createState() => PlacePolygonBodyState();
 }
 
-class PlaceFillBodyState extends State<PlaceFillBody> {
-  PlaceFillBodyState();
+class PlacePolygonBodyState extends State<PlacePolygonBody> {
+  PlacePolygonBodyState();
 
   static final LatLng center = const LatLng(-33.86711, 151.1947171);
-  final String _fillPatternImage = "assets/fill/cat_silhouette_pattern.png";
+  final String _polygonPatternImage = "assets/fill/cat_silhouette_pattern.png";
 
   final List<List<LatLng>> _defaultGeometry = [
     [
@@ -49,13 +49,13 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
   ];
 
   VietmapController? controller;
-  int _fillCount = 0;
-  Fill? _selectedFill;
+  int _polygonCount = 0;
+  Polygon? _selectedPolygon;
   bool isSelected = false;
 
   void _onMapCreated(VietmapController controller) {
     this.controller = controller;
-    controller.onFillTapped.add(_onFillTapped);
+    controller.onPolygonTapped.add(_onPolygonTapped);
     this.controller!.onFeatureDrag.add(_onFeatureDrag);
   }
 
@@ -80,7 +80,7 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
   }
 
   void _onStyleLoaded() {
-    addImageFromAsset("assetImage", _fillPatternImage);
+    addImageFromAsset("assetImage", _polygonPatternImage);
   }
 
   /// Adds an asset image to the currently displayed style
@@ -92,50 +92,50 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
 
   @override
   void dispose() {
-    controller?.onFillTapped.remove(_onFillTapped);
+    controller?.onPolygonTapped.remove(_onPolygonTapped);
     super.dispose();
   }
 
-  void _onFillTapped(Fill fill) {
+  void _onPolygonTapped(Polygon polygon) {
     setState(() {
-      _selectedFill = fill;
+      _selectedPolygon = polygon;
 
       isSelected = true;
     });
-    print('Fill selected');
+    print('Polygon selected');
   }
 
-  void _updateSelectedFill(FillOptions changes) {
-    controller!.updateFill(_selectedFill!, changes);
+  void _updateSelectedPolygon(PolygonOptions changes) {
+    controller!.updatePolygon(_selectedPolygon!, changes);
   }
 
   void _add() {
-    controller!.addFill(FillOptions(
+    controller!.addPolygon(PolygonOptions(
       geometry: _defaultGeometry,
-      fillColor: Color(0xFFFF0000),
-      fillOutlineColor: Color(0xFFFF0000),
+      polygonColor: Color(0xFFFF0000),
+      polygonOutlineColor: Color(0xFFFF0000),
     ));
     setState(() {
-      _fillCount += 1;
+      _polygonCount += 1;
     });
   }
 
   void _remove() {
-    controller!.removeFill(_selectedFill!);
+    controller!.removePolygon(_selectedPolygon!);
     setState(() {
-      _selectedFill = null;
-      _fillCount -= 1;
+      _selectedPolygon = null;
+      _polygonCount -= 1;
     });
   }
 
   void _changePosition() {
-    List<List<LatLng>>? geometry = _selectedFill!.options.geometry;
+    List<List<LatLng>>? geometry = _selectedPolygon!.options.geometry;
 
     if (geometry == null) {
       geometry = _defaultGeometry;
     }
 
-    _updateSelectedFill(FillOptions(
+    _updateSelectedPolygon(PolygonOptions(
         geometry: geometry
             .map((list) => list
                 .map(
@@ -146,57 +146,57 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
   }
 
   void _changeDraggable() {
-    bool? draggable = _selectedFill!.options.draggable;
+    bool? draggable = _selectedPolygon!.options.draggable;
     if (draggable == null) {
       // default value
       draggable = false;
     }
-    _updateSelectedFill(
-      FillOptions(draggable: !draggable),
+    _updateSelectedPolygon(
+      PolygonOptions(draggable: !draggable),
     );
   }
 
-  Future<void> _changeFillOpacity() async {
-    double? current = _selectedFill!.options.fillOpacity;
+  Future<void> _changePolygonOpacity() async {
+    double? current = _selectedPolygon!.options.polygonOpacity;
     if (current == null) {
       // default value
       current = 1.0;
     }
 
-    _updateSelectedFill(
-      FillOptions(fillOpacity: current < 0.1 ? 1.0 : current * 0.75),
+    _updateSelectedPolygon(
+      PolygonOptions(polygonOpacity: current < 0.1 ? 1.0 : current * 0.75),
     );
   }
 
-  Future<void> _changeFillColor() async {
-    Color? current = _selectedFill!.options.fillColor;
+  Future<void> _changePolygonColor() async {
+    Color? current = _selectedPolygon!.options.polygonColor;
     if (current == null) {
       // default value
       current = Color(0xFFFF0000);
     }
 
-    _updateSelectedFill(
-      FillOptions(fillColor: Color(0xFFFF0000)),
+    _updateSelectedPolygon(
+      PolygonOptions(polygonColor: Color(0xFFFF0000)),
     );
   }
 
-  Future<void> _changeFillOutlineColor() async {
-    Color? current = _selectedFill!.options.fillOutlineColor;
+  Future<void> _changePolygonOutlineColor() async {
+    Color? current = _selectedPolygon!.options.polygonOutlineColor;
     if (current == null) {
       // default value
       current = Color(0xFFFF0000);
     }
 
-    _updateSelectedFill(
-      FillOptions(fillOutlineColor: Color(0xFFFFFF00)),
+    _updateSelectedPolygon(
+      PolygonOptions(polygonOutlineColor: Color(0xFFFFFF00)),
     );
   }
 
-  Future<void> _changeFillPattern() async {
+  Future<void> _changePolygonPattern() async {
     String? current =
-        _selectedFill!.options.fillPattern == null ? "assetImage" : null;
-    _updateSelectedFill(
-      FillOptions(fillPattern: current),
+        _selectedPolygon!.options.polygonPattern == null ? "assetImage" : null;
+    _updateSelectedPolygon(
+      PolygonOptions(polygonPattern: current),
     );
   }
 
@@ -231,52 +231,56 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
                       children: <Widget>[
                         TextButton(
                           child: const Text('add'),
-                          onPressed: (_fillCount == 12) ? null : _add,
+                          onPressed: (_polygonCount == 12) ? null : _add,
                         ),
                         TextButton(
                           child: const Text('remove'),
-                          onPressed: (_selectedFill == null) ? null : _remove,
+                          onPressed:
+                              (_selectedPolygon == null) ? null : _remove,
                         ),
                       ],
                     ),
                     Column(
                       children: <Widget>[
                         TextButton(
-                          child: const Text('change fill-opacity'),
-                          onPressed: (_selectedFill == null)
+                          child: const Text('change polygon-opacity'),
+                          onPressed: (_selectedPolygon == null)
                               ? null
-                              : _changeFillOpacity,
+                              : _changePolygonOpacity,
                         ),
                         TextButton(
-                          child: const Text('change fill-color'),
-                          onPressed:
-                              (_selectedFill == null) ? null : _changeFillColor,
+                          child: const Text('change polygon-color'),
+                          onPressed: (_selectedPolygon == null)
+                              ? null
+                              : _changePolygonColor,
                         ),
                         TextButton(
-                          child: const Text('change fill-outline-color'),
-                          onPressed: (_selectedFill == null)
+                          child: const Text('change polygon-outline-color'),
+                          onPressed: (_selectedPolygon == null)
                               ? null
-                              : _changeFillOutlineColor,
+                              : _changePolygonOutlineColor,
                         ),
                         TextButton(
-                          child: const Text('change fill-pattern'),
-                          onPressed: (_selectedFill == null)
+                          child: const Text('change polygon-pattern'),
+                          onPressed: (_selectedPolygon == null)
                               ? null
-                              : _changeFillPattern,
+                              : _changePolygonPattern,
                         ),
                         TextButton(
                           child: const Text('change position'),
-                          onPressed:
-                              (_selectedFill == null) ? null : _changePosition,
+                          onPressed: (_selectedPolygon == null)
+                              ? null
+                              : _changePosition,
                         ),
                         TextButton(
                           child: const Text('toggle draggable'),
-                          onPressed:
-                              (_selectedFill == null) ? null : _changeDraggable,
+                          onPressed: (_selectedPolygon == null)
+                              ? null
+                              : _changeDraggable,
                         ),
                         Text(isSelected
-                            ? "You selected a fill"
-                            : "No fill has been selected")
+                            ? "You selected a polygon"
+                            : "No polygon has been selected")
                       ],
                     ),
                   ],

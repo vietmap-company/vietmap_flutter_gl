@@ -1,4 +1,4 @@
-part of maplibre_gl_web;
+part of vietmap_gl_web;
 
 //TODO Url taken from the Maptiler tutorial; use official and stable release once available
 final _maplibreGlCssUrl =
@@ -877,22 +877,22 @@ class VietmapController extends VietmapGlPlatform
       double? maxzoom,
       dynamic filter,
       required bool enableInteraction}) async {
-    final layout = Map.fromEntries(
-        properties.entries.where((entry) => isLayoutProperty(entry.key)));
-    final paint = Map.fromEntries(
-        properties.entries.where((entry) => !isLayoutProperty(entry.key)));
+    // final layout = Map.fromEntries(
+    //     properties.entries.where((entry) => isLayoutProperty(entry.key)));
+    // final paint = Map.fromEntries(
+    //     properties.entries.where((entry) => !isLayoutProperty(entry.key)));
 
-    _map.addLayer({
-      'id': layerId,
-      'type': layerType,
-      'source': sourceId,
-      'layout': layout,
-      'paint': paint,
-      if (sourceLayer != null) 'source-layer': sourceLayer,
-      if (minzoom != null) 'minzoom': minzoom,
-      if (maxzoom != null) 'maxzoom': maxzoom,
-      if (filter != null) 'filter': filter,
-    }, belowLayerId);
+    // _map.addLayer({
+    //   'id': layerId,
+    //   'type': layerType,
+    //   'source': sourceId,
+    //   'layout': layout,
+    //   'paint': paint,
+    //   if (sourceLayer != null) 'source-layer': sourceLayer,
+    //   if (minzoom != null) 'minzoom': minzoom,
+    //   if (maxzoom != null) 'maxzoom': maxzoom,
+    //   if (filter != null) 'filter': filter,
+    // }, belowLayerId);
 
     if (enableInteraction) {
       _interactiveFeatureLayerIds.add(layerId);

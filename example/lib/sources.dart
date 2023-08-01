@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'page.dart';
-import 'package:maplibre_gl_platform_interface/maplibre_gl_platform_interface.dart';
+import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
 
 class StyleInfo {
   final String name;
@@ -109,7 +109,7 @@ class FullMapState extends State<FullMap> {
     await controller.addLayer(
         "terrain",
         "contour",
-        LineLayerProperties(
+        PolylineLayerProperties(
           lineColor: "#ff69b4",
           lineWidth: 1,
           lineCap: "round",

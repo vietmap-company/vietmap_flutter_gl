@@ -64,7 +64,7 @@ class MapUiBodyState extends State<MapUiBody> {
   bool _countriesVisible = true;
   MyLocationTrackingMode _myLocationTrackingMode = MyLocationTrackingMode.None;
   List<Object>? _featureQueryFilter;
-  Fill? _selectedFill;
+  Polygon? _selectedFill;
 
   @override
   void initState() {
@@ -314,7 +314,7 @@ class MapUiBodyState extends State<MapUiBody> {
 
   _clearFill() {
     if (_selectedFill != null) {
-      mapController!.removeFill(_selectedFill!);
+      mapController!.removePolygon(_selectedFill!);
       setState(() {
         _selectedFill = null;
       });
@@ -331,11 +331,11 @@ class MapUiBodyState extends State<MapUiBody> {
               (ll) => ll.map((l) => LatLng(l[1], l[0])).toList().cast<LatLng>())
           .toList()
           .cast<List<LatLng>>();
-      Fill fill = await mapController!.addFill(FillOptions(
+      Polygon fill = await mapController!.addPolygon(PolygonOptions(
         geometry: geometry,
-        fillColor: Color(0xFFFF0000),
-        fillOutlineColor: Color(0xFFFF0000),
-        fillOpacity: 0.6,
+        polygonColor: Color(0xFFFF0000),
+        polygonOutlineColor: Color(0xFFFF0000),
+        polygonOpacity: 0.6,
       ));
       setState(() {
         _selectedFill = fill;
@@ -345,7 +345,7 @@ class MapUiBodyState extends State<MapUiBody> {
 
   @override
   Widget build(BuildContext context) {
-    final VietmapGL mapboxMap = VietmapGL(
+    final VietmapGL vietmapGL = VietmapGL(
       onMapCreated: onMapCreated,
       initialCameraPosition: _kInitialPosition,
       trackCameraPosition: true,
@@ -358,7 +358,7 @@ class MapUiBodyState extends State<MapUiBody> {
       tiltGesturesEnabled: _tiltGesturesEnabled,
       zoomGesturesEnabled: _zoomGesturesEnabled,
       doubleClickZoomEnabled: _doubleClickToZoomEnabled,
-      myLocationEnabled: _myLocationEnabled,
+      // myLocationEnabled: _myLocationEnabled,
       myLocationTrackingMode: _myLocationTrackingMode,
       myLocationRenderMode: MyLocationRenderMode.GPS,
       onMapClick: (point, latLng) async {
@@ -444,7 +444,7 @@ class MapUiBodyState extends State<MapUiBody> {
           child: SizedBox(
             width: _mapExpanded ? null : 300.0,
             height: 200.0,
-            child: mapboxMap,
+            child: vietmapGL,
           ),
         ),
         Expanded(

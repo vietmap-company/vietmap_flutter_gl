@@ -6,11 +6,11 @@ import '../../vietmap_flutter_gl.dart';
 import '../components/marker.dart';
 import '../models/marker_model.dart';
 
-class VietMapMarkerLayer extends StatefulWidget {
+class MarkerLayer extends StatefulWidget {
   final List<Marker> markers;
   final VietmapController mapController;
   final bool? ignorePointer;
-  const VietMapMarkerLayer(
+  const MarkerLayer(
       {Key? key,
       required this.markers,
       required this.mapController,
@@ -18,17 +18,17 @@ class VietMapMarkerLayer extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<VietMapMarkerLayer> createState() => _VietMapMarkerLayerState();
+  State<MarkerLayer> createState() => _MarkerLayerState();
 }
 
-class _VietMapMarkerLayerState extends State<VietMapMarkerLayer> {
+class _MarkerLayerState extends State<MarkerLayer> {
   VietmapController get _mapController => widget.mapController;
   List<MarkerWidget> _markers = [];
   List<MarkerState> _markerStates = [];
   final Random _rnd = new Random();
 
   @override
-  void didUpdateWidget(covariant VietMapMarkerLayer oldWidget) {
+  void didUpdateWidget(covariant MarkerLayer oldWidget) {
     var param = <LatLng>[];
     for (var i = 0; i < widget.markers.length; i++) {
       param.add(widget.markers[i].latLng);

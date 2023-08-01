@@ -33,17 +33,17 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
 
   void _onMapCreated(VietmapController controller) {
     this.controller = controller;
-    controller.onFillTapped.add(_onFillTapped);
+    controller.onPolygonTapped.add(_onFillTapped);
     controller.onCircleTapped.add(_onCircleTapped);
-    controller.onLineTapped.add(_onLineTapped);
+    controller.onPolylineTapped.add(_onLineTapped);
     controller.onSymbolTapped.add(_onSymbolTapped);
   }
 
   @override
   void dispose() {
-    controller?.onFillTapped.remove(_onFillTapped);
+    controller?.onPolygonTapped.remove(_onFillTapped);
     controller?.onCircleTapped.remove(_onCircleTapped);
-    controller?.onLineTapped.remove(_onLineTapped);
+    controller?.onPolylineTapped.remove(_onLineTapped);
     controller?.onSymbolTapped.remove(_onSymbolTapped);
     super.dispose();
   }
@@ -57,7 +57,7 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  void _onFillTapped(Fill fill) {
+  void _onFillTapped(Polygon fill) {
     _showSnackBar('fill', fill.id);
   }
 
@@ -98,8 +98,8 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
           iconImage: "custom-marker", //"fast-food-15",
           iconSize: 2),
     );
-    controller!.addLine(
-      LineOptions(
+    controller!.addPolyline(
+      PolylineOptions(
         geometry: [
           LatLng(-33.874867744475786, 151.170627211986584),
           LatLng(-33.881979408447314, 151.171361438502117),
@@ -107,13 +107,13 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
           LatLng(-33.894372606072309, 151.17576679759523),
           LatLng(-33.900060683994681, 151.15765587687909),
         ],
-        lineColor: Colors.red,
-        lineWidth: 20,
+        polylineColor: Colors.red,
+        polylineWidth: 20,
       ),
     );
 
-    controller!.addFill(
-      FillOptions(
+    controller!.addPolygon(
+      PolygonOptions(
         geometry: [
           [
             LatLng(-33.901517742631846, 151.178099204457737),
@@ -125,8 +125,8 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
             LatLng(-33.901517742631846, 151.178099204457737),
           ],
         ],
-        fillColor: Color(0xFFFF0000),
-        fillOutlineColor: Colors.black,
+        polygonColor: Color(0xFFFF0000),
+        polygonOutlineColor: Colors.black,
       ),
     );
   }

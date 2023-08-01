@@ -1,7 +1,7 @@
-name: maplibre_gl_platform_interface
+name: vietmap_gl_platform_interface
 description: A common platform interface for the vietmap_flutter_gl plugin.
-version: 0.17.0
-homepage: https://github.com/maplibre/flutter-maplibre-gl
+version: 0.0.3
+homepage: https://github.com/vietmap-company
 
 dependencies:
   flutter:

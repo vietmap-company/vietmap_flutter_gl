@@ -4,7 +4,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-part of maplibre_gl_platform_interface;
+part of vietmap_gl_platform_interface;
 
 class Symbol implements Annotation {
   Symbol(this._id, this.options, [this._data]);

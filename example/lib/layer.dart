@@ -31,7 +31,7 @@ class LayerState extends State {
   Widget build(BuildContext context) {
     return VietmapGL(
       dragEnabled: false,
-      myLocationEnabled: true,
+      // myLocationEnabled: true,
       onMapCreated: _onMapCreated,
       onMapClick: (point, latLong) =>
           print(point.toString() + latLong.toString()),
@@ -74,7 +74,7 @@ class LayerState extends State {
     await controller.addFillLayer(
       "fills",
       "fills",
-      FillLayerProperties(fillColor: [
+      PolygonLayerProperties(fillColor: [
         Expressions.interpolate,
         ['exponential', 0.5],
         [Expressions.zoom],
@@ -90,7 +90,7 @@ class LayerState extends State {
     await controller.addLineLayer(
       "fills",
       "lines",
-      LineLayerProperties(
+      PolylineLayerProperties(
           lineColor: Colors.lightBlue.toHexStringRGB(),
           lineWidth: [
             Expressions.interpolate,

@@ -1,6 +1,6 @@
 // ignore_for_file: unnecessary_getters_setters
 
-part of maplibre_gl_platform_interface;
+part of vietmap_gl_platform_interface;
 
 /// The default instance of [VietmapGlPlatform] to use.
 typedef OnPlatformViewCreatedCallback = void Function(int);

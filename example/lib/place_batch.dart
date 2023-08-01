@@ -9,7 +9,7 @@ import 'page.dart';
 import 'util.dart';
 
 const fillOptions = [
-  FillOptions(
+  PolygonOptions(
     geometry: [
       [
         LatLng(-33.719, 151.150),
@@ -25,9 +25,9 @@ const fillOptions = [
         LatLng(-33.762, 151.250),
       ]
     ],
-    fillColor: Color(0xFFFF0000),
+    polygonColor: Color(0xFFFF0000),
   ),
-  FillOptions(geometry: [
+  PolygonOptions(geometry: [
     [
       LatLng(-33.719, 151.550),
       LatLng(-33.858, 151.550),
@@ -41,7 +41,7 @@ const fillOptions = [
       LatLng(-33.833, 151.747),
       LatLng(-33.762, 151.650),
     ]
-  ], fillColor: Color(0xFFFF0000)),
+  ], polygonColor: Color(0xFFFF0000)),
 ];
 
 class BatchAddPage extends ExamplePage {
@@ -62,7 +62,7 @@ class BatchAddBody extends StatefulWidget {
 
 class BatchAddBodyState extends State<BatchAddBody> {
   BatchAddBodyState();
-  List<Fill> _fills = [];
+  List<Polygon> _fills = [];
   List<Circle> _circles = [];
   List<Line> _lines = [];
   List<Symbol> _symbols = [];
@@ -75,19 +75,20 @@ class BatchAddBodyState extends State<BatchAddBody> {
     this.controller = controller;
   }
 
-  List<LineOptions> makeLinesOptionsForFillOptions(
-      Iterable<FillOptions> options) {
-    final listOptions = <LineOptions>[];
+  List<PolylineOptions> makeLinesOptionsForFillOptions(
+      Iterable<PolygonOptions> options) {
+    final listOptions = <PolylineOptions>[];
     for (final option in options) {
       for (final geom in option.geometry!) {
-        listOptions.add(LineOptions(geometry: geom, lineColor: Colors.red));
+        listOptions
+            .add(PolylineOptions(geometry: geom, polylineColor: Colors.red));
       }
     }
     return listOptions;
   }
 
   List<CircleOptions> makeCircleOptionsForFillOptions(
-      Iterable<FillOptions> options) {
+      Iterable<PolygonOptions> options) {
     final circleOptions = <CircleOptions>[];
     for (final option in options) {
       // put circles only on the outside
@@ -100,7 +101,7 @@ class BatchAddBodyState extends State<BatchAddBody> {
   }
 
   List<SymbolOptions> makeSymbolOptionsForFillOptions(
-      Iterable<FillOptions> options) {
+      Iterable<PolygonOptions> options) {
     final symbolOptions = <SymbolOptions>[];
     for (final option in options) {
       // put symbols only on the inner most ring if it exists
@@ -115,9 +116,9 @@ class BatchAddBodyState extends State<BatchAddBody> {
 
   void _add() async {
     if (_fills.isEmpty) {
-      _fills = await controller.addFills(fillOptions);
+      _fills = await controller.addPolygons(fillOptions);
       _lines = await controller
-          .addLines(makeLinesOptionsForFillOptions(fillOptions));
+          .addPolylines(makeLinesOptionsForFillOptions(fillOptions));
       _circles = await controller
           .addCircles(makeCircleOptionsForFillOptions(fillOptions));
       _symbols = await controller
@@ -126,7 +127,7 @@ class BatchAddBodyState extends State<BatchAddBody> {
   }
 
   void _remove() {
-    controller.removeFills(_fills);
+    controller.removePolygons(_fills);
     controller.removeLines(_lines);
     controller.removeCircles(_circles);
     controller.removeSymbols(_symbols);

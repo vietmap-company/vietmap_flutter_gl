@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -7,7 +7,6 @@ import 'package:vietmap_flutter_gl/src/models/marker_model.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:vietmap_flutter_gl/src/views/marker_layer.dart';
 
-import 'marker_layer.dart';
 import 'page.dart';
 
 class CustomMarkerPage extends ExamplePage {
@@ -49,7 +48,7 @@ class CustomMarkerState extends State<CustomMarker> {
         ),
         _mapController == null
             ? SizedBox.shrink()
-            : VietMapMarkerLayer(
+            : MarkerLayer(
                 ignorePointer: true,
                 mapController: _mapController!,
                 markers: [
@@ -109,7 +108,7 @@ class CustomMarkerState extends State<CustomMarker> {
                   ]),
         _mapController == null
             ? SizedBox.shrink()
-            : VietMapMarkerLayer(
+            : MarkerLayer(
                 ignorePointer: true,
                 mapController: _mapController!,
                 markers: temp),

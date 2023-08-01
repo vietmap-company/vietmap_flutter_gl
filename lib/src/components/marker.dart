@@ -33,7 +33,7 @@ class MarkerState extends State with TickerProviderStateMixin {
   Point _position;
 
   late AnimationController _controller;
-  late Animation<double> _animation;
+
 
   MarkerState(this._position);
 
@@ -43,11 +43,7 @@ class MarkerState extends State with TickerProviderStateMixin {
     _controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
-    )..repeat(reverse: true);
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.elasticOut,
-    );
+    )..repeat(reverse: true); 
   }
 
   @override

@@ -1,4 +1,4 @@
-part of maplibre_gl_platform_interface;
+part of vietmap_gl_platform_interface;
 
 abstract class Annotation {
   String get id;
