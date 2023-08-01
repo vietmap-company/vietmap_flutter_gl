@@ -1,6 +1,6 @@
 import Flutter
 import Foundation
-import Mapbox
+import VietMap
 import UIKit
 
 public class SwiftMapboxGlFlutterPlugin: NSObject, FlutterPlugin {
@@ -131,7 +131,7 @@ public class SwiftMapboxGlFlutterPlugin: NSObject, FlutterPlugin {
         return cachesUrl
     }
 
-    // Copies the "offline" tiles to where Mapbox expects them
+    // Copies the "offline" tiles to where VietMap expects them
     private static func installOfflineMapTiles(registrar: FlutterPluginRegistrar, tilesdb: String) {
         var tilesUrl = getTilesUrl()
         let bundlePath = getTilesDbPath(registrar: registrar, tilesdb: tilesdb)

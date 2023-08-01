@@ -7,7 +7,7 @@
 
 import 'package:device_info_plus_web/device_info_plus_web.dart';
 import 'package:location_web/location_web.dart';
-import 'package:maplibre_gl_web/mapbox_gl_web.dart';
+// import 'package:maplibre_gl_web/mapbox_gl_web.dart';
 
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
@@ -15,6 +15,6 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 void registerPlugins(Registrar registrar) {
   DeviceInfoPlusPlugin.registerWith(registrar);
   LocationWebPlugin.registerWith(registrar);
-  MapboxMapPlugin.registerWith(registrar);
+  // MapboxMapPlugin.registerWith(registrar);
   registrar.registerMessageHandler();
 }

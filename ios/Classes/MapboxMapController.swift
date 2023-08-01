@@ -1,5 +1,5 @@
 import Flutter
-import Mapbox
+import VietMap
 import MapboxAnnotationExtension
 
 class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, MapboxMapOptionsSink,
@@ -1491,7 +1491,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
         if styleString.isEmpty {
             NSLog("setStyleString - string empty")
         } else if styleString.hasPrefix("{") || styleString.hasPrefix("[") {
-            // Currently the iOS Mapbox SDK does not have a builder for json.
+            // Currently the iOS VietMap SDK does not have a builder for json.
             NSLog("setStyleString - JSON style currently not supported")
         } else if styleString.hasPrefix("/") {
             // Absolute path

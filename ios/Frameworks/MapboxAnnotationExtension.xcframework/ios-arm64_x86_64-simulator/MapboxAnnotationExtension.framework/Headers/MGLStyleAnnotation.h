@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-@import Mapbox;
+@import VietMap;
 
 NS_ASSUME_NONNULL_BEGIN
 

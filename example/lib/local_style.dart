@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:vietmap_flutter_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'page.dart';
@@ -23,7 +23,7 @@ class LocalStyle extends StatefulWidget {
 }
 
 class LocalStyleState extends State<LocalStyle> {
-  MaplibreMapController? mapController;
+  VietmapController? mapController;
   String? styleAbsoluteFilePath;
 
   @override
@@ -48,7 +48,7 @@ class LocalStyleState extends State<LocalStyle> {
     });
   }
 
-  void _onMapCreated(MaplibreMapController controller) {
+  void _onMapCreated(VietmapController controller) {
     mapController = controller;
   }
 
@@ -61,7 +61,7 @@ class LocalStyleState extends State<LocalStyle> {
     }
 
     return new Scaffold(
-        body: MaplibreMap(
+        body: VietmapGL(
       styleString: styleAbsoluteFilePath,
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0)),

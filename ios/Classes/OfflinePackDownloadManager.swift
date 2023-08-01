@@ -7,7 +7,7 @@
 
 import Flutter
 import Foundation
-import Mapbox
+import VietMap
 
 class OfflinePackDownloader {
     // MARK: Properties
@@ -155,17 +155,17 @@ class OfflinePackDownloader {
               verifyPack(pack: pack) else { return }
         let maximumCount = (notification.userInfo?[MGLOfflinePackUserInfoKey.maximumCount]
             as AnyObject).uint64Value ?? 0
-        print("Mapbox tile count limit exceeded: \(maximumCount)")
+        print("VietMap tile count limit exceeded: \(maximumCount)")
         // set download state to inactive
         isCompleted = true
         channelHandler.onError(
             errorCode: "mapboxTileCountLimitExceeded",
-            errorMessage: "Mapbox tile count limit exceeded: \(maximumCount)",
+            errorMessage: "VietMap tile count limit exceeded: \(maximumCount)",
             errorDetails: nil
         )
         result(FlutterError(
             code: "mapboxTileCountLimitExceeded",
-            message: "Mapbox tile count limit exceeded: \(maximumCount)",
+            message: "VietMap tile count limit exceeded: \(maximumCount)",
             details: nil
         ))
         if let region = OfflineRegion.fromOfflinePack(pack) {

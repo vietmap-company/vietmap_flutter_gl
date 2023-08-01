@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:vietmap_flutter_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:maplibre_gl_example/page.dart';
 
 import 'util.dart';
@@ -22,16 +22,16 @@ class LayerBody extends StatefulWidget {
 class LayerState extends State {
   static final LatLng center = const LatLng(-33.86711, 151.1947171);
 
-  late MaplibreMapController controller;
+  late VietmapController controller;
   Timer? bikeTimer;
   Timer? filterTimer;
   int filteredId = 0;
 
   @override
   Widget build(BuildContext context) {
-    return MaplibreMap(
+    return VietmapGL(
       dragEnabled: false,
-      myLocationEnabled: true,
+      // myLocationEnabled: true,
       onMapCreated: _onMapCreated,
       onMapClick: (point, latLong) =>
           print(point.toString() + latLong.toString()),
@@ -44,7 +44,7 @@ class LayerState extends State {
     );
   }
 
-  void _onMapCreated(MaplibreMapController controller) {
+  void _onMapCreated(VietmapController controller) {
     this.controller = controller;
 
     controller.onFeatureTapped.add(onFeatureTap);
@@ -74,7 +74,7 @@ class LayerState extends State {
     await controller.addFillLayer(
       "fills",
       "fills",
-      FillLayerProperties(fillColor: [
+      PolygonLayerProperties(fillColor: [
         Expressions.interpolate,
         ['exponential', 0.5],
         [Expressions.zoom],
@@ -90,7 +90,7 @@ class LayerState extends State {
     await controller.addLineLayer(
       "fills",
       "lines",
-      LineLayerProperties(
+      PolylineLayerProperties(
           lineColor: Colors.lightBlue.toHexStringRGB(),
           lineWidth: [
             Expressions.interpolate,
@@ -252,7 +252,6 @@ const _points = {
         "type": "Point",
         "coordinates": [151.184913929732943, -33.874874486427181]
       }
-      
     },
     {
       "type": "Feature",

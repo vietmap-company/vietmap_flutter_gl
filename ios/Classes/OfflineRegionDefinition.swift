@@ -1,5 +1,5 @@
 import Foundation
-import Mapbox
+import VietMap
 
 class OfflineRegionDefinition {
     let bounds: [[Double]]

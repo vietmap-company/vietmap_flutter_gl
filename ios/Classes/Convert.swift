@@ -1,4 +1,4 @@
-import Mapbox
+import VietMap
 import MapboxAnnotationExtension
 
 class Convert {

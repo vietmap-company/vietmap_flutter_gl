@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-@import Mapbox;
+@import VietMap;
 
 @class MGLStyleAnnotation;
 @class MGLAnnotationController;
