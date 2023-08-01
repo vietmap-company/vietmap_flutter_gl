@@ -1,3 +1,5 @@
+## 0.1.7, Aug 1, 2023
+* config iOS map
 ## 0.1.6, Aug 1, 2023
 * fix platform interface
 ## 0.1.5, Aug 1, 2023

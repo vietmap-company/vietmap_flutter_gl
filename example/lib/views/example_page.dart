@@ -5,7 +5,6 @@ import 'package:vietmap_flutter_gl/src/views/marker_layer.dart';
 
 import 'dart:math';
 
-
 import '../map_demo.dart';
 
 class VietmapExampleMapView extends StatefulWidget {

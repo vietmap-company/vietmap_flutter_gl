@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -55,16 +56,21 @@ class _MarkerLayerState extends State<MarkerLayer> {
       }
     });
 
-    var param = <LatLng>[];
-    for (var i = 0; i < widget.markers.length; i++) {
-      param.add(widget.markers[i].latLng);
-    }
-
-    _mapController.toScreenLocationBatch(param).then((value) {
-      for (var i = 0; i < widget.markers.length; i++) {
-        var point = Point<double>(value[i].x as double, value[i].y as double);
-        _addMarker(point, widget.markers[i]);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      if (Platform.isIOS) {
+        await Future.delayed(Duration(milliseconds: 100));
       }
+      var param = <LatLng>[];
+      for (var i = 0; i < widget.markers.length; i++) {
+        param.add(widget.markers[i].latLng);
+      }
+
+      _mapController.toScreenLocationBatch(param).then((value) {
+        for (var i = 0; i < widget.markers.length; i++) {
+          var point = Point<double>(value[i].x as double, value[i].y as double);
+          _addMarker(point, widget.markers[i]);
+        }
+      });
     });
 
     super.initState();

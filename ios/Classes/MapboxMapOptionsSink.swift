@@ -1,5 +1,5 @@
 
-import Mapbox
+import VietMap
 
 protocol MapboxMapOptionsSink {
     func setCameraTargetBounds(bounds: MGLCoordinateBounds?)

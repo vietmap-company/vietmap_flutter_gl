@@ -32,23 +32,15 @@ class MarkerState extends State with TickerProviderStateMixin {
 
   Point _position;
 
-  late AnimationController _controller;
-
-
   MarkerState(this._position);
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-    )..repeat(reverse: true); 
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 

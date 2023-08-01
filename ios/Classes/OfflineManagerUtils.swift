@@ -7,7 +7,7 @@
 
 import Flutter
 import Foundation
-import Mapbox
+import VietMap
 
 class OfflineManagerUtils {
     static var activeDownloaders: [Int: OfflinePackDownloader] = [:]
