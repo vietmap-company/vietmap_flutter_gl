@@ -6,6 +6,7 @@ library vietmap_flutter_gl;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -67,3 +68,9 @@ part 'src/color_tools.dart';
 part 'src/annotation_manager.dart';
 
 part 'src/util.dart';
+
+part 'src/marker.dart';
+
+part 'src/marker_layer.dart';
+
+part 'src/marker_model.dart';

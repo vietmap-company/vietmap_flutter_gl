@@ -1,11 +1,6 @@
-import 'dart:io';
-import 'dart:math';
+part of vietmap_flutter_gl;
 
-import 'package:flutter/material.dart';
 
-import '../vietmap_flutter_gl.dart';
-import 'marker.dart';
-import 'marker_model.dart';
 
 class MarkerLayer extends StatefulWidget {
   final List<Marker> markers;
