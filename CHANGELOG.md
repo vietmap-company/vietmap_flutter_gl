@@ -1,4 +1,5 @@
 ## 1.0.2, Aug 2, 2023
+* Remove unnecessary code
 ## 1.0.1, Aug 2, 2023
 * Fix MarkerLayer render
 * Allow user to set marker icon align with screen position

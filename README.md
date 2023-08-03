@@ -68,7 +68,7 @@ Hiển thị bản đồ nền
 ```dart 
     VietmapGL(
       styleString:
-          'https://run.mocky.io/v3/06602373-c116-41cc-9af6-1ce0dc7807ae',
+          'https://run.mocky.io/v3/961aaa3a-f380-46be-9159-09cc985d9326',
       initialCameraPosition:
           CameraPosition(target: LatLng(10.762317, 106.654551)),
       onMapCreated: (VietmapController controller) {
