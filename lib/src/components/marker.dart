@@ -11,12 +11,18 @@ class MarkerWidget extends StatefulWidget {
   final LatLng coordinate;
   final void Function(MarkerState) addMarkerState;
   final Widget child;
+  final double width;
+  final double height;
+  final Alignment alignment;
   MarkerWidget(
       {required String key,
       required this.coordinate,
       required this.initialPosition,
       required this.addMarkerState,
-      required this.child})
+      required this.child,
+      required this.width,
+      this.alignment = Alignment.center,
+      required this.height})
       : super(key: Key(key));
 
   @override
@@ -28,7 +34,7 @@ class MarkerWidget extends StatefulWidget {
 }
 
 class MarkerState extends State with TickerProviderStateMixin {
-  final _iconSize = 20.0;
+
 
   Point _position;
 
@@ -53,10 +59,42 @@ class MarkerState extends State with TickerProviderStateMixin {
       // iOS returns logical pixel while Android returns screen pixel
       ratio = Platform.isIOS ? 1.0 : MediaQuery.of(context).devicePixelRatio;
     }
+    var _leftPosition = 0.0;
+    var _topPosition = 0.0;
+    var width = (widget as MarkerWidget).width;
+    var height = (widget as MarkerWidget).height;
+    if ((widget as MarkerWidget).alignment == Alignment.center) {
+      _leftPosition = width / 2;
+      _topPosition = height / 2;
+    } else if ((widget as MarkerWidget).alignment == Alignment.topLeft) {
+      _leftPosition = 0;
+      _topPosition = 0;
+    } else if ((widget as MarkerWidget).alignment == Alignment.topRight) {
+      _leftPosition = width;
+      _topPosition = 0;
+    } else if ((widget as MarkerWidget).alignment == Alignment.bottomLeft) {
+      _leftPosition = 0;
+      _topPosition = height;
+    } else if ((widget as MarkerWidget).alignment == Alignment.bottomRight) {
+      _leftPosition = width;
+      _topPosition = height;
+    } else if ((widget as MarkerWidget).alignment == Alignment.centerLeft) {
+      _leftPosition = 0;
+      _topPosition = height / 2;
+    } else if ((widget as MarkerWidget).alignment == Alignment.centerRight) {
+      _leftPosition = width;
+      _topPosition = height / 2;
+    } else if ((widget as MarkerWidget).alignment == Alignment.topCenter) {
+      _leftPosition = width / 2;
+      _topPosition = 0;
+    } else if ((widget as MarkerWidget).alignment == Alignment.bottomCenter) {
+      _leftPosition = width / 2;
+      _topPosition = height;
+    }
 
     return Positioned(
-        left: _position.x / ratio - _iconSize / 2,
-        top: _position.y / ratio - _iconSize / 2,
+        left: _position.x / ratio - _leftPosition,
+        top: _position.y / ratio - _topPosition,
         child: getChild());
   }
 

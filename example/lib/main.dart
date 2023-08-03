@@ -92,18 +92,23 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
               }
               for (int i = 0; i < 100; i++) {
                 Random _rnd = new Random();
+                var lat = _rnd.nextInt(90) * 1.0 + _rnd.nextDouble();
+                var lng = _rnd.nextInt(180) * 1.0 + _rnd.nextDouble();
                 setState(() {
                   temp.add(Marker(
+                      alignment: Alignment.bottomCenter,
+                      width: 50,
+                      height: 50,
                       child: Container(
-                        width: 20,
-                        height: 20,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.orange),
-                        child: Icon(Icons.accessibility_new_rounded,
-                            color: Colors.blue, size: 13),
+                        width: 50,
+                        height: 50,
+                        child: Icon(
+                          Icons.location_on,
+                          color: Colors.red,
+                          size: 50,
+                        ),
                       ),
-                      latLng: LatLng(_rnd.nextInt(90) * 1.0 + _rnd.nextDouble(),
-                          _rnd.nextInt(180) * 1.0 + _rnd.nextDouble())));
+                      latLng: LatLng(lat, lng)));
                 });
               }
             },

@@ -9,7 +9,7 @@ typedef void OnMapClickCallback(Point<double> point, LatLng coordinates);
 typedef void OnFeatureInteractionCallback(
     dynamic id, Point<double> point, LatLng coordinates);
 
-typedef void OnFeatureDragnCallback(dynamic id,
+typedef void OnFeatureDragCallback(dynamic id,
     {required Point<double> point,
     required LatLng origin,
     required LatLng current,
@@ -70,7 +70,7 @@ class VietmapController extends ChangeNotifier {
     });
 
     _vietmapGlPlatform.onFeatureDraggedPlatform.add((payload) {
-      for (final fun in List<OnFeatureDragnCallback>.from(onFeatureDrag)) {
+      for (final fun in List<OnFeatureDragCallback>.from(onFeatureDrag)) {
         final DragEventType enmDragEventType = DragEventType.values
             .firstWhere((element) => element.name == payload["eventType"]);
         fun(payload["id"],
@@ -197,7 +197,7 @@ class VietmapController extends ChangeNotifier {
   /// Callbacks to receive tap events for features (geojson layer) placed on this map.
   final onFeatureTapped = <OnFeatureInteractionCallback>[];
 
-  final onFeatureDrag = <OnFeatureDragnCallback>[];
+  final onFeatureDrag = <OnFeatureDragCallback>[];
 
   /// Callbacks to receive tap events for info windows on symbols
   @Deprecated("InfoWindow tapped is no longer supported")
