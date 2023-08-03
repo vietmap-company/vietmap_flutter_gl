@@ -10,7 +10,15 @@ import '../models/marker_model.dart';
 class MarkerLayer extends StatefulWidget {
   final List<Marker> markers;
   final VietmapController mapController;
+
+  /// Set this value to true to ignore pointer events on the markers.
+  /// If you using a marker like a button and have a [GestureDetector] inside it,
+  /// set this value to false to prevent the map from receiving the gesture.
   final bool? ignorePointer;
+
+  /// The markers to be placed on the map.
+  /// use [MarkerLayer] inside a [Stack], that contain [VietmapGL] and [MarkerLayer] to work properly
+  /// [VietmapGL.trackCameraPosition] must be set to true to work properly
   const MarkerLayer(
       {Key? key,
       required this.markers,
@@ -34,13 +42,31 @@ class _MarkerLayerState extends State<MarkerLayer> {
     for (var i = 0; i < widget.markers.length; i++) {
       param.add(widget.markers[i].latLng);
     }
-    _markers.clear();
-    _markerStates.clear();
+    var _newMarker = <MarkerWidget>[];
+    var _newMarkerStates = <MarkerState>[];
     _mapController.toScreenLocationBatch(param).then((value) {
       for (var i = 0; i < widget.markers.length; i++) {
         var point = Point<double>(value[i].x as double, value[i].y as double);
-        _addMarker(point, widget.markers[i]);
+        _newMarker.add(MarkerWidget(
+          key: (_rnd.nextInt(100000) +
+                  widget.markers[i].latLng.latitude +
+                  widget.markers[i].latLng.longitude)
+              .toString(),
+          coordinate: widget.markers[i].latLng,
+          initialPosition: point,
+          addMarkerState: (_) {
+            _newMarkerStates.add(_);
+          },
+          child: widget.markers[i].child,
+          width: widget.markers[i].width,
+          height: widget.markers[i].height,
+          alignment: widget.markers[i].alignment,
+        ));
       }
+      setState(() {
+        _markers = _newMarker;
+        _markerStates = _newMarkerStates;
+      });
     });
     super.didUpdateWidget(oldWidget);
   }
@@ -101,6 +127,9 @@ class _MarkerLayerState extends State<MarkerLayer> {
         initialPosition: point,
         addMarkerState: _addMarkerStates,
         child: markerModel.child,
+        width: markerModel.width,
+        height: markerModel.height,
+        alignment: markerModel.alignment,
       ));
     });
   }
