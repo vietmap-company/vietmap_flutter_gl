@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vietmap_flutter_gl/src/models/marker_model.dart';
+
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
-import 'package:vietmap_flutter_gl/src/views/marker_layer.dart';
 
 import 'dart:math';
 
@@ -40,7 +39,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
       body: Stack(children: [
         VietmapGL(
           styleString:
-              "https://run.mocky.io/v3/06602373-c116-41cc-9af6-1ce0dc7807ae",
+              "https://run.mocky.io/v3/961aaa3a-f380-46be-9159-09cc985d9326",
           trackCameraPosition: true,
           onMapCreated: _onMapCreated,
           initialCameraPosition: const CameraPosition(

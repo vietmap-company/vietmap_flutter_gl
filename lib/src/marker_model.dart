@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
+part of vietmap_flutter_gl;
 
 class Marker {
   final Widget child;

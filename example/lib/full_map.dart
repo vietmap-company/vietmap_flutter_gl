@@ -60,7 +60,7 @@ class FullMapState extends State<FullMap> {
         print(location.latitude);
       },
       styleString:
-          "https://run.mocky.io/v3/06602373-c116-41cc-9af6-1ce0dc7807ae",
+          "https://run.mocky.io/v3/961aaa3a-f380-46be-9159-09cc985d9326",
     ));
   }
 }

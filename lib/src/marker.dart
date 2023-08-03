@@ -1,11 +1,5 @@
-import 'dart:io';
-import 'dart:math';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
-import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
-
+part of vietmap_flutter_gl;
 class MarkerWidget extends StatefulWidget {
   final Point initialPosition;
   final LatLng coordinate;
