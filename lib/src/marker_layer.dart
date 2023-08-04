@@ -1,7 +1,5 @@
 part of vietmap_flutter_gl;
 
-
-
 class MarkerLayer extends StatefulWidget {
   final List<Marker> markers;
   final VietmapController mapController;
@@ -106,7 +104,9 @@ class _MarkerLayerState extends State<MarkerLayer> {
 
     _mapController.toScreenLocationBatch(coordinates).then((points) {
       _markerStates.asMap().forEach((i, value) {
-        _markerStates[i].updatePosition(points[i]);
+        if (points.length > i && _markerStates.length > i) {
+          _markerStates[i].updatePosition(points[i]);
+        }
       });
     });
   }

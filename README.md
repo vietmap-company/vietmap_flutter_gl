@@ -1,4 +1,4 @@
-# Vietmap Flutter Map GL
+# Vietmap Flutter GL
 [<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://vietmap.vn/maps-api)
 
 
@@ -52,7 +52,7 @@ Thêm đoạn code sau vào file Info.plist
 	<key>VietMapAccessToken</key>
 	<string>YOUR_API_KEY_HERE</string>
 	<key>VietMapURL</key>
-	<string>https://run.mocky.io/v3/ff325d44-9fdd-480f-9f0f-a9155bf362fa</string>
+	<string>https://run.mocky.io/v3/961aaa3a-f380-46be-9159-09cc985d9326</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app requires location permission to working normally</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -247,7 +247,9 @@ Code mẫu màn hình bản đồ [tại đây](./example/lib/main.dart)
 Nếu có bất kỳ thắc mắc và hỗ trợ, vui lòng liên hệ:
 
 [<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://vietmap.vn/maps-api)
-Gửi email: [support@vietmap.vn](mailto:support@vietmap.vn)
+Gửi email: [maps-api.support@vietmap.vn](mailto:maps-api.support@vietmap.vn)
 
 
 Liên hệ [hỗ trợ](https://vietmap.vn/lien-he)
+
+Tài liệu api [tại đây](https://maps.vietmap.vn/docs/map-api/overview/)
