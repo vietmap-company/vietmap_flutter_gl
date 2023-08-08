@@ -38,6 +38,7 @@ class _MarkerLayerState extends State<MarkerLayer> {
     var _newMarker = <MarkerWidget>[];
     var _newMarkerStates = <MarkerState>[];
     _mapController.toScreenLocationBatch(param).then((value) {
+      if (value.isEmpty || widget.markers.isEmpty) return;
       for (var i = 0; i < widget.markers.length; i++) {
         var point = Point<double>(value[i].x as double, value[i].y as double);
         _newMarker.add(MarkerWidget(
@@ -85,6 +86,7 @@ class _MarkerLayerState extends State<MarkerLayer> {
       }
 
       _mapController.toScreenLocationBatch(param).then((value) {
+        if (value.isEmpty || widget.markers.isEmpty) return;
         for (var i = 0; i < widget.markers.length; i++) {
           var point = Point<double>(value[i].x as double, value[i].y as double);
           _addMarker(point, widget.markers[i]);

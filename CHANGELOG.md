@@ -1,3 +1,5 @@
+## 1.0.5, Aug 8, 2023
+* Fix crash app when update marker location
 ## 1.0.2, Aug 2, 2023
 * Remove unnecessary code
 ## 1.0.1, Aug 2, 2023

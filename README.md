@@ -237,6 +237,22 @@ _mapController?.removePolygon(polygon);
 
 <br>
 
+### Lưu ý
+
+ - Các Widget khác khi thêm vào Widget Stack chứa MarkerLayer đều phải thêm thuộc tính *key* để tránh gặp lỗi trong quá trình hiển thị MarkerLayer, ví dụ:
+ ```dart
+ Stack(
+  children:[
+    MarkerLayer(
+      ...
+    ),
+    Positioned(
+      key: const Key('yourWidgetKey'),
+      ...
+    ),
+  ]
+ )
+ ```
 
 Code mẫu màn hình bản đồ [tại đây](./example/lib/main.dart)
 # Lưu ý: Thay apikey được VietMap cung cấp vào toàn bộ tag _YOUR_API_KEY_HERE_ để ứng dụng hoạt động bình thường
