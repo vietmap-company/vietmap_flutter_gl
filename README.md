@@ -114,7 +114,6 @@ Zoom điều khiển tỷ lệ của bản đồ và nhận vào bất kỳ giá
 #### SDK cho phép nhiều phương pháp để di chuyển Camera đến một vị trí cụ thể:
 ~~~dart  
 _mapController?.moveCamera(CameraUpdate.newLatLngZoom(LatLng(22.553147478403194, 77.23388671875), 14));  
-_mapController?.easeCamera(CameraUpdate.newLatLngZoom(LatLng(28.704268, 77.103045), 14));  
 _mapController?.animateCamera(CameraUpdate.newLatLngZoom(LatLng(28.698791, 77.121243), 14));  
 ~~~  
 
@@ -140,7 +139,20 @@ VietmapGL(
  }, )  
 ~~~  
 
-
+##### Thiết lập một callback được gọi khi bản đồ được hiển thị hoàn toàn.
+##### Khuyến khích sử dụng callback này để thực hiện các thao tác trên bản đồ lúc khởi tạo:
+~~~dart  
+VietmapGL(    
+  initialCameraPosition: _kInitialPosition,    
+  onMapRenderedCallback: () {
+            _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+                CameraPosition(
+                    target: LatLng(10.739031, 106.680524),
+                    zoom: 10,
+                    tilt: 60)));
+    },
+  )  
+~~~  
 ## Map Overlays
 ### Thêm một Marker (Đánh dấu một điểm trên bản đồ)
 

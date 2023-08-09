@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:maplibre_gl_example/constant.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'page.dart';
@@ -147,6 +148,7 @@ class BatchAddBodyState extends State<BatchAddBody> {
           child: SizedBox(
             height: 200.0,
             child: VietmapGL(
+              styleString: YOUR_STYLE_URL_HERE,
               onMapCreated: _onMapCreated,
               onStyleLoadedCallback: () => addImageFromAsset(controller,
                   "custom-marker", "assets/symbols/custom-marker.png"),

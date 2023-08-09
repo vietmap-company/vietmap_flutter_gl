@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'constant.dart';
 import 'page.dart';
 
 class LocalStylePage extends ExamplePage {
@@ -62,7 +63,7 @@ class LocalStyleState extends State<LocalStyle> {
 
     return new Scaffold(
         body: VietmapGL(
-      styleString: styleAbsoluteFilePath,
+      styleString: YOUR_STYLE_URL_HERE,
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0)),
       onStyleLoadedCallback: onStyleLoadedCallback,

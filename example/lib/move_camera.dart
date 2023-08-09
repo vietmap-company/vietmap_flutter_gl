@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
+import 'constant.dart';
 import 'page.dart';
 
 class MoveCameraPage extends ExamplePage {
@@ -40,6 +41,7 @@ class MoveCameraState extends State<MoveCamera> {
             width: 300.0,
             height: 200.0,
             child: VietmapGL(
+              styleString: YOUR_STYLE_URL_HERE,
               onMapCreated: _onMapCreated,
               onCameraIdle: () => print("onCameraIdle"),
               initialCameraPosition:

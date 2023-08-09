@@ -9,6 +9,7 @@ import 'package:flutter/rendering.dart'; // ignore: unnecessary_import
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:maplibre_gl_example/util.dart';
 
+import 'constant.dart';
 import 'page.dart';
 
 class ScrollingMapPage extends ExamplePage {
@@ -51,6 +52,7 @@ class _ScrollingMapBodyState extends State<ScrollingMapBody> {
                     width: 300.0,
                     height: 300.0,
                     child: VietmapGL(
+                      styleString: YOUR_STYLE_URL_HERE,
                       onMapCreated: onMapCreatedOne,
                       onStyleLoadedCallback: () => onStyleLoaded(controllerOne),
                       initialCameraPosition: CameraPosition(
@@ -86,6 +88,7 @@ class _ScrollingMapBodyState extends State<ScrollingMapBody> {
                     width: 300.0,
                     height: 300.0,
                     child: VietmapGL(
+                      styleString: YOUR_STYLE_URL_HERE,
                       onMapCreated: onMapCreatedTwo,
                       onStyleLoadedCallback: () => onStyleLoaded(controllerTwo),
                       initialCameraPosition: CameraPosition(

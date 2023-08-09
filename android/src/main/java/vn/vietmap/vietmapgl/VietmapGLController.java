@@ -21,6 +21,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
@@ -92,7 +93,6 @@ import java.util.Set;
 
 
 /** Controller of a single VietmapGL MapView instance. */
-@SuppressLint("MissingPermission")
 final class VietmapGLController
     implements DefaultLifecycleObserver,
         VietMapGL.OnCameraIdleListener,
@@ -222,6 +222,7 @@ final class VietmapGLController
     vietmapGL.addOnCameraMoveListener(this);
     vietmapGL.addOnCameraIdleListener(this);
 
+
     if (androidGesturesManager != null) {
       androidGesturesManager.setMoveGestureListener(new MoveGestureListener());
       mapView.setOnTouchListener(
@@ -234,7 +235,8 @@ final class VietmapGLController
             }
           });
     }
-
+    mapView.addOnDidFinishRenderingMapListener((rendered)->
+            methodChannel.invokeMethod("map#onMapRendered", null));
     mapView.addOnStyleImageMissingListener(
         (id) -> {
           DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -277,7 +279,6 @@ final class VietmapGLController
 
   
 
-  @SuppressWarnings({"MissingPermission"})
   private void enableLocationComponent(@NonNull Style style) {
     if (hasLocationPermission()) {
 //      locationEngine = LocationEng
@@ -289,13 +290,15 @@ final class VietmapGLController
 //      locationComponent.activateLocationComponent(
 //              context, style, buildLocationComponentOptions(style));
       locationComponent.activateLocationComponent(options.build());
-      locationComponent.setLocationComponentEnabled(true);
+
       // locationComponent.setRenderMode(RenderMode.COMPASS); // remove or keep default?
       locationComponent.setLocationEngine(locationEngine);
       locationComponent.setMaxAnimationFps(30);
       updateMyLocationTrackingMode();
       updateMyLocationRenderMode();
       locationComponent.addOnCameraTrackingChangedListener(this);
+
+      locationComponent.setLocationComponentEnabled(true);
     } else {
       Log.e(TAG, "missing location permissions");
     }
@@ -1062,6 +1065,16 @@ final class VietmapGLController
           Log.e(TAG, "location component: getLastLocation");
           if (this.myLocationEnabled && locationComponent != null && locationEngine != null) {
             Map<String, Object> reply = new HashMap<>();
+            if (ActivityCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+            ) {
+              return;
+            }
             locationEngine.getLastLocation(
                 new LocationEngineCallback<LocationEngineResult>() {
                   @Override
@@ -1548,13 +1561,14 @@ final class VietmapGLController
     if (mapView == null) {
       return;
     }
-
+    mapView.onStop();
+    mapView.onDestroy();
     if (locationComponent != null) {
       locationComponent.setLocationComponentEnabled(false);
     }
     stopListeningForLocationUpdates();
 
-    mapView.onDestroy();
+//    mapView.onDestroy();
     mapView = null;
   }
 
@@ -1771,18 +1785,22 @@ final class VietmapGLController
   }
 
   private void updateMyLocationEnabled() {
-    if (this.locationComponent == null && myLocationEnabled) {
-      enableLocationComponent(vietmapGL.getStyle());
-    }
+    try{
+      if (this.locationComponent == null && myLocationEnabled) {
+        enableLocationComponent(vietmapGL.getStyle());
+      }
 
-    if (myLocationEnabled) {
-      startListeningForLocationUpdates();
-    } else {
-      stopListeningForLocationUpdates();
-    }
+      if (myLocationEnabled) {
+        startListeningForLocationUpdates();
+      } else {
+        stopListeningForLocationUpdates();
+      }
 
-    if (locationComponent != null) {
-      locationComponent.setLocationComponentEnabled(myLocationEnabled);
+      if (locationComponent != null) {
+        locationComponent.setLocationComponentEnabled(myLocationEnabled);
+      }
+    }catch (Exception e){
+      System.out.println(e);
     }
   }
 

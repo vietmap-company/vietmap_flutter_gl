@@ -35,7 +35,7 @@ final List<ExamplePage> _allPages = <ExamplePage>[
   FullMapPage(),
   AnimateCameraPage(),
   MoveCameraPage(),
-  PlaceSymbolPage(),
+  // PlaceSymbolPage(),
   // PlaceSourcePage(),
   PolylinePage(),
   // LocalStylePage(),
@@ -48,7 +48,7 @@ final List<ExamplePage> _allPages = <ExamplePage>[
   CustomMarkerPage(),
   BatchAddPage(),
   ClickAnnotationPage(),
-  Sources(),
+  // Sources(),
   GivenBoundsPage(),
   // GetMapInfoPage(),
 ];

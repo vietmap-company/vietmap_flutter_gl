@@ -65,6 +65,9 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
       case 'map#onStyleLoaded':
         onMapStyleLoadedPlatform(null);
         break;
+      case 'map#onMapRendered':
+        onMapRenderedPlatform(null);
+        break;
       case 'map#onMapClick':
         final double x = call.arguments['x'];
         final double y = call.arguments['y'];
@@ -138,8 +141,8 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
       OnPlatformViewCreatedCallback onPlatformViewCreated,
       Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers) {
     if (defaultTargetPlatform == TargetPlatform.android) {
-      final useDelayedDisposalParam =
-          (creationParams['useDelayedDisposal'] ?? false) as bool;
+      // final useDelayedDisposalParam =
+      //     (creationParams['useDelayedDisposal'] ?? false) as bool;
       final useHybridCompositionParam =
           (creationParams['useHybridCompositionOverride'] ??
               useHybridComposition) as bool;
@@ -159,25 +162,14 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
           },
           onCreatePlatformView: (PlatformViewCreationParams params) {
             late AndroidViewController controller;
-            if (useDelayedDisposalParam) {
-              controller = WrappedPlatformViewsService.initAndroidView(
-                id: params.id,
-                viewType: 'plugins.flutter.io/mapbox_gl',
-                layoutDirection: TextDirection.ltr,
-                creationParams: creationParams,
-                creationParamsCodec: const StandardMessageCodec(),
-                onFocus: () => params.onFocusChanged(true),
-              );
-            } else {
-              controller = PlatformViewsService.initAndroidView(
-                id: params.id,
-                viewType: 'plugins.flutter.io/mapbox_gl',
-                layoutDirection: TextDirection.ltr,
-                creationParams: creationParams,
-                creationParamsCodec: const StandardMessageCodec(),
-                onFocus: () => params.onFocusChanged(true),
-              );
-            }
+            controller = PlatformViewsService.initAndroidView(
+              id: params.id,
+              viewType: 'plugins.flutter.io/mapbox_gl',
+              layoutDirection: TextDirection.ltr,
+              creationParams: creationParams,
+              creationParamsCodec: const StandardMessageCodec(),
+              onFocus: () => params.onFocusChanged(true),
+            );
             controller.addOnPlatformViewCreatedListener(
               params.onPlatformViewCreated,
             );
@@ -190,15 +182,6 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
           },
         );
       } else {
-        if (useDelayedDisposalParam) {
-          return AndroidViewWithWrappedController(
-            viewType: 'plugins.flutter.io/mapbox_gl',
-            onPlatformViewCreated: onPlatformViewCreated,
-            gestureRecognizers: gestureRecognizers,
-            creationParams: creationParams,
-            creationParamsCodec: const StandardMessageCodec(),
-          );
-        }
         return AndroidView(
           viewType: 'plugins.flutter.io/mapbox_gl',
           onPlatformViewCreated: onPlatformViewCreated,

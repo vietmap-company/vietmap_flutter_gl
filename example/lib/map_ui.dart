@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:maplibre_gl_example/constant.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'page.dart';
@@ -49,11 +50,8 @@ class MapUiBodyState extends State<MapUiBody> {
   int _styleStringIndex = 0;
   // Style string can a reference to a local or remote resources.
   // On Android the raw JSON can also be passed via a styleString, on iOS this is not supported.
-  List<String> _styleStrings = [
-    "https://demotiles.maplibre.org/style.json",
-    "assets/style.json"
-  ];
-  List<String> _styleStringLabels = ["Vietmap demo style", "Local style file"];
+  List<String> _styleStrings = [YOUR_STYLE_URL_HERE];
+  List<String> _styleStringLabels = ["Vietmap demo style"];
   bool _rotateGesturesEnabled = true;
   bool _scrollGesturesEnabled = true;
   bool? _doubleClickToZoomEnabled;
@@ -177,17 +175,17 @@ class MapUiBodyState extends State<MapUiBody> {
     );
   }
 
-  Widget _setStyleToSatellite() {
-    return TextButton(
-      child: Text(
-          'change map style to ${_styleStringLabels[(_styleStringIndex + 1) % _styleStringLabels.length]}'),
-      onPressed: () {
-        setState(() {
-          _styleStringIndex = (_styleStringIndex + 1) % _styleStrings.length;
-        });
-      },
-    );
-  }
+  // Widget _setStyleToSatellite() {
+  //   return TextButton(
+  //     child: Text(
+  //         'change map style to ${_styleStringLabels[(_styleStringIndex + 1) % _styleStringLabels.length]}'),
+  //     onPressed: () {
+  //       setState(() {
+  //         _styleStringIndex = (_styleStringIndex + 1) % _styleStrings.length;
+  //       });
+  //     },
+  //   );
+  // }
 
   Widget _rotateToggler() {
     return TextButton(
@@ -422,7 +420,7 @@ class MapUiBodyState extends State<MapUiBody> {
           _compassToggler(),
           _myLocationTrackingModeCycler(),
           _latLngBoundsToggler(),
-          _setStyleToSatellite(),
+          // _setStyleToSatellite(),
           _zoomBoundsToggler(),
           _rotateToggler(),
           _scrollToggler(),

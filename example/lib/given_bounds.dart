@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
+import 'constant.dart';
 import 'page.dart';
 
 class GivenBoundsPage extends ExamplePage {
@@ -41,6 +42,7 @@ class GivenBoundsState extends State<GivenBounds> {
             width: 300.0,
             height: 200.0,
             child: VietmapGL(
+              styleString: YOUR_STYLE_URL_HERE,
               onMapCreated: _onMapCreated,
               initialCameraPosition:
                   const CameraPosition(target: LatLng(0.0, 0.0)),

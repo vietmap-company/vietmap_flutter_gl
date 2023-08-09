@@ -20,6 +20,8 @@ typedef void OnMapLongClickCallback(Point<double> point, LatLng coordinates);
 
 typedef void OnStyleLoadedCallback();
 
+typedef void OnMapRenderedCallback();
+
 typedef void OnUserLocationUpdated(UserLocation location);
 
 typedef void OnCameraTrackingDismissedCallback();
@@ -45,7 +47,7 @@ typedef void OnMapIdleCallback();
 /// Line tap events can be received by adding callbacks to [onPolylineTapped].
 /// Circle tap events can be received by adding callbacks to [onCircleTapped].
 class VietmapController extends ChangeNotifier {
-  VietmapController({
+  VietmapController( {
     required VietmapGlPlatform vietmapGlPlatform,
     required CameraPosition initialCameraPosition,
     required Iterable<AnnotationType> annotationOrder,
@@ -53,6 +55,7 @@ class VietmapController extends ChangeNotifier {
     this.onStyleLoadedCallback,
     this.onMapClick,
     this.onMapLongClick,
+    this.onMapRendered,
     //this.onAttributionClick,
     this.onCameraTrackingDismissed,
     this.onCameraTrackingChanged,
@@ -102,7 +105,11 @@ class VietmapController extends ChangeNotifier {
       }
       notifyListeners();
     });
-
+    _vietmapGlPlatform.onMapRenderedPlatform.add((_) {
+      if (onMapRendered != null) {
+        onMapRendered!();
+      }
+    });
     _vietmapGlPlatform.onMapStyleLoadedPlatform.add((_) {
       final interactionEnabled = annotationConsumeTapEvents.toSet();
       for (var type in annotationOrder.toSet()) {
@@ -172,6 +179,7 @@ class VietmapController extends ChangeNotifier {
   SymbolManager? symbolManager;
 
   final OnStyleLoadedCallback? onStyleLoadedCallback;
+  final OnMapRenderedCallback? onMapRendered;
   final OnMapClickCallback? onMapClick;
   final OnMapLongClickCallback? onMapLongClick;
 

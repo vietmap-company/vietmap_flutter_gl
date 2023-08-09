@@ -17,7 +17,8 @@ class VietmapGL extends StatefulWidget {
     this.gestureRecognizers,
     this.compassEnabled = true,
     this.cameraTargetBounds = CameraTargetBounds.unbounded,
-    this.styleString,
+    required this.styleString,
+    this.onMapRenderedCallback,
     this.minMaxZoomPreference = MinMaxZoomPreference.unbounded,
     this.rotateGesturesEnabled = true,
     this.scrollGesturesEnabled = true,
@@ -26,7 +27,7 @@ class VietmapGL extends StatefulWidget {
     this.doubleClickZoomEnabled,
     this.dragEnabled = true,
     this.trackCameraPosition = false,
-    // this.myLocationEnabled = false,
+    this.myLocationEnabled = false,
     this.myLocationTrackingMode = MyLocationTrackingMode.None,
     this.myLocationRenderMode = MyLocationRenderMode.COMPASS,
     this.logoViewMargins,
@@ -57,6 +58,7 @@ class VietmapGL extends StatefulWidget {
     this.useHybridCompositionOverride,
   })  : assert(annotationOrder.length <= 4),
         assert(annotationConsumeTapEvents.length > 0),
+        assert(styleString.length != 0),
         super(key: key);
 
   /// Defines the layer order of annotations displayed on map
@@ -74,6 +76,12 @@ class VietmapGL extends StatefulWidget {
 
   /// Please note: you should only add annotations (e.g. symbols or circles) after `onStyleLoadedCallback` has been called.
   final MapCreatedCallback? onMapCreated;
+
+  /// Called when the map is rendered for the first time.
+  /// This is useful if you want to make sure the map is fully rendered before taking a snapshot
+  /// or do some action with mapController, which only work properly after the map is rendered successfully.
+  ///
+  final OnMapRenderedCallback? onMapRenderedCallback;
 
   /// Called when the map style has been successfully loaded and the annotation managers have been enabled.
   /// Please note: you should only add annotations (e.g. symbols or circles) after this callback has been called.
@@ -97,7 +105,7 @@ class VietmapGL extends StatefulWidget {
   /// Style URL or Style JSON
   /// Can be a MapboxStyle constant, any Mapbox Style URL,
   /// or a StyleJSON (https://docs.mapbox.com/mapbox-gl-js/style-spec/)
-  final String? styleString;
+  final String styleString;
 
   /// Preferred bounds for the camera zoom level.
   ///
@@ -151,7 +159,7 @@ class VietmapGL extends StatefulWidget {
   /// * On iOS add a `NSLocationWhenInUseUsageDescription` key to your
   /// `Info.plist` file. This will automatically prompt the user for permissions
   /// when the map tries to turn on the My Location layer.
-  // final bool myLocationEnabled;
+  final bool myLocationEnabled;
 
   /// The mode used to let the map's camera follow the device's physical location.
   /// `myLocationEnabled` needs to be true for values other than `MyLocationTrackingMode.None` to work.
@@ -212,8 +220,8 @@ class VietmapGL extends StatefulWidget {
   /// * All currently requested tiles have loaded
   /// * All fade/transition animations have completed
   final OnMapIdleCallback? onMapIdle;
-
-  /// Use delayed disposal of Android View Controller to avoid flutter 3.x.x crashes
+  // This flag has no effect anymore and will be removed in the next major release.
+  @deprecated
   final bool? useDelayedDisposal;
 
   /// Override hybrid mode per map instance
@@ -250,7 +258,6 @@ class _VietmapGLState extends State<VietmapGL> {
       'options': _VietmapOptions.fromWidget(widget).toMap(),
       //'onAttributionClickOverride': widget.onAttributionClick != null,
       'dragEnabled': widget.dragEnabled,
-      'useDelayedDisposal': widget.useDelayedDisposal,
       'useHybridCompositionOverride': widget.useHybridCompositionOverride,
     };
     return _mapboxGlPlatform.buildView(
@@ -310,12 +317,19 @@ class _VietmapGLState extends State<VietmapGL> {
       onMapIdle: widget.onMapIdle,
       annotationOrder: widget.annotationOrder,
       annotationConsumeTapEvents: widget.annotationConsumeTapEvents,
+      onMapRendered: widget.onMapRenderedCallback,
     );
     await _mapboxGlPlatform.initPlatform(id);
     _controller.complete(controller);
     if (widget.onMapCreated != null) {
       widget.onMapCreated!(controller);
     }
+    // if (Platform.isAndroid) {
+    if (widget.myLocationEnabled == true) {
+      print(widget.myLocationTrackingMode);
+      controller.updateMyLocationTrackingMode(widget.myLocationTrackingMode);
+    }
+    // }
   }
 }
 
@@ -335,7 +349,7 @@ class _VietmapOptions {
     required this.zoomGesturesEnabled,
     required this.doubleClickZoomEnabled,
     this.trackCameraPosition,
-    // this.myLocationEnabled,
+    this.myLocationEnabled,
     this.myLocationTrackingMode,
     this.myLocationRenderMode,
     this.logoViewMargins,
@@ -358,7 +372,7 @@ class _VietmapOptions {
       zoomGesturesEnabled: map.zoomGesturesEnabled,
       doubleClickZoomEnabled:
           map.doubleClickZoomEnabled ?? map.zoomGesturesEnabled,
-      // myLocationEnabled: map.myLocationEnabled,
+      myLocationEnabled: map.myLocationEnabled,
       myLocationTrackingMode: map.myLocationTrackingMode,
       myLocationRenderMode: map.myLocationRenderMode,
       logoViewMargins: map.logoViewMargins,
@@ -389,7 +403,7 @@ class _VietmapOptions {
 
   final bool? trackCameraPosition;
 
-  // final bool? myLocationEnabled;
+  final bool? myLocationEnabled;
 
   final MyLocationTrackingMode? myLocationTrackingMode;
 
@@ -442,7 +456,7 @@ class _VietmapOptions {
     addIfNonNull('doubleClickZoomEnabled', doubleClickZoomEnabled);
 
     addIfNonNull('trackCameraPosition', trackCameraPosition);
-    addIfNonNull('myLocationEnabled', false);
+    addIfNonNull('myLocationEnabled', myLocationEnabled);
     addIfNonNull('myLocationTrackingMode', myLocationTrackingMode?.index);
     addIfNonNull('myLocationRenderMode', myLocationRenderMode?.index);
     addIfNonNull('logoViewMargins', pointToArray(logoViewMargins));

@@ -4,6 +4,7 @@ import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'dart:math';
 
+import 'constant.dart';
 import 'map_demo.dart';
 
 void main() {
@@ -43,12 +44,22 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           centerTitle: true),
       body: Stack(children: [
         VietmapGL(
-          styleString:
-              "https://run.mocky.io/v3/961aaa3a-f380-46be-9159-09cc985d9326",
+          myLocationEnabled: true,
+          myLocationTrackingMode: MyLocationTrackingMode.TrackingCompass,
+          myLocationRenderMode: MyLocationRenderMode.COMPASS,
+          styleString: YOUR_STYLE_URL_HERE,
           trackCameraPosition: true,
           onMapCreated: _onMapCreated,
+          compassEnabled: false,
+          onMapRenderedCallback: () {
+            _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+                CameraPosition(
+                    target: LatLng(10.739031, 106.680524),
+                    zoom: 10,
+                    tilt: 60)));
+          },
           initialCameraPosition: const CameraPosition(
-              target: LatLng(10.739031, 106.680524), zoom: 10),
+              target: LatLng(10.739031, 106.680524), zoom: 2),
         ),
         _mapController == null
             ? SizedBox.shrink()

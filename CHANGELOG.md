@@ -1,4 +1,9 @@
-## 1.0.5, Aug 8, 2023
+## 1.0.5, Aug 9, 2023
+* Fix onMapRendered callback
+## 1.0.4, Aug 9, 2023
+* Fix crash app when enable location tracking on android
+* Add onMapRendered callback
+## 1.0.3, Aug 8, 2023
 * Fix crash app when update marker location
 ## 1.0.2, Aug 2, 2023
 * Remove unnecessary code
