@@ -4,7 +4,7 @@
 
 part of vietmap_flutter_gl;
 
-enum AnnotationType { fill, line, circle, symbol }
+enum AnnotationType { polygon, polyline, circle, symbol }
 
 typedef void MapCreatedCallback(VietmapController controller);
 
@@ -43,15 +43,15 @@ class VietmapGL extends StatefulWidget {
     this.onCameraIdle,
     this.onMapIdle,
     this.annotationOrder = const [
-      AnnotationType.line,
+      AnnotationType.polyline,
       AnnotationType.symbol,
       AnnotationType.circle,
-      AnnotationType.fill,
+      AnnotationType.polygon,
     ],
     this.annotationConsumeTapEvents = const [
       AnnotationType.symbol,
-      AnnotationType.fill,
-      AnnotationType.line,
+      AnnotationType.polygon,
+      AnnotationType.polyline,
       AnnotationType.circle,
     ],
     this.useDelayedDisposal,

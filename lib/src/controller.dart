@@ -47,7 +47,7 @@ typedef void OnMapIdleCallback();
 /// Line tap events can be received by adding callbacks to [onPolylineTapped].
 /// Circle tap events can be received by adding callbacks to [onCircleTapped].
 class VietmapController extends ChangeNotifier {
-  VietmapController( {
+  VietmapController({
     required VietmapGlPlatform vietmapGlPlatform,
     required CameraPosition initialCameraPosition,
     required Iterable<AnnotationType> annotationOrder,
@@ -115,11 +115,11 @@ class VietmapController extends ChangeNotifier {
       for (var type in annotationOrder.toSet()) {
         final enableInteraction = interactionEnabled.contains(type);
         switch (type) {
-          case AnnotationType.fill:
+          case AnnotationType.polygon:
             polygonManager = PolygonManager(this,
                 onTap: onPolygonTapped, enableInteraction: enableInteraction);
             break;
-          case AnnotationType.line:
+          case AnnotationType.polyline:
             polylineManager = PolylineManager(this,
                 onTap: onPolylineTapped, enableInteraction: enableInteraction);
             break;
@@ -1069,6 +1069,13 @@ class VietmapController extends ChangeNotifier {
   ///  );
   /// }
   /// ```
+  ///
+  Future<void> addImageFromAssets(String assetName, [bool sdf = false]) async {
+    final ByteData bytes = await rootBundle.load(assetName);
+    final Uint8List list = bytes.buffer.asUint8List();
+    return _vietmapGlPlatform.addImage(assetName, list, sdf);
+  }
+
   Future<void> addImage(String name, Uint8List bytes, [bool sdf = false]) {
     return _vietmapGlPlatform.addImage(name, bytes, sdf);
   }

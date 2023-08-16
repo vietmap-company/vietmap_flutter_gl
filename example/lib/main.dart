@@ -46,7 +46,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
         VietmapGL(
           myLocationEnabled: true,
           myLocationTrackingMode: MyLocationTrackingMode.TrackingCompass,
-          myLocationRenderMode: MyLocationRenderMode.COMPASS,
+          myLocationRenderMode: MyLocationRenderMode.NORMAL,
           styleString: YOUR_STYLE_URL_HERE,
           trackCameraPosition: true,
           onMapCreated: _onMapCreated,
@@ -174,11 +174,12 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           FloatingActionButton(
             tooltip: 'Remove all',
             onPressed: () {
-              setState(() {
-                temp.clear();
-              });
               _mapController?.clearLines();
               _mapController?.clearPolygons();
+              setState(() {
+                temp = [];
+              });
+              print(temp);
             },
             child: Icon(Icons.clear),
           ),

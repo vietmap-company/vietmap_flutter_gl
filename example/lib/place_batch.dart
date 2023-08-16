@@ -157,8 +157,8 @@ class BatchAddBodyState extends State<BatchAddBody> {
                 zoom: 8.2,
               ),
               annotationOrder: const [
-                AnnotationType.fill,
-                AnnotationType.line,
+                AnnotationType.polygon,
+                AnnotationType.polyline,
                 AnnotationType.circle,
                 AnnotationType.symbol,
               ],

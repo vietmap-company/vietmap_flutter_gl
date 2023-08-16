@@ -1,33 +1,33 @@
-# Vietmap Flutter GL
-[<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://vietmap.vn/maps-api)
+# Vietmap Flutter GL - Flutter map SDK
+[<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://bit.ly/vietmap-api)
 
 
-Liên hệ [vietmap.vn](https://bit.ly/vietmap-api) để đăng kí key hợp lệ.
+Contact [vietmap.vn](https://bit.ly/vietmap-api) to register a valid key.
 
 ## Getting started
 
-Thêm thư viện vào file pubspec.yaml
+Add library to pubspec.yaml file
 ```yaml
   vietmap_flutter_gl: latest_version
 ```
 
-Kiểm tra phiên bản của thư viện tại [https://pub.dev/packages/vietmap_flutter_gl](https://pub.dev/packages/vietmap_flutter_gl)
+Check the latest version at [https://pub.dev/packages/vietmap_flutter_gl](https://pub.dev/packages/vietmap_flutter_gl)
  
-hoặc chạy lệnh sau để thêm thư viện vào project:
+or run this command in the terminal to add the library to the project:
 ```bash
   flutter pub add vietmap_flutter_gl
 ```
-## Cấu hình cho Android
+## Android config
 
 
-Thêm đoạn code sau vào build.gradle (project) tại đường dẫn **android/build.gradle**
+Add the below code to the build.gradle (project) file at path: **android/build.gradle**
 
 ```gradle
  maven { url "https://jitpack.io" }
 ```
 
 
-như sau
+at the repositories block
 
 
 ```gradle
@@ -40,19 +40,19 @@ allprojects {
     }
 }
 ```
-Chỉnh minSdkVersion về 24 trong file build.gradle (app) tại đường dẫn **android/app/build.gradle**
+Upgrade the minSdkVersion to a minimum is 24 in the build.gradle (app) file, at path **android/app/build.gradle**
 ```gradle
   minSdkVersion 24
 ```
-## Cấu hình cho iOS
-Thêm đoạn code sau vào file Info.plist
+## iOS config
+Add the below codes to the Info.plist file.
 ```
 	<key>VietMapAPIBaseURL</key>
 	<string>https://maps.vietmap.vn/api/navigations/route/</string>
 	<key>VietMapAccessToken</key>
 	<string>YOUR_API_KEY_HERE</string>
 	<key>VietMapURL</key>
-	<string>https://run.mocky.io/v3/961aaa3a-f380-46be-9159-09cc985d9326</string>
+	<string>https://run.mocky.io/v3/64ad9ec6-2715-4d56-a335-dedbfe5bc46d</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app requires location permission to working normally</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -62,13 +62,13 @@ Thêm đoạn code sau vào file Info.plist
 ```
 
 
-## Các tính năng chính
+## Main characteristics
 
-Hiển thị bản đồ nền 
+### Show the map
 ```dart 
     VietmapGL(
       styleString:
-          'https://run.mocky.io/v3/961aaa3a-f380-46be-9159-09cc985d9326',
+          'https://run.mocky.io/v3/64ad9ec6-2715-4d56-a335-dedbfe5bc46d',
       initialCameraPosition:
           CameraPosition(target: LatLng(10.762317, 106.654551)),
       onMapCreated: (VietmapController controller) {
@@ -81,37 +81,36 @@ Hiển thị bản đồ nền
 
 
 ## Map Interactions
-VietmapGL Maps Flutter SDK cho phép bạn định nghĩa các tương tác mà bạn có thể kích hoạt trên bản đồ để kích hoạt các sự kiện cử chỉ và nhấp chuột. Các tương tác sau được hỗ trợ:
+The VietmapGL Maps Flutter SDK allows you to define interactions that you can activate on the map to enable gestures and click events. The following interactions are supported
+
 ### Zoom Controls
+The map supports the familiar two-finger pinch and zooms to change the zoom level as well as double tap to zoom in. Set zoom to 4 for country-level display and 18 for house number display. In this SDK the camera position plays an important role
 
-Bản đồ hỗ trợ cử chỉ hai ngón tay quen thuộc và thu phóng để thay đổi cấp độ thu phóng cũng như nhấp đúp để phóng to. Đặt thu phóng thành 4 để hiển thị cấp độ quốc gia và 18 để hiển thị số nhà. Trong SDK này, CameraPosition (vị trí hiển thị của bản đồ trên màn hình) đóng một vai trò quan trọng
-
-Và các hoạt động sau có thể được thực hiện bằng cách sử dụng CameraPosition
+And following operations can be performed using the CameraPosition
 
 #### Target
+The target is single latitude and longitude coordinate that the camera centers it on. Changing the camera's target will move the camera to the inputted coordinates. The target is a LatLng object. The target coordinate is always _at the center of the viewport_.
 
-Mục tiêu là một tọa độ vĩ độ và kinh độ duy nhất mà bản đồ hiển thị tại đó. Thay đổi mục tiêu của máy ảnh sẽ di chuyển máy ảnh đến các tọa độ được nhập. Mục tiêu là một đối tượng LatLng. Tọa độ mục tiêu luôn _ở giữa khung nhìn_.
 
 #### Tilt
+Tilt is the camera's angle from the nadir (directly facing the Earth) and uses unit degrees. The camera's minimum (default) tilt is 0 degrees, and the maximum tilt is 60. Tilt levels use six decimal points of precision, which enables you to restrict/set/lock a map's bearing with extreme precision.
 
-Tilt là góc của máy ảnh từ trạng thái thẳng đứng từ trên xuống (đối diện trực tiếp với Trái đất) và sử dụng đơn vị độ. Góc nghiêng tối thiểu (mặc định) của máy ảnh là 0 độ và góc nghiêng tối đa là 60. Các cấp độ nghiêng sử dụng sáu chữ số thập phân, cho phép bạn hạn chế / đặt / khóa phương vị của bản đồ với độ chính xác cực đại.
-
-Bản đồ máy ảnh có thể điều chỉnh góc nghiêng bằng cách đặt hai ngón tay lên bản đồ và di chuyển cả hai ngón tay lên và xuống song song cùng một lúc hoặc
+The map camera tilt can also adjust by placing two fingertips on the map and moving both fingers up and down in parallel at the same time or
 
 #### Bearing
-Bearing giải thích hướng mà máy ảnh đang chỉ vào và được đo bằng độ _theo chiều kim đồng hồ từ phía bắc_.
+Bearing represents the direction that the camera is pointing in and is measured in degrees  _clockwise from north_.
 
-Mặc định của máy ảnh là 0 độ (tức là "phía bắc") khiến cho la bàn bản đồ bị ẩn cho đến khi phương vị máy ảnh trở thành một giá trị khác 0. Các cấp độ mang sáu chữ số thập phân, cho phép bạn hạn chế / đặt / khóa phương vị của bản đồ với độ chính xác cực đại. Ngoài việc điều chỉnh phương vị máy ảnh theo chương trình, người dùng cũng có thể đặt hai ngón tay lên bản đồ và xoay ngón tay của họ.
+The camera's default bearing is 0 degrees (i.e. "true north") causing the map compass to hide until the camera bearing becomes a non-zero value. Bearing levels use six decimal point precision, which enables you to restrict/set/lock a map's bearing with extreme precision. In addition to programmatically adjusting the camera bearing, the user can place two fingertips on the map and rotate their fingers.
 
 #### Zoom
+Zoom controls the scale of the map and consumes any value between 0 and 22. At zoom level 0, the viewport shows continents and other world features. A middle value of 11 will show city-level details. At a higher zoom level, the map will begin to show buildings and points of interest. The camera can zoom in the following ways:
 
-Zoom điều khiển tỷ lệ của bản đồ và nhận vào bất kỳ giá trị nào giữa 0 và 22. Ở cấp độ thu phóng 0, khung nhìn hiển thị các lục địa và các đại dương. Giá trị trung bình của 11 sẽ hiển thị chi tiết cấp thành phố. Ở mức thu phóng cao hơn, bản đồ sẽ bắt đầu hiển thị các tòa nhà và các điểm đến. Máy ảnh có thể thu phóng theo các cách sau:
+- Pinch motion two fingers to zoom in and out.
+- Quickly tap twice on the map with a single finger to zoom in.
+- Quickly tap twice on the map with a single finger and hold your finger down on the screen after the second tap.
+- Then slide the finger up to zoom out and down to zoom out.
 
-- Chạm 2 ngón tay để thu phóng vào và ra.
-- Nhấp nhanh hai lần vào bản đồ bằng một ngón tay để phóng to.
-- Nhấp nhanh hai lần vào bản đồ bằng một ngón tay và giữ ngón tay của bạn xuống màn hình sau lần nhấp thứ hai.
-- Sau đó, trượt ngón tay lên để thu phóng ra và xuống để thu phóng ra.
-#### SDK cho phép nhiều phương pháp để di chuyển Camera đến một vị trí cụ thể:
+##### SDK allows various methods to move, and animate the camera to a particular location :
 ~~~dart  
 _mapController?.moveCamera(CameraUpdate.newLatLngZoom(LatLng(22.553147478403194, 77.23388671875), 14));  
 _mapController?.animateCamera(CameraUpdate.newLatLngZoom(LatLng(28.698791, 77.121243), 14));  
@@ -120,8 +119,9 @@ _mapController?.animateCamera(CameraUpdate.newLatLngZoom(LatLng(28.698791, 77.12
 ## Map Events
 ### Map Click/Long click
 
-Nếu bạn muốn phản hồi khi người dùng nhấp vào một điểm trên bản đồ, bạn có thể sử dụng một callback onMapClick.
-Nó thiết lập một callback được gọi khi người dùng nhấp vào bản đồ:
+If you want to respond to a user tapping on a point on the map, you can use an onMapClick callback.
+
+It sets a callback that's invoked when the user clicks on the map:
 ~~~dart  
 VietmapGL(    
   initialCameraPosition: _kInitialPosition,    
@@ -130,7 +130,7 @@ VietmapGL(
  }, )  
 ~~~  
 
-##### Thiết lập một callback được gọi khi người dùng nhấp vào bản đồ:
+##### Sets a callback that's invoked when the user long clicks on the map view.
 ~~~dart  
 VietmapGL(    
   initialCameraPosition: _kInitialPosition,    
@@ -139,8 +139,8 @@ VietmapGL(
  }, )  
 ~~~  
 
-##### Thiết lập một callback được gọi khi bản đồ được hiển thị hoàn toàn.
-##### Khuyến khích sử dụng callback này để thực hiện các thao tác trên bản đồ lúc khởi tạo:
+##### Sets a callback that's invoked when the map is completely rendered.
+##### Encourage this callback to call some action on the initial, after the map is completely loaded
 ~~~dart  
 VietmapGL(    
   initialCameraPosition: _kInitialPosition,    
@@ -154,18 +154,17 @@ VietmapGL(
   )  
 ~~~  
 ## Map Overlays
-### Thêm một Marker (Đánh dấu một điểm trên bản đồ)
+### Add a Marker (Marked a point in the map with a custom widget)
 
-Thêm marker với đầu vào là Flutter widget 
 ```dart
   Stack(
     children: [
       VietmapGL(
-        _trackCameraPosition: true_,
+        trackCameraPosition: true, // Will track the map change to update the marker position in realtime
         ...
         ),
       MarkerLayer
-        ignorePointer: true, // đặt là true nếu bạn chỉ hiển thị marker mà không muốn nhận sự kiện click
+        ignorePointer: true, // Will ignore all user gestures on the marker
         mapController: _mapController!,
         markers: [
               Marker(
@@ -193,10 +192,19 @@ Thêm marker với đầu vào là Flutter widget
   ])
     
 ```
-#### Lưu ý: Để MarkerLayer hoạt động, bạn cần phải thêm _trackCameraPosition: true_, vào _VietmapGL_
+#### Note: You must enable _trackCameraPosition: true_, at _VietmapGL_, which ensured the MarkerLayer renders normally
+- The marker support anchor with input is an alignment, which required width and height to calculate the position of the marker, the default for both of them is 20
+- Make sure your width and height are correct to the marker display exactly
+```dart
+    Marker(
+        width: 40,
+        height:40,
+        alignment: Alignment.bottomCenter,
+        child: Icon(Icons.location_on, size:40),
+        latLng: LatLng(10.792765, 106.674143)),
+```
+### Add a Line/Polyline (A line connects 2 points on the map)
 
-### Thêm một Polyline (Đường thẳng nối các điểm trên bản đồ)
-Vẽ một polyline lên bản đồ
 ~~~dart  
 _mapController?.addPolyline(
       PolylineOptions(
@@ -215,14 +223,17 @@ _mapController?.addPolyline(
     );
 ~~~  
 
-### Xoá một Polyline
-Để xoá một polyline trên bản đồ, bạn có thể sử dụng phương thức removePolyline() của VietmapController.
+### Remove a Polyline
 ~~~dart  
-_mapController?.removePolyline(line);  
+    _mapController?.removePolyline(line);  
 ~~~  
 
-### Thêm một Polygon (Đa giác trên bản đồ)
-Vẽ một polygon lên bản đồ
+### Remove all Polyline
+~~~dart
+    _mapController?.clearLines();
+~~~
+
+### Add a Fill/Polygon
 ~~~dart  
     _mapController?.addPolygon(
       PolygonOptions(
@@ -242,16 +253,21 @@ Vẽ một polygon lên bản đồ
     );
 ~~~  
 
-### Xoá một Polygon
+### Remove a Polygon
 ~~~dart  
-_mapController?.removePolygon(polygon);  
+    _mapController?.removePolygon(polygon);  
 ~~~  
+
+### Remove all Polygon
+```dart
+    _mapController?.clearPolygons();
+```
+
 
 <br>
 
-### Lưu ý
-
- - Các Widget khác khi thêm vào Widget Stack chứa MarkerLayer đều phải thêm thuộc tính *key* để tránh gặp lỗi trong quá trình hiển thị MarkerLayer, ví dụ:
+# Troubleshooting
+- Our SDK uses the key to identify the markers and update their location while the user does some gestures, so we strongly recommend you add the key for all of the widgets in the screen which use the map SDK:
  ```dart
  Stack(
   children:[
@@ -266,18 +282,21 @@ _mapController?.removePolygon(polygon);
  )
  ```
 
-Code mẫu màn hình bản đồ [tại đây](./example/lib/main.dart)
-# Lưu ý: Thay apikey được VietMap cung cấp vào toàn bộ tag _YOUR_API_KEY_HERE_ để ứng dụng hoạt động bình thường
+Demo code [here](./example/lib/main.dart)
+# Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tag to the application work normally
 
 <br></br>
 <br></br>
-
-Nếu có bất kỳ thắc mắc và hỗ trợ, vui lòng liên hệ:
 
 [<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://vietmap.vn/maps-api)
-Gửi email: [maps-api.support@vietmap.vn](mailto:maps-api.support@vietmap.vn)
+Email us: [maps-api.support@vietmap.vn](mailto:maps-api.support@vietmap.vn)
 
 
-Liên hệ [hỗ trợ](https://vietmap.vn/lien-he)
+Contact for [support](https://vietmap.vn/lien-he)
 
-Tài liệu api [tại đây](https://maps.vietmap.vn/docs/map-api/overview/)
+Vietmap API document [here](https://maps.vietmap.vn/docs/map-api/overview/)
+
+Have a bug to report? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). If possible, include a full log and information which shows the issue.
+Have a feature request? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). Tell us what the feature should do and why you want the feature.
+
+[Tài liệu tiếng Việt](./README.vi.md)

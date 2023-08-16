@@ -135,10 +135,10 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
   @override
   Widget build(BuildContext context) {
     return VietmapGL(
-              styleString: YOUR_STYLE_URL_HERE,
+      styleString: YOUR_STYLE_URL_HERE,
       annotationOrder: [
-        AnnotationType.fill,
-        AnnotationType.line,
+        AnnotationType.polygon,
+        AnnotationType.polyline,
         AnnotationType.circle,
         AnnotationType.symbol,
       ],

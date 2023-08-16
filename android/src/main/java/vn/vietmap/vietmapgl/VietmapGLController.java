@@ -47,6 +47,8 @@ import vn.vietmap.vietmapsdk.location.LocationComponentOptions;
 import vn.vietmap.vietmapsdk.location.OnCameraTrackingChangedListener;
 import vn.vietmap.vietmapsdk.location.engine.LocationEngine;
 import vn.vietmap.vietmapsdk.location.engine.LocationEngineCallback;
+import vn.vietmap.vietmapsdk.location.engine.LocationEngineDefault;
+import vn.vietmap.vietmapsdk.location.engine.LocationEngineProxy;
 import vn.vietmap.vietmapsdk.location.engine.LocationEngineResult;
 import vn.vietmap.vietmapsdk.location.modes.CameraMode;
 import vn.vietmap.vietmapsdk.location.modes.RenderMode;
@@ -149,7 +151,11 @@ final class VietmapGLController
           //     updateMyLocationEnabled();
           //   }
           // }
-          updateMyLocationEnabled();
+
+          LocationEngineDefault locationEngineDefault = LocationEngineDefault.INSTANCE;
+          locationEngine =  locationEngineDefault.getDefaultLocationEngine(context);
+
+
 
           if (null != bounds) {
             vietmapGL.setLatLngBoundsForCameraTarget(bounds);
@@ -159,6 +165,7 @@ final class VietmapGLController
           vietmapGL.addOnMapLongClickListener(VietmapGLController.this);
           localizationPlugin = new LocalizationPlugin(mapView, vietmapGL, style);
 
+          updateMyLocationEnabled();
           methodChannel.invokeMethod("map#onStyleLoaded", null);
         }
       };
@@ -226,14 +233,11 @@ final class VietmapGLController
     if (androidGesturesManager != null) {
       androidGesturesManager.setMoveGestureListener(new MoveGestureListener());
       mapView.setOnTouchListener(
-          new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-              androidGesturesManager.onTouchEvent(event);
+              (v, event) -> {
+                androidGesturesManager.onTouchEvent(event);
 
-              return draggedFeature != null;
-            }
-          });
+                return draggedFeature != null;
+              });
     }
     mapView.addOnDidFinishRenderingMapListener((rendered)->
             methodChannel.invokeMethod("map#onMapRendered", null));
@@ -281,8 +285,6 @@ final class VietmapGLController
 
   private void enableLocationComponent(@NonNull Style style) {
     if (hasLocationPermission()) {
-//      locationEngine = LocationEng
-//      ineProvider.getBestLocationEngine(context);
       LocationComponentActivationOptions.Builder options = LocationComponentActivationOptions.builder(context, style);
 
       locationComponent = vietmapGL.getLocationComponent();
@@ -291,14 +293,23 @@ final class VietmapGLController
 //              context, style, buildLocationComponentOptions(style));
       locationComponent.activateLocationComponent(options.build());
 
-      // locationComponent.setRenderMode(RenderMode.COMPASS); // remove or keep default?
       locationComponent.setLocationEngine(locationEngine);
+      // locationComponent.setRenderMode(RenderMode.COMPASS); // remove or keep default?
       locationComponent.setMaxAnimationFps(30);
       updateMyLocationTrackingMode();
       updateMyLocationRenderMode();
       locationComponent.addOnCameraTrackingChangedListener(this);
 
-      locationComponent.setLocationComponentEnabled(true);
+//      locationComponent.setLocationComponentEnabled(true);
+      if (myLocationEnabled) {
+        startListeningForLocationUpdates();
+      } else {
+        stopListeningForLocationUpdates();
+      }
+
+      if (locationComponent != null) {
+        locationComponent.setLocationComponentEnabled(myLocationEnabled);
+      }
     } else {
       Log.e(TAG, "missing location permissions");
     }
@@ -1682,7 +1693,7 @@ final class VietmapGLController
   public void setMyLocationTrackingMode(int myLocationTrackingMode) {
     if (vietmapGL != null) {
       // ensure that location is trackable
-      updateMyLocationEnabled();
+//      updateMyLocationEnabled();
     }
     if (this.myLocationTrackingMode == myLocationTrackingMode) {
       return;
@@ -1790,15 +1801,6 @@ final class VietmapGLController
         enableLocationComponent(vietmapGL.getStyle());
       }
 
-      if (myLocationEnabled) {
-        startListeningForLocationUpdates();
-      } else {
-        stopListeningForLocationUpdates();
-      }
-
-      if (locationComponent != null) {
-        locationComponent.setLocationComponentEnabled(myLocationEnabled);
-      }
     }catch (Exception e){
       System.out.println(e);
     }

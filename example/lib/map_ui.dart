@@ -51,7 +51,7 @@ class MapUiBodyState extends State<MapUiBody> {
   // Style string can a reference to a local or remote resources.
   // On Android the raw JSON can also be passed via a styleString, on iOS this is not supported.
   List<String> _styleStrings = [YOUR_STYLE_URL_HERE];
-  List<String> _styleStringLabels = ["Vietmap demo style"];
+  // List<String> _styleStringLabels = ["Vietmap demo style"];
   bool _rotateGesturesEnabled = true;
   bool _scrollGesturesEnabled = true;
   bool? _doubleClickToZoomEnabled;

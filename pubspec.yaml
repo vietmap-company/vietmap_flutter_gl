@@ -1,19 +1,15 @@
 name: vietmap_flutter_gl
-description: A Flutter plugin for integrating Vietmap sdk inside a Flutter application on Android, iOS platforms.
-version: 1.0.5
+description: A Flutter map plugin for integrating Vietmap sdk inside a Flutter application, support for show a vector and raster map in Flutter. This flutter_map SDK supported on Android, iOS platforms .
+version: 1.1.0
 homepage: https://github.com/vietmap-company
 repository: https://github.com/vietmap-company/flutter-map-sdk
+issue_tracker: https://github.com/vietmap-company/flutter-map-sdk/issues
 
 dependencies:
   flutter:
     sdk: flutter
   vietmap_gl_platform_interface: ^0.0.5
 
-# dependency_overrides:
-#   vietmap_gl_platform_interface:
-#     path: ./vietmap_gl_platform_interface
-  # vietmap_gl_web:
-  #   path: ./vietmap_gl_web
 
 flutter:
   plugin:
@@ -23,10 +19,7 @@ flutter:
         pluginClass: VietmapGLPlugin
       ios:
         pluginClass: MapboxMapsPlugin
-      # web:
-      #   default_package: mapbox_gl_web
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
-  # Flutter versions prior to 1.10 did not support the flutter.plugin.platforms map.
   flutter: ">=2.0.0"
