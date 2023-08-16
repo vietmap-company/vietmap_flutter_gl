@@ -103,8 +103,6 @@ class VietmapGL extends StatefulWidget {
   final CameraTargetBounds cameraTargetBounds;
 
   /// Style URL or Style JSON
-  /// Can be a MapboxStyle constant, any Mapbox Style URL,
-  /// or a StyleJSON (https://docs.mapbox.com/mapbox-gl-js/style-spec/)
   final String styleString;
 
   /// Preferred bounds for the camera zoom level.
@@ -130,10 +128,10 @@ class VietmapGL extends StatefulWidget {
   /// This takes presedence over zoomGesturesEnabled. Only supported for web.
   final bool? doubleClickZoomEnabled;
 
-  /// True if you want to be notified of map camera movements by the MapboxMapController. Default is false.
+  /// True if you want to be notified of map camera movements by the VietmapController. Default is false.
   ///
-  /// If this is set to true and the user pans/zooms/rotates the map, MapboxMapController (which is a ChangeNotifier)
-  /// will notify it's listeners and you can then get the new MapboxMapController.cameraPosition.
+  /// If this is set to true and the user pans/zooms/rotates the map, VietmapController (which is a ChangeNotifier)
+  /// will notify it's listeners and you can then get the new VietmapController.cameraPosition.
   final bool trackCameraPosition;
 
   /// True if a "My Location" layer should be shown on the map.
@@ -168,19 +166,19 @@ class VietmapGL extends StatefulWidget {
   /// The mode to render the user location symbol
   final MyLocationRenderMode myLocationRenderMode;
 
-  /// Set the layout margins for the Mapbox Logo
+  /// Set the layout margins for the Vietmap Logo
   final Point? logoViewMargins;
 
-  /// Set the position for the Mapbox Compass
+  /// Set the position for the Vietmap Compass
   final CompassViewPosition? compassViewPosition;
 
-  /// Set the layout margins for the Mapbox Compass
+  /// Set the layout margins for the Vietmap Compass
   final Point? compassViewMargins;
 
-  /// Set the position for the Mapbox Attribution Button
+  /// Set the position for the Vietmap Attribution Button
   final AttributionButtonPosition? attributionButtonPosition;
 
-  /// Set the layout margins for the Mapbox Attribution Buttons. If you set this
+  /// Set the layout margins for the Vietmap Attribution Buttons. If you set this
   /// value, you may also want to set [attributionButtonPosition] to harmonize
   /// the layout between iOS and Android, since the underlying frameworks have
   /// different defaults.
@@ -227,7 +225,7 @@ class VietmapGL extends StatefulWidget {
   /// Override hybrid mode per map instance
   final bool? useHybridCompositionOverride;
 
-  /// Set `MapboxMap.useHybridComposition` to `false` in order use Virtual-Display
+  /// Set `VietmapMap.useHybridComposition` to `false` in order use Virtual-Display
   /// (better for Android 9 and below but may result in errors on Android 12)
   /// or leave it `true` (default) to use Hybrid composition (Slower on Android 9 and below).
   static bool get useHybridComposition =>
@@ -244,8 +242,8 @@ class _VietmapGLState extends State<VietmapGL> {
   final Completer<VietmapController> _controller =
       Completer<VietmapController>();
 
-  late _VietmapOptions _mapboxMapOptions;
-  final VietmapGlPlatform _mapboxGlPlatform =
+  late _VietmapOptions _vietmapOptions;
+  final VietmapGlPlatform _vietmapGlPlatform =
       VietmapGlPlatform.createInstance();
 
   @override
@@ -260,14 +258,14 @@ class _VietmapGLState extends State<VietmapGL> {
       'dragEnabled': widget.dragEnabled,
       'useHybridCompositionOverride': widget.useHybridCompositionOverride,
     };
-    return _mapboxGlPlatform.buildView(
+    return _vietmapGlPlatform.buildView(
         creationParams, onPlatformViewCreated, widget.gestureRecognizers);
   }
 
   @override
   void initState() {
     super.initState();
-    _mapboxMapOptions = _VietmapOptions.fromWidget(widget);
+    _vietmapOptions = _VietmapOptions.fromWidget(widget);
   }
 
   @override
@@ -283,10 +281,9 @@ class _VietmapGLState extends State<VietmapGL> {
   void didUpdateWidget(VietmapGL oldWidget) {
     super.didUpdateWidget(oldWidget);
     final _VietmapOptions newOptions = _VietmapOptions.fromWidget(widget);
-    final Map<String, dynamic> updates =
-        _mapboxMapOptions.updatesMap(newOptions);
+    final Map<String, dynamic> updates = _vietmapOptions.updatesMap(newOptions);
     _updateOptions(updates);
-    _mapboxMapOptions = newOptions;
+    _vietmapOptions = newOptions;
   }
 
   void _updateOptions(Map<String, dynamic> updates) async {
@@ -299,7 +296,7 @@ class _VietmapGLState extends State<VietmapGL> {
 
   Future<void> onPlatformViewCreated(int id) async {
     final VietmapController controller = VietmapController(
-      vietmapGlPlatform: _mapboxGlPlatform,
+      vietmapGlPlatform: _vietmapGlPlatform,
       initialCameraPosition: widget.initialCameraPosition,
       onStyleLoadedCallback: () {
         if (_controller.isCompleted) {
@@ -319,7 +316,7 @@ class _VietmapGLState extends State<VietmapGL> {
       annotationConsumeTapEvents: widget.annotationConsumeTapEvents,
       onMapRendered: widget.onMapRenderedCallback,
     );
-    await _mapboxGlPlatform.initPlatform(id);
+    await _vietmapGlPlatform.initPlatform(id);
     _controller.complete(controller);
     if (widget.onMapCreated != null) {
       widget.onMapCreated!(controller);
@@ -333,7 +330,7 @@ class _VietmapGLState extends State<VietmapGL> {
   }
 }
 
-/// Configuration options for the MapboxMaps user interface.
+/// Configuration options for the VietmapMaps user interface.
 ///
 /// When used to change configuration, null values will be interpreted as
 /// "do not change this configuration option".
