@@ -60,7 +60,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             singleTap.require(toFail: recognizer)
         }
         mapView.addGestureRecognizer(singleTap)
-
+        
         let longPress = UILongPressGestureRecognizer(
             target: self,
             action: #selector(handleMapLongPress(sender:))
@@ -91,6 +91,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             //         setupAttribution(mapView)
             //     }
             // }
+
 
             if let enabled = args["dragEnabled"] as? Bool {
                 dragEnabled = enabled
@@ -1028,6 +1029,12 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             if let channel = channel {
                 channel.invokeMethod("map#onStyleLoaded", arguments: nil)
             }
+        }
+    }
+    
+    func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
+        if let channel = channel {
+            channel.invokeMethod("map#onMapRendered", arguments: nil)
         }
     }
 

@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
+import 'constant.dart';
 import 'page.dart';
 import 'util.dart';
 
@@ -134,9 +135,10 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
   @override
   Widget build(BuildContext context) {
     return VietmapGL(
+      styleString: YOUR_STYLE_URL_HERE,
       annotationOrder: [
-        AnnotationType.fill,
-        AnnotationType.line,
+        AnnotationType.polygon,
+        AnnotationType.polyline,
         AnnotationType.circle,
         AnnotationType.symbol,
       ],

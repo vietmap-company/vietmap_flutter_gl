@@ -14,15 +14,13 @@ import 'move_camera.dart';
 import 'click_annotations.dart';
 import 'page.dart';
 import 'place_circle.dart';
-
-import 'place_symbol.dart';
+ 
 import 'place_polygon.dart';
 import 'scrolling_map.dart';
 
 import 'custom_marker.dart';
 import 'place_batch.dart';
-import 'layer.dart';
-import 'sources.dart';
+import 'layer.dart'; 
 
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
@@ -35,7 +33,7 @@ final List<ExamplePage> _allPages = <ExamplePage>[
   FullMapPage(),
   AnimateCameraPage(),
   MoveCameraPage(),
-  PlaceSymbolPage(),
+  // PlaceSymbolPage(),
   // PlaceSourcePage(),
   PolylinePage(),
   // LocalStylePage(),
@@ -48,7 +46,7 @@ final List<ExamplePage> _allPages = <ExamplePage>[
   CustomMarkerPage(),
   BatchAddPage(),
   ClickAnnotationPage(),
-  Sources(),
+  // Sources(),
   GivenBoundsPage(),
   // GetMapInfoPage(),
 ];

@@ -29,6 +29,8 @@ abstract class VietmapGlPlatform {
 
   final onMapStyleLoadedPlatform = ArgumentCallbacks<void>();
 
+  final onMapRenderedPlatform = ArgumentCallbacks<void>();
+
   final onMapClickPlatform = ArgumentCallbacks<Map<String, dynamic>>();
 
   final onMapLongClickPlatform = ArgumentCallbacks<Map<String, dynamic>>();
@@ -187,7 +189,7 @@ abstract class VietmapGlPlatform {
     onCameraMovePlatform.clear();
     onCameraIdlePlatform.clear();
     onMapStyleLoadedPlatform.clear();
-
+    onMapRenderedPlatform.clear();
     onMapClickPlatform.clear();
     onMapLongClickPlatform.clear();
     onCameraTrackingChangedPlatform.clear();

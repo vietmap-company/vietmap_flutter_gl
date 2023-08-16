@@ -39,7 +39,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
       body: Stack(children: [
         VietmapGL(
           styleString:
-              "https://run.mocky.io/v3/961aaa3a-f380-46be-9159-09cc985d9326",
+              "https://run.mocky.io/v3/64ad9ec6-2715-4d56-a335-dedbfe5bc46d",
           trackCameraPosition: true,
           onMapCreated: _onMapCreated,
           initialCameraPosition: const CameraPosition(

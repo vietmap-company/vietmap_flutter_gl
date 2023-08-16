@@ -1,3 +1,22 @@
+## 1.1.0, Aug 16, 2023
+* Update readme document
+## 1.0.9, Aug 16, 2023
+* Update readme document
+## 1.0.8, Aug 14, 2023
+* Fix warning on load drawable image
+## 1.0.7, Aug 10, 2023
+* Fix MarkerLayer keep state when clear all markers from list
+## 1.0.6, Aug 10, 2023
+* Fix crash app when enable location tracking on android
+* Fix MarkerLayer dispose
+
+## 1.0.5, Aug 9, 2023
+* Fix onMapRendered callback
+## 1.0.4, Aug 9, 2023
+* Fix crash app when enable location tracking on android
+* Add onMapRendered callback
+## 1.0.3, Aug 8, 2023
+* Fix crash app when update marker location
 ## 1.0.2, Aug 2, 2023
 * Remove unnecessary code
 ## 1.0.1, Aug 2, 2023

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:maplibre_gl_example/page.dart';
 
+import 'constant.dart';
 import 'util.dart';
 
 class LayerPage extends ExamplePage {
@@ -30,6 +31,7 @@ class LayerState extends State {
   @override
   Widget build(BuildContext context) {
     return VietmapGL(
+      styleString: YOUR_STYLE_URL_HERE,
       dragEnabled: false,
       // myLocationEnabled: true,
       onMapCreated: _onMapCreated,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart'; // ignore: unnecessary_import
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
+import 'constant.dart';
 import 'page.dart';
 import 'util.dart';
 
@@ -52,11 +53,12 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
                         zoom: 5.0,
                       ),
                       annotationOrder: const [
-                        AnnotationType.line,
+                        AnnotationType.polyline,
                         AnnotationType.symbol,
                         AnnotationType.circle,
-                        AnnotationType.fill,
+                        AnnotationType.polygon,
                       ],
+                      styleString: YOUR_STYLE_URL_HERE,
                     ),
                   ),
                 ),
@@ -79,6 +81,7 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
                     width: 250.0,
                     height: 250.0,
                     child: VietmapGL(
+                      styleString: YOUR_STYLE_URL_HERE,
                       onMapCreated: onMapCreatedTwo,
                       onStyleLoadedCallback: () => onStyleLoaded(controllerTwo),
                       initialCameraPosition: CameraPosition(
@@ -86,8 +89,8 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
                         zoom: 5.0,
                       ),
                       annotationOrder: const [
-                        AnnotationType.fill,
-                        AnnotationType.line,
+                        AnnotationType.polygon,
+                        AnnotationType.polyline,
                         AnnotationType.symbol,
                         AnnotationType.circle,
                       ],

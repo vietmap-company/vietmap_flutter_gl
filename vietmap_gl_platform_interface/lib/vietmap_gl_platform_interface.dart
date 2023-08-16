@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:vietmap_gl_platform_interface/extensions/color_extension.dart';
-part 'src/view_wrappers.dart';
+// part 'src/view_wrappers.dart';
 part 'src/annotation.dart';
 part 'src/callbacks.dart';
 part 'src/camera.dart';

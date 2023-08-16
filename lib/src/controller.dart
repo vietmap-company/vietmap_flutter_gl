@@ -20,6 +20,8 @@ typedef void OnMapLongClickCallback(Point<double> point, LatLng coordinates);
 
 typedef void OnStyleLoadedCallback();
 
+typedef void OnMapRenderedCallback();
+
 typedef void OnUserLocationUpdated(UserLocation location);
 
 typedef void OnCameraTrackingDismissedCallback();
@@ -53,6 +55,7 @@ class VietmapController extends ChangeNotifier {
     this.onStyleLoadedCallback,
     this.onMapClick,
     this.onMapLongClick,
+    this.onMapRendered,
     //this.onAttributionClick,
     this.onCameraTrackingDismissed,
     this.onCameraTrackingChanged,
@@ -102,17 +105,21 @@ class VietmapController extends ChangeNotifier {
       }
       notifyListeners();
     });
-
+    _vietmapGlPlatform.onMapRenderedPlatform.add((_) {
+      if (onMapRendered != null) {
+        onMapRendered!();
+      }
+    });
     _vietmapGlPlatform.onMapStyleLoadedPlatform.add((_) {
       final interactionEnabled = annotationConsumeTapEvents.toSet();
       for (var type in annotationOrder.toSet()) {
         final enableInteraction = interactionEnabled.contains(type);
         switch (type) {
-          case AnnotationType.fill:
+          case AnnotationType.polygon:
             polygonManager = PolygonManager(this,
                 onTap: onPolygonTapped, enableInteraction: enableInteraction);
             break;
-          case AnnotationType.line:
+          case AnnotationType.polyline:
             polylineManager = PolylineManager(this,
                 onTap: onPolylineTapped, enableInteraction: enableInteraction);
             break;
@@ -172,6 +179,7 @@ class VietmapController extends ChangeNotifier {
   SymbolManager? symbolManager;
 
   final OnStyleLoadedCallback? onStyleLoadedCallback;
+  final OnMapRenderedCallback? onMapRendered;
   final OnMapClickCallback? onMapClick;
   final OnMapLongClickCallback? onMapLongClick;
 
@@ -1061,6 +1069,13 @@ class VietmapController extends ChangeNotifier {
   ///  );
   /// }
   /// ```
+  ///
+  Future<void> addImageFromAssets(String assetName, [bool sdf = false]) async {
+    final ByteData bytes = await rootBundle.load(assetName);
+    final Uint8List list = bytes.buffer.asUint8List();
+    return _vietmapGlPlatform.addImage(assetName, list, sdf);
+  }
+
   Future<void> addImage(String name, Uint8List bytes, [bool sdf = false]) {
     return _vietmapGlPlatform.addImage(name, bytes, sdf);
   }

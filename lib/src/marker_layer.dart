@@ -1,7 +1,5 @@
 part of vietmap_flutter_gl;
 
-
-
 class MarkerLayer extends StatefulWidget {
   final List<Marker> markers;
   final VietmapController mapController;
@@ -40,23 +38,26 @@ class _MarkerLayerState extends State<MarkerLayer> {
     var _newMarker = <MarkerWidget>[];
     var _newMarkerStates = <MarkerState>[];
     _mapController.toScreenLocationBatch(param).then((value) {
-      for (var i = 0; i < widget.markers.length; i++) {
-        var point = Point<double>(value[i].x as double, value[i].y as double);
-        _newMarker.add(MarkerWidget(
-          key: (_rnd.nextInt(100000) +
-                  widget.markers[i].latLng.latitude +
-                  widget.markers[i].latLng.longitude)
-              .toString(),
-          coordinate: widget.markers[i].latLng,
-          initialPosition: point,
-          addMarkerState: (_) {
-            _newMarkerStates.add(_);
-          },
-          child: widget.markers[i].child,
-          width: widget.markers[i].width,
-          height: widget.markers[i].height,
-          alignment: widget.markers[i].alignment,
-        ));
+      if (value.isEmpty || widget.markers.isEmpty) {
+      } else {
+        for (var i = 0; i < widget.markers.length; i++) {
+          var point = Point<double>(value[i].x as double, value[i].y as double);
+          _newMarker.add(MarkerWidget(
+            key: (_rnd.nextInt(100000) +
+                    widget.markers[i].latLng.latitude +
+                    widget.markers[i].latLng.longitude)
+                .toString(),
+            coordinate: widget.markers[i].latLng,
+            initialPosition: point,
+            addMarkerState: (_) {
+              _newMarkerStates.add(_);
+            },
+            child: widget.markers[i].child,
+            width: widget.markers[i].width,
+            height: widget.markers[i].height,
+            alignment: widget.markers[i].alignment,
+          ));
+        }
       }
       setState(() {
         _markers = _newMarker;
@@ -66,16 +67,20 @@ class _MarkerLayerState extends State<MarkerLayer> {
     super.didUpdateWidget(oldWidget);
   }
 
+  Function()? onMapListener;
+  Function(CameraPosition?)? onMarkerLayerListener;
   @override
   void initState() {
-    _mapController.getPlatform.onCameraIdlePlatform.add((cameraPosition) {
-      _updateMarkerPosition();
-    });
-    _mapController.addListener(() {
+    onMapListener = () {
       if (_mapController.isCameraMoving) {
         _updateMarkerPosition();
       }
-    });
+    };
+    onMarkerLayerListener = (cameraPosition) {
+      _updateMarkerPosition();
+    };
+    _mapController.getPlatform.onCameraIdlePlatform.add(onMarkerLayerListener!);
+    _mapController.addListener(onMapListener!);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       if (Platform.isIOS) {
@@ -87,6 +92,7 @@ class _MarkerLayerState extends State<MarkerLayer> {
       }
 
       _mapController.toScreenLocationBatch(param).then((value) {
+        if (value.isEmpty || widget.markers.isEmpty) return;
         for (var i = 0; i < widget.markers.length; i++) {
           var point = Point<double>(value[i].x as double, value[i].y as double);
           _addMarker(point, widget.markers[i]);
@@ -95,6 +101,14 @@ class _MarkerLayerState extends State<MarkerLayer> {
     });
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _mapController.getPlatform.onCameraIdlePlatform
+        .remove(onMarkerLayerListener!);
+    _mapController.removeListener(onMapListener!);
+    super.dispose();
   }
 
   void _updateMarkerPosition() {
@@ -106,7 +120,9 @@ class _MarkerLayerState extends State<MarkerLayer> {
 
     _mapController.toScreenLocationBatch(coordinates).then((points) {
       _markerStates.asMap().forEach((i, value) {
-        _markerStates[i].updatePosition(points[i]);
+        if (points.length > i && _markerStates.length > i) {
+          _markerStates[i].updatePosition(points[i]);
+        }
       });
     });
   }

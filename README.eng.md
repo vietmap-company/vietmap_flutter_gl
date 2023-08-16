@@ -50,7 +50,7 @@ Add this code to file Info.plist
 	<key>VietMapAccessToken</key>
 	<string>YOUR_API_KEY_HERE</string>
 	<key>VietMapURL</key>
-	<string>https://run.mocky.io/v3/ff325d44-9fdd-480f-9f0f-a9155bf362fa</string>
+	<string>https://run.mocky.io/v3/64ad9ec6-2715-4d56-a335-dedbfe5bc46d</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app requires location permission to working normally</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -66,7 +66,7 @@ Show map with VietmapGL widget
 ```dart 
     VietmapGL(
       styleString:
-          'https://run.mocky.io/v3/961aaa3a-f380-46be-9159-09cc985d9326',
+          'https://run.mocky.io/v3/64ad9ec6-2715-4d56-a335-dedbfe5bc46d',
       initialCameraPosition:
           CameraPosition(target: LatLng(10.762317, 106.654551)),
       onMapCreated: (VietmapController controller) {
