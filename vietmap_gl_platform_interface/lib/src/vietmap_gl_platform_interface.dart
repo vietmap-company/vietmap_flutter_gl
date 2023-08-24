@@ -52,6 +52,7 @@ abstract class VietmapGlPlatform {
   Future<CameraPosition?> updateMapOptions(Map<String, dynamic> optionsUpdate);
   Future<bool?> animateCamera(CameraUpdate cameraUpdate, {Duration? duration});
   Future<bool?> moveCamera(CameraUpdate cameraUpdate);
+  Future<void> recenter();
   Future<void> updateMyLocationTrackingMode(
       MyLocationTrackingMode myLocationTrackingMode);
 

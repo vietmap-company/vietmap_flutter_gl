@@ -1,3 +1,5 @@
+## 0.0.6
+- release version 0.0.5
 ## 0.0.5
 - release version 0.0.5
 ## 0.0.4

@@ -165,6 +165,11 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                 style.localizeLabels(into: nil)
             }
             result(nil)
+        case "map#recenter":
+            // move map to the current location
+            if let location = mapView.userLocation?.location?.coordinate {
+                mapView.setCenter(location, animated: true)
+            }
         case "map#updateContentInsets":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
 

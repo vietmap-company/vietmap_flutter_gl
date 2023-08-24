@@ -218,7 +218,7 @@ class FullMapState extends State<FullMap> {
             "https://raw.githubusercontent.com/maplibre/demotiles/gh-pages/style.json",
         addDetails: addVideo,
         position: CameraPosition(
-            target: LatLng(37.562984, -122.514426), zoom: 17, bearing: -96),
+            target: LatLng(37.562984, -122.514426), zoom: 17, bearing: 96),
       ),
   ];
 

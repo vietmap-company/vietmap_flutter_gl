@@ -1,5 +1,5 @@
-
 part of vietmap_flutter_gl;
+
 class MarkerWidget extends StatefulWidget {
   final Point initialPosition;
   final LatLng coordinate;
@@ -28,8 +28,6 @@ class MarkerWidget extends StatefulWidget {
 }
 
 class MarkerState extends State with TickerProviderStateMixin {
-
-
   Point _position;
 
   MarkerState(this._position);
@@ -93,6 +91,7 @@ class MarkerState extends State with TickerProviderStateMixin {
   }
 
   void updatePosition(Point<num> point) {
+    if (!mounted) return;
     setState(() {
       _position = point;
     });

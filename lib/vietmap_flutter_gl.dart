@@ -13,6 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:geolocator/geolocator.dart';
 
 import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
 
@@ -74,3 +75,5 @@ part 'src/marker.dart';
 part 'src/marker_layer.dart';
 
 part 'src/marker_model.dart';
+
+// part 'src/location_marker.dart';

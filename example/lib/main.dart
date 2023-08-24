@@ -21,6 +21,7 @@ class VietmapExampleMapView extends StatefulWidget {
 class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
   VietmapController? _mapController;
   List<Marker> temp = [];
+  UserLocation? userLocation;
   void _onMapCreated(VietmapController controller) {
     setState(() {
       _mapController = controller;
@@ -45,8 +46,8 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
       body: Stack(children: [
         VietmapGL(
           myLocationEnabled: true,
-          myLocationTrackingMode: MyLocationTrackingMode.TrackingCompass,
-          myLocationRenderMode: MyLocationRenderMode.NORMAL,
+          // myLocationTrackingMode: MyLocationTrackingMode.TrackingCompass,
+          // myLocationRenderMode: MyLocationRenderMode.NORMAL,
           styleString: YOUR_STYLE_URL_HERE,
           trackCameraPosition: true,
           onMapCreated: _onMapCreated,
@@ -57,6 +58,11 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
                     target: LatLng(10.739031, 106.680524),
                     zoom: 10,
                     tilt: 60)));
+          },
+          onUserLocationUpdated: (location) {
+            setState(() {
+              userLocation = location;
+            });
           },
           initialCameraPosition: const CameraPosition(
               target: LatLng(10.739031, 106.680524), zoom: 2),
@@ -182,6 +188,13 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
               print(temp);
             },
             child: Icon(Icons.clear),
+          ),
+          FloatingActionButton(
+            tooltip: 'Remove all',
+            onPressed: () {
+              _mapController?.recenter();
+            },
+            child: Icon(Icons.center_focus_strong),
           ),
         ],
       ),
