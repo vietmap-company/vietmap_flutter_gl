@@ -255,6 +255,19 @@ final class VietmapGLController
     setStyleString(styleStringInitial);
   }
 
+  public void recenter(){
+    if (vietmapGL != null) {
+      CameraPosition cameraPosition = vietmapGL.getCameraPosition();
+      CameraPosition.Builder builder = new CameraPosition.Builder();
+      builder.target(cameraPosition.target);
+      builder.zoom(cameraPosition.zoom);
+      builder.tilt(cameraPosition.tilt);
+      builder.bearing(cameraPosition.bearing);
+      CameraPosition cameraPosition1 = builder.build();
+      CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition1);
+      animateCamera(cameraUpdate);
+    }
+  }
   @Override
   public void setStyleString(String styleString) {
     // clear old layer id from the location Component
@@ -360,6 +373,7 @@ final class VietmapGLController
     if (location == null) {
       return;
     }
+
 
     final Map<String, Object> userLocation = new HashMap<>(6);
     userLocation.put("position", new double[] {location.getLatitude(), location.getLongitude()});
@@ -659,6 +673,14 @@ final class VietmapGLController
           }
           break;
         }
+      case "map#recenter":
+      {
+        LocationComponent component = vietmapGL.getLocationComponent();
+        component.forceLocationUpdate(component.getLastKnownLocation());
+        double zoom = vietmapGL.getCameraPosition().zoom;
+        vietmapGL.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(component.getLastKnownLocation()),zoom));
+        break;
+      }
       case "map#updateContentInsets":
         {
           HashMap<String, Object> insets = call.argument("bounds");

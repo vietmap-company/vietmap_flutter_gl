@@ -772,4 +772,9 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
       return new Future.error(e);
     }
   }
+
+  @override
+  Future<void> recenter() async {
+    await _channel.invokeMethod('map#recenter');
+  }
 }

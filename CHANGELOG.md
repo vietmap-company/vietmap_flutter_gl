@@ -1,3 +1,9 @@
+## 1.1.3, Aug 24, 2023
+* Fix memory leaks when add new marker/remove marker from marker layer
+## 1.1.2, Aug 24, 2023
+* Remove unnecessary library
+## 1.1.1, Aug 24, 2023
+* Add recenter map function
 ## 1.1.0, Aug 16, 2023
 * Update readme document
 ## 1.0.9, Aug 16, 2023

@@ -300,9 +300,11 @@ class _VietmapGLState extends State<VietmapGL> {
       initialCameraPosition: widget.initialCameraPosition,
       onStyleLoadedCallback: () {
         if (_controller.isCompleted) {
-          widget.onStyleLoadedCallback!();
+          if (widget.onStyleLoadedCallback != null)
+            widget.onStyleLoadedCallback!();
         } else {
-          _controller.future.then((_) => widget.onStyleLoadedCallback!());
+          if (widget.onStyleLoadedCallback != null)
+            _controller.future.then((_) => widget.onStyleLoadedCallback!());
         }
       },
       onMapClick: widget.onMapClick,
@@ -321,12 +323,14 @@ class _VietmapGLState extends State<VietmapGL> {
     if (widget.onMapCreated != null) {
       widget.onMapCreated!(controller);
     }
-    // if (Platform.isAndroid) {
     if (widget.myLocationEnabled == true) {
-      print(widget.myLocationTrackingMode);
-      controller.updateMyLocationTrackingMode(widget.myLocationTrackingMode);
+      var locationTrackingMode = widget.myLocationTrackingMode;
+      if (Platform.isIOS) {
+        if (locationTrackingMode == MyLocationTrackingMode.TrackingCompass)
+          locationTrackingMode = MyLocationTrackingMode.TrackingGPS;
+      }
+      controller.updateMyLocationTrackingMode(locationTrackingMode);
     }
-    // }
   }
 }
 

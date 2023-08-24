@@ -300,6 +300,11 @@ class VietmapController extends ChangeNotifier {
     return _vietmapGlPlatform.moveCamera(cameraUpdate);
   }
 
+  /// Animate the camera to current location of the user.
+  Future<void> recenter() {
+    return _vietmapGlPlatform.recenter();
+  }
+
   /// Adds a new geojson source
   ///
   /// The json in [geojson] has to comply with the schema for FeatureCollection
