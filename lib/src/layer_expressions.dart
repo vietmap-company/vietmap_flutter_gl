@@ -617,7 +617,7 @@ class Expressions {
   /// Returns `true` if the input string is expected to render legibly.
   /// Returns `false` if the input string contains sections that cannot be
   /// rendered without potential loss of meaning (e.g. Indic scripts that
-  /// require complex text shaping, or right-to-left scripts if the the 
+  /// require complex text shaping, or right-to-left scripts if the the
   ///
   /// Sdk Support:
   ///   basic functionality with js, android

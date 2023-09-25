@@ -291,7 +291,6 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
             width: 300.0,
             height: 200.0,
             child: VietmapGL(
-
               styleString: YOUR_STYLE_URL_HERE,
               onMapCreated: _onMapCreated,
               onStyleLoadedCallback: _onStyleLoaded,
