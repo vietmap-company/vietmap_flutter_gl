@@ -66,13 +66,6 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
               userLocation = location;
             });
           },
-          onMapClick: (point, coordinates) async {
-            var data =
-                await _mapController?.queryRenderedFeatures(point: point);
-            log(data.toString());
-
-            print(data.toString());
-          },
           initialCameraPosition: const CameraPosition(
               target: LatLng(10.739031, 106.680524), zoom: 2),
         ),
