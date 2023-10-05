@@ -1004,21 +1004,26 @@ class VietmapController extends ChangeNotifier {
 
   /// Query rendered features at a point in screen cooridnates
   Future<List> queryRenderedFeatures(
-      Point<double> point, List<String> layerIds, List<Object>? filter) async {
-    return _vietmapGlPlatform.queryRenderedFeatures(point, layerIds, filter);
+      {required Point<double> point,
+      List<String>? layerIds,
+      List<Object>? filter}) async {
+    return _vietmapGlPlatform.queryRenderedFeatures(
+        point, layerIds ?? [], filter);
   }
 
   /// Query rendered features in a Rect in screen coordinates
   Future<List> queryRenderedFeaturesInRect(
-      Rect rect, List<String> layerIds, String? filter) async {
+      {required Rect rect, List<String>? layerIds, String? filter}) async {
     return _vietmapGlPlatform.queryRenderedFeaturesInRect(
-        rect, layerIds, filter);
+        rect, layerIds ?? [], filter);
   }
 
   /// Query rendered features at a point in screen coordinates
   /// Note: On web, this will probably only work for GeoJson source, not for vector tiles
   Future<List> querySourceFeatures(
-      String sourceId, String? sourceLayerId, List<Object>? filter) async {
+      {required String sourceId,
+      String? sourceLayerId,
+      List<Object>? filter}) async {
     return _vietmapGlPlatform.querySourceFeatures(
         sourceId, sourceLayerId, filter);
   }
