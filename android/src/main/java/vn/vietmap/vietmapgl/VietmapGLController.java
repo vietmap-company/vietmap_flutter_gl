@@ -845,7 +845,6 @@ final class VietmapGLController
           List<Feature> features;
 
           String[] layerIds = ((List<String>) call.argument("layerIds")).toArray(new String[0]);
-
           List<Object> filter = call.argument("filter");
           JsonElement jsonElement = filter == null ? null : new Gson().toJsonTree(filter);
           JsonArray jsonArray = null;

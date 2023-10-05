@@ -45,7 +45,7 @@ Upgrade the minSdkVersion to a minimum is 24 in the build.gradle (app) file, at 
   minSdkVersion 24
 ```
 ## iOS config
-Add the below codes to the Info.plist file.
+Add the below codes to the Info.plist file. Replace your API key to **YOUR_API_KEY_HERE** 
 ```
 	<key>VietMapAPIBaseURL</key>
 	<string>https://maps.vietmap.vn/api/navigations/route/</string>

@@ -37,16 +37,23 @@ class _MarkerLayerState extends State<MarkerLayer> {
     }
     var _newMarker = <MarkerWidget>[];
     var _newMarkerStates = <MarkerState>[];
+    Map<String, bool> _newMarkerKey = {};
     _mapController.toScreenLocationBatch(param).then((value) {
       if (value.isEmpty || widget.markers.isEmpty) {
       } else {
         for (var i = 0; i < widget.markers.length; i++) {
           var point = Point<double>(value[i].x as double, value[i].y as double);
+          String key = _rnd.nextInt(100000).toString() +
+              widget.markers[i].latLng.latitude.toString() +
+              widget.markers[i].latLng.longitude.toString();
+          if (!_newMarkerKey.containsKey(key)) {
+            _newMarkerKey[key] = true;
+          } else {
+            key += '.';
+            _newMarkerKey[key] = true;
+          }
           _newMarker.add(MarkerWidget(
-            key: (_rnd.nextInt(100000) +
-                    widget.markers[i].latLng.latitude +
-                    widget.markers[i].latLng.longitude)
-                .toString(),
+            key: key,
             coordinate: widget.markers[i].latLng,
             initialPosition: point,
             addMarkerState: (_) {
@@ -130,10 +137,9 @@ class _MarkerLayerState extends State<MarkerLayer> {
   void _addMarker(Point<double> point, Marker markerModel) {
     setState(() {
       _markers.add(MarkerWidget(
-        key: (_rnd.nextInt(100000) +
-                markerModel.latLng.latitude +
-                markerModel.latLng.longitude)
-            .toString(),
+        key: _rnd.nextInt(100000).toString() +
+            markerModel.latLng.latitude.toString() +
+            markerModel.latLng.longitude.toString(),
         coordinate: markerModel.latLng,
         initialPosition: point,
         addMarkerState: _addMarkerStates,

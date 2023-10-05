@@ -1050,7 +1050,7 @@ class VietmapController extends VietmapGlPlatform
   Future<List> getSourceIds() async {
     throw UnimplementedError();
   }
-  
+
   @override
   Future<void> recenter() {
     // TODO: implement recenter

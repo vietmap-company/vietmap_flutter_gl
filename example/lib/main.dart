@@ -1,8 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
-import 'dart:math';
+import 'dart:math' show Random;
 
 import 'constant.dart';
 import 'map_demo.dart';

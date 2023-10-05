@@ -293,8 +293,8 @@ class MapUiBodyState extends State<MapUiBody> {
     return TextButton(
       child: Text('get source features (maplibre)'),
       onPressed: () async {
-        var result = await mapController!
-            .querySourceFeatures("maplibre", "centroids", null);
+        var result = await mapController!.querySourceFeatures(
+            sourceId: "maplibre", sourceLayerId: "centroids");
         print(result);
       },
     );
@@ -364,7 +364,7 @@ class MapUiBodyState extends State<MapUiBody> {
             "Map click: ${point.x},${point.y}   ${latLng.latitude}/${latLng.longitude}");
         print("Filter $_featureQueryFilter");
         List features = await mapController!
-            .queryRenderedFeatures(point, [], _featureQueryFilter);
+            .queryRenderedFeatures(point: point, filter: _featureQueryFilter);
         print('# features: ${features.length}');
         _clearFill();
         if (features.isEmpty && _featureQueryFilter != null) {
@@ -388,7 +388,7 @@ class MapUiBodyState extends State<MapUiBody> {
             "Map long press The distance measured in meters at latitude ${latLng.latitude} is $metersPerPixel m");
 
         List features =
-            await mapController!.queryRenderedFeatures(point, [], null);
+            await mapController!.queryRenderedFeatures(point: point);
         if (features.length > 0) {
           print(features[0]);
         }

@@ -1,3 +1,9 @@
+## 1.1.6, Sep 25, 2023
+* Fix duplicate marker when add new marker to marker layer
+## 1.1.5, Sep 25, 2023
+* Fix marker render when add new marker to marker layer
+## 1.1.4, Sep 25, 2023
+* Disable customize marker key when add new marker to marker layer
 ## 1.1.3, Aug 24, 2023
 * Fix memory leaks when add new marker/remove marker from marker layer
 ## 1.1.2, Aug 24, 2023
