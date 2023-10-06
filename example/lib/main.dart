@@ -68,6 +68,11 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           },
           initialCameraPosition: const CameraPosition(
               target: LatLng(10.739031, 106.680524), zoom: 2),
+          onMapClick: (point, coordinates) async {
+            var data =
+                await _mapController?.queryRenderedFeatures(point: point);
+            log(data.toString());
+          },
         ),
         _mapController == null
             ? SizedBox.shrink()
