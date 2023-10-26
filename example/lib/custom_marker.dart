@@ -37,7 +37,7 @@ class CustomMarkerState extends State<CustomMarker> {
       body: Stack(children: [
         VietmapGL(
           styleString:
-              "https://run.mocky.io/v3/64ad9ec6-2715-4d56-a335-dedbfe5bc46d",
+              "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE",
           trackCameraPosition: true,
           onMapCreated: _onMapCreated,
           initialCameraPosition: const CameraPosition(

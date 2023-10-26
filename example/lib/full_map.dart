@@ -60,7 +60,7 @@ class FullMapState extends State<FullMap> {
         print(location.latitude);
       },
       styleString:
-          "https://run.mocky.io/v3/64ad9ec6-2715-4d56-a335-dedbfe5bc46d",
+          "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE",
     ));
   }
 }

@@ -1,4 +1,4 @@
-const String YOUR_STYLE_URL_HERE =
-    "https://run.mocky.io/v3/64ad9ec6-2715-4d56-a335-dedbfe5bc46d";
 // const String YOUR_STYLE_URL_HERE =
-//     "https://api.maptiler.com/maps/basic-v2/style.json?key=erfJ8OKYfrgKdU6J1SXm";
+//     "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE";
+const String YOUR_STYLE_URL_HERE =
+    "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=89cb1c3c260c27ea71a115ece3c8d7cec462e7a4c14f0944";

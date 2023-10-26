@@ -52,7 +52,7 @@ Thêm đoạn code sau vào file Info.plist
 	<key>VietMapAccessToken</key>
 	<string>YOUR_API_KEY_HERE</string>
 	<key>VietMapURL</key>
-	<string>https://run.mocky.io/v3/64ad9ec6-2715-4d56-a335-dedbfe5bc46d</string>
+	<string>https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app requires location permission to working normally</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -68,7 +68,7 @@ Hiển thị bản đồ nền
 ```dart 
     VietmapGL(
       styleString:
-          'https://run.mocky.io/v3/64ad9ec6-2715-4d56-a335-dedbfe5bc46d',
+          'https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE',
       initialCameraPosition:
           CameraPosition(target: LatLng(10.762317, 106.654551)),
       onMapCreated: (VietmapController controller) {

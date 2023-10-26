@@ -1,6 +1,6 @@
 part of vietmap_flutter_gl;
 
-class MarkerLayer extends StatefulWidget {
+class ClusterLayer extends StatefulWidget {
   final List<Marker> markers;
   final VietmapController mapController;
 
@@ -10,9 +10,9 @@ class MarkerLayer extends StatefulWidget {
   final bool? ignorePointer;
 
   /// The markers to be placed on the map.
-  /// use [MarkerLayer] inside a [Stack], that contain [VietmapGL] and [MarkerLayer] to work properly
+  /// use [ClusterLayer] inside a [Stack], that contain [VietmapGL] and [ClusterLayer] to work properly
   /// [VietmapGL.trackCameraPosition] must be set to true to work properly
-  const MarkerLayer(
+  const ClusterLayer(
       {Key? key,
       required this.markers,
       required this.mapController,
@@ -20,17 +20,17 @@ class MarkerLayer extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<MarkerLayer> createState() => _MarkerLayerState();
+  State<ClusterLayer> createState() => _ClusterLayerState();
 }
 
-class _MarkerLayerState extends State<MarkerLayer> {
+class _ClusterLayerState extends State<ClusterLayer> {
   VietmapController get _mapController => widget.mapController;
   List<MarkerWidget> _markers = [];
   List<MarkerState> _markerStates = [];
   final Random _rnd = new Random();
   late Size size;
   @override
-  void didUpdateWidget(covariant MarkerLayer oldWidget) {
+  void didUpdateWidget(covariant ClusterLayer oldWidget) {
     var param = <LatLng>[];
     for (var i = 0; i < widget.markers.length; i++) {
       param.add(widget.markers[i].latLng);
@@ -41,8 +41,10 @@ class _MarkerLayerState extends State<MarkerLayer> {
     _mapController.toScreenLocationBatch(param).then((value) {
       if (value.isEmpty || widget.markers.isEmpty) {
       } else {
+        List<List<double>> points = [];
         for (var i = 0; i < widget.markers.length; i++) {
           var point = Point<double>(value[i].x as double, value[i].y as double);
+          points.add([point.x, point.y]);
           String key = _rnd.nextInt(100000).toString() +
               widget.markers[i].latLng.latitude.toString() +
               widget.markers[i].latLng.longitude.toString();
@@ -63,9 +65,11 @@ class _MarkerLayerState extends State<MarkerLayer> {
             child: widget.markers[i].child,
             width: widget.markers[i].width,
             height: widget.markers[i].height,
-            alignment: widget.markers[i].alignment,    
+            alignment: widget.markers[i].alignment,
           ));
         }
+        var kmeans = KMeans(points);
+        var bestCluster = kmeans.fit(5, maxIterations: 100);
       }
       setState(() {
         _markers = _newMarker;
@@ -76,7 +80,7 @@ class _MarkerLayerState extends State<MarkerLayer> {
   }
 
   Function()? onMapListener;
-  Function(CameraPosition?)? onMarkerLayerListener;
+  Function(CameraPosition?)? onClusterLayerListener;
   @override
   void initState() {
     onMapListener = () {
@@ -84,10 +88,11 @@ class _MarkerLayerState extends State<MarkerLayer> {
         _updateMarkerPosition();
       }
     };
-    onMarkerLayerListener = (cameraPosition) {
+    onClusterLayerListener = (cameraPosition) {
       _updateMarkerPosition();
     };
-    _mapController.getPlatform.onCameraIdlePlatform.add(onMarkerLayerListener!);
+    _mapController.getPlatform.onCameraIdlePlatform
+        .add(onClusterLayerListener!);
     _mapController.addListener(onMapListener!);
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
@@ -114,7 +119,7 @@ class _MarkerLayerState extends State<MarkerLayer> {
   @override
   void dispose() {
     _mapController.getPlatform.onCameraIdlePlatform
-        .remove(onMarkerLayerListener!);
+        .remove(onClusterLayerListener!);
     _mapController.removeListener(onMapListener!);
     super.dispose();
   }

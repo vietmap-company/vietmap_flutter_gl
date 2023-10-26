@@ -1,3 +1,6 @@
+## 1.1.7, Sep 25, 2023
+* Update README.md document
+* Update map style url
 ## 1.1.6, Sep 25, 2023
 * Fix duplicate marker when add new marker to marker layer
 ## 1.1.5, Sep 25, 2023
