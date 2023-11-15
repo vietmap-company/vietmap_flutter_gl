@@ -417,7 +417,7 @@ class VietmapController extends ChangeNotifier {
   /// [expressions]: https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions
   Future<void> addLineLayer(
       String sourceId, String layerId, PolylineLayerProperties properties,
-      {String? belowLayerId,
+      {String? belowLayerId = 'vmadmin_province',
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,

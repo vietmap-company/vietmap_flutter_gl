@@ -613,7 +613,7 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
   @override
   Future<void> addLineLayer(
       String sourceId, String layerId, Map<String, dynamic> properties,
-      {String? belowLayerId,
+      {String? belowLayerId = 'vmadmin_province',
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,

@@ -194,7 +194,7 @@ VietmapGL(
 ```
 #### Note: You must enable _trackCameraPosition: true_, at _VietmapGL_, which ensured the MarkerLayer renders normally
 - The marker support anchor with input is an alignment, which required width and height to calculate the position of the marker, the default for both of them is 20
-- Make sure your width and height are correct to the marker display exactly
+- Make sure the width and height of the marker are match with it child width and height to the marker display exactly
 ```dart
     Marker(
         width: 40,

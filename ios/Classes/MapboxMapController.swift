@@ -105,6 +105,8 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             pan.delegate = self
             mapView.addGestureRecognizer(pan)
         }
+        
+        mapView.logoView.isHidden = false
     }
     func removeAllForController(controller: MGLAnnotationController, ids: [String]){
         let idSet = Set(ids)

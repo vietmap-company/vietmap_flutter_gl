@@ -154,7 +154,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
                     ],
                     polylineColor: Colors.red,
                     polylineWidth: 14.0,
-                    polylineOpacity: 0.5,
+                    polylineOpacity: 1,
                     draggable: true),
               );
             },

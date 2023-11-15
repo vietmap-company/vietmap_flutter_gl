@@ -4,7 +4,7 @@
       "VM": {
         "type": "raster",
         "tiles": [
-         "https://maps.vietmap.vn/tm/{z}/{x}/{y}@2x.png?apikey=95f852d9f8c38e08ceacfd456b59059d0618254a50d3854c"
+         "https://maps.vietmap.vn/tm/{z}/{x}/{y}@2x.png?apikey=YOUR_API_KEY_HERE"
         ],
         "tileSize": 256,
         "attribution": "© Vietmap contributors",

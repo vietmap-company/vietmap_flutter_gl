@@ -63,7 +63,7 @@ class _MarkerLayerState extends State<MarkerLayer> {
             child: widget.markers[i].child,
             width: widget.markers[i].width,
             height: widget.markers[i].height,
-            alignment: widget.markers[i].alignment,    
+            alignment: widget.markers[i].alignment,
           ));
         }
       }

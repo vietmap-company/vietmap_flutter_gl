@@ -68,8 +68,6 @@ class _ClusterLayerState extends State<ClusterLayer> {
             alignment: widget.markers[i].alignment,
           ));
         }
-        var kmeans = KMeans(points);
-        var bestCluster = kmeans.fit(5, maxIterations: 100);
       }
       setState(() {
         _markers = _newMarker;

@@ -20,7 +20,7 @@ class VietmapGLBuilder implements VietmapGLOptionsSink {
   private boolean dragEnabled = true;
   private int myLocationTrackingMode = 0;
   private int myLocationRenderMode = 0;
-  private String styleString = "https://demotiles.maplibre.org/style.json";
+  private String styleString = "";
   private LatLngBounds bounds = null;
 
   VietmapGLController build(

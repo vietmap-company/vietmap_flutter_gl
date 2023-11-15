@@ -1,3 +1,7 @@
+## 1.2.0, Nov 15, 2023
+* Update version 2.0.0 of android and ios native map sdk
+## 1.1.8, Nov 14, 2023
+* Fix white screen error when app to background and back to foreground
 ## 1.1.7, Sep 25, 2023
 * Update README.md document
 * Update map style url
