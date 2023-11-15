@@ -6,9 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart'; // ignore: unnecessary_import
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:maplibre_gl_example/util.dart';
 
+import 'constant.dart';
 import 'page.dart';
 
 class ScrollingMapPage extends ExamplePage {
@@ -28,8 +29,8 @@ class ScrollingMapBody extends StatefulWidget {
 }
 
 class _ScrollingMapBodyState extends State<ScrollingMapBody> {
-  late MaplibreMapController controllerOne;
-  late MaplibreMapController controllerTwo;
+  late VietmapController controllerOne;
+  late VietmapController controllerTwo;
 
   final LatLng center = const LatLng(32.080664, 34.9563837);
 
@@ -50,7 +51,8 @@ class _ScrollingMapBodyState extends State<ScrollingMapBody> {
                   child: SizedBox(
                     width: 300.0,
                     height: 300.0,
-                    child: MaplibreMap(
+                    child: VietmapGL(
+                      styleString: YOUR_STYLE_URL_HERE,
                       onMapCreated: onMapCreatedOne,
                       onStyleLoadedCallback: () => onStyleLoaded(controllerOne),
                       initialCameraPosition: CameraPosition(
@@ -85,7 +87,8 @@ class _ScrollingMapBodyState extends State<ScrollingMapBody> {
                   child: SizedBox(
                     width: 300.0,
                     height: 300.0,
-                    child: MaplibreMap(
+                    child: VietmapGL(
+                      styleString: YOUR_STYLE_URL_HERE,
                       onMapCreated: onMapCreatedTwo,
                       onStyleLoadedCallback: () => onStyleLoaded(controllerTwo),
                       initialCameraPosition: CameraPosition(
@@ -109,15 +112,15 @@ class _ScrollingMapBodyState extends State<ScrollingMapBody> {
     );
   }
 
-  void onMapCreatedOne(MaplibreMapController controller) {
+  void onMapCreatedOne(VietmapController controller) {
     this.controllerOne = controller;
   }
 
-  void onMapCreatedTwo(MaplibreMapController controller) {
+  void onMapCreatedTwo(VietmapController controller) {
     this.controllerTwo = controller;
   }
 
-  void onStyleLoaded(MaplibreMapController controller) async {
+  void onStyleLoaded(VietmapController controller) async {
     await addImageFromAsset(
         controller, "custom-marker", "assets/symbols/custom-marker.png");
     controller.addSymbol(SymbolOptions(
@@ -126,17 +129,17 @@ class _ScrollingMapBodyState extends State<ScrollingMapBody> {
           center.longitude,
         ),
         iconImage: "custom-marker"));
-    controller.addLine(
-      LineOptions(
+    controller.addPolyline(
+      PolylineOptions(
         geometry: [
           LatLng(-33.86711, 151.1947171),
           LatLng(-33.86711, 151.1947171),
           LatLng(-32.86711, 151.1947171),
           LatLng(-33.86711, 152.1947171),
         ],
-        lineColor: "#ff0000",
-        lineWidth: 7.0,
-        lineOpacity: 0.5,
+        polylineColor: Colors.red,
+        polylineWidth: 7.0,
+        polylineOpacity: 0.5,
       ),
     );
   }

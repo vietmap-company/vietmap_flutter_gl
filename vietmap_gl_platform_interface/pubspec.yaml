@@ -1,0 +1,13 @@
+name: vietmap_gl_platform_interface
+description: A common platform interface for the vietmap_flutter_gl plugin.
+version: 0.0.6
+homepage: https://github.com/vietmap-company
+
+dependencies:
+  flutter:
+    sdk: flutter
+  meta: ^1.0.5
+
+environment:
+  sdk: '>=2.15.0 <3.0.0'
+  flutter: '>=2.10.0'

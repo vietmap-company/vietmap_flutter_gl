@@ -1,177 +1,302 @@
-# Flutter Maplibre GL
-[![Flutter CI](https://github.com/maplibre/flutter-maplibre-gl/actions/workflows/flutter_ci.yml/badge.svg)](https://github.com/maplibre/flutter-maplibre-gl/actions/workflows/flutter_ci.yml)
-[![Generate docs](https://github.com/maplibre/flutter-maplibre-gl/actions/workflows/generate_docs.yml/badge.svg)](https://github.com/maplibre/flutter-maplibre-gl/actions/workflows/generate_docs.yml)
-
-> ``⚠️`` Current notice: the repository has been transferred to the @maplibre organization. You shouldn't see any negative effects, as GitHub automatically redirects references from the old URL to the new URL. Please see [#221](https://github.com/maplibre/flutter-maplibre-gl/issues/221) for more information.
-
-This Flutter plugin allows to show **embedded interactive and customizable vector maps** as a Flutter widget. 
-
-For the Android and iOS integration, we use [maplibre-gl-native](https://github.com/maplibre/maplibre-gl-native). For web, we rely on [maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js). This project only supports a subset of the API exposed by these libraries. 
+# Vietmap Flutter GL - Flutter map SDK
+[<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://bit.ly/vietmap-api)
 
 
-This project is a fork of [https://github.com/tobrun/flutter-mapbox-gl](https://github.com/tobrun/flutter-mapbox-gl), replacing its usage of Mapbox GL libraries with the open source [Maplibre GL](https://github.com/maplibre) libraries.
+Contact [vietmap.vn](https://bit.ly/vietmap-api) to register a valid key.
 
-**Please note that this project is community driven and is not affiliated with the company Mapbox.** <br>
-It does use some of their amazing open source libraries/tools, though. Thank you, Mapbox, for all the open-source work you do!
+## Getting started
 
-
-## Using the plugin in your project
-
-This project is not yet available on pub.dev.
-You can use it by referencing it in your `pubspec.yaml` like this:
+Add library to pubspec.yaml file
 ```yaml
-dependencies:
-    ...
-    maplibre_gl:
-      git:
-        url: https://github.com/maplibre/flutter-maplibre-gl.git
-        ref: main
-```
-This will get you the very latest changes from the main branch.
-You can replace `main` with the name of the [latest release](https://github.com/maplibre/flutter-maplibre-gl/releases)
-to get a more stable version.
-
-
-
-Compared to flutter-mapbox-gl, the only breaking API changes are: 
-- `MapboxMap` <--> `MaplibreMap`
-- `MapboxMapController` <--> `MaplibreMapController`
-
-
-### Documentation
-Documentation is available on the docs branch in the doc/api folder and automatically updated on each push to the main branch. You can easily preview the [documentation / API reference here.](https://htmlpreview.github.io/?https://github.com/maplibre/flutter-maplibre-gl/blob/docs/doc/api/index.html)
-
-Please visit [https://github.com/maplibre/maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js) and [https://github.com/maplibre/maplibre-gl-native](https://github.com/maplibre/maplibre-gl-native) for more information about the Maplibre libraries.
-
-### iOS
-To use this plugin with iOS, you need to add the source repository and 2 additional pods to your Podfile, as shown in the example app: https://github.com/maplibre/flutter-maplibre-gl/blob/main/example/ios/Podfile
-
-```ruby
-source 'https://cdn.cocoapods.org/'
-source 'https://github.com/m0nac0/flutter-maplibre-podspecs.git'
-
-pod 'MapLibre'
-pod 'MapLibreAnnotationExtension'
+  vietmap_flutter_gl: latest_version
 ```
 
-### Web
-Include the following JavaScript and CSS files in the `<head>` of the `web/index.html` file.
-
-```html
-<script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
-<link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
+Check the latest version at [https://pub.dev/packages/vietmap_flutter_gl](https://pub.dev/packages/vietmap_flutter_gl)
+ 
+or run this command in the terminal to add the library to the project:
+```bash
+  flutter pub add vietmap_flutter_gl
 ```
-
-## Supported API
-
-| Feature | Android | iOS | Web |
-| ------ |:-:|:-:|:-:|
-| Style | :white_check_mark:   | :white_check_mark: | :white_check_mark: |
-| Camera | :white_check_mark:   | :white_check_mark: | :white_check_mark: |
-| Gesture | :white_check_mark:   | :white_check_mark: | :white_check_mark: |
-| User Location | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Symbol | :white_check_mark:   | :white_check_mark: | :white_check_mark: |
-| Circle | :white_check_mark:   | :white_check_mark: | :white_check_mark: |
-| Line | :white_check_mark:   | :white_check_mark: | :white_check_mark: |
-| Fill | :white_check_mark:   | :white_check_mark: | :white_check_mark: |
+## Android config
 
 
-## Map Styles
-
-Map styles can be supplied by setting the `styleString` in the `MapOptions`. The following formats are supported:
-
-1. Passing the URL of the map style. This should be a custom map style served remotely using a URL that start with 'http(s)://'
-2. Passing the style as a local asset. Create a JSON file in the `assets` and add a reference in `pubspec.yml`. Set the style string to the relative path for this asset in order to load it into the map.
-3. Passing the style as a local file. create an JSON file in app directory (e.g. ApplicationDocumentsDirectory). Set the style string to the absolute path of this JSON file.
-4. Passing the raw JSON of the map style. This is only supported on Android.  
-
-### Tile sources requiring an API key
-If your tile source requires an API key, we recommend directly specifying a source url with the API key included.
-For example:
-
- `https://tiles.example.com/{z}/{x}/{y}.vector.pbf?api_key={your_key}`
-
-
-
-## Location features
-### Android
-Add the `ACCESS_COARSE_LOCATION` or `ACCESS_FINE_LOCATION` permission in the application manifest `android/app/src/main/AndroidManifest.xml` to enable location features in an **Android** application:
-```
-<manifest ...
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-```
-
-Starting from Android API level 23 you also need to request it at runtime. This plugin does not handle this for you. The example app uses the flutter ['location' plugin](https://pub.dev/packages/location) for this.
-
-### iOS
-To enable location features in an **iOS** application:
-
-If you access your users' location, you should also add the following key to `ios/Runner/Info.plist` to explain why you need access to their location data:
-
-```
-xml ...
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>[Your explanation here]</string>
-```
-
-A possible explanation could be: "Shows your location on the map".
-
-## Getting Help
-
-- **Need help with your code?**: Check the [discussions](https://github.com/maplibre/flutter-maplibre-gl/discussions) on this repo or open a new one. 
- Or look for previous questions on the [#maplibre tag](https://stackoverflow.com/questions/tagged/maplibre) — or [ask a new question](https://stackoverflow.com/questions/tagged/maplibre).
-- **Have a bug to report?** [Open an issue](https://github.com/maplibre/flutter-maplibre-gl/issues/new). If possible, include a full log and information which shows the issue.
-- **Have a feature request?** [Open an issue](https://github.com/maplibre/flutter-maplibre-gl/issues/new). Tell us what the feature should do and why you want the feature.
-
-## Running in GitHub Codespaces
-When you open this project in GitHub Codespaces, you can run the example app on web with the command `flutter run -d web-server --web-hostname=0.0.0.0`
-
-Codespaces should automatically take care of the necessary port forwarding, so that you can view the running web app on your local device or in a new tab.
-
-**Please note:** the Docker image used to setup the Codespace is from CirrusCI and sets the Git username and email to CirrusCI default values. You should set these correctly, 
-if you plan on committing from the Codespace.
-
-
-## Fixing common issues
-### Avoid Android UnsatisfiedLinkError
-
-Update buildTypes in `android\app\build.gradle`
+Add the below code to the build.gradle (project) file at path: **android/build.gradle**
 
 ```gradle
-buildTypes {
-    release {
-        // other configs
-        ndk {
-            abiFilters 'armeabi-v7a','arm64-v8a','x86_64', 'x86'
-        }
+ maven { url "https://jitpack.io" }
+```
+
+
+at the repositories block
+
+
+```gradle
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
     }
 }
 ```
-
-## Flutter 3.x.x issues
-Since Flutter 3.x.x was introduced, it exposed some race conditions resulting in occasional crashes upon map disposal. The parameter `useDelayedDisposal` was introduced as a workaround for this issue until Flutter and/or Maplibre fix this issue properly. Use with caution.
-
-
-
-### iOS app crashes on startup
-
-Please include the `NSLocationWhenInUseUsageDescription` as described [here](#location-features)
-
-### Layer is not displayed on IOS, but no error
-
-Have a look in your `LayerProperties` object, if you supply a `lineColor` argument, (or any color argument) the issue might come from here.
-Android supports the following format : `'rgba(192, 192, 255, 1.0)'`,  but on iOS, this doesn't work! 
-
-You have to have the color in the following format : `#C0C0FF` 
-
-### iOS crashes with error: `'NSInvalidArgumentException', reason: 'Invalid filter value: filter property must be a string'`
-Check if one of your expression is : `["!has", "value"]`. Android support this format, but iOS does not.
-You can replace your expression with :   `["!",["has", "value"] ]` which works both in Android and iOS.
-
-Note : iOS will display the error : `NSPredicate: Use of 'mgl_does:have:' as an NSExpression function is forbidden`, but it seems like the expression still works well.
-
-## Contributing
+Upgrade the minSdkVersion to a minimum is 24 in the build.gradle (app) file, at path **android/app/build.gradle**
+```gradle
+  minSdkVersion 24
+```
+## iOS config
+Add the below codes to the Info.plist file. Replace your API key to **YOUR_API_KEY_HERE** 
+```
+	<key>VietMapAPIBaseURL</key>
+	<string>https://maps.vietmap.vn/api/navigations/route/</string>
+	<key>VietMapAccessToken</key>
+	<string>YOUR_API_KEY_HERE</string>
+	<key>VietMapURL</key>
+	<string>https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app requires location permission to working normally</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app requires location permission to working normally</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app requires location permission to working normally</string>
+```
 
 
-[Feedback](https://github.com/maplibre/flutter-maplibre-gl/issues) and contributions are very welcome!
+## Main characteristics
+
+### Show the map
+```dart 
+    VietmapGL(
+      styleString:
+          'https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE',
+      initialCameraPosition:
+          CameraPosition(target: LatLng(10.762317, 106.654551)),
+      onMapCreated: (VietmapController controller) {
+          setState(() {
+            _mapController = controller;
+          });
+        },
+    );
+```
+
+
+## Map Interactions
+The VietmapGL Maps Flutter SDK allows you to define interactions that you can activate on the map to enable gestures and click events. The following interactions are supported
+
+### Zoom Controls
+The map supports the familiar two-finger pinch and zooms to change the zoom level as well as double tap to zoom in. Set zoom to 4 for country-level display and 18 for house number display. In this SDK the camera position plays an important role
+
+And following operations can be performed using the CameraPosition
+
+#### Target
+The target is single latitude and longitude coordinate that the camera centers it on. Changing the camera's target will move the camera to the inputted coordinates. The target is a LatLng object. The target coordinate is always _at the center of the viewport_.
+
+
+#### Tilt
+Tilt is the camera's angle from the nadir (directly facing the Earth) and uses unit degrees. The camera's minimum (default) tilt is 0 degrees, and the maximum tilt is 60. Tilt levels use six decimal points of precision, which enables you to restrict/set/lock a map's bearing with extreme precision.
+
+The map camera tilt can also adjust by placing two fingertips on the map and moving both fingers up and down in parallel at the same time or
+
+#### Bearing
+Bearing represents the direction that the camera is pointing in and is measured in degrees  _clockwise from north_.
+
+The camera's default bearing is 0 degrees (i.e. "true north") causing the map compass to hide until the camera bearing becomes a non-zero value. Bearing levels use six decimal point precision, which enables you to restrict/set/lock a map's bearing with extreme precision. In addition to programmatically adjusting the camera bearing, the user can place two fingertips on the map and rotate their fingers.
+
+#### Zoom
+Zoom controls the scale of the map and consumes any value between 0 and 22. At zoom level 0, the viewport shows continents and other world features. A middle value of 11 will show city-level details. At a higher zoom level, the map will begin to show buildings and points of interest. The camera can zoom in the following ways:
+
+- Pinch motion two fingers to zoom in and out.
+- Quickly tap twice on the map with a single finger to zoom in.
+- Quickly tap twice on the map with a single finger and hold your finger down on the screen after the second tap.
+- Then slide the finger up to zoom out and down to zoom out.
+
+##### SDK allows various methods to move, and animate the camera to a particular location :
+~~~dart  
+_mapController?.moveCamera(CameraUpdate.newLatLngZoom(LatLng(22.553147478403194, 77.23388671875), 14));  
+_mapController?.animateCamera(CameraUpdate.newLatLngZoom(LatLng(28.698791, 77.121243), 14));  
+~~~  
+
+## Map Events
+### Map Click/Long click
+
+If you want to respond to a user tapping on a point on the map, you can use an onMapClick callback.
+
+It sets a callback that's invoked when the user clicks on the map:
+~~~dart  
+VietmapGL(    
+  initialCameraPosition: _kInitialPosition,    
+  onMapClick: (point, latlng) =>{    
+    print(latlng.toString())  
+ }, )  
+~~~  
+
+##### Sets a callback that's invoked when the user long clicks on the map view.
+~~~dart  
+VietmapGL(    
+  initialCameraPosition: _kInitialPosition,    
+  onMapLongClick: (point, latlng) =>{    
+    print(latlng.toString())  
+ }, )  
+~~~  
+
+##### Sets a callback that's invoked when the map is completely rendered.
+##### Encourage this callback to call some action on the initial, after the map is completely loaded
+~~~dart  
+VietmapGL(    
+  initialCameraPosition: _kInitialPosition,    
+  onMapRenderedCallback: () {
+            _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+                CameraPosition(
+                    target: LatLng(10.739031, 106.680524),
+                    zoom: 10,
+                    tilt: 60)));
+    },
+  )  
+~~~  
+## Map Overlays
+### Add a Marker (Marked a point in the map with a custom widget)
+
+```dart
+  Stack(
+    children: [
+      VietmapGL(
+        trackCameraPosition: true, // Will track the map change to update the marker position in realtime
+        ...
+        ),
+      MarkerLayer
+        ignorePointer: true, // Will ignore all user gestures on the marker
+        mapController: _mapController!,
+        markers: [
+              Marker(
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle),
+                    child: Center(
+                      child: Text(
+                        'Simple text marker',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  latLng: LatLng(10.727416, 106.735597)),
+              Marker(
+                  child: Icon(Icons.location_on),
+                  latLng: LatLng(10.792765, 106.674143)),
+        ]
+  ])
+    
+```
+#### Note: You must enable _trackCameraPosition: true_, at _VietmapGL_, which ensured the MarkerLayer renders normally
+- The marker support anchor with input is an alignment, which required width and height to calculate the position of the marker, the default for both of them is 20
+- Make sure the width and height of the marker are match with it child width and height to the marker display exactly
+```dart
+    Marker(
+        width: 40,
+        height:40,
+        alignment: Alignment.bottomCenter,
+        child: Icon(Icons.location_on, size:40),
+        latLng: LatLng(10.792765, 106.674143)),
+```
+### Add a Line/Polyline (A line connects 2 points on the map)
+
+~~~dart  
+_mapController?.addPolyline(
+      PolylineOptions(
+          geometry: [
+            LatLng(10.736657, 106.672240),
+            LatLng(10.766543, 106.742378),
+            LatLng(10.775818, 106.640497),
+            LatLng(10.727416, 106.735597),
+            LatLng(10.792765, 106.674143),
+            LatLng(10.736657, 106.672240),
+          ],
+          polylineColor: Colors.red,
+          polylineWidth: 14.0,
+          polylineOpacity: 0.5,
+          draggable: true),
+    );
+~~~  
+
+### Remove a Polyline
+~~~dart  
+    _mapController?.removePolyline(line);  
+~~~  
+
+### Remove all Polyline
+~~~dart
+    _mapController?.clearLines();
+~~~
+
+### Add a Fill/Polygon
+~~~dart  
+    _mapController?.addPolygon(
+      PolygonOptions(
+          geometry: [
+            [
+              LatLng(10.736657, 106.672240),
+              LatLng(10.766543, 106.742378),
+              LatLng(10.775818, 106.640497),
+              LatLng(10.727416, 106.735597),
+              LatLng(10.792765, 106.674143),
+              LatLng(10.736657, 106.672240),
+            ]
+          ],
+          polygonColor: Colors.red,
+          polygonOpacity: 0.5,
+          draggable: true),
+    );
+~~~  
+
+### Remove a Polygon
+~~~dart  
+    _mapController?.removePolygon(polygon);  
+~~~  
+
+### Remove all Polygon
+```dart
+    _mapController?.clearPolygons();
+```
+
+
+<br>
+
+# Troubleshooting
+- Our SDK uses the key to identify the markers and update their location while the user does some gestures, so we strongly recommend you add the key for all of the widgets in the screen which use the map SDK:
+ ```dart
+ Stack(
+  children:[
+    MarkerLayer(
+      ...
+    ),
+    Positioned(
+      key: const Key('yourWidgetKey'),
+      ...
+    ),
+  ]
+ )
+ ```
+
+Demo code [here](./example/lib/main.dart)
+# Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tag to the application work normally
+
+<br></br>
+<br></br>
+
+[<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://vietmap.vn/maps-api)
+Email us: [maps-api.support@vietmap.vn](mailto:maps-api.support@vietmap.vn)
+
+
+Contact for [support](https://vietmap.vn/lien-he)
+
+Vietmap API document [here](https://maps.vietmap.vn/docs/map-api/overview/)
+
+Have a bug to report? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). If possible, include a full log and information which shows the issue.
+Have a feature request? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). Tell us what the feature should do and why you want the feature.
+
+[Tài liệu tiếng Việt](./README.vi.md)

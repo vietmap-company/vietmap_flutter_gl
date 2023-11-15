@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'page.dart';
 
@@ -20,10 +20,10 @@ class FullMap extends StatefulWidget {
 }
 
 class FullMapState extends State<FullMap> {
-  MaplibreMapController? mapController;
+  VietmapController? mapController;
   var isLight = true;
 
-  _onMapCreated(MaplibreMapController controller) {
+  _onMapCreated(VietmapController controller) {
     mapController = controller;
   }
 
@@ -49,11 +49,18 @@ class FullMapState extends State<FullMap> {
         // ),
         // ),
         // ),
-        body: MaplibreMap(
+        body: VietmapGL(
       // TODO: styleString: isLight ? MapboxStyles.LIGHT : MapboxStyles.DARK,
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0)),
       onStyleLoadedCallback: _onStyleLoadedCallback,
+      myLocationRenderMode: MyLocationRenderMode.GPS,
+      myLocationTrackingMode: MyLocationTrackingMode.TrackingGPS,
+      onUserLocationUpdated: (location) {
+        print(location.latitude);
+      },
+      styleString:
+          "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE",
     ));
   }
 }

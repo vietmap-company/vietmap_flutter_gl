@@ -5,7 +5,7 @@ Current process: for each release we also create a separate branch (`release-x.y
 This document describes the steps needed to make a release:
 
 For each supported library:
- - `maplibre_gl_platform_interface`
+ - `vietmap_gl_platform_interface`
  - `maplibre_gl_web`
  - `flutter-maplibre-gl`
 

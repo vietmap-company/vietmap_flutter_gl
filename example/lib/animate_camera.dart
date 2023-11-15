@@ -3,8 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
+import 'constant.dart';
 import 'page.dart';
 
 class AnimateCameraPage extends ExamplePage {
@@ -24,9 +25,9 @@ class AnimateCamera extends StatefulWidget {
 }
 
 class AnimateCameraState extends State<AnimateCamera> {
-  late MaplibreMapController mapController;
+  late VietmapController mapController;
 
-  void _onMapCreated(MaplibreMapController controller) {
+  void _onMapCreated(VietmapController controller) {
     mapController = controller;
   }
 
@@ -40,7 +41,8 @@ class AnimateCameraState extends State<AnimateCamera> {
           child: SizedBox(
             width: 300.0,
             height: 200.0,
-            child: MaplibreMap(
+            child: VietmapGL(
+              styleString: YOUR_STYLE_URL_HERE,
               onMapCreated: _onMapCreated,
               initialCameraPosition:
                   const CameraPosition(target: LatLng(0.0, 0.0)),

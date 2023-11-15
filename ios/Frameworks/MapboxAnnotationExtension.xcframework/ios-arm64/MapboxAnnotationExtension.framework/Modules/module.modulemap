@@ -1,0 +1,6 @@
+framework module MapboxAnnotationExtension {
+  umbrella header "MapboxAnnotationExtension.h"
+
+  export *
+  module * { export * }
+}

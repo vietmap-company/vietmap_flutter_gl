@@ -1,6 +1,6 @@
-part of maplibre_gl;
+part of vietmap_flutter_gl;
 
-extension MapBoxColorConversion on Color {
+extension ColorConversion on Color {
   String toHexStringRGB() {
     final r = red.toRadixString(16).padLeft(2, '0');
     final g = green.toRadixString(16).padLeft(2, '0');

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'offline_regions.dart';
 
@@ -19,7 +19,7 @@ class _OfflineRegionMapState extends State<OfflineRegionMap> {
       appBar: AppBar(
         title: Text('Offline Region: ${widget.item.name}'),
       ),
-      body: MaplibreMap(
+      body: VietmapGL(
         initialCameraPosition: CameraPosition(
           target: _center,
           zoom: widget.item.offlineRegionDefinition.minZoom,

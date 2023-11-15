@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-part of maplibre_gl;
+part of vietmap_flutter_gl;
 
 typedef void OnMapClickCallback(Point<double> point, LatLng coordinates);
 
 typedef void OnFeatureInteractionCallback(
     dynamic id, Point<double> point, LatLng coordinates);
 
-typedef void OnFeatureDragnCallback(dynamic id,
+typedef void OnFeatureDragCallback(dynamic id,
     {required Point<double> point,
     required LatLng origin,
     required LatLng current,
@@ -20,6 +20,8 @@ typedef void OnMapLongClickCallback(Point<double> point, LatLng coordinates);
 
 typedef void OnStyleLoadedCallback();
 
+typedef void OnMapRenderedCallback();
+
 typedef void OnUserLocationUpdated(UserLocation location);
 
 typedef void OnCameraTrackingDismissedCallback();
@@ -29,7 +31,7 @@ typedef void OnCameraIdleCallback();
 
 typedef void OnMapIdleCallback();
 
-/// Controller for a single MaplibreMap instance running on the host platform.
+/// Controller for a single Vietmap instance running on the host platform.
 ///
 /// Change listeners are notified upon changes to any of
 ///
@@ -42,35 +44,36 @@ typedef void OnMapIdleCallback();
 /// Listeners are notified after changes have been applied on the platform side.
 ///
 /// Symbol tap events can be received by adding callbacks to [onSymbolTapped].
-/// Line tap events can be received by adding callbacks to [onLineTapped].
+/// Line tap events can be received by adding callbacks to [onPolylineTapped].
 /// Circle tap events can be received by adding callbacks to [onCircleTapped].
-class MaplibreMapController extends ChangeNotifier {
-  MaplibreMapController({
-    required MapLibreGlPlatform mapboxGlPlatform,
+class VietmapController extends ChangeNotifier {
+  VietmapController({
+    required VietmapGlPlatform vietmapGlPlatform,
     required CameraPosition initialCameraPosition,
     required Iterable<AnnotationType> annotationOrder,
     required Iterable<AnnotationType> annotationConsumeTapEvents,
     this.onStyleLoadedCallback,
     this.onMapClick,
     this.onMapLongClick,
+    this.onMapRendered,
     //this.onAttributionClick,
     this.onCameraTrackingDismissed,
     this.onCameraTrackingChanged,
     this.onMapIdle,
     this.onUserLocationUpdated,
     this.onCameraIdle,
-  }) : _mapboxGlPlatform = mapboxGlPlatform {
+  }) : _vietmapGlPlatform = vietmapGlPlatform {
     _cameraPosition = initialCameraPosition;
 
-    _mapboxGlPlatform.onFeatureTappedPlatform.add((payload) {
+    _vietmapGlPlatform.onFeatureTappedPlatform.add((payload) {
       for (final fun
           in List<OnFeatureInteractionCallback>.from(onFeatureTapped)) {
         fun(payload["id"], payload["point"], payload["latLng"]);
       }
     });
 
-    _mapboxGlPlatform.onFeatureDraggedPlatform.add((payload) {
-      for (final fun in List<OnFeatureDragnCallback>.from(onFeatureDrag)) {
+    _vietmapGlPlatform.onFeatureDraggedPlatform.add((payload) {
+      for (final fun in List<OnFeatureDragCallback>.from(onFeatureDrag)) {
         final DragEventType enmDragEventType = DragEventType.values
             .firstWhere((element) => element.name == payload["eventType"]);
         fun(payload["id"],
@@ -82,17 +85,17 @@ class MaplibreMapController extends ChangeNotifier {
       }
     });
 
-    _mapboxGlPlatform.onCameraMoveStartedPlatform.add((_) {
+    _vietmapGlPlatform.onCameraMoveStartedPlatform.add((_) {
       _isCameraMoving = true;
       notifyListeners();
     });
 
-    _mapboxGlPlatform.onCameraMovePlatform.add((cameraPosition) {
+    _vietmapGlPlatform.onCameraMovePlatform.add((cameraPosition) {
       _cameraPosition = cameraPosition;
       notifyListeners();
     });
 
-    _mapboxGlPlatform.onCameraIdlePlatform.add((cameraPosition) {
+    _vietmapGlPlatform.onCameraIdlePlatform.add((cameraPosition) {
       _isCameraMoving = false;
       if (cameraPosition != null) {
         _cameraPosition = cameraPosition;
@@ -102,19 +105,23 @@ class MaplibreMapController extends ChangeNotifier {
       }
       notifyListeners();
     });
-
-    _mapboxGlPlatform.onMapStyleLoadedPlatform.add((_) {
+    _vietmapGlPlatform.onMapRenderedPlatform.add((_) {
+      if (onMapRendered != null) {
+        onMapRendered!();
+      }
+    });
+    _vietmapGlPlatform.onMapStyleLoadedPlatform.add((_) {
       final interactionEnabled = annotationConsumeTapEvents.toSet();
       for (var type in annotationOrder.toSet()) {
         final enableInteraction = interactionEnabled.contains(type);
         switch (type) {
-          case AnnotationType.fill:
-            fillManager = FillManager(this,
-                onTap: onFillTapped, enableInteraction: enableInteraction);
+          case AnnotationType.polygon:
+            polygonManager = PolygonManager(this,
+                onTap: onPolygonTapped, enableInteraction: enableInteraction);
             break;
-          case AnnotationType.line:
-            lineManager = LineManager(this,
-                onTap: onLineTapped, enableInteraction: enableInteraction);
+          case AnnotationType.polyline:
+            polylineManager = PolylineManager(this,
+                onTap: onPolylineTapped, enableInteraction: enableInteraction);
             break;
           case AnnotationType.circle:
             circleManager = CircleManager(this,
@@ -132,46 +139,47 @@ class MaplibreMapController extends ChangeNotifier {
       }
     });
 
-    _mapboxGlPlatform.onMapClickPlatform.add((dict) {
+    _vietmapGlPlatform.onMapClickPlatform.add((dict) {
       if (onMapClick != null) {
         onMapClick!(dict['point'], dict['latLng']);
       }
     });
 
-    _mapboxGlPlatform.onMapLongClickPlatform.add((dict) {
+    _vietmapGlPlatform.onMapLongClickPlatform.add((dict) {
       if (onMapLongClick != null) {
         onMapLongClick!(dict['point'], dict['latLng']);
       }
     });
 
-    _mapboxGlPlatform.onCameraTrackingChangedPlatform.add((mode) {
+    _vietmapGlPlatform.onCameraTrackingChangedPlatform.add((mode) {
       if (onCameraTrackingChanged != null) {
         onCameraTrackingChanged!(mode);
       }
     });
 
-    _mapboxGlPlatform.onCameraTrackingDismissedPlatform.add((_) {
+    _vietmapGlPlatform.onCameraTrackingDismissedPlatform.add((_) {
       if (onCameraTrackingDismissed != null) {
         onCameraTrackingDismissed!();
       }
     });
 
-    _mapboxGlPlatform.onMapIdlePlatform.add((_) {
+    _vietmapGlPlatform.onMapIdlePlatform.add((_) {
       if (onMapIdle != null) {
         onMapIdle!();
       }
     });
-    _mapboxGlPlatform.onUserLocationUpdatedPlatform.add((location) {
+    _vietmapGlPlatform.onUserLocationUpdatedPlatform.add((location) {
       onUserLocationUpdated?.call(location);
     });
   }
 
-  FillManager? fillManager;
-  LineManager? lineManager;
+  PolygonManager? polygonManager;
+  PolylineManager? polylineManager;
   CircleManager? circleManager;
   SymbolManager? symbolManager;
 
   final OnStyleLoadedCallback? onStyleLoadedCallback;
+  final OnMapRenderedCallback? onMapRendered;
   final OnMapClickCallback? onMapClick;
   final OnMapLongClickCallback? onMapLongClick;
 
@@ -191,12 +199,13 @@ class MaplibreMapController extends ChangeNotifier {
   final ArgumentCallbacks<Circle> onCircleTapped = ArgumentCallbacks<Circle>();
 
   /// Callbacks to receive tap events for fills placed on this map.
-  final ArgumentCallbacks<Fill> onFillTapped = ArgumentCallbacks<Fill>();
+  final ArgumentCallbacks<Polygon> onPolygonTapped =
+      ArgumentCallbacks<Polygon>();
 
   /// Callbacks to receive tap events for features (geojson layer) placed on this map.
   final onFeatureTapped = <OnFeatureInteractionCallback>[];
 
-  final onFeatureDrag = <OnFeatureDragnCallback>[];
+  final onFeatureDrag = <OnFeatureDragCallback>[];
 
   /// Callbacks to receive tap events for info windows on symbols
   @Deprecated("InfoWindow tapped is no longer supported")
@@ -209,12 +218,12 @@ class MaplibreMapController extends ChangeNotifier {
   Set<Symbol> get symbols => symbolManager!.annotations;
 
   /// Callbacks to receive tap events for lines placed on this map.
-  final ArgumentCallbacks<Line> onLineTapped = ArgumentCallbacks<Line>();
+  final ArgumentCallbacks<Line> onPolylineTapped = ArgumentCallbacks<Line>();
 
   /// The current set of lines on this map.
   ///
   /// The returned set will be a detached snapshot of the lines collection.
-  Set<Line> get lines => lineManager!.annotations;
+  Set<Line> get polylines => polylineManager!.annotations;
 
   /// The current set of circles on this map.
   ///
@@ -224,18 +233,18 @@ class MaplibreMapController extends ChangeNotifier {
   /// The current set of fills on this map.
   ///
   /// The returned set will be a detached snapshot of the fills collection.
-  Set<Fill> get fills => fillManager!.annotations;
+  Set<Polygon> get polygons => polygonManager!.annotations;
 
   /// True if the map camera is currently moving.
   bool get isCameraMoving => _isCameraMoving;
   bool _isCameraMoving = false;
 
   /// Returns the most recent camera position reported by the platform side.
-  /// Will be null, if [MapboxMap.trackCameraPosition] is false.
+  /// Will be null, if [VietmapGl.trackCameraPosition] is false.
   CameraPosition? get cameraPosition => _cameraPosition;
   CameraPosition? _cameraPosition;
 
-  final MapLibreGlPlatform _mapboxGlPlatform; //ignore: unused_field
+  final VietmapGlPlatform _vietmapGlPlatform; //ignore: unused_field
 
   /// Updates configuration options of the map user interface.
   ///
@@ -244,8 +253,12 @@ class MaplibreMapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes after listeners have been notified.
   Future<void> _updateMapOptions(Map<String, dynamic> optionsUpdate) async {
-    _cameraPosition = await _mapboxGlPlatform.updateMapOptions(optionsUpdate);
+    _cameraPosition = await _vietmapGlPlatform.updateMapOptions(optionsUpdate);
     notifyListeners();
+  }
+
+  VietmapGlPlatform get getPlatform {
+    return _vietmapGlPlatform;
   }
 
   /// Triggers a resize event for the map on web (ignored on Android or iOS).
@@ -255,12 +268,12 @@ class MaplibreMapController extends ChangeNotifier {
   ///
   /// To force resize map (without any checks) have a look at forceResizeWebMap()
   void resizeWebMap() {
-    _mapboxGlPlatform.resizeWebMap();
+    _vietmapGlPlatform.resizeWebMap();
   }
 
   /// Triggers a hard map resize event on web and does not check if it is required or not.
   void forceResizeWebMap() {
-    _mapboxGlPlatform.forceResizeWebMap();
+    _vietmapGlPlatform.forceResizeWebMap();
   }
 
   /// Starts an animated change of the map camera position.
@@ -273,7 +286,7 @@ class MaplibreMapController extends ChangeNotifier {
   /// Note: this currently always returns immediately with a value of null on iOS
   Future<bool?> animateCamera(CameraUpdate cameraUpdate,
       {Duration? duration}) async {
-    return _mapboxGlPlatform.animateCamera(cameraUpdate, duration: duration);
+    return _vietmapGlPlatform.animateCamera(cameraUpdate, duration: duration);
   }
 
   /// Instantaneously re-position the camera.
@@ -284,7 +297,12 @@ class MaplibreMapController extends ChangeNotifier {
   /// It returns true if the camera was successfully moved and false if the movement was canceled.
   /// Note: this currently always returns immediately with a value of null on iOS
   Future<bool?> moveCamera(CameraUpdate cameraUpdate) async {
-    return _mapboxGlPlatform.moveCamera(cameraUpdate);
+    return _vietmapGlPlatform.moveCamera(cameraUpdate);
+  }
+
+  /// Animate the camera to current location of the user.
+  Future<void> recenter() {
+    return _vietmapGlPlatform.recenter();
   }
 
   /// Adds a new geojson source
@@ -301,7 +319,7 @@ class MaplibreMapController extends ChangeNotifier {
   ///
   Future<void> addGeoJsonSource(String sourceId, Map<String, dynamic> geojson,
       {String? promoteId}) async {
-    await _mapboxGlPlatform.addGeoJsonSource(sourceId, geojson,
+    await _vietmapGlPlatform.addGeoJsonSource(sourceId, geojson,
         promoteId: promoteId);
   }
 
@@ -318,7 +336,7 @@ class MaplibreMapController extends ChangeNotifier {
   /// platform side.
   Future<void> setGeoJsonSource(
       String sourceId, Map<String, dynamic> geojson) async {
-    await _mapboxGlPlatform.setGeoJsonSource(sourceId, geojson);
+    await _vietmapGlPlatform.setGeoJsonSource(sourceId, geojson);
   }
 
   /// Sets new geojson data to and existing source
@@ -334,7 +352,7 @@ class MaplibreMapController extends ChangeNotifier {
   /// platform side.
   Future<void> setGeoJsonFeature(
       String sourceId, Map<String, dynamic> geojsonFeature) async {
-    await _mapboxGlPlatform.setFeatureForGeoJsonSource(
+    await _vietmapGlPlatform.setFeatureForGeoJsonSource(
         sourceId, geojsonFeature);
   }
 
@@ -365,7 +383,7 @@ class MaplibreMapController extends ChangeNotifier {
       double? maxzoom,
       dynamic filter,
       bool enableInteraction = true}) async {
-    await _mapboxGlPlatform.addSymbolLayer(
+    await _vietmapGlPlatform.addSymbolLayer(
       sourceId,
       layerId,
       properties.toJson(),
@@ -398,14 +416,14 @@ class MaplibreMapController extends ChangeNotifier {
   ///
   /// [expressions]: https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions
   Future<void> addLineLayer(
-      String sourceId, String layerId, LineLayerProperties properties,
-      {String? belowLayerId,
+      String sourceId, String layerId, PolylineLayerProperties properties,
+      {String? belowLayerId = 'vmadmin_province',
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,
       dynamic filter,
       bool enableInteraction = true}) async {
-    await _mapboxGlPlatform.addLineLayer(
+    await _vietmapGlPlatform.addLineLayer(
       sourceId,
       layerId,
       properties.toJson(),
@@ -438,14 +456,14 @@ class MaplibreMapController extends ChangeNotifier {
   ///
   /// [expressions]: https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions
   Future<void> addFillLayer(
-      String sourceId, String layerId, FillLayerProperties properties,
+      String sourceId, String layerId, PolygonLayerProperties properties,
       {String? belowLayerId,
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,
       dynamic filter,
       bool enableInteraction = true}) async {
-    await _mapboxGlPlatform.addFillLayer(
+    await _vietmapGlPlatform.addFillLayer(
       sourceId,
       layerId,
       properties.toJson(),
@@ -485,7 +503,7 @@ class MaplibreMapController extends ChangeNotifier {
       double? maxzoom,
       dynamic filter,
       bool enableInteraction = true}) async {
-    await _mapboxGlPlatform.addCircleLayer(
+    await _vietmapGlPlatform.addCircleLayer(
       sourceId,
       layerId,
       properties.toJson(),
@@ -518,7 +536,7 @@ class MaplibreMapController extends ChangeNotifier {
       String? sourceLayer,
       double? minzoom,
       double? maxzoom}) async {
-    await _mapboxGlPlatform.addRasterLayer(
+    await _vietmapGlPlatform.addRasterLayer(
       sourceId,
       layerId,
       properties.toJson(),
@@ -549,7 +567,7 @@ class MaplibreMapController extends ChangeNotifier {
       String? sourceLayer,
       double? minzoom,
       double? maxzoom}) async {
-    await _mapboxGlPlatform.addHillshadeLayer(
+    await _vietmapGlPlatform.addHillshadeLayer(
       sourceId,
       layerId,
       properties.toJson(),
@@ -566,7 +584,7 @@ class MaplibreMapController extends ChangeNotifier {
   /// platform side.
   Future<void> updateMyLocationTrackingMode(
       MyLocationTrackingMode myLocationTrackingMode) async {
-    return _mapboxGlPlatform
+    return _vietmapGlPlatform
         .updateMyLocationTrackingMode(myLocationTrackingMode);
   }
 
@@ -575,7 +593,7 @@ class MaplibreMapController extends ChangeNotifier {
   /// The returned [Future] completes after the change has been made on the
   /// platform side.
   Future<void> matchMapLanguageWithDeviceDefault() async {
-    return _mapboxGlPlatform.matchMapLanguageWithDeviceDefault();
+    return _vietmapGlPlatform.matchMapLanguageWithDeviceDefault();
   }
 
   /// Updates the distance from the edges of the map view’s frame to the edges
@@ -591,7 +609,7 @@ class MaplibreMapController extends ChangeNotifier {
   /// platform side.
   Future<void> updateContentInsets(EdgeInsets insets,
       [bool animated = false]) async {
-    return _mapboxGlPlatform.updateContentInsets(insets, animated);
+    return _vietmapGlPlatform.updateContentInsets(insets, animated);
   }
 
   /// Updates the language of the map labels to match the specified language.
@@ -601,7 +619,7 @@ class MaplibreMapController extends ChangeNotifier {
   /// The returned [Future] completes after the change has been made on the
   /// platform side.
   Future<void> setMapLanguage(String language) async {
-    return _mapboxGlPlatform.setMapLanguage(language);
+    return _vietmapGlPlatform.setMapLanguage(language);
   }
 
   /// Enables or disables the collection of anonymized telemetry data.
@@ -609,7 +627,7 @@ class MaplibreMapController extends ChangeNotifier {
   /// The returned [Future] completes after the change has been made on the
   /// platform side.
   Future<void> setTelemetryEnabled(bool enabled) async {
-    return _mapboxGlPlatform.setTelemetryEnabled(enabled);
+    return _vietmapGlPlatform.setTelemetryEnabled(enabled);
   }
 
   /// Retrieves whether collection of anonymized telemetry data is enabled.
@@ -617,7 +635,7 @@ class MaplibreMapController extends ChangeNotifier {
   /// The returned [Future] completes after the query has been made on the
   /// platform side.
   Future<bool> getTelemetryEnabled() async {
-    return _mapboxGlPlatform.getTelemetryEnabled();
+    return _vietmapGlPlatform.getTelemetryEnabled();
   }
 
   /// Adds a symbol to the map, configured using the specified custom [options].
@@ -719,10 +737,10 @@ class MaplibreMapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes with the added line once listeners have
   /// been notified.
-  Future<Line> addLine(LineOptions options, [Map? data]) async {
-    final effectiveOptions = LineOptions.defaultOptions.copyWith(options);
+  Future<Line> addPolyline(PolylineOptions options, [Map? data]) async {
+    final effectiveOptions = PolylineOptions.defaultOptions.copyWith(options);
     final line = Line(getRandomString(), effectiveOptions, data);
-    await lineManager!.add(line);
+    await polylineManager!.add(line);
     notifyListeners();
     return line;
   }
@@ -734,29 +752,29 @@ class MaplibreMapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes with the added line once listeners have
   /// been notified.
-  Future<List<Line>> addLines(List<LineOptions> options,
+  Future<List<Line>> addPolylines(List<PolylineOptions> options,
       [List<Map>? data]) async {
     final lines = [
       for (var i = 0; i < options.length; i++)
-        Line(getRandomString(), LineOptions.defaultOptions.copyWith(options[i]),
-            data?[i])
+        Line(getRandomString(),
+            PolylineOptions.defaultOptions.copyWith(options[i]), data?[i])
     ];
-    await lineManager!.addAll(lines);
+    await polylineManager!.addAll(lines);
 
     notifyListeners();
     return lines;
   }
 
   /// Updates the specified [line] with the given [changes]. The line must
-  /// be a current member of the [lines] set.‚
+  /// be a current member of the [polylines] set.‚
   ///
   /// Change listeners are notified once the line has been updated on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> updateLine(Line line, LineOptions changes) async {
+  Future<void> updatePolyline(Line line, PolylineOptions changes) async {
     line.options = line.options.copyWith(changes);
-    await lineManager!.set(line);
+    await polylineManager!.set(line);
     notifyListeners();
   }
 
@@ -768,14 +786,14 @@ class MaplibreMapController extends ChangeNotifier {
   }
 
   /// Removes the specified [line] from the map. The line must be a current
-  /// member of the [lines] set.
+  /// member of the [polylines] set.
   ///
   /// Change listeners are notified once the line has been removed on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> removeLine(Line line) async {
-    await lineManager!.remove(line);
+  Future<void> removePolyline(Line line) async {
+    await polylineManager!.remove(line);
     notifyListeners();
   }
 
@@ -787,18 +805,18 @@ class MaplibreMapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> removeLines(Iterable<Line> lines) async {
-    await lineManager!.removeAll(lines);
+    await polylineManager!.removeAll(lines);
     notifyListeners();
   }
 
-  /// Removes all [lines] from the map.
+  /// Removes all [polylines] from the map.
   ///
   /// Change listeners are notified once all lines have been removed on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> clearLines() async {
-    await lineManager!.clear();
+    await polylineManager!.clear();
     notifyListeners();
   }
 
@@ -904,13 +922,13 @@ class MaplibreMapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes with the added fill once listeners have
   /// been notified.
-  Future<Fill> addFill(FillOptions options, [Map? data]) async {
-    final FillOptions effectiveOptions =
-        FillOptions.defaultOptions.copyWith(options);
-    final fill = Fill(getRandomString(), effectiveOptions, data);
-    await fillManager!.add(fill);
+  Future<Polygon> addPolygon(PolygonOptions options, [Map? data]) async {
+    final PolygonOptions effectiveOptions =
+        PolygonOptions.defaultOptions.copyWith(options);
+    final polygon = Polygon(getRandomString(), effectiveOptions, data);
+    await polygonManager!.add(polygon);
     notifyListeners();
-    return fill;
+    return polygon;
   }
 
   /// Adds multiple fills to the map, configured using the specified custom
@@ -921,29 +939,29 @@ class MaplibreMapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes with the added fills once listeners have
   /// been notified.
-  Future<List<Fill>> addFills(List<FillOptions> options,
+  Future<List<Polygon>> addPolygons(List<PolygonOptions> options,
       [List<Map>? data]) async {
-    final fills = [
+    final polygons = [
       for (var i = 0; i < options.length; i++)
-        Fill(getRandomString(), FillOptions.defaultOptions.copyWith(options[i]),
-            data?[i])
+        Polygon(getRandomString(),
+            PolygonOptions.defaultOptions.copyWith(options[i]), data?[i])
     ];
-    await fillManager!.addAll(fills);
+    await polygonManager!.addAll(polygons);
 
     notifyListeners();
-    return fills;
+    return polygons;
   }
 
-  /// Updates the specified [fill] with the given [changes]. The fill must
-  /// be a current member of the [fills] set.
+  /// Updates the specified [polygon] with the given [changes]. The fill must
+  /// be a current member of the [polygons] set.
   ///
   /// Change listeners are notified once the fill has been updated on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> updateFill(Fill fill, FillOptions changes) async {
-    fill.options = fill.options.copyWith(changes);
-    await fillManager!.set(fill);
+  Future<void> updatePolygon(Polygon polygon, PolygonOptions changes) async {
+    polygon.options = polygon.options.copyWith(changes);
+    await polygonManager!.set(polygon);
 
     notifyListeners();
   }
@@ -954,71 +972,76 @@ class MaplibreMapController extends ChangeNotifier {
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> clearFills() async {
-    await fillManager!.clear();
+  Future<void> clearPolygons() async {
+    await polygonManager!.clear();
 
     notifyListeners();
   }
 
-  /// Removes the specified [fill] from the map. The fill must be a current
-  /// member of the [fills] set.
+  /// Removes the specified [polygon] from the map. The fill must be a current
+  /// member of the [polygons] set.
   ///
   /// Change listeners are notified once the fill has been removed on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> removeFill(Fill fill) async {
-    await fillManager!.remove(fill);
+  Future<void> removePolygon(Polygon polygon) async {
+    await polygonManager!.remove(polygon);
     notifyListeners();
   }
 
-  /// Removes the specified [fills] from the map. The fills must be current
-  /// members of the [fills] set.
+  /// Removes the specified [polygons] from the map. The fills must be current
+  /// members of the [polygons] set.
   ///
   /// Change listeners are notified once the fills have been removed on the
   /// platform side.
   ///
   /// The returned [Future] completes once listeners have been notified.
-  Future<void> removeFills(Iterable<Fill> fills) async {
-    await fillManager!.removeAll(fills);
+  Future<void> removePolygons(Iterable<Polygon> polygons) async {
+    await polygonManager!.removeAll(polygons);
     notifyListeners();
   }
 
   /// Query rendered features at a point in screen cooridnates
   Future<List> queryRenderedFeatures(
-      Point<double> point, List<String> layerIds, List<Object>? filter) async {
-    return _mapboxGlPlatform.queryRenderedFeatures(point, layerIds, filter);
+      {required Point<double> point,
+      List<String>? layerIds,
+      List<Object>? filter}) async {
+    return _vietmapGlPlatform.queryRenderedFeatures(
+        point, layerIds ?? [], filter);
   }
 
   /// Query rendered features in a Rect in screen coordinates
   Future<List> queryRenderedFeaturesInRect(
-      Rect rect, List<String> layerIds, String? filter) async {
-    return _mapboxGlPlatform.queryRenderedFeaturesInRect(
-        rect, layerIds, filter);
+      {required Rect rect, List<String>? layerIds, String? filter}) async {
+    return _vietmapGlPlatform.queryRenderedFeaturesInRect(
+        rect, layerIds ?? [], filter);
   }
 
   /// Query rendered features at a point in screen coordinates
   /// Note: On web, this will probably only work for GeoJson source, not for vector tiles
   Future<List> querySourceFeatures(
-      String sourceId, String? sourceLayerId, List<Object>? filter) async {
-    return _mapboxGlPlatform.querySourceFeatures(
+      {required String sourceId,
+      String? sourceLayerId,
+      List<Object>? filter}) async {
+    return _vietmapGlPlatform.querySourceFeatures(
         sourceId, sourceLayerId, filter);
   }
 
   Future invalidateAmbientCache() async {
-    return _mapboxGlPlatform.invalidateAmbientCache();
+    return _vietmapGlPlatform.invalidateAmbientCache();
   }
 
   /// Get last my location
   ///
   /// Return last latlng, nullable
   Future<LatLng?> requestMyLocationLatLng() async {
-    return _mapboxGlPlatform.requestMyLocationLatLng();
+    return _vietmapGlPlatform.requestMyLocationLatLng();
   }
 
   /// This method returns the boundaries of the region currently displayed in the map.
   Future<LatLngBounds> getVisibleRegion() async {
-    return _mapboxGlPlatform.getVisibleRegion();
+    return _vietmapGlPlatform.getVisibleRegion();
   }
 
   /// Adds an image to the style currently displayed in the map, so that it can later be referred to by the provided name.
@@ -1056,8 +1079,15 @@ class MaplibreMapController extends ChangeNotifier {
   ///  );
   /// }
   /// ```
+  ///
+  Future<void> addImageFromAssets(String assetName, [bool sdf = false]) async {
+    final ByteData bytes = await rootBundle.load(assetName);
+    final Uint8List list = bytes.buffer.asUint8List();
+    return _vietmapGlPlatform.addImage(assetName, list, sdf);
+  }
+
   Future<void> addImage(String name, Uint8List bytes, [bool sdf = false]) {
-    return _mapboxGlPlatform.addImage(name, bytes, sdf);
+    return _vietmapGlPlatform.addImage(name, bytes, sdf);
   }
 
   /// For more information on what this does, see https://docs.mapbox.com/help/troubleshooting/optimize-map-label-placement/#label-collision
@@ -1083,31 +1113,32 @@ class MaplibreMapController extends ChangeNotifier {
   /// Adds an image source to the style currently displayed in the map, so that it can later be referred to by the provided id.
   Future<void> addImageSource(
       String imageSourceId, Uint8List bytes, LatLngQuad coordinates) {
-    return _mapboxGlPlatform.addImageSource(imageSourceId, bytes, coordinates);
+    return _vietmapGlPlatform.addImageSource(imageSourceId, bytes, coordinates);
   }
 
   /// Removes previously added image source by id
   @Deprecated("This method was renamed to removeSource")
   Future<void> removeImageSource(String imageSourceId) {
-    return _mapboxGlPlatform.removeSource(imageSourceId);
+    return _vietmapGlPlatform.removeSource(imageSourceId);
   }
 
   /// Removes previously added source by id
   Future<void> removeSource(String sourceId) {
-    return _mapboxGlPlatform.removeSource(sourceId);
+    return _vietmapGlPlatform.removeSource(sourceId);
   }
 
   /// Adds a Mapbox image layer to the map's style at render time.
   Future<void> addImageLayer(String layerId, String imageSourceId,
       {double? minzoom, double? maxzoom}) {
-    return _mapboxGlPlatform.addLayer(layerId, imageSourceId, minzoom, maxzoom);
+    return _vietmapGlPlatform.addLayer(
+        layerId, imageSourceId, minzoom, maxzoom);
   }
 
   /// Adds a Mapbox image layer below the layer provided with belowLayerId to the map's style at render time.
   Future<void> addImageLayerBelow(
       String layerId, String sourceId, String imageSourceId,
       {double? minzoom, double? maxzoom}) {
-    return _mapboxGlPlatform.addLayerBelow(
+    return _vietmapGlPlatform.addLayerBelow(
         layerId, sourceId, imageSourceId, minzoom, maxzoom);
   }
 
@@ -1116,21 +1147,21 @@ class MaplibreMapController extends ChangeNotifier {
   Future<void> addLayerBelow(
       String layerId, String sourceId, String imageSourceId,
       {double? minzoom, double? maxzoom}) {
-    return _mapboxGlPlatform.addLayerBelow(
+    return _vietmapGlPlatform.addLayerBelow(
         layerId, sourceId, imageSourceId, minzoom, maxzoom);
   }
 
   /// Removes a Mapbox style layer
   Future<void> removeLayer(String layerId) {
-    return _mapboxGlPlatform.removeLayer(layerId);
+    return _vietmapGlPlatform.removeLayer(layerId);
   }
 
   Future<void> setFilter(String layerId, dynamic filter) {
-    return _mapboxGlPlatform.setFilter(layerId, filter);
+    return _vietmapGlPlatform.setFilter(layerId, filter);
   }
 
   Future<dynamic> getFilter(String layerId) {
-    return _mapboxGlPlatform.getFilter(layerId);
+    return _vietmapGlPlatform.getFilter(layerId);
   }
 
   /// Returns the point on the screen that corresponds to a geographical coordinate ([latLng]). The screen location is in screen pixels (not display pixels) relative to the top left of the map (not of the whole screen)
@@ -1140,27 +1171,27 @@ class MaplibreMapController extends ChangeNotifier {
   ///
   /// Returns null if [latLng] is not currently visible on the map.
   Future<Point> toScreenLocation(LatLng latLng) async {
-    return _mapboxGlPlatform.toScreenLocation(latLng);
+    return _vietmapGlPlatform.toScreenLocation(latLng);
   }
 
   Future<List<Point>> toScreenLocationBatch(Iterable<LatLng> latLngs) async {
-    return _mapboxGlPlatform.toScreenLocationBatch(latLngs);
+    return _vietmapGlPlatform.toScreenLocationBatch(latLngs);
   }
 
   /// Returns the geographic location (as [LatLng]) that corresponds to a point on the screen. The screen location is specified in screen pixels (not display pixels) relative to the top left of the map (not the top left of the whole screen).
   Future<LatLng> toLatLng(Point screenLocation) async {
-    return _mapboxGlPlatform.toLatLng(screenLocation);
+    return _vietmapGlPlatform.toLatLng(screenLocation);
   }
 
   /// Returns the distance spanned by one pixel at the specified [latitude] and current zoom level.
   /// The distance between pixels decreases as the latitude approaches the poles. This relationship parallels the relationship between longitudinal coordinates at different latitudes.
   Future<double> getMetersPerPixelAtLatitude(double latitude) async {
-    return _mapboxGlPlatform.getMetersPerPixelAtLatitude(latitude);
+    return _vietmapGlPlatform.getMetersPerPixelAtLatitude(latitude);
   }
 
   /// Add a new source to the map
   Future<void> addSource(String sourceid, SourceProperties properties) async {
-    return _mapboxGlPlatform.addSource(sourceid, properties);
+    return _vietmapGlPlatform.addSource(sourceid, properties);
   }
 
   Future setCameraBounds({
@@ -1170,7 +1201,7 @@ class MaplibreMapController extends ChangeNotifier {
     required double east,
     required int padding,
   }) async {
-    return _mapboxGlPlatform.setCameraBounds(
+    return _vietmapGlPlatform.setCameraBounds(
       west: west,
       north: north,
       south: south,
@@ -1207,7 +1238,7 @@ class MaplibreMapController extends ChangeNotifier {
       double? minzoom,
       double? maxzoom,
       dynamic filter}) async {
-    if (properties is FillLayerProperties) {
+    if (properties is PolygonLayerProperties) {
       addFillLayer(sourceId, layerId, properties,
           belowLayerId: belowLayerId,
           enableInteraction: enableInteraction,
@@ -1215,7 +1246,7 @@ class MaplibreMapController extends ChangeNotifier {
           minzoom: minzoom,
           maxzoom: maxzoom,
           filter: filter);
-    } else if (properties is LineLayerProperties) {
+    } else if (properties is PolylineLayerProperties) {
       addLineLayer(sourceId, layerId, properties,
           belowLayerId: belowLayerId,
           enableInteraction: enableInteraction,
@@ -1263,18 +1294,18 @@ class MaplibreMapController extends ChangeNotifier {
   }
 
   Future<void> setLayerVisibility(String layerId, bool visible) async {
-    return _mapboxGlPlatform.setLayerVisibility(layerId, visible);
+    return _vietmapGlPlatform.setLayerVisibility(layerId, visible);
   }
 
   Future<List> getLayerIds() {
-    return _mapboxGlPlatform.getLayerIds();
+    return _vietmapGlPlatform.getLayerIds();
   }
 
   /// Retrieve every source ids of the map as a [String] list, including the ones added internally
   ///
   /// This method is not currently implemented on the web
   Future<List<String>> getSourceIds() async {
-    return (await _mapboxGlPlatform.getSourceIds())
+    return (await _vietmapGlPlatform.getSourceIds())
         .whereType<String>()
         .toList();
   }
@@ -1282,6 +1313,6 @@ class MaplibreMapController extends ChangeNotifier {
   @override
   void dispose() {
     super.dispose();
-    _mapboxGlPlatform.dispose();
+    _vietmapGlPlatform.dispose();
   }
 }

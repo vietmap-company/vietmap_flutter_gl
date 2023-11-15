@@ -6,8 +6,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
+import 'constant.dart';
 import 'page.dart';
 
 class PlaceCirclePage extends ExamplePage {
@@ -31,11 +32,11 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
 
   static final LatLng center = const LatLng(-33.86711, 151.1947171);
 
-  MaplibreMapController? controller;
+  VietmapController? controller;
   int _circleCount = 0;
   Circle? _selectedCircle;
 
-  void _onMapCreated(MaplibreMapController controller) {
+  void _onMapCreated(VietmapController controller) {
     this.controller = controller;
     controller.onCircleTapped.add(_onCircleTapped);
   }
@@ -73,7 +74,7 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
             center.latitude + sin(_circleCount * pi / 6.0) / 20.0,
             center.longitude + cos(_circleCount * pi / 6.0) / 20.0,
           ),
-          circleColor: "#FF0000"),
+          circleColor: Color(0xFFFF0000)),
     );
     setState(() {
       _circleCount += 1;
@@ -149,15 +150,16 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
   }
 
   Future<void> _changeCircleStrokeColor() async {
-    String? current = _selectedCircle!.options.circleStrokeColor;
+    Color? current = _selectedCircle!.options.circleStrokeColor;
     if (current == null) {
       // default value
-      current = "#FFFFFF";
+      current = Colors.white;
     }
 
     _updateSelectedCircle(
       CircleOptions(
-          circleStrokeColor: current == "#FFFFFF" ? "#FF0000" : "#FFFFFF"),
+          circleStrokeColor:
+              current == Colors.white ? Color(0xFFFF0000) : Colors.white),
     );
   }
 
@@ -185,14 +187,14 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
   }
 
   Future<void> _changeCircleColor() async {
-    String? current = _selectedCircle!.options.circleColor;
+    Color? current = _selectedCircle!.options.circleColor;
     if (current == null) {
       // default value
-      current = "#FF0000";
+      current = Color(0xFFFF0000);
     }
 
     _updateSelectedCircle(
-      CircleOptions(circleColor: "#FFFF00"),
+      CircleOptions(circleColor: Color(0xFFFFFF00)),
     );
   }
 
@@ -217,7 +219,8 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
           child: SizedBox(
             width: 300.0,
             height: 200.0,
-            child: MaplibreMap(
+            child: VietmapGL(
+              styleString: YOUR_STYLE_URL_HERE,
               onMapCreated: _onMapCreated,
               initialCameraPosition: const CameraPosition(
                 target: LatLng(-33.852, 151.211),

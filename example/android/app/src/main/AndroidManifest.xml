@@ -1,17 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mapbox.mapboxglexample">
+    package="vn.vietmap.vietmapglexample">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name="${applicationName}"
-        android:label="mapbox_gl_example"
+        android:label="vietmap_gl_example"
         android:icon="@mipmap/ic_launcher">
 
         <!-- TODO: removed android:exported="false" from https://github.com/flutter-mapbox-gl/maps/pull/904 (caused launch issues)-->
         <activity
-            android:name=".MainActivity"
+            android:name="vn.vietmap.vietmapglexample.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"

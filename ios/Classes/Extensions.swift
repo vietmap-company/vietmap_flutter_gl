@@ -1,4 +1,4 @@
-import Mapbox
+import VietMap
 
 extension MGLMapCamera {
     func toDict(mapView: MGLMapView) -> [String: Any] {

@@ -1,5 +1,5 @@
-import Mapbox
-import MapLibreAnnotationExtension
+import VietMap
+import MapboxAnnotationExtension
 
 class Convert {
     class func interpretMapboxMapOptions(options: Any?, delegate: MapboxMapOptionsSink) {

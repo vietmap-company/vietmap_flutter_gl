@@ -1,7 +1,7 @@
-part of maplibre_gl;
+part of vietmap_flutter_gl;
 
 abstract class AnnotationManager<T extends Annotation> {
-  final MaplibreMapController controller;
+  final VietmapController controller;
   final _idToAnnotation = <String, T>{};
   final _idToLayerIndex = <String, int>{};
 
@@ -167,17 +167,18 @@ abstract class AnnotationManager<T extends Annotation> {
   }
 }
 
-class LineManager extends AnnotationManager<Line> {
-  LineManager(MaplibreMapController controller,
+class PolylineManager extends AnnotationManager<Line> {
+  PolylineManager(VietmapController controller,
       {void Function(Line)? onTap, bool enableInteraction = true})
       : super(
           controller,
           onTap: onTap,
           enableInteraction: enableInteraction,
-          selectLayer: (Line line) => line.options.linePattern == null ? 0 : 1,
+          selectLayer: (Line line) =>
+              line.options.polylinePattern == null ? 0 : 1,
         );
 
-  static const _baseProperties = LineLayerProperties(
+  static const _baseProperties = PolylineLayerProperties(
     lineJoin: [Expressions.get, 'lineJoin'],
     lineOpacity: [Expressions.get, 'lineOpacity'],
     lineColor: [Expressions.get, 'lineColor'],
@@ -189,30 +190,31 @@ class LineManager extends AnnotationManager<Line> {
   @override
   List<LayerProperties> get allLayerProperties => [
         _baseProperties,
-        _baseProperties.copyWith(
-            LineLayerProperties(linePattern: [Expressions.get, 'linePattern'])),
+        _baseProperties.copyWith(PolylineLayerProperties(
+            linePattern: [Expressions.get, 'linePattern'])),
       ];
 }
 
-class FillManager extends AnnotationManager<Fill> {
-  FillManager(
-    MaplibreMapController controller, {
-    void Function(Fill)? onTap,
+class PolygonManager extends AnnotationManager<Polygon> {
+  PolygonManager(
+    VietmapController controller, {
+    void Function(Polygon)? onTap,
     bool enableInteraction = true,
   }) : super(
           controller,
           onTap: onTap,
           enableInteraction: enableInteraction,
-          selectLayer: (Fill fill) => fill.options.fillPattern == null ? 0 : 1,
+          selectLayer: (Polygon fill) =>
+              fill.options.polygonPattern == null ? 0 : 1,
         );
   @override
   List<LayerProperties> get allLayerProperties => const [
-        FillLayerProperties(
+        PolygonLayerProperties(
           fillOpacity: [Expressions.get, 'fillOpacity'],
           fillColor: [Expressions.get, 'fillColor'],
           fillOutlineColor: [Expressions.get, 'fillOutlineColor'],
         ),
-        FillLayerProperties(
+        PolygonLayerProperties(
           fillOpacity: [Expressions.get, 'fillOpacity'],
           fillColor: [Expressions.get, 'fillColor'],
           fillOutlineColor: [Expressions.get, 'fillOutlineColor'],
@@ -223,7 +225,7 @@ class FillManager extends AnnotationManager<Fill> {
 
 class CircleManager extends AnnotationManager<Circle> {
   CircleManager(
-    MaplibreMapController controller, {
+    VietmapController controller, {
     void Function(Circle)? onTap,
     bool enableInteraction = true,
   }) : super(
@@ -247,7 +249,7 @@ class CircleManager extends AnnotationManager<Circle> {
 
 class SymbolManager extends AnnotationManager<Symbol> {
   SymbolManager(
-    MaplibreMapController controller, {
+    VietmapController controller, {
     void Function(Symbol)? onTap,
     bool iconAllowOverlap = false,
     bool textAllowOverlap = false,

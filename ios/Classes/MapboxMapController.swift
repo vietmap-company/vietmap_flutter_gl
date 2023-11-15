@@ -1,6 +1,6 @@
 import Flutter
-import Mapbox
-import MapLibreAnnotationExtension
+import VietMap
+import MapboxAnnotationExtension
 
 class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, MapboxMapOptionsSink,
     UIGestureRecognizerDelegate
@@ -39,7 +39,6 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
     ) {
         mapView = MGLMapView(frame: frame)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.logoView.isHidden = true
         self.registrar = registrar
 
         super.init()
@@ -61,7 +60,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             singleTap.require(toFail: recognizer)
         }
         mapView.addGestureRecognizer(singleTap)
-
+        
         let longPress = UILongPressGestureRecognizer(
             target: self,
             action: #selector(handleMapLongPress(sender:))
@@ -93,6 +92,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             //     }
             // }
 
+
             if let enabled = args["dragEnabled"] as? Bool {
                 dragEnabled = enabled
             }
@@ -105,6 +105,8 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             pan.delegate = self
             mapView.addGestureRecognizer(pan)
         }
+        
+        mapView.logoView.isHidden = false
     }
     func removeAllForController(controller: MGLAnnotationController, ids: [String]){
         let idSet = Set(ids)
@@ -165,6 +167,11 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                 style.localizeLabels(into: nil)
             }
             result(nil)
+        case "map#recenter":
+            // move map to the current location
+            if let location = mapView.userLocation?.location?.coordinate {
+                mapView.setCenter(location, animated: true)
+            }
         case "map#updateContentInsets":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
 
@@ -204,7 +211,9 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             var styleLayerIdentifiers: Set<String>?
             if let layerIds = arguments["layerIds"] as? [String] {
-                styleLayerIdentifiers = Set<String>(layerIds)
+                if(!layerIds.isEmpty){
+                    styleLayerIdentifiers = Set<String>(layerIds)
+                }
             }
             var filterExpression: NSPredicate?
             if let filter = arguments["filter"] as? [Any] {
@@ -1031,6 +1040,12 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             }
         }
     }
+    
+    func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
+        if let channel = channel {
+            channel.invokeMethod("map#onMapRendered", arguments: nil)
+        }
+    }
 
     // handle missing images
     func mapView(_: MGLMapView, didFailToLoadImage name: String) -> UIImage? {
@@ -1492,7 +1507,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
         if styleString.isEmpty {
             NSLog("setStyleString - string empty")
         } else if styleString.hasPrefix("{") || styleString.hasPrefix("[") {
-            // Currently the iOS Mapbox SDK does not have a builder for json.
+            // Currently the iOS VietMap SDK does not have a builder for json.
             NSLog("setStyleString - JSON style currently not supported")
         } else if styleString.hasPrefix("/") {
             // Absolute path

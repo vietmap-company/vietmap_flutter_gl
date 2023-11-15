@@ -6,7 +6,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:maplibre_gl_example/constant.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'page.dart';
 
@@ -39,7 +40,7 @@ class MapUiBodyState extends State<MapUiBody> {
     zoom: 11.0,
   );
 
-  MaplibreMapController? mapController;
+  VietmapController? mapController;
   CameraPosition _position = _kInitialPosition;
   bool _isMoving = false;
   bool _compassEnabled = true;
@@ -49,11 +50,8 @@ class MapUiBodyState extends State<MapUiBody> {
   int _styleStringIndex = 0;
   // Style string can a reference to a local or remote resources.
   // On Android the raw JSON can also be passed via a styleString, on iOS this is not supported.
-  List<String> _styleStrings = [
-    "https://demotiles.maplibre.org/style.json",
-    "assets/style.json"
-  ];
-  List<String> _styleStringLabels = ["Maplibre demo style", "Local style file"];
+  List<String> _styleStrings = [YOUR_STYLE_URL_HERE];
+  // List<String> _styleStringLabels = ["Vietmap demo style"];
   bool _rotateGesturesEnabled = true;
   bool _scrollGesturesEnabled = true;
   bool? _doubleClickToZoomEnabled;
@@ -64,7 +62,7 @@ class MapUiBodyState extends State<MapUiBody> {
   bool _countriesVisible = true;
   MyLocationTrackingMode _myLocationTrackingMode = MyLocationTrackingMode.None;
   List<Object>? _featureQueryFilter;
-  Fill? _selectedFill;
+  Polygon? _selectedFill;
 
   @override
   void initState() {
@@ -177,17 +175,17 @@ class MapUiBodyState extends State<MapUiBody> {
     );
   }
 
-  Widget _setStyleToSatellite() {
-    return TextButton(
-      child: Text(
-          'change map style to ${_styleStringLabels[(_styleStringIndex + 1) % _styleStringLabels.length]}'),
-      onPressed: () {
-        setState(() {
-          _styleStringIndex = (_styleStringIndex + 1) % _styleStrings.length;
-        });
-      },
-    );
-  }
+  // Widget _setStyleToSatellite() {
+  //   return TextButton(
+  //     child: Text(
+  //         'change map style to ${_styleStringLabels[(_styleStringIndex + 1) % _styleStringLabels.length]}'),
+  //     onPressed: () {
+  //       setState(() {
+  //         _styleStringIndex = (_styleStringIndex + 1) % _styleStrings.length;
+  //       });
+  //     },
+  //   );
+  // }
 
   Widget _rotateToggler() {
     return TextButton(
@@ -295,8 +293,8 @@ class MapUiBodyState extends State<MapUiBody> {
     return TextButton(
       child: Text('get source features (maplibre)'),
       onPressed: () async {
-        var result = await mapController!
-            .querySourceFeatures("maplibre", "centroids", null);
+        var result = await mapController!.querySourceFeatures(
+            sourceId: "maplibre", sourceLayerId: "centroids");
         print(result);
       },
     );
@@ -314,7 +312,7 @@ class MapUiBodyState extends State<MapUiBody> {
 
   _clearFill() {
     if (_selectedFill != null) {
-      mapController!.removeFill(_selectedFill!);
+      mapController!.removePolygon(_selectedFill!);
       setState(() {
         _selectedFill = null;
       });
@@ -331,11 +329,11 @@ class MapUiBodyState extends State<MapUiBody> {
               (ll) => ll.map((l) => LatLng(l[1], l[0])).toList().cast<LatLng>())
           .toList()
           .cast<List<LatLng>>();
-      Fill fill = await mapController!.addFill(FillOptions(
+      Polygon fill = await mapController!.addPolygon(PolygonOptions(
         geometry: geometry,
-        fillColor: "#FF0000",
-        fillOutlineColor: "#FF0000",
-        fillOpacity: 0.6,
+        polygonColor: Color(0xFFFF0000),
+        polygonOutlineColor: Color(0xFFFF0000),
+        polygonOpacity: 0.6,
       ));
       setState(() {
         _selectedFill = fill;
@@ -345,7 +343,7 @@ class MapUiBodyState extends State<MapUiBody> {
 
   @override
   Widget build(BuildContext context) {
-    final MaplibreMap mapboxMap = MaplibreMap(
+    final VietmapGL vietmapGL = VietmapGL(
       onMapCreated: onMapCreated,
       initialCameraPosition: _kInitialPosition,
       trackCameraPosition: true,
@@ -358,7 +356,7 @@ class MapUiBodyState extends State<MapUiBody> {
       tiltGesturesEnabled: _tiltGesturesEnabled,
       zoomGesturesEnabled: _zoomGesturesEnabled,
       doubleClickZoomEnabled: _doubleClickToZoomEnabled,
-      myLocationEnabled: _myLocationEnabled,
+      // myLocationEnabled: _myLocationEnabled,
       myLocationTrackingMode: _myLocationTrackingMode,
       myLocationRenderMode: MyLocationRenderMode.GPS,
       onMapClick: (point, latLng) async {
@@ -366,7 +364,7 @@ class MapUiBodyState extends State<MapUiBody> {
             "Map click: ${point.x},${point.y}   ${latLng.latitude}/${latLng.longitude}");
         print("Filter $_featureQueryFilter");
         List features = await mapController!
-            .queryRenderedFeatures(point, [], _featureQueryFilter);
+            .queryRenderedFeatures(point: point, filter: _featureQueryFilter);
         print('# features: ${features.length}');
         _clearFill();
         if (features.isEmpty && _featureQueryFilter != null) {
@@ -390,7 +388,7 @@ class MapUiBodyState extends State<MapUiBody> {
             "Map long press The distance measured in meters at latitude ${latLng.latitude} is $metersPerPixel m");
 
         List features =
-            await mapController!.queryRenderedFeatures(point, [], null);
+            await mapController!.queryRenderedFeatures(point: point);
         if (features.length > 0) {
           print(features[0]);
         }
@@ -402,7 +400,7 @@ class MapUiBodyState extends State<MapUiBody> {
       },
       onUserLocationUpdated: (location) {
         print(
-            "new location: ${location.position}, alt.: ${location.altitude}, bearing: ${location.bearing}, speed: ${location.speed}, horiz. accuracy: ${location.horizontalAccuracy}, vert. accuracy: ${location.verticalAccuracy}");
+            "new location: ${location.position}, alt.: ${location.latitude}, bearing: ${location.bearing}, speed: ${location.speed}, horiz. accuracy: ${location.horizontalAccuracy}, vert. accuracy: ${location.verticalAccuracy}");
       },
     );
 
@@ -422,7 +420,7 @@ class MapUiBodyState extends State<MapUiBody> {
           _compassToggler(),
           _myLocationTrackingModeCycler(),
           _latLngBoundsToggler(),
-          _setStyleToSatellite(),
+          // _setStyleToSatellite(),
           _zoomBoundsToggler(),
           _rotateToggler(),
           _scrollToggler(),
@@ -444,7 +442,7 @@ class MapUiBodyState extends State<MapUiBody> {
           child: SizedBox(
             width: _mapExpanded ? null : 300.0,
             height: 200.0,
-            child: mapboxMap,
+            child: vietmapGL,
           ),
         ),
         Expanded(
@@ -456,7 +454,7 @@ class MapUiBodyState extends State<MapUiBody> {
     );
   }
 
-  void onMapCreated(MaplibreMapController controller) {
+  void onMapCreated(VietmapController controller) {
     mapController = controller;
     mapController!.addListener(_onMapChanged);
     _extractMapInfo();

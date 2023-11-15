@@ -6,8 +6,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
+import 'constant.dart';
 import 'page.dart';
 
 class PlaceSourcePage extends ExamplePage {
@@ -34,9 +35,9 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
 
   bool sourceAdded = false;
   bool layerAdded = false;
-  late MaplibreMapController controller;
+  late VietmapController controller;
 
-  void _onMapCreated(MaplibreMapController controller) {
+  void _onMapCreated(VietmapController controller) {
     this.controller = controller;
   }
 
@@ -99,7 +100,8 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
           child: SizedBox(
             width: 300.0,
             height: 200.0,
-            child: MaplibreMap(
+            child: VietmapGL(
+              styleString: YOUR_STYLE_URL_HERE,
               onMapCreated: _onMapCreated,
               initialCameraPosition: const CameraPosition(
                 target: LatLng(-33.852, 151.211),

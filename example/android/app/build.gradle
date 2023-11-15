@@ -25,7 +25,7 @@ apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
     ndkVersion "21.1.6352462"
 
     lintOptions {
@@ -34,9 +34,9 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.mapbox.mapboxglexample"
-        minSdkVersion 21
-        targetSdkVersion 31
+        applicationId "vn.vietmap.vietmapglexample"
+        minSdkVersion 23
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -69,12 +69,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
-    constraints {
-        implementation('com.google.android.gms:play-services-location') {
-            version {
-                strictly "16.0.0"
-            }
-            because 'location: 4.2.3 does not specify version play-services-location'
-            }
-    }
+    implementation('com.google.android.gms:play-services-location:16.0.0')
+
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart'; // ignore: unnecessary_import
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
+import 'constant.dart';
 import 'page.dart';
 import 'util.dart';
 
@@ -21,8 +22,8 @@ class AnnotationOrderBody extends StatefulWidget {
 }
 
 class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
-  late MaplibreMapController controllerOne;
-  late MaplibreMapController controllerTwo;
+  late VietmapController controllerOne;
+  late VietmapController controllerTwo;
 
   final LatLng center = const LatLng(36.580664, 32.5563837);
 
@@ -44,7 +45,7 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
                   child: SizedBox(
                     width: 250.0,
                     height: 250.0,
-                    child: MaplibreMap(
+                    child: VietmapGL(
                       onMapCreated: onMapCreatedOne,
                       onStyleLoadedCallback: () => onStyleLoaded(controllerOne),
                       initialCameraPosition: CameraPosition(
@@ -52,11 +53,12 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
                         zoom: 5.0,
                       ),
                       annotationOrder: const [
-                        AnnotationType.line,
+                        AnnotationType.polyline,
                         AnnotationType.symbol,
                         AnnotationType.circle,
-                        AnnotationType.fill,
+                        AnnotationType.polygon,
                       ],
+                      styleString: YOUR_STYLE_URL_HERE,
                     ),
                   ),
                 ),
@@ -78,7 +80,8 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
                   child: SizedBox(
                     width: 250.0,
                     height: 250.0,
-                    child: MaplibreMap(
+                    child: VietmapGL(
+                      styleString: YOUR_STYLE_URL_HERE,
                       onMapCreated: onMapCreatedTwo,
                       onStyleLoadedCallback: () => onStyleLoaded(controllerTwo),
                       initialCameraPosition: CameraPosition(
@@ -86,8 +89,8 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
                         zoom: 5.0,
                       ),
                       annotationOrder: const [
-                        AnnotationType.fill,
-                        AnnotationType.line,
+                        AnnotationType.polygon,
+                        AnnotationType.polyline,
                         AnnotationType.symbol,
                         AnnotationType.circle,
                       ],
@@ -102,15 +105,15 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
     );
   }
 
-  void onMapCreatedOne(MaplibreMapController controller) {
+  void onMapCreatedOne(VietmapController controller) {
     this.controllerOne = controller;
   }
 
-  void onMapCreatedTwo(MaplibreMapController controller) {
+  void onMapCreatedTwo(VietmapController controller) {
     this.controllerTwo = controller;
   }
 
-  void onStyleLoaded(MaplibreMapController controller) async {
+  void onStyleLoaded(VietmapController controller) async {
     await addImageFromAsset(
         controller, "custom-marker", "assets/symbols/custom-marker.png");
     controller.addSymbol(
@@ -122,12 +125,12 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
         iconImage: "custom-marker", // "airport-15",
       ),
     );
-    controller.addLine(
-      LineOptions(
+    controller.addPolyline(
+      PolylineOptions(
         draggable: false,
-        lineColor: "#ff0000",
-        lineWidth: 7.0,
-        lineOpacity: 1,
+        polylineColor: Colors.red,
+        polylineWidth: 7.0,
+        polylineOpacity: 1,
         geometry: [
           LatLng(35.3649902, 32.0593003),
           LatLng(34.9475098, 31.1187944),
@@ -138,11 +141,11 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
         ],
       ),
     );
-    controller.addFill(
-      FillOptions(
+    controller.addPolygon(
+      PolygonOptions(
         draggable: false,
-        fillColor: "#008888",
-        fillOpacity: 0.3,
+        polygonColor: Color(0xFF008888),
+        polygonOpacity: 0.3,
         geometry: [
           [
             LatLng(35.3649902, 32.0593003),

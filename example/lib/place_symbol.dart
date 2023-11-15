@@ -9,8 +9,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:maplibre_gl/mapbox_gl.dart';
+import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
+import 'constant.dart';
 import 'page.dart';
 
 class PlaceSymbolPage extends ExamplePage {
@@ -34,12 +35,12 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
 
   static final LatLng center = const LatLng(-33.86711, 151.1947171);
 
-  MaplibreMapController? controller;
+  VietmapController? controller;
   int _symbolCount = 0;
   Symbol? _selectedSymbol;
   bool _iconAllowOverlap = false;
 
-  void _onMapCreated(MaplibreMapController controller) {
+  void _onMapCreated(VietmapController controller) {
     this.controller = controller;
     controller.onSymbolTapped.add(_onSymbolTapped);
   }
@@ -119,9 +120,9 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
             textSize: 12.5,
             textOffset: Offset(0, 0.8),
             textAnchor: 'top',
-            textColor: '#000000',
+            textColor: Colors.black,
             textHaloBlur: 1,
-            textHaloColor: '#ffffff',
+            textHaloColor: Colors.white,
             textHaloWidth: 0.8,
           )
         : SymbolOptions(
@@ -289,7 +290,8 @@ class PlaceSymbolBodyState extends State<PlaceSymbolBody> {
           child: SizedBox(
             width: 300.0,
             height: 200.0,
-            child: MaplibreMap(
+            child: VietmapGL(
+              styleString: YOUR_STYLE_URL_HERE,
               onMapCreated: _onMapCreated,
               onStyleLoadedCallback: _onStyleLoaded,
               initialCameraPosition: const CameraPosition(
