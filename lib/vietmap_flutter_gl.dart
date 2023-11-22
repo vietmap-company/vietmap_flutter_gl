@@ -76,5 +76,9 @@ part 'src/marker_layer.dart';
 
 part 'src/marker_model.dart';
 
+part 'src/static_marker_model.dart';
+
 part 'src/cluster_layer.dart';
 // part 'src/location_marker.dart';
+
+part 'src/static_marker_layer.dart';

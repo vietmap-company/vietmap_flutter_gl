@@ -76,24 +76,39 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
         ),
         _mapController == null
             ? SizedBox.shrink()
-            : MarkerLayer(
+            : StaticMarkerLayer(
                 ignorePointer: true,
                 mapController: _mapController!,
                 markers: [
-                    Marker(
-                        child: _markerWidget(Icons.abc),
+                    StaticMarker(
+                        width: 50,
+                        height: 50,
+                        bearing: 0,
+                        child: _markerWidget(Icons.arrow_downward_rounded),
                         latLng: LatLng(10.736657, 106.672240)),
-                    Marker(
-                        child: _markerWidget(Icons.zoom_out_map),
+                    StaticMarker(
+                        width: 50,
+                        height: 50,
+                        bearing: 25,
+                        child: _markerWidget(Icons.arrow_upward),
                         latLng: LatLng(10.766543, 106.742378)),
-                    Marker(
-                        child: _markerWidget(Icons.access_alarms_rounded),
+                    StaticMarker(
+                        width: 50,
+                        height: 50,
+                        bearing: 50,
+                        child: _markerWidget(Icons.arrow_right),
                         latLng: LatLng(10.775818, 106.640497)),
-                    Marker(
-                        child: _markerWidget(Icons.account_balance),
+                    StaticMarker(
+                        width: 50,
+                        height: 50,
+                        bearing: 75,
+                        child: _markerWidget(Icons.arrow_left),
                         latLng: LatLng(10.727416, 106.735597)),
-                    Marker(
-                        child: _markerWidget(Icons.wrong_location),
+                    StaticMarker(
+                        width: 50,
+                        height: 50,
+                        bearing: 100,
+                        child: _markerWidget(Icons.arrow_outward_outlined),
                         latLng: LatLng(10.792765, 106.674143)),
                   ]),
         _mapController == null
@@ -109,7 +124,6 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           FloatingActionButton(
             tooltip: 'Add marker',
             onPressed: () {
-              print(_mapController?.cameraPosition?.zoom);
               if ((_mapController?.cameraPosition?.zoom ?? 0) > 7) {
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Thu nhỏ bản đồ để xem marker')));
@@ -210,10 +224,10 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
 
   _markerWidget(IconData icon) {
     return Container(
-      width: 20,
-      height: 20,
+      width: 50,
+      height: 50,
       decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.green),
-      child: Icon(icon, color: Colors.red, size: 13),
+      child: Icon(icon, color: Colors.red, size: 50),
     );
   }
 }
