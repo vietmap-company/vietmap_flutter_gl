@@ -307,7 +307,7 @@ _mapController?.addPolyline(
  ```
 
 Demo code [here](./example/lib/main.dart)
-# Note: Replace apikey which is provided by VietMap to all _c34db45b6d1e8e71bfe74bd5139aa592322b463632af3543_ tag to the application work normally
+# Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tag to the application work normally
 
 <br></br>
 <br></br>
