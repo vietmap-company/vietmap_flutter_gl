@@ -1,4 +1,4 @@
-## 1.2.3, Nov 22, 2023
+## 1.2.4, Nov 22, 2023
 * Add new `StaticMarkerLayer` and `StaticMarker` to render static marker, which rotate with the map when user rotate the map
 ## 1.2.2, Nov 21, 2023
 * Update iOS configuration

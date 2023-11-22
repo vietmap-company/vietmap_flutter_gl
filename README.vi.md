@@ -267,7 +267,7 @@ _mapController?.removePolygon(polygon);
  ```
 
 Code mẫu màn hình bản đồ [tại đây](./example/lib/main.dart)
-# Lưu ý: Thay apikey được VietMap cung cấp vào toàn bộ tag _c34db45b6d1e8e71bfe74bd5139aa592322b463632af3543_ để ứng dụng hoạt động bình thường
+# Lưu ý: Thay apikey được VietMap cung cấp vào toàn bộ tag _YOUR_API_KEY_HERE_ để ứng dụng hoạt động bình thường
 
 <br></br>
 <br></br>
