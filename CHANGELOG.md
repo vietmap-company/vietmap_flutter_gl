@@ -1,3 +1,9 @@
+## 1.2.3, Nov 22, 2023
+* Add new `StaticMarkerLayer` and `StaticMarker` to render static marker, which rotate with the map when user rotate the map
+## 1.2.2, Nov 21, 2023
+* Update iOS configuration
+## 1.2.1, Nov 15, 2023
+* Fix android map style
 ## 1.2.0, Nov 15, 2023
 * Update version 2.0.0 of android and ios native map sdk
 ## 1.1.8, Nov 14, 2023

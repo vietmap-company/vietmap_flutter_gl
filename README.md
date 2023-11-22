@@ -46,21 +46,20 @@ Upgrade the minSdkVersion to a minimum is 24 in the build.gradle (app) file, at 
 ```
 ## iOS config
 Add the below codes to the Info.plist file. Replace your API key to **YOUR_API_KEY_HERE** 
-```
-	<key>VietMapAPIBaseURL</key>
-	<string>https://maps.vietmap.vn/api/navigations/route/</string>
-	<key>VietMapAccessToken</key>
-	<string>YOUR_API_KEY_HERE</string>
-	<key>VietMapURL</key>
-	<string>https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE</string>
+```ruby
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app requires location permission to working normally</string>
+	<string>Your request location description</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app requires location permission to working normally</string>
+	<string>Your request location description</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app requires location permission to working normally</string>
+	<string>Your request location description</string>
 ```
 
+Upgrade min ios version to 12.0 in the Podfile (iOS) file, at path **ios/Podfile** (uncomment the line below)
+
+```ruby
+platform :ios, '12.0'
+```
 
 ## Main characteristics
 
@@ -154,7 +153,8 @@ VietmapGL(
   )  
 ~~~  
 ## Map Overlays
-### Add a Marker (Marked a point in the map with a custom widget)
+### Add a rotate marker (Marked a point in the map with a custom widget, marker will not rotate when the map rotates)
+
 
 ```dart
   Stack(
@@ -163,7 +163,7 @@ VietmapGL(
         trackCameraPosition: true, // Will track the map change to update the marker position in realtime
         ...
         ),
-      MarkerLayer
+      MarkerLayer(
         ignorePointer: true, // Will ignore all user gestures on the marker
         mapController: _mapController!,
         markers: [
@@ -188,10 +188,34 @@ VietmapGL(
               Marker(
                   child: Icon(Icons.location_on),
                   latLng: LatLng(10.792765, 106.674143)),
-        ]
+        ])
   ])
     
 ```
+
+### Add a static marker (Marked a point in the map with a custom widget, marker will rotate when the map rotates)
+- the static marker support rotate with input is a bearing, you can find this value when get GPS location.
+```dart
+  Stack(
+    children: [
+      VietmapGL(
+        trackCameraPosition: true, // Will track the map change to update the marker position in realtime
+        ...
+        ),
+      StaticMarkerLayer(
+                ignorePointer: true,
+                mapController: _mapController!,
+                markers: [
+                    StaticMarker(
+                        width: 50,
+                        height: 50,
+                        bearing: 0,
+                        child: _markerWidget(Icons.arrow_downward_rounded),
+                        latLng: LatLng(10.736657, 106.672240)),
+                  ]),
+  ])
+```
+
 #### Note: You must enable _trackCameraPosition: true_, at _VietmapGL_, which ensured the MarkerLayer renders normally
 - The marker support anchor with input is an alignment, which required width and height to calculate the position of the marker, the default for both of them is 20
 - Make sure the width and height of the marker are match with it child width and height to the marker display exactly
@@ -283,7 +307,7 @@ _mapController?.addPolyline(
  ```
 
 Demo code [here](./example/lib/main.dart)
-# Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tag to the application work normally
+# Note: Replace apikey which is provided by VietMap to all _c34db45b6d1e8e71bfe74bd5139aa592322b463632af3543_ tag to the application work normally
 
 <br></br>
 <br></br>
