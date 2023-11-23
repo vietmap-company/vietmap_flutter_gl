@@ -4,6 +4,8 @@
 
 Contact [vietmap.vn](https://bit.ly/vietmap-api) to register a valid key.
 
+[Tài liệu tiếng Việt](./README.vi.md)
+
 ## Getting started
 
 Add library to pubspec.yaml file
@@ -32,33 +34,33 @@ at the repositories block
 
 ```gradle
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
-}
+  allprojects {
+      repositories {
+          google()
+          mavenCentral()
+          maven { url "https://jitpack.io" }
+      }
+  }
 ```
 Upgrade the minSdkVersion to a minimum is 24 in the build.gradle (app) file, at path **android/app/build.gradle**
 ```gradle
   minSdkVersion 24
 ```
 ## iOS config
-Add the below codes to the Info.plist file. Replace your API key to **YOUR_API_KEY_HERE** 
+Add the below codes to the Info.plist file.  
 ```ruby
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Your request location description</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Your request location description</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your request location description</string>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>Your request location description</string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>Your request location description</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Your request location description</string>
 ```
 
 Upgrade min ios version to 12.0 in the Podfile (iOS) file, at path **ios/Podfile** (uncomment the line below)
 
 ```ruby
-platform :ios, '12.0'
+  platform :ios, '12.0' 
 ```
 
 ## Main characteristics
@@ -111,8 +113,8 @@ Zoom controls the scale of the map and consumes any value between 0 and 22. At z
 
 ##### SDK allows various methods to move, and animate the camera to a particular location :
 ~~~dart  
-_mapController?.moveCamera(CameraUpdate.newLatLngZoom(LatLng(22.553147478403194, 77.23388671875), 14));  
-_mapController?.animateCamera(CameraUpdate.newLatLngZoom(LatLng(28.698791, 77.121243), 14));  
+  _mapController?.moveCamera(CameraUpdate.newLatLngZoom(LatLng(22.553147478403194, 77.23388671875), 14));  
+  _mapController?.animateCamera(CameraUpdate.newLatLngZoom(LatLng(28.698791, 77.121243), 14));  
 ~~~  
 
 ## Map Events
@@ -122,35 +124,35 @@ If you want to respond to a user tapping on a point on the map, you can use an o
 
 It sets a callback that's invoked when the user clicks on the map:
 ~~~dart  
-VietmapGL(    
-  initialCameraPosition: _kInitialPosition,    
-  onMapClick: (point, latlng) =>{    
-    print(latlng.toString())  
- }, )  
+  VietmapGL(    
+    initialCameraPosition: _kInitialPosition,    
+    onMapClick: (point, latlng) =>{    
+      print(latlng.toString())  
+  }, )  
 ~~~  
 
 ##### Sets a callback that's invoked when the user long clicks on the map view.
 ~~~dart  
-VietmapGL(    
-  initialCameraPosition: _kInitialPosition,    
-  onMapLongClick: (point, latlng) =>{    
-    print(latlng.toString())  
- }, )  
+  VietmapGL(    
+    initialCameraPosition: _kInitialPosition,    
+    onMapLongClick: (point, latlng) =>{    
+      print(latlng.toString())  
+  }, )  
 ~~~  
 
 ##### Sets a callback that's invoked when the map is completely rendered.
 ##### Encourage this callback to call some action on the initial, after the map is completely loaded
 ~~~dart  
-VietmapGL(    
-  initialCameraPosition: _kInitialPosition,    
-  onMapRenderedCallback: () {
-            _mapController?.animateCamera(CameraUpdate.newCameraPosition(
-                CameraPosition(
-                    target: LatLng(10.739031, 106.680524),
-                    zoom: 10,
-                    tilt: 60)));
-    },
-  )  
+  VietmapGL(    
+    initialCameraPosition: _kInitialPosition,    
+    onMapRenderedCallback: () {
+              _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                      target: LatLng(10.739031, 106.680524),
+                      zoom: 10,
+                      tilt: 60)));
+      },
+    )  
 ~~~  
 ## Map Overlays
 ### Add a rotate marker (Marked a point in the map with a custom widget, marker will not rotate when the map rotates)
@@ -195,6 +197,8 @@ VietmapGL(
 
 ### Add a static marker (Marked a point in the map with a custom widget, marker will rotate when the map rotates)
 - the static marker support rotate with input is a bearing, you can find this value when get GPS location.
+
+- We recommend using this marker for location-based applications, tracking the location of the driver. Then the driver's car will rotate in the right direction even when the user rotates the map at any angle.
 ```dart
   Stack(
     children: [
@@ -230,7 +234,7 @@ VietmapGL(
 ### Add a Line/Polyline (A line connects 2 points on the map)
 
 ~~~dart  
-_mapController?.addPolyline(
+    Line? line = await _mapController?.addPolyline(
       PolylineOptions(
           geometry: [
             LatLng(10.736657, 106.672240),
@@ -246,6 +250,25 @@ _mapController?.addPolyline(
           draggable: true),
     );
 ~~~  
+### Update polyLine
+```dart
+    _mapController?.updatePolyline(
+      line,
+      PolylineOptions(
+          geometry: [
+            LatLng(10.736657, 106.672240),
+            LatLng(10.766543, 106.742378),
+            LatLng(10.775818, 106.640497),
+            LatLng(10.727416, 106.735597),
+            LatLng(10.792765, 106.674143),
+            LatLng(10.736657, 106.672240),
+          ],
+          polylineColor: Colors.blue,
+          polylineWidth: 14.0,
+          polylineOpacity: 1,
+          draggable: true),
+    );
+```
 
 ### Remove a Polyline
 ~~~dart  
@@ -259,7 +282,7 @@ _mapController?.addPolyline(
 
 ### Add a Fill/Polygon
 ~~~dart  
-    _mapController?.addPolygon(
+    Polygon? = await _mapController?.addPolygon(
       PolygonOptions(
           geometry: [
             [
@@ -276,7 +299,26 @@ _mapController?.addPolyline(
           draggable: true),
     );
 ~~~  
-
+### Update Polygon
+```dart
+    _mapController?.updatePolygon(
+      polygon,
+      PolygonOptions(
+          geometry: [
+            [
+              LatLng(10.736657, 106.672240),
+              LatLng(10.766543, 106.742378),
+              LatLng(10.775818, 106.640497),
+              LatLng(10.727416, 106.735597),
+              LatLng(10.792765, 106.674143),
+              LatLng(10.736657, 106.672240),
+            ]
+          ],
+          polygonColor: Colors.blue,
+          polygonOpacity: 1,
+          draggable: true),
+    );
+```
 ### Remove a Polygon
 ~~~dart  
     _mapController?.removePolygon(polygon);  
@@ -293,17 +335,17 @@ _mapController?.addPolyline(
 # Troubleshooting
 - Our SDK uses the key to identify the markers and update their location while the user does some gestures, so we strongly recommend you add the key for all of the widgets in the screen which use the map SDK:
  ```dart
- Stack(
-  children:[
-    MarkerLayer(
-      ...
-    ),
-    Positioned(
-      key: const Key('yourWidgetKey'),
-      ...
-    ),
-  ]
- )
+  Stack(
+    children:[
+      MarkerLayer(
+        ...
+      ),
+      Positioned(
+        key: const Key('yourWidgetKey'),
+        ...
+      ),
+    ]
+  )
  ```
 
 Demo code [here](./example/lib/main.dart)
@@ -322,5 +364,3 @@ Vietmap API document [here](https://maps.vietmap.vn/docs/map-api/overview/)
 
 Have a bug to report? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). If possible, include a full log and information which shows the issue.
 Have a feature request? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). Tell us what the feature should do and why you want the feature.
-
-[Tài liệu tiếng Việt](./README.vi.md)

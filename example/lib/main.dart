@@ -24,6 +24,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
   VietmapController? _mapController;
   List<Marker> temp = [];
   UserLocation? userLocation;
+
   void _onMapCreated(VietmapController controller) {
     setState(() {
       _mapController = controller;
@@ -76,6 +77,20 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
         ),
         _mapController == null
             ? SizedBox.shrink()
+            : MarkerLayer(
+                ignorePointer: true,
+                mapController: _mapController!,
+                markers: [
+                    Marker(
+                        width: 50,
+                        height: 50,
+                        // bearing: 40.93711606958891 + 97,
+
+                        child: _markerWidget(Icons.arrow_upward_rounded),
+                        latLng: LatLng(10.759305, 106.675912)),
+                  ]),
+        _mapController == null
+            ? SizedBox.shrink()
             : StaticMarkerLayer(
                 ignorePointer: true,
                 mapController: _mapController!,
@@ -83,33 +98,34 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
                     StaticMarker(
                         width: 50,
                         height: 50,
+                        // bearing: 40.93711606958891 + 97,
                         bearing: 0,
-                        child: _markerWidget(Icons.arrow_downward_rounded),
-                        latLng: LatLng(10.736657, 106.672240)),
-                    StaticMarker(
-                        width: 50,
-                        height: 50,
-                        bearing: 25,
-                        child: _markerWidget(Icons.arrow_upward),
-                        latLng: LatLng(10.766543, 106.742378)),
-                    StaticMarker(
-                        width: 50,
-                        height: 50,
-                        bearing: 50,
-                        child: _markerWidget(Icons.arrow_right),
-                        latLng: LatLng(10.775818, 106.640497)),
-                    StaticMarker(
-                        width: 50,
-                        height: 50,
-                        bearing: 75,
-                        child: _markerWidget(Icons.arrow_left),
-                        latLng: LatLng(10.727416, 106.735597)),
-                    StaticMarker(
-                        width: 50,
-                        height: 50,
-                        bearing: 100,
-                        child: _markerWidget(Icons.arrow_outward_outlined),
-                        latLng: LatLng(10.792765, 106.674143)),
+                        child: _markerWidget(Icons.arrow_upward_outlined),
+                        latLng: LatLng(10.759305, 106.675912)),
+                    // StaticMarker(
+                    //     width: 50,
+                    //     height: 50,
+                    //     bearing: 25,
+                    //     child: _markerWidget(Icons.arrow_upward),
+                    //     latLng: LatLng(10.766543, 106.742378)),
+                    // StaticMarker(
+                    //     width: 50,
+                    //     height: 50,
+                    //     bearing: 50,
+                    //     child: _markerWidget(Icons.arrow_right),
+                    //     latLng: LatLng(10.775818, 106.640497)),
+                    // StaticMarker(
+                    //     width: 50,
+                    //     height: 50,
+                    //     bearing: 75,
+                    //     child: _markerWidget(Icons.arrow_left),
+                    //     latLng: LatLng(10.727416, 106.735597)),
+                    // StaticMarker(
+                    //     width: 50,
+                    //     height: 50,
+                    //     bearing: 100,
+                    //     child: _markerWidget(Icons.arrow_outward_outlined),
+                    //     latLng: LatLng(10.792765, 106.674143)),
                   ]),
         _mapController == null
             ? SizedBox.shrink()
@@ -155,8 +171,8 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           SizedBox(height: 10),
           FloatingActionButton(
             tooltip: 'Add polyline',
-            onPressed: () {
-              _mapController?.addPolyline(
+            onPressed: () async {
+              var line = await _mapController?.addPolyline(
                 PolylineOptions(
                     geometry: [
                       LatLng(10.736657, 106.672240),
@@ -171,14 +187,34 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
                     polylineOpacity: 1,
                     draggable: true),
               );
+              Future.delayed(Duration(seconds: 3)).then((value) {
+                if (line != null) {
+                  _mapController?.updatePolyline(
+                    line,
+                    PolylineOptions(
+                        geometry: [
+                          LatLng(10.736657, 106.672240),
+                          LatLng(10.766543, 106.742378),
+                          LatLng(10.775818, 106.640497),
+                          LatLng(10.727416, 106.735597),
+                          LatLng(10.792765, 106.674143),
+                          LatLng(10.736657, 106.672240),
+                        ],
+                        polylineColor: Colors.blue,
+                        polylineWidth: 14.0,
+                        polylineOpacity: 1,
+                        draggable: true),
+                  );
+                }
+              });
             },
             child: Icon(Icons.polyline),
           ),
           SizedBox(height: 10),
           FloatingActionButton(
             tooltip: 'Add polygon',
-            onPressed: () {
-              _mapController?.addPolygon(
+            onPressed: () async {
+              var polygon = await _mapController?.addPolygon(
                 PolygonOptions(
                     geometry: [
                       [
@@ -194,6 +230,28 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
                     polygonOpacity: 0.5,
                     draggable: true),
               );
+
+              Future.delayed(Duration(seconds: 3)).then((value) {
+                if (polygon != null) {
+                  _mapController?.updatePolygon(
+                    polygon,
+                    PolygonOptions(
+                        geometry: [
+                          [
+                            LatLng(10.736657, 106.672240),
+                            LatLng(10.766543, 106.742378),
+                            LatLng(10.775818, 106.640497),
+                            LatLng(10.727416, 106.735597),
+                            LatLng(10.792765, 106.674143),
+                            LatLng(10.736657, 106.672240),
+                          ]
+                        ],
+                        polygonColor: Colors.blue,
+                        polygonOpacity: 1,
+                        draggable: true),
+                  );
+                }
+              });
             },
             child: Icon(Icons.format_shapes_outlined),
           ),
@@ -223,11 +281,6 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
   }
 
   _markerWidget(IconData icon) {
-    return Container(
-      width: 50,
-      height: 50,
-      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.green),
-      child: Icon(icon, color: Colors.red, size: 50),
-    );
+    return Icon(icon, color: Colors.red, size: 50);
   }
 }

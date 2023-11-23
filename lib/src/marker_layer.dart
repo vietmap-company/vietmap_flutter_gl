@@ -102,9 +102,6 @@ class _MarkerLayerState extends State<MarkerLayer> {
         param.add(widget.markers[i].latLng);
       }
 
-      // print('-----------------------------------------------');
-      // print(_mapController.cameraPosition?.bearing);
-      // print('-----------------------------------------------');
       _mapController.toScreenLocationBatch(param).then((value) {
         if (value.isEmpty || widget.markers.isEmpty) return;
         for (var i = 0; i < widget.markers.length; i++) {
@@ -132,13 +129,10 @@ class _MarkerLayerState extends State<MarkerLayer> {
       coordinates.add(markerState.getCoordinate());
     }
 
-    // print('-----------------------------------------------');
-    // print(cameraPosition?.bearing);
-    // print('-----------------------------------------------');
     _mapController.toScreenLocationBatch(coordinates).then((points) {
       _markerStates.asMap().forEach((i, value) {
         if (points.length > i && _markerStates.length > i) {
-          _markerStates[i].updatePosition(points[i],0);
+          _markerStates[i].updatePosition(points[i], 0);
         }
       });
     });
