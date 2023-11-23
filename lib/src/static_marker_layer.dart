@@ -161,8 +161,9 @@ class _StaticMarkerLayerState extends State<StaticMarkerLayer> {
   }
 
   double getRotateAngle(double bearing) {
-    return -((bearing + (_mapController.cameraPosition?.bearing ?? 0) % 360) -
-            90) *
+    return ((bearing + (_mapController.cameraPosition?.bearing ?? 0) % 360)
+        // - 90
+        ) *
         pi /
         180;
   }

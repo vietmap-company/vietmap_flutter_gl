@@ -1,3 +1,20 @@
+## Contributing
+- Increase the version number in `pubspec.yaml` according to [semantic versioning](https://semver.org/).
+- Update `CHANGELOG.md` with the new version number and changes.
+- Run the following commands to format and analyze the code:
+```bash
+dart format . && dart fix --apply && flutter analyze 
+```
+Make sure that all tests are passing before submitting a pull request.
+```bash
+No issues found! 
+```
+- Commit your changes and open a pull request.
+
+- If you are a maintainer, you can publish the package to pub.dev by running the following command:
+```bash
+flutter pub publish
+```
 ## Release
 
 Current process: for each release we also create a separate branch (`release-x.y.z`), tag (`x.y.z`) and Github release (`x.y.z`).
