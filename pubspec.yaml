@@ -8,7 +8,7 @@ issue_tracker: https://github.com/vietmap-company/flutter-map-sdk/issues
 dependencies:
   flutter:
     sdk: flutter
-  vietmap_gl_platform_interface: ^0.0.6 
+  vietmap_gl_platform_interface: ">=0.0.6 <0.2.0" 
 
 
 flutter:
