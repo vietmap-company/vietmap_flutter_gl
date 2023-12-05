@@ -98,11 +98,11 @@ class CircleOptions {
     }
 
     addIfPresent('circleRadius', circleRadius);
-    addIfPresent('circleColor', circleColor.toHex());
+    addIfPresent('circleColor', circleColor?.toHex());
     addIfPresent('circleBlur', circleBlur);
     addIfPresent('circleOpacity', circleOpacity);
     addIfPresent('circleStrokeWidth', circleStrokeWidth);
-    addIfPresent('circleStrokeColor', circleStrokeColor.toHex());
+    addIfPresent('circleStrokeColor', circleStrokeColor?.toHex());
     addIfPresent('circleStrokeOpacity', circleStrokeOpacity);
     if (addGeometry) {
       addIfPresent('geometry', geometry?.toJson());

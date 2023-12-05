@@ -53,7 +53,7 @@ class _StaticMarkerLayerState extends State<StaticMarkerLayer> {
             _newMarkerKey[key] = true;
           }
           _newMarker.add(MarkerWidget(
-            angle: getRotateAngle(widget.markers[i].bearing),
+            angle: _getRotateAngle(widget.markers[i].bearing),
             key: key,
             coordinate: widget.markers[i].latLng,
             initialPosition: point,
@@ -132,7 +132,7 @@ class _StaticMarkerLayerState extends State<StaticMarkerLayer> {
       _markerStates.asMap().forEach((i, value) {
         if (points.length > i && _markerStates.length > i) {
           _markerStates[i].updatePosition(
-              points[i], getRotateAngle(widget.markers[i].bearing));
+              points[i], _getRotateAngle(widget.markers[i].bearing));
         }
       });
     });
@@ -141,7 +141,7 @@ class _StaticMarkerLayerState extends State<StaticMarkerLayer> {
   void _addMarker(Point<double> point, StaticMarker markerModel) {
     setState(() {
       _markers.add(MarkerWidget(
-        angle: getRotateAngle(markerModel.bearing),
+        angle: _getRotateAngle(markerModel.bearing),
         key: _rnd.nextInt(100000).toString() +
             markerModel.latLng.latitude.toString() +
             markerModel.latLng.longitude.toString(),
@@ -160,10 +160,18 @@ class _StaticMarkerLayerState extends State<StaticMarkerLayer> {
     _markerStates.add(markerState);
   }
 
-  double getRotateAngle(double bearing) {
-    return ((bearing + (_mapController.cameraPosition?.bearing ?? 0) % 360)
-        // - 90
-        ) *
+  /// this function return the angle of the marker relative to the map.
+  /// which present the angle of user and angle of the map to north pole
+  /// [bearing] is the angle of the marker relative to the north pole
+  /// [(_mapController.cameraPosition?.bearing ?? 0)] is the angle of the map relative to the north pole
+  double _getRotateAngle(double bearing) {
+    /// The modulo operation (% 360.0) ensures that the resulting angle is in the range [0, 360).
+    /// The Transform.rotate widget takes the rotation angle in radians, so we
+    /// need to convert the angle from degrees to radians by multiplying it by [(pi / 180.0).]
+    ///
+    /// [bearing - (_mapController.cameraPosition?.bearing ?? 0)] is the angle of the marker relative to the map.
+    /// which present the angle of user and angle of the map to north pole
+    return ((bearing - (_mapController.cameraPosition?.bearing ?? 0)) % 360) *
         pi /
         180;
   }

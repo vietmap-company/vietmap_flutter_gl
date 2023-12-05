@@ -1,3 +1,7 @@
+## 1.3.0, Nov 28, 2023
+* Calculate `StaticMarker` angle when user rotate the map
+## 1.2.7, Nov 27, 2023
+* Fix `StaticMarkerLayer` render 
 ## 1.2.5, Nov 23, 2023
 * Fix `StaticMarkerLayer` render
 * Fix bearing anchor display not correct
