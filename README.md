@@ -155,8 +155,14 @@ It sets a callback that's invoked when the user clicks on the map:
     )  
 ~~~  
 ## Map Overlays
-### Add a rotate marker (Marked a point in the map with a custom widget, marker will not rotate when the map rotates)
+### Add marker (Marked a point in the map with a custom widget)
+- We provide two types of markers, the first is a `simple marker`, and the second is a `static marker`. The simple marker `will not rotate` when the map rotates, and the static marker `will rotate` with the map.
 
+<img src="./gif/marker_demo.gif" alt="drawing" width="200"/>
+
+### Add a simple marker (Marked a point in the map with a custom widget, marker will not rotate when the map rotates)
+- The marker support anchor with input is an alignment, which requires width and height to calculate the position of the marker, the default for both of them is 20
+- Make sure the `width and height of the marker match with its child's` width and height to the marker display exactly
 
 ```dart
   Stack(
@@ -195,10 +201,10 @@ It sets a callback that's invoked when the user clicks on the map:
     
 ```
 
-### Add a static marker (Marked a point in the map with a custom widget, marker will rotate when the map rotates)
-- the static marker support rotate with input is a bearing, you can find this value when get GPS location.
+### Add a static marker (Marked a point in the map with a custom widget, marker will rotate with the map)
+- The static marker support rotate with input is a bearing, you can find this value when get GPS location.
 
-- We recommend using this marker for location-based applications, tracking the location of the driver. Then the driver's car will rotate in the right direction even when the user rotates the map at any angle.
+- We recommend using this marker for location-based applications, tracking the location of the driver. Then the driver's vehicle will rotate in the right direction even when the user rotates the map at any angle.
 ```dart
   Stack(
     children: [
@@ -207,30 +213,21 @@ It sets a callback that's invoked when the user clicks on the map:
         ...
         ),
       StaticMarkerLayer(
-                ignorePointer: true,
-                mapController: _mapController!,
-                markers: [
-                    StaticMarker(
-                        width: 50,
-                        height: 50,
-                        bearing: 0,
-                        child: _markerWidget(Icons.arrow_downward_rounded),
-                        latLng: LatLng(10.736657, 106.672240)),
-                  ]),
+        ignorePointer: true,
+        mapController: _mapController!,
+        markers: [
+          StaticMarker(
+            width: 50,
+            height: 50,
+            bearing: 0,
+            child: _markerWidget(Icons.arrow_downward_rounded),
+            latLng: LatLng(10.736657, 106.672240)),
+          ]),
   ])
 ```
 
-#### Note: You must enable _trackCameraPosition: true_, at _VietmapGL_, which ensured the MarkerLayer renders normally
-- The marker support anchor with input is an alignment, which required width and height to calculate the position of the marker, the default for both of them is 20
-- Make sure the width and height of the marker are match with it child width and height to the marker display exactly
-```dart
-    Marker(
-        width: 40,
-        height:40,
-        alignment: Alignment.bottomCenter,
-        child: Icon(Icons.location_on, size:40),
-        latLng: LatLng(10.792765, 106.674143)),
-```
+#### Note: You must enable `trackCameraPosition: true`, at _VietmapGL_, which ensured the MarkerLayer renders normally 
+
 ### Add a Line/Polyline (A line connects 2 points on the map)
 
 ~~~dart  
@@ -246,8 +243,7 @@ It sets a callback that's invoked when the user clicks on the map:
           ],
           polylineColor: Colors.red,
           polylineWidth: 14.0,
-          polylineOpacity: 0.5,
-          draggable: true),
+          polylineOpacity: 0.5),
     );
 ~~~  
 ### Update polyLine
