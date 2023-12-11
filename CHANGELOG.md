@@ -1,3 +1,9 @@
+## 1.3.2, Dec 11, 2023
+* Provide `nearestLatLngOnLine` and `splitRouteByLatLng` function inside `VietmapPolyline` class, which help show shipper/vehicle location on route and remove route traveled by shipper/vehicle.
+* `splitRouteByLatLng` will split route into 2 parts, which are `routeBeforeLatLng` and `routeAfterLatLng`, you can use one of them to to update the route of shipper/vehicle traveled.
+* Create `VietmapPolyline` class to handle more complex polyline
+## 1.3.1, Dec 05, 2023
+* Add document for `StaticMarkerLayer` and `StaticMarker`
 ## 1.3.0, Nov 28, 2023
 * Calculate `StaticMarker` angle when user rotate the map
 ## 1.2.7, Nov 27, 2023

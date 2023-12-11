@@ -331,6 +331,44 @@ VietmapGL(
     _mapController?.clearPolygons();
 ```
 
+### Tìm đường đi giữa 2 hoặc nhiều điểm
+- Chúng tôi cung cấp package để tìm đường đi giữa 2 hoặc nhiều điểm, bạn có thể tìm package
+[vietmap_flutter_plugin](https://pub.dev/packages/vietmap_flutter_plugin) để sử dụng nó.
+- Chạy lệnh sau trong terminal để thêm thư viện vào project:
+```bash
+  flutter pub add vietmap_flutter_plugin
+```
+
+- Example code:
+```dart
+  List<LatLng> points = [];
+  /// Tìm đường đi giữa 2 điểm
+  var routingResponse = await Vietmap.routing(VietMapRoutingParams(points: [
+    const LatLng(21.027763, 105.834160),
+    const LatLng(21.027763, 105.834160)
+  ]));
+
+  /// Xử lý kết quả trả về
+  routingResponse.fold((Failure failure) {
+    // Xử lý lỗi nếu có
+  }, (VietMapRoutingModel success) {
+    if (success.paths?.isNotEmpty == true &&
+        success.paths![0].points?.isNotEmpty == true) {
+      /// import this [import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';] package
+      points =
+          VietmapPolylineDecoder.decodePolyline(success.paths![0].points!);
+    }
+  });
+
+  /// Vẽ đường đi lên bản đồ
+  Line? line = await _mapController?.addPolyline(
+    PolylineOptions(
+        geometry: points,
+        polylineColor: Colors.red,
+        polylineWidth: 14.0,
+        polylineOpacity: 0.5),
+  );
+```
 
 <br>
 
@@ -352,7 +390,7 @@ VietmapGL(
  ```
 
 Demo code [tại đây](./example/lib/main.dart)
-# Note: Thay thế apikey được cung cấp bởi VietMap vào tất cả các thẻ  **_YOUR_API_KEY_HERE_**  để ứng dụng hoạt động bình thường
+## Lưu ý: Thay thế apikey được cung cấp bởi VietMap vào tất cả các thẻ  **_YOUR_API_KEY_HERE_**  để ứng dụng hoạt động bình thường
 
 <br></br>
 <br></br>

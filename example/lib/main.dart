@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
-
+import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
 import 'dart:math' show Random;
 
 import 'constant.dart';
@@ -102,30 +102,6 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
                         bearing: 0,
                         child: _markerWidget(Icons.arrow_upward_outlined),
                         latLng: LatLng(10.759305, 106.675912)),
-                    // StaticMarker(
-                    //     width: 50,
-                    //     height: 50,
-                    //     bearing: 25,
-                    //     child: _markerWidget(Icons.arrow_upward),
-                    //     latLng: LatLng(10.766543, 106.742378)),
-                    // StaticMarker(
-                    //     width: 50,
-                    //     height: 50,
-                    //     bearing: 50,
-                    //     child: _markerWidget(Icons.arrow_right),
-                    //     latLng: LatLng(10.775818, 106.640497)),
-                    // StaticMarker(
-                    //     width: 50,
-                    //     height: 50,
-                    //     bearing: 75,
-                    //     child: _markerWidget(Icons.arrow_left),
-                    //     latLng: LatLng(10.727416, 106.735597)),
-                    // StaticMarker(
-                    //     width: 50,
-                    //     height: 50,
-                    //     bearing: 100,
-                    //     child: _markerWidget(Icons.arrow_outward_outlined),
-                    //     latLng: LatLng(10.792765, 106.674143)),
                   ]),
         _mapController == null
             ? SizedBox.shrink()
@@ -137,6 +113,60 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          FloatingActionButton(
+            onPressed: () {
+              var line = [
+                LatLng(38.878605, -77.031669),
+                LatLng(38.881946, -77.029609),
+                LatLng(38.884084, -77.020339),
+                LatLng(38.885821, -77.025661),
+                LatLng(38.889563, -77.021884),
+                LatLng(38.892368, -77.019824),
+              ];
+              // var pt = LatLng(38.884017, -77.037076);
+              var pt = LatLng(38.888017, -77.027076);
+
+              var snapped =
+                  VietmapPolyline.nearestLatLngOnLine(line, pt, Unit.miles);
+              print(snapped.toJson());
+              _mapController?.addPolyline(PolylineOptions(
+                geometry: line,
+                polylineColor: Colors.black,
+                polylineWidth: 14.0,
+              ));
+              _mapController?.addCircle(CircleOptions(
+                  geometry: LatLng(38.878605, -77.031669),
+                  circleColor: Colors.orange,
+                  circleRadius: 5));
+              _mapController?.addCircle(CircleOptions(
+                  geometry: LatLng(38.892368, -77.019824),
+                  circleColor: Colors.yellow,
+                  circleRadius: 5));
+              _mapController?.addCircle(CircleOptions(
+                  geometry: snapped.point,
+                  circleColor: Colors.red,
+                  circleRadius: 5));
+
+              _mapController?.addCircle(CircleOptions(
+                  geometry: pt, circleColor: Colors.blue, circleRadius: 5));
+
+              var data = VietmapPolyline.splitRouteByLatLng(line, pt,
+                  unit: Unit.miles);
+
+              print(data);
+              _mapController?.addPolyline(PolylineOptions(
+                geometry: data[0],
+                polylineColor: Colors.green,
+                polylineWidth: 14.0,
+              ));
+              _mapController?.addPolyline(PolylineOptions(
+                geometry: data[1],
+                polylineColor: Colors.red,
+                polylineWidth: 14.0,
+              ));
+            },
+            child: Icon(Icons.calculate),
+          ),
           FloatingActionButton(
             tooltip: 'Add marker',
             onPressed: () {

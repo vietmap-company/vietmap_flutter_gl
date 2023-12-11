@@ -46,6 +46,8 @@ This project uses the MapLibre GL native libraries for Android and iOS from http
 ------------------------------------------------------------------------------------------------------
 BSD 2-Clause License
 
+Copyright (c) 2023 VietMap Application Co., Ltd.
+
 Copyright (c) 2021 MapLibre contributors
 
 Copyright (c) 2018-2021 MapTiler.com
