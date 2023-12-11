@@ -27,3 +27,4 @@ part 'src/helper/vietmap_polygon_util.dart';
 part 'src/helper/vietmap_polyline_decode.dart';
 part 'src/helper/vietmap_spherical_util.dart';
 part 'extensions/color_extension.dart';
+part 'src/helper/vietmap_polyline_utils.dart';

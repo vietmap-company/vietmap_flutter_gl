@@ -21,7 +21,6 @@ or run this command in the terminal to add the library to the project:
 ```
 ## Android config
 
-
 Add the below code to the build.gradle (project) file at path: **android/build.gradle**
 
 ```gradle
@@ -90,7 +89,7 @@ The map supports the familiar two-finger pinch and zooms to change the zoom leve
 And following operations can be performed using the CameraPosition
 
 #### Target
-The target is single latitude and longitude coordinate that the camera centers it on. Changing the camera's target will move the camera to the inputted coordinates. The target is a LatLng object. The target coordinate is always _at the center of the viewport_.
+The target is a single latitude and longitude coordinate that the camera centers it on. Changing the camera's target will move the camera to the inputted coordinates. The target is a LatLng object. The target coordinate is always _at the center of the viewport_.
 
 
 #### Tilt
@@ -99,7 +98,7 @@ Tilt is the camera's angle from the nadir (directly facing the Earth) and uses u
 The map camera tilt can also adjust by placing two fingertips on the map and moving both fingers up and down in parallel at the same time or
 
 #### Bearing
-Bearing represents the direction that the camera is pointing in and is measured in degrees  _clockwise from north_.
+Bearing represents the direction that the camera is pointing in and is measured in degrees _clockwise__ from north__.
 
 The camera's default bearing is 0 degrees (i.e. "true north") causing the map compass to hide until the camera bearing becomes a non-zero value. Bearing levels use six decimal point precision, which enables you to restrict/set/lock a map's bearing with extreme precision. In addition to programmatically adjusting the camera bearing, the user can place two fingertips on the map and rotate their fingers.
 
@@ -158,9 +157,9 @@ It sets a callback that's invoked when the user clicks on the map:
 ### Add marker (Marked a point in the map with a custom widget)
 - We provide two types of markers, the first is a `simple marker`, and the second is a `static marker`. The simple marker `will not rotate` when the map rotates, and the static marker `will rotate` with the map.
 
-<img src="./gif/marker_demo.gif" alt="drawing" width="200"/>
+<img src="https://github.com/vietmap-company/flutter-map-sdk/raw/main/gif/marker_demo.gif" alt="drawing" width="200"/>
 
-### Add a simple marker (Marked a point in the map with a custom widget, marker will not rotate when the map rotates)
+### Add a simple marker (Marked a point in the map with a custom widget, the marker will not rotate when the map rotates)
 - The marker support anchor with input is an alignment, which requires width and height to calculate the position of the marker, the default for both of them is 20
 - Make sure the `width and height of the marker match with its child's` width and height to the marker display exactly
 
@@ -201,8 +200,8 @@ It sets a callback that's invoked when the user clicks on the map:
     
 ```
 
-### Add a static marker (Marked a point in the map with a custom widget, marker will rotate with the map)
-- The static marker support rotate with input is a bearing, you can find this value when get GPS location.
+### Add a static marker (Marked a point in the map with a custom widget, the marker will rotate with the map)
+- The static marker support rotates with input is a bearing, you can find this value when get GPS location.
 
 - We recommend using this marker for location-based applications, tracking the location of the driver. Then the driver's vehicle will rotate in the right direction even when the user rotates the map at any angle.
 ```dart
@@ -220,13 +219,16 @@ It sets a callback that's invoked when the user clicks on the map:
             width: 50,
             height: 50,
             bearing: 0,
-            child: _markerWidget(Icons.arrow_downward_rounded),
+            child: Container(
+              width: 50,
+              height: 50,
+              child:Icon(Icons.arrow_downward_rounded)),
             latLng: LatLng(10.736657, 106.672240)),
           ]),
   ])
 ```
 
-#### Note: You must enable `trackCameraPosition: true`, at _VietmapGL_, which ensured the MarkerLayer renders normally 
+#### Note: You must enable `trackCameraPosition: true`, at _VietmapGL, which ensures the MarkerLayer renders normally 
 
 ### Add a Line/Polyline (A line connects 2 points on the map)
 
@@ -325,11 +327,47 @@ It sets a callback that's invoked when the user clicks on the map:
     _mapController?.clearPolygons();
 ```
 
+### Find a route between 2 or more points
+- We've created a package to find a route between 2 or more points, you can find the
+[vietmap_flutter_plugin](https://pub.dev/packages/vietmap_flutter_plugin) to use it.
+- Run this command in the terminal to add the library to the project:
+```bash
+  flutter pub add vietmap_flutter_plugin
+```
+- Example code:
+```dart
+  List<LatLng> points = [];
+  /// Get the route between 2 points
+  var routingResponse = await Vietmap.routing(VietMapRoutingParams(points: [
+    const LatLng(21.027763, 105.834160),
+    const LatLng(21.027763, 105.834160)
+  ]));
 
+  /// Handle the response
+  routingResponse.fold((Failure failure) {
+    // handle failure here
+  }, (VietMapRoutingModel success) {
+    if (success.paths?.isNotEmpty == true &&
+        success.paths![0].points?.isNotEmpty == true) {
+      /// import this [import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';] package
+      points =
+          VietmapPolylineDecoder.decodePolyline(success.paths![0].points!);
+    }
+  });
+
+  /// Draw the route on the map
+  Line? line = await _mapController?.addPolyline(
+    PolylineOptions(
+        geometry: points,
+        polylineColor: Colors.red,
+        polylineWidth: 14.0,
+        polylineOpacity: 0.5),
+  );
+```
 <br>
 
 # Troubleshooting
-- Our SDK uses the key to identify the markers and update their location while the user does some gestures, so we strongly recommend you add the key for all of the widgets in the screen which use the map SDK:
+- Our SDK uses the key to identify the markers and update their location while the user does some gestures, so we strongly recommend you add the key for all of the widgets in the screen that use the map SDK:
  ```dart
   Stack(
     children:[
@@ -345,7 +383,7 @@ It sets a callback that's invoked when the user clicks on the map:
  ```
 
 Demo code [here](./example/lib/main.dart)
-# Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tag to the application work normally
+## Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tag to the application work normally
 
 <br></br>
 <br></br>
@@ -358,5 +396,5 @@ Contact for [support](https://vietmap.vn/lien-he)
 
 Vietmap API document [here](https://maps.vietmap.vn/docs/map-api/overview/)
 
-Have a bug to report? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). If possible, include a full log and information which shows the issue.
+Have a bug to report? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). If possible, include a full log and information that shows the issue.
 Have a feature request? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). Tell us what the feature should do and why you want the feature.
