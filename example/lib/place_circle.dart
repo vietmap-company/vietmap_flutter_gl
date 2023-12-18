@@ -30,7 +30,7 @@ class PlaceCircleBody extends StatefulWidget {
 class PlaceCircleBodyState extends State<PlaceCircleBody> {
   PlaceCircleBodyState();
 
-  static final LatLng center = const LatLng(-33.86711, 151.1947171);
+  static final LatLng center = const LatLng(10.86711, 106.1947171);
 
   VietmapController? controller;
   int _circleCount = 0;
@@ -223,8 +223,8 @@ class PlaceCircleBodyState extends State<PlaceCircleBody> {
               styleString: YOUR_STYLE_URL_HERE,
               onMapCreated: _onMapCreated,
               initialCameraPosition: const CameraPosition(
-                target: LatLng(-33.852, 151.211),
-                zoom: 11.0,
+                target: LatLng(10.852, 106.211),
+                zoom: 10.0,
               ),
             ),
           ),

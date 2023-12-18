@@ -161,6 +161,7 @@ abstract class AnnotationManager<T extends Annotation> {
       // set all
       await _setAll();
     } else {
+      log(_makeLayerId(layerIndex).toString());
       await controller.setGeoJsonFeature(
           _makeLayerId(layerIndex), anntotation.toGeoJson());
     }

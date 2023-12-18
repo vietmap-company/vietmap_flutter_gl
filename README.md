@@ -79,6 +79,16 @@ Upgrade min ios version to 12.0 in the Podfile (iOS) file, at path **ios/Podfile
     );
 ```
 
+VIETMAP now provides 2 types of custom maps
+
+|Name|Description|
+|--- |--- |
+|Raster|The map data is typically stored as raster images, which are then divided into a grid of small tiles, each containing a specific portion of the map.|
+|Raster url|```https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE```|
+|Vector|Vector tiles are small packages of vector data that can be downloaded and rendered on a client device, such as a web browser or mobile app. The vector data can include information such as street names, building footprints, and topographic features.|
+|Vector url|```https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE```|
+
+Read more about [Raster and Vector](https://maps.vietmap.vn/docs/map-api/tilemap/)
 
 ## Map Interactions
 The VietmapGL Maps Flutter SDK allows you to define interactions that you can activate on the map to enable gestures and click events. The following interactions are supported
@@ -156,8 +166,9 @@ It sets a callback that's invoked when the user clicks on the map:
 ## Map Overlays
 ### Add marker (Marked a point in the map with a custom widget)
 - We provide two types of markers, the first is a `simple marker`, and the second is a `static marker`. The simple marker `will not rotate` when the map rotates, and the static marker `will rotate` with the map.
-
-<img src="https://github.com/vietmap-company/flutter-map-sdk/raw/main/gif/marker_demo.gif" alt="drawing" width="200"/>
+<div style="width:100%; text-align:center" >
+  <img src="https://github.com/vietmap-company/flutter-map-sdk/raw/main/gif/marker_demo.gif" alt="drawing" width="400"/>
+</div>
 
 ### Add a simple marker (Marked a point in the map with a custom widget, the marker will not rotate when the map rotates)
 - The marker support anchor with input is an alignment, which requires width and height to calculate the position of the marker, the default for both of them is 20

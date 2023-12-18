@@ -1,4 +1,4 @@
-name: maplibre_gl_example
+name: vietmap_gl_example
 description: Demonstrates how to use the vietmap_flutter_gl plugin.
 publish_to: 'none'
 version: 1.0.0+1
@@ -19,7 +19,7 @@ dependencies:
   collection: ^1.0.0
   # temporary fix:
   platform: ^3.1.0
-  device_info_plus: ^3.2.2
+  device_info_plus: ^3.2.2 
 
 dependency_overrides:
   vietmap_gl_platform_interface:

@@ -25,7 +25,7 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
   late VietmapController controllerOne;
   late VietmapController controllerTwo;
 
-  final LatLng center = const LatLng(36.580664, 32.5563837);
+  final LatLng center = const LatLng(10.3649902, 108.0593003);
 
   @override
   Widget build(BuildContext context) {
@@ -132,12 +132,12 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
         polylineWidth: 7.0,
         polylineOpacity: 1,
         geometry: [
-          LatLng(35.3649902, 32.0593003),
-          LatLng(34.9475098, 31.1187944),
-          LatLng(36.7108154, 30.7040582),
-          LatLng(37.6995850, 33.6512083),
-          LatLng(35.8648682, 33.6969227),
-          LatLng(35.3814697, 32.0546447),
+          LatLng(10.3649902, 108.0593003),
+          LatLng(9.9475098, 107.1187944),
+          LatLng(11.7108154, 106.7040582),
+          LatLng(12.6995850, 109.6512083),
+          LatLng(10.8648682, 109.6969227),
+          LatLng(10.3814697, 108.0546447),
         ],
       ),
     );
@@ -148,12 +148,12 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
         polygonOpacity: 0.3,
         geometry: [
           [
-            LatLng(35.3649902, 32.0593003),
-            LatLng(34.9475098, 31.1187944),
-            LatLng(36.7108154, 30.7040582),
-            LatLng(37.6995850, 33.6512083),
-            LatLng(35.8648682, 33.6969227),
-            LatLng(35.3814697, 32.0546447),
+            LatLng(10.3649902, 108.0593003),
+            LatLng(9.9475098, 107.1187944),
+            LatLng(11.7108154, 106.7040582),
+            LatLng(12.6995850, 109.6512083),
+            LatLng(10.8648682, 109.6969227),
+            LatLng(10.3814697, 108.0546447),
           ]
         ],
       ),

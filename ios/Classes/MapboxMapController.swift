@@ -233,20 +233,26 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                let left = arguments["left"] as? Double,
                let right = arguments["right"] as? Double
             {
-                var width = right - left
-                var height = bottom - top
+                let width = right - left
+                let height = bottom - top
                 features = mapView.visibleFeatures(in: CGRect(x: left, y: top, width: width, height: height), styleLayerIdentifiers: styleLayerIdentifiers, predicate: filterExpression)
             }
             var featuresJson = [String]()
+            
             for feature in features {
+                
                 let dictionary = feature.geoJSONDictionary()
-                if let theJSONData = try? JSONSerialization.data(
-                    withJSONObject: dictionary,
-                    options: []
-                ),
-                    let theJSONText = String(data: theJSONData, encoding: .utf8)
+                let geometry = dictionary["geometry"] as? [String:Any]
+                if((geometry?["type"] as? String) == "Point")
                 {
-                    featuresJson.append(theJSONText)
+                    if let theJSONData = try? JSONSerialization.data(
+                        withJSONObject: dictionary,
+                        options: []
+                    ),
+                        let theJSONText = String(data: theJSONData, encoding: .utf8)
+                    {
+                        featuresJson.append(theJSONText)
+                    }
                 }
             }
             reply["features"] = featuresJson as NSObject

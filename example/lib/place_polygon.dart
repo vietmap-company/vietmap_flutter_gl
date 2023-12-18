@@ -30,22 +30,22 @@ class PlacePolygonBody extends StatefulWidget {
 class PlacePolygonBodyState extends State<PlacePolygonBody> {
   PlacePolygonBodyState();
 
-  static final LatLng center = const LatLng(-33.86711, 151.1947171);
+  static final LatLng center = const LatLng(10.86711, 106.1947171);
   final String _polygonPatternImage = "assets/fill/cat_silhouette_pattern.png";
 
   final List<List<LatLng>> _defaultGeometry = [
     [
-      LatLng(-33.719, 151.150),
-      LatLng(-33.858, 151.150),
-      LatLng(-33.866, 151.401),
-      LatLng(-33.747, 151.328),
-      LatLng(-33.719, 151.150),
+      LatLng(10.719, 106.150),
+      LatLng(10.858, 106.150),
+      LatLng(10.866, 106.401),
+      LatLng(10.747, 106.328),
+      LatLng(10.719, 106.150),
     ],
     [
-      LatLng(-33.762, 151.250),
-      LatLng(-33.827, 151.250),
-      LatLng(-33.833, 151.347),
-      LatLng(-33.762, 151.250),
+      LatLng(10.762, 106.250),
+      LatLng(10.827, 106.250),
+      LatLng(10.833, 106.347),
+      LatLng(10.762, 106.250),
     ]
   ];
 
@@ -177,7 +177,7 @@ class PlacePolygonBodyState extends State<PlacePolygonBody> {
     }
 
     _updateSelectedPolygon(
-      PolygonOptions(polygonColor: Color(0xFFFF0000)),
+      PolygonOptions(polygonColor: Color(0xFF000000)),
     );
   }
 
@@ -185,7 +185,7 @@ class PlacePolygonBodyState extends State<PlacePolygonBody> {
     Color? current = _selectedPolygon!.options.polygonOutlineColor;
     if (current == null) {
       // default value
-      current = Color(0xFFFF0000);
+      current = Color(0xFFFF00FF);
     }
 
     _updateSelectedPolygon(
@@ -216,7 +216,7 @@ class PlacePolygonBodyState extends State<PlacePolygonBody> {
               onMapCreated: _onMapCreated,
               onStyleLoadedCallback: _onStyleLoaded,
               initialCameraPosition: const CameraPosition(
-                target: LatLng(-33.852, 151.211),
+                target: LatLng(10.852, 106.211),
                 zoom: 7.0,
               ),
             ),

@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
-import 'package:maplibre_gl_example/page.dart';
+import 'package:vietmap_gl_example/page.dart';
 
 import 'constant.dart';
 import 'util.dart';
@@ -21,7 +21,7 @@ class LayerBody extends StatefulWidget {
 }
 
 class LayerState extends State {
-  static final LatLng center = const LatLng(-33.86711, 151.1947171);
+  static final LatLng center = const LatLng(10.86711, 106.1947171);
 
   late VietmapController controller;
   Timer? bikeTimer;
@@ -166,8 +166,8 @@ Map<String, dynamic> _movingFeature(double t) {
   List<double> makeLatLong(double t) {
     final angle = t * 2 * pi;
     const r = 0.025;
-    const center_x = 151.1849;
-    const center_y = -33.8748;
+    const center_x = 106.1849;
+    const center_y = 10.8748;
     return [
       center_x + r * sin(angle),
       center_y + r * cos(angle),
@@ -179,13 +179,13 @@ Map<String, dynamic> _movingFeature(double t) {
     "features": [
       {
         "type": "Feature",
-        "properties": {"name": "POGAČAR Tadej"},
+        "properties": {"name": "Vietmap"},
         "id": 10,
         "geometry": {"type": "Point", "coordinates": makeLatLong(t)}
       },
       {
         "type": "Feature",
-        "properties": {"name": "VAN AERT Wout"},
+        "properties": {"name": "Google"},
         "id": 11,
         "geometry": {"type": "Point", "coordinates": makeLatLong(t + 0.15)}
       },
@@ -204,19 +204,19 @@ final _fills = {
         "type": "Polygon",
         "coordinates": [
           [
-            [151.178099204457737, -33.901517742631846],
-            [151.179025547977773, -33.872845324482071],
-            [151.147000529140399, -33.868230472039514],
-            [151.150838238009328, -33.883172899638311],
-            [151.14223647675135, -33.894158309528244],
-            [151.155999294764086, -33.904812805307806],
-            [151.178099204457737, -33.901517742631846]
+            [106.178099204457737, 10.901067742631846],
+            [106.179025547977773, 10.872845324482071],
+            [106.147000529140399, 10.868230472039514],
+            [106.150838238009328, 10.883172899638311],
+            [106.14223647675135, 10.894158309528244],
+            [106.155999294764086, 10.904812805307806],
+            [106.178099204457737, 10.901067742631846]
           ],
           [
-            [151.162657925954278, -33.879168932438581],
-            [151.155323416087612, -33.890737666431583],
-            [151.173659690754278, -33.897637567778119],
-            [151.162657925954278, -33.879168932438581]
+            [106.162657925954278, 10.879168932438581],
+            [106.155323416087612, 10.890737666431583],
+            [106.173659690754278, 10.897637567778119],
+            [106.162657925954278, 10.879168932438581]
           ]
         ]
       }
@@ -229,11 +229,11 @@ final _fills = {
         "type": "Polygon",
         "coordinates": [
           [
-            [151.18735077583878, -33.891143558434102],
-            [151.197374605989864, -33.878357032551868],
-            [151.213021560372084, -33.886475683791488],
-            [151.204953599518745, -33.899463918807818],
-            [151.18735077583878, -33.891143558434102]
+            [106.18735077583878, 10.891143558434102],
+            [106.197374605989864, 10.878357032551868],
+            [106.213021560372084, 10.886475683791488],
+            [106.204953599518745, 10.899463918807818],
+            [106.18735077583878, 10.891143558434102]
           ]
         ]
       }
@@ -252,7 +252,7 @@ const _points = {
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [151.184913929732943, -33.874874486427181]
+        "coordinates": [106.184913929732943, 10.874874486427181]
       }
     },
     {
@@ -263,7 +263,7 @@ const _points = {
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [151.215730044667879, -33.874616048776858]
+        "coordinates": [106.215730044667879, 10.874616048776858]
       }
     },
     {
@@ -274,7 +274,7 @@ const _points = {
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [151.228803547973598, -33.892188026142584]
+        "coordinates": [106.228803547973598, 10.892188026142584]
       }
     },
     {
@@ -285,7 +285,7 @@ const _points = {
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [151.186470299174118, -33.902781145804774]
+        "coordinates": [106.186470299174118, 10.902781145804774]
       }
     }
   ]

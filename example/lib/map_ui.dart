@@ -6,7 +6,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
-import 'package:maplibre_gl_example/constant.dart';
+import 'package:vietmap_gl_example/constant.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'page.dart';
@@ -36,8 +36,8 @@ class MapUiBodyState extends State<MapUiBody> {
   MapUiBodyState();
 
   static final CameraPosition _kInitialPosition = const CameraPosition(
-    target: LatLng(-33.852, 151.211),
-    zoom: 11.0,
+    target: LatLng(17.818599, 106.331220),
+    zoom: 4.0,
   );
 
   VietmapController? mapController;
@@ -291,10 +291,10 @@ class MapUiBodyState extends State<MapUiBody> {
 
   Widget _sourceFeaturesGetter() {
     return TextButton(
-      child: Text('get source features (maplibre)'),
+      child: Text('get source features (vietmap)'),
       onPressed: () async {
         var result = await mapController!.querySourceFeatures(
-            sourceId: "maplibre", sourceLayerId: "centroids");
+            sourceId: "vmadmin", sourceLayerId: "centroids");
         print(result);
       },
     );
@@ -356,7 +356,7 @@ class MapUiBodyState extends State<MapUiBody> {
       tiltGesturesEnabled: _tiltGesturesEnabled,
       zoomGesturesEnabled: _zoomGesturesEnabled,
       doubleClickZoomEnabled: _doubleClickToZoomEnabled,
-      // myLocationEnabled: _myLocationEnabled,
+      myLocationEnabled: _myLocationEnabled,
       myLocationTrackingMode: _myLocationTrackingMode,
       myLocationRenderMode: MyLocationRenderMode.GPS,
       onMapClick: (point, latLng) async {

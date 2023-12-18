@@ -4,30 +4,34 @@ part of vietmap_gl_platform_interface;
 /// for more info about the algorithm check https://developers.google.com/maps/documentation/utilities/polylinealgorithm
 
 class VietmapPolylineDecoder {
-  static List<LatLng> decodePolyline(String encodedString) {
-    return _run(encodedString);
+  static List<LatLng> decodePolyline(String encodedString,
+      [bool isPolyline6 = true]) {
+    return _decodePolyline6(encodedString, isPolyline6 ? 1e6 : 1e5);
   }
 
-  static String encodePolyline(final List<LatLng> path) {
+  static String encodePolyline(final List<LatLng> path,
+      [bool isPolyline6 = true]) {
     var lastLat = 0;
     var lastLng = 0;
+    var mul = isPolyline6 ? 1e6 : 1e5;
 
     final result = StringBuffer();
 
     for (final point in path) {
-      final lat = (point.latitude * 1e5).round();
-      final lng = (point.longitude * 1e5).round();
+      final lat = (point.latitude * mul).round();
+      final lng = (point.longitude * mul).round();
 
-      _encode(lat - lastLat, result);
-      _encode(lng - lastLng, result);
+      _encodeVMPL(lat - lastLat, result);
+      _encodeVMPL(lng - lastLng, result);
 
       lastLat = lat;
       lastLng = lng;
     }
+
     return result.toString();
   }
 
-  static void _encode(int v, StringBuffer result) {
+  static void _encodeVMPL(int v, StringBuffer result) {
     v = v < 0 ? ~(v << 1) : v << 1;
     while (v >= 0x20) {
       result.write(String.fromCharCode((0x20 | (v & 0x1f)) + 63));
@@ -36,51 +40,37 @@ class VietmapPolylineDecoder {
     result.write(String.fromCharCode(v + 63));
   }
 
-  static List<LatLng> _run(String encoded) {
-    List<LatLng> points = [];
-    int index = 0, len = encoded.length;
-    int lat = 0, lng = 0;
-    BigInt big0 = BigInt.from(0);
-    BigInt big0x1f = BigInt.from(0x1f);
-    BigInt big0x20 = BigInt.from(0x20);
-
-    while (index < len) {
-      int shift = 0;
-      BigInt b, result;
-      result = big0;
-      do {
-        b = BigInt.from(encoded.codeUnitAt(index++) - 63);
-        result |= (b & big0x1f) << shift;
-        shift += 5;
-      } while (b >= big0x20);
-      BigInt rShifted = result >> 1;
-      int dLat;
-      if (result.isOdd) {
-        dLat = (~rShifted).toInt();
-      } else {
-        dLat = rShifted.toInt();
+  static List<LatLng> _decodePolyline6(String encoded, double mul) {
+    // precision
+    var inv = 1.0 / mul;
+    var decoded = <LatLng>[];
+    var previous = [0, 0];
+    var i = 0;
+    // for each byte
+    while (i < encoded.length) {
+      // for each coord (lat, lon)
+      var latLng = [0, 0];
+      for (var j = 0; j < 2; j++) {
+        var shift = 0;
+        var byte = 0x20;
+        // keep decoding bytes until you have this coord
+        while (byte >= 0x20) {
+          byte = encoded.codeUnitAt(i++) - 63;
+          latLng[j] |= (byte & 0x1f) << shift;
+          shift += 5;
+        }
+        // add previous offset to get the final value and remember for the next one
+        latLng[j] = previous[j] +
+            (latLng[j] & 1 == 1 ? ~(latLng[j] >> 1) : (latLng[j] >> 1));
+        previous[j] = latLng[j];
       }
-      lat += dLat;
+      // scale by precision and chop off long coords also flip the positions so
+      // it's the far more standard lon,lat instead of lat,lon
 
-      shift = 0;
-      result = big0;
-      do {
-        b = BigInt.from(encoded.codeUnitAt(index++) - 63);
-        result |= (b & big0x1f) << shift;
-        shift += 5;
-      } while (b >= big0x20);
-      rShifted = result >> 1;
-      int dLng;
-      if (result.isOdd) {
-        dLng = (~rShifted).toInt();
-      } else {
-        dLng = rShifted.toInt();
-      }
-      lng += dLng;
-
-      points.add(LatLng((lat / 1E5).toDouble(), (lng / 1E5).toDouble()));
+      var temp = LatLng(latLng[0] * inv, latLng[1] * inv);
+      decoded.add(temp);
     }
-
-    return points;
+    // hand back the list of coordinates
+    return decoded;
   }
 }
