@@ -223,8 +223,8 @@ class VietmapPolyline {
   }
 
   /// Calculates Final Bearing
-  static num _calculateFinalBearing(LatLng start, LatLng end) =>
-      _calculateFinalBearingRaw(start, end);
+  // static num _calculateFinalBearing(LatLng start, LatLng end) =>
+  //     _calculateFinalBearingRaw(start, end);
 
   static num _radiansToDegrees(num radians) {
     num degrees = radians.remainder(2 * pi);
