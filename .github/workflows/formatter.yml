@@ -17,6 +17,7 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: ${{ env.FLUTTER_CHANNEL }}
           cache: true
+          token: ${{ secrets.SECRET_TOKEN }}
       - name: format
         run: |
           dart format .
