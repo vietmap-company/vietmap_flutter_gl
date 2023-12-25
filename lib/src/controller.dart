@@ -417,11 +417,12 @@ class VietmapController extends ChangeNotifier {
   /// [expressions]: https://docs.mapbox.com/mapbox-gl-js/style-spec/expressions
   Future<void> addLineLayer(
       String sourceId, String layerId, PolylineLayerProperties properties,
-      {String? belowLayerId = 'vmadmin_province',
+      {String? belowLayerId,
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,
       dynamic filter,
+      bool belowRoadName = true,
       bool enableInteraction = true}) async {
     await _vietmapGlPlatform.addLineLayer(
       sourceId,
@@ -432,6 +433,7 @@ class VietmapController extends ChangeNotifier {
       minzoom: minzoom,
       maxzoom: maxzoom,
       filter: filter,
+      belowRoadName: belowRoadName,
       enableInteraction: enableInteraction,
     );
   }

@@ -8,12 +8,14 @@ class MarkerWidget extends StatefulWidget {
   final double width;
   final double height;
   final Alignment alignment;
+  final double angle;
   MarkerWidget(
       {required String key,
       required this.coordinate,
       required this.initialPosition,
       required this.addMarkerState,
       required this.child,
+      this.angle = 0,
       required this.width,
       this.alignment = Alignment.center,
       required this.height})
@@ -21,7 +23,7 @@ class MarkerWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    final state = MarkerState(initialPosition);
+    final state = MarkerState(initialPosition, angle);
     addMarkerState(state);
     return state;
   }
@@ -29,8 +31,8 @@ class MarkerWidget extends StatefulWidget {
 
 class MarkerState extends State with TickerProviderStateMixin {
   Point _position;
-
-  MarkerState(this._position);
+  double _angle;
+  MarkerState(this._position, this._angle);
 
   @override
   void initState() {
@@ -58,6 +60,9 @@ class MarkerState extends State with TickerProviderStateMixin {
     if ((widget as MarkerWidget).alignment == Alignment.center) {
       _leftPosition = width / 2;
       _topPosition = height / 2;
+    } else if ((widget as MarkerWidget).alignment == Alignment.bottomCenter) {
+      _leftPosition = width / 2;
+      _topPosition = height;
     } else if ((widget as MarkerWidget).alignment == Alignment.topLeft) {
       _leftPosition = 0;
       _topPosition = 0;
@@ -79,21 +84,19 @@ class MarkerState extends State with TickerProviderStateMixin {
     } else if ((widget as MarkerWidget).alignment == Alignment.topCenter) {
       _leftPosition = width / 2;
       _topPosition = 0;
-    } else if ((widget as MarkerWidget).alignment == Alignment.bottomCenter) {
-      _leftPosition = width / 2;
-      _topPosition = height;
     }
 
     return Positioned(
         left: _position.x / ratio - _leftPosition,
         top: _position.y / ratio - _topPosition,
-        child: getChild());
+        child: Transform.rotate(angle: _angle, child: getChild()));
   }
 
-  void updatePosition(Point<num> point) {
+  void updatePosition(Point<num> point, double angle) {
     if (!mounted) return;
     setState(() {
       _position = point;
+      _angle = angle;
     });
   }
 

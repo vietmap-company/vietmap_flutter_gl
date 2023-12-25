@@ -137,11 +137,12 @@ abstract class VietmapGlPlatform {
 
   Future<void> addLineLayer(
       String sourceId, String layerId, Map<String, dynamic> properties,
-      {String? belowLayerId = 'vmadmin_province',
+      {String? belowLayerId,
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,
       dynamic filter,
+      required bool belowRoadName,
       required bool enableInteraction});
 
   Future<void> addCircleLayer(

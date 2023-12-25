@@ -7,7 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart'; // ignore: unnecessary_import
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
-import 'package:maplibre_gl_example/util.dart';
+import 'package:vietmap_gl_example/util.dart';
 
 import 'constant.dart';
 import 'page.dart';
@@ -32,7 +32,7 @@ class _ScrollingMapBodyState extends State<ScrollingMapBody> {
   late VietmapController controllerOne;
   late VietmapController controllerTwo;
 
-  final LatLng center = const LatLng(32.080664, 34.9563837);
+  final LatLng center = const LatLng(10.930780, 106.634982);
 
   @override
   Widget build(BuildContext context) {
@@ -132,10 +132,10 @@ class _ScrollingMapBodyState extends State<ScrollingMapBody> {
     controller.addPolyline(
       PolylineOptions(
         geometry: [
-          LatLng(-33.86711, 151.1947171),
-          LatLng(-33.86711, 151.1947171),
-          LatLng(-32.86711, 151.1947171),
-          LatLng(-33.86711, 152.1947171),
+          LatLng(10.86711, 106.1947171),
+          LatLng(10.86711, 106.1947171),
+          LatLng(9.86711, 106.1947171),
+          LatLng(10.86711, 107.1947171),
         ],
         polylineColor: Colors.red,
         polylineWidth: 7.0,

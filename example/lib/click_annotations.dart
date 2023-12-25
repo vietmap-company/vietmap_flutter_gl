@@ -28,7 +28,7 @@ class ClickAnnotationBody extends StatefulWidget {
 
 class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
   ClickAnnotationBodyState();
-  static const LatLng center = const LatLng(-33.88, 151.16);
+  static const LatLng center = const LatLng(10.88, 106.16);
 
   VietmapController? controller;
 
@@ -79,7 +79,7 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
         controller!, "custom-marker", "assets/symbols/custom-marker.png");
     controller!.addCircle(
       CircleOptions(
-        geometry: LatLng(-33.881979408447314, 151.171361438502117),
+        geometry: LatLng(10.881979408447314, 106.171361438502117),
         circleStrokeColor: Color(0xFF00FF00),
         circleStrokeWidth: 2,
         circleRadius: 16,
@@ -87,7 +87,7 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
     );
     controller!.addCircle(
       CircleOptions(
-        geometry: LatLng(-33.894372606072309, 151.17576679759523),
+        geometry: LatLng(10.894372606072309, 106.17576679759523),
         circleStrokeColor: Color(0xFF00FF00),
         circleStrokeWidth: 2,
         circleRadius: 30,
@@ -95,18 +95,18 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
     );
     controller!.addSymbol(
       SymbolOptions(
-          geometry: LatLng(-33.894372606072309, 151.17576679759523),
+          geometry: LatLng(10.894372606072309, 106.17576679759523),
           iconImage: "custom-marker", //"fast-food-15",
           iconSize: 2),
     );
     controller!.addPolyline(
       PolylineOptions(
         geometry: [
-          LatLng(-33.874867744475786, 151.170627211986584),
-          LatLng(-33.881979408447314, 151.171361438502117),
-          LatLng(-33.887058805548882, 151.175032571079726),
-          LatLng(-33.894372606072309, 151.17576679759523),
-          LatLng(-33.900060683994681, 151.15765587687909),
+          LatLng(10.874867744475786, 106.170627211986584),
+          LatLng(10.881979408447314, 106.171361438502117),
+          LatLng(10.887058805548882, 106.175032571079726),
+          LatLng(10.894372606072309, 106.17576679759523),
+          LatLng(10.900060683994681, 106.15765587687909),
         ],
         polylineColor: Colors.red,
         polylineWidth: 20,
@@ -117,13 +117,13 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
       PolygonOptions(
         geometry: [
           [
-            LatLng(-33.901517742631846, 151.178099204457737),
-            LatLng(-33.872845324482071, 151.179025547977773),
-            LatLng(-33.868230472039514, 151.147000529140399),
-            LatLng(-33.883172899638311, 151.150838238009328),
-            LatLng(-33.894158309528244, 151.14223647675135),
-            LatLng(-33.904812805307806, 151.155999294764086),
-            LatLng(-33.901517742631846, 151.178099204457737),
+            LatLng(10.901067742631846, 106.178099204457737),
+            LatLng(10.872845324482071, 106.179025547977773),
+            LatLng(10.868230472039514, 106.147000529140399),
+            LatLng(10.883172899638311, 106.150838238009328),
+            LatLng(10.894158309528244, 106.14223647675135),
+            LatLng(10.904812805307806, 106.155999294764086),
+            LatLng(10.901067742631846, 106.178099204457737),
           ],
         ],
         polygonColor: Color(0xFFFF0000),

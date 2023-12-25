@@ -4,6 +4,8 @@
 
 Contact [vietmap.vn](https://bit.ly/vietmap-api) to register a valid key.
 
+[Tài liệu tiếng Việt](./README.vi.md)
+
 ## Getting started
 
 Add library to pubspec.yaml file
@@ -19,7 +21,6 @@ or run this command in the terminal to add the library to the project:
 ```
 ## Android config
 
-
 Add the below code to the build.gradle (project) file at path: **android/build.gradle**
 
 ```gradle
@@ -32,35 +33,34 @@ at the repositories block
 
 ```gradle
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
-}
+  allprojects {
+      repositories {
+          google()
+          mavenCentral()
+          maven { url "https://jitpack.io" }
+      }
+  }
 ```
 Upgrade the minSdkVersion to a minimum is 24 in the build.gradle (app) file, at path **android/app/build.gradle**
 ```gradle
   minSdkVersion 24
 ```
 ## iOS config
-Add the below codes to the Info.plist file. Replace your API key to **YOUR_API_KEY_HERE** 
-```
-	<key>VietMapAPIBaseURL</key>
-	<string>https://maps.vietmap.vn/api/navigations/route/</string>
-	<key>VietMapAccessToken</key>
-	<string>YOUR_API_KEY_HERE</string>
-	<key>VietMapURL</key>
-	<string>https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app requires location permission to working normally</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app requires location permission to working normally</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app requires location permission to working normally</string>
+Add the below codes to the Info.plist file.  
+```ruby
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>Your request location description</string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>Your request location description</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Your request location description</string>
 ```
 
+Upgrade min ios version to 12.0 in the Podfile (iOS) file, at path **ios/Podfile** (uncomment the line below)
+
+```ruby
+  platform :ios, '12.0' 
+```
 
 ## Main characteristics
 
@@ -79,6 +79,16 @@ Add the below codes to the Info.plist file. Replace your API key to **YOUR_API_K
     );
 ```
 
+VIETMAP now provides 2 types of custom maps
+
+|Name|Description|
+|--- |--- |
+|Raster|The map data is typically stored as raster images, which are then divided into a grid of small tiles, each containing a specific portion of the map.|
+|Raster url|```https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE```|
+|Vector|Vector tiles are small packages of vector data that can be downloaded and rendered on a client device, such as a web browser or mobile app. The vector data can include information such as street names, building footprints, and topographic features.|
+|Vector url|```https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE```|
+
+Read more about [Raster and Vector](https://maps.vietmap.vn/docs/map-api/tilemap/)
 
 ## Map Interactions
 The VietmapGL Maps Flutter SDK allows you to define interactions that you can activate on the map to enable gestures and click events. The following interactions are supported
@@ -89,7 +99,7 @@ The map supports the familiar two-finger pinch and zooms to change the zoom leve
 And following operations can be performed using the CameraPosition
 
 #### Target
-The target is single latitude and longitude coordinate that the camera centers it on. Changing the camera's target will move the camera to the inputted coordinates. The target is a LatLng object. The target coordinate is always _at the center of the viewport_.
+The target is a single latitude and longitude coordinate that the camera centers it on. Changing the camera's target will move the camera to the inputted coordinates. The target is a LatLng object. The target coordinate is always _at the center of the viewport_.
 
 
 #### Tilt
@@ -98,7 +108,7 @@ Tilt is the camera's angle from the nadir (directly facing the Earth) and uses u
 The map camera tilt can also adjust by placing two fingertips on the map and moving both fingers up and down in parallel at the same time or
 
 #### Bearing
-Bearing represents the direction that the camera is pointing in and is measured in degrees  _clockwise from north_.
+Bearing represents the direction that the camera is pointing in and is measured in degrees _clockwise__ from north__.
 
 The camera's default bearing is 0 degrees (i.e. "true north") causing the map compass to hide until the camera bearing becomes a non-zero value. Bearing levels use six decimal point precision, which enables you to restrict/set/lock a map's bearing with extreme precision. In addition to programmatically adjusting the camera bearing, the user can place two fingertips on the map and rotate their fingers.
 
@@ -112,8 +122,8 @@ Zoom controls the scale of the map and consumes any value between 0 and 22. At z
 
 ##### SDK allows various methods to move, and animate the camera to a particular location :
 ~~~dart  
-_mapController?.moveCamera(CameraUpdate.newLatLngZoom(LatLng(22.553147478403194, 77.23388671875), 14));  
-_mapController?.animateCamera(CameraUpdate.newLatLngZoom(LatLng(28.698791, 77.121243), 14));  
+  _mapController?.moveCamera(CameraUpdate.newLatLngZoom(LatLng(22.553147478403194, 77.23388671875), 14));  
+  _mapController?.animateCamera(CameraUpdate.newLatLngZoom(LatLng(28.698791, 77.121243), 14));  
 ~~~  
 
 ## Map Events
@@ -123,38 +133,46 @@ If you want to respond to a user tapping on a point on the map, you can use an o
 
 It sets a callback that's invoked when the user clicks on the map:
 ~~~dart  
-VietmapGL(    
-  initialCameraPosition: _kInitialPosition,    
-  onMapClick: (point, latlng) =>{    
-    print(latlng.toString())  
- }, )  
+  VietmapGL(    
+    initialCameraPosition: _kInitialPosition,    
+    onMapClick: (point, latlng) =>{    
+      print(latlng.toString())  
+  }, )  
 ~~~  
 
 ##### Sets a callback that's invoked when the user long clicks on the map view.
 ~~~dart  
-VietmapGL(    
-  initialCameraPosition: _kInitialPosition,    
-  onMapLongClick: (point, latlng) =>{    
-    print(latlng.toString())  
- }, )  
+  VietmapGL(    
+    initialCameraPosition: _kInitialPosition,    
+    onMapLongClick: (point, latlng) =>{    
+      print(latlng.toString())  
+  }, )  
 ~~~  
 
 ##### Sets a callback that's invoked when the map is completely rendered.
 ##### Encourage this callback to call some action on the initial, after the map is completely loaded
 ~~~dart  
-VietmapGL(    
-  initialCameraPosition: _kInitialPosition,    
-  onMapRenderedCallback: () {
-            _mapController?.animateCamera(CameraUpdate.newCameraPosition(
-                CameraPosition(
-                    target: LatLng(10.739031, 106.680524),
-                    zoom: 10,
-                    tilt: 60)));
-    },
-  )  
+  VietmapGL(    
+    initialCameraPosition: _kInitialPosition,    
+    onMapRenderedCallback: () {
+              _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                      target: LatLng(10.739031, 106.680524),
+                      zoom: 10,
+                      tilt: 60)));
+      },
+    )  
 ~~~  
 ## Map Overlays
-### Add a Marker (Marked a point in the map with a custom widget)
+### Add marker (Marked a point in the map with a custom widget)
+- We provide two types of markers, the first is a `simple marker`, and the second is a `static marker`. The simple marker `will not rotate` when the map rotates, and the static marker `will rotate` with the map.
+<div style="width:100%; text-align:center" >
+  <img src="https://github.com/vietmap-company/flutter-map-sdk/raw/main/gif/marker_demo.gif" alt="drawing" width="400"/>
+</div>
+
+### Add a simple marker (Marked a point in the map with a custom widget, the marker will not rotate when the map rotates)
+- The marker support anchor with input is an alignment, which requires width and height to calculate the position of the marker, the default for both of them is 20
+- Make sure the `width and height of the marker match with its child's` width and height to the marker display exactly
 
 ```dart
   Stack(
@@ -163,7 +181,7 @@ VietmapGL(
         trackCameraPosition: true, // Will track the map change to update the marker position in realtime
         ...
         ),
-      MarkerLayer
+      MarkerLayer(
         ignorePointer: true, // Will ignore all user gestures on the marker
         mapController: _mapController!,
         markers: [
@@ -188,25 +206,45 @@ VietmapGL(
               Marker(
                   child: Icon(Icons.location_on),
                   latLng: LatLng(10.792765, 106.674143)),
-        ]
+        ])
   ])
     
 ```
-#### Note: You must enable _trackCameraPosition: true_, at _VietmapGL_, which ensured the MarkerLayer renders normally
-- The marker support anchor with input is an alignment, which required width and height to calculate the position of the marker, the default for both of them is 20
-- Make sure the width and height of the marker are match with it child width and height to the marker display exactly
+
+### Add a static marker (Marked a point in the map with a custom widget, the marker will rotate with the map)
+- The static marker support rotates with input is a bearing, you can find this value when get GPS location.
+
+- We recommend using this marker for location-based applications, tracking the location of the driver. Then the driver's vehicle will rotate in the right direction even when the user rotates the map at any angle.
 ```dart
-    Marker(
-        width: 40,
-        height:40,
-        alignment: Alignment.bottomCenter,
-        child: Icon(Icons.location_on, size:40),
-        latLng: LatLng(10.792765, 106.674143)),
+  Stack(
+    children: [
+      VietmapGL(
+        trackCameraPosition: true, // Will track the map change to update the marker position in realtime
+        ...
+        ),
+      StaticMarkerLayer(
+        ignorePointer: true,
+        mapController: _mapController!,
+        markers: [
+          StaticMarker(
+            width: 50,
+            height: 50,
+            bearing: 0,
+            child: Container(
+              width: 50,
+              height: 50,
+              child:Icon(Icons.arrow_downward_rounded)),
+            latLng: LatLng(10.736657, 106.672240)),
+          ]),
+  ])
 ```
+
+#### Note: You must enable `trackCameraPosition: true`, at _VietmapGL, which ensures the MarkerLayer renders normally 
+
 ### Add a Line/Polyline (A line connects 2 points on the map)
 
 ~~~dart  
-_mapController?.addPolyline(
+    Line? line = await _mapController?.addPolyline(
       PolylineOptions(
           geometry: [
             LatLng(10.736657, 106.672240),
@@ -218,10 +256,28 @@ _mapController?.addPolyline(
           ],
           polylineColor: Colors.red,
           polylineWidth: 14.0,
-          polylineOpacity: 0.5,
-          draggable: true),
+          polylineOpacity: 0.5),
     );
 ~~~  
+### Update polyLine
+```dart
+    _mapController?.updatePolyline(
+      line,
+      PolylineOptions(
+          geometry: [
+            LatLng(10.736657, 106.672240),
+            LatLng(10.766543, 106.742378),
+            LatLng(10.775818, 106.640497),
+            LatLng(10.727416, 106.735597),
+            LatLng(10.792765, 106.674143),
+            LatLng(10.736657, 106.672240),
+          ],
+          polylineColor: Colors.blue,
+          polylineWidth: 14.0,
+          polylineOpacity: 1,
+          draggable: true),
+    );
+```
 
 ### Remove a Polyline
 ~~~dart  
@@ -235,7 +291,7 @@ _mapController?.addPolyline(
 
 ### Add a Fill/Polygon
 ~~~dart  
-    _mapController?.addPolygon(
+    Polygon? = await _mapController?.addPolygon(
       PolygonOptions(
           geometry: [
             [
@@ -252,7 +308,26 @@ _mapController?.addPolyline(
           draggable: true),
     );
 ~~~  
-
+### Update Polygon
+```dart
+    _mapController?.updatePolygon(
+      polygon,
+      PolygonOptions(
+          geometry: [
+            [
+              LatLng(10.736657, 106.672240),
+              LatLng(10.766543, 106.742378),
+              LatLng(10.775818, 106.640497),
+              LatLng(10.727416, 106.735597),
+              LatLng(10.792765, 106.674143),
+              LatLng(10.736657, 106.672240),
+            ]
+          ],
+          polygonColor: Colors.blue,
+          polygonOpacity: 1,
+          draggable: true),
+    );
+```
 ### Remove a Polygon
 ~~~dart  
     _mapController?.removePolygon(polygon);  
@@ -263,27 +338,63 @@ _mapController?.addPolyline(
     _mapController?.clearPolygons();
 ```
 
+### Find a route between 2 or more points
+- We've created a package to find a route between 2 or more points, you can find the
+[vietmap_flutter_plugin](https://pub.dev/packages/vietmap_flutter_plugin) to use it.
+- Run this command in the terminal to add the library to the project:
+```bash
+  flutter pub add vietmap_flutter_plugin
+```
+- Example code:
+```dart
+  List<LatLng> points = [];
+  /// Get the route between 2 points
+  var routingResponse = await Vietmap.routing(VietMapRoutingParams(points: [
+    const LatLng(21.027763, 105.834160),
+    const LatLng(21.027763, 105.834160)
+  ]));
 
+  /// Handle the response
+  routingResponse.fold((Failure failure) {
+    // handle failure here
+  }, (VietMapRoutingModel success) {
+    if (success.paths?.isNotEmpty == true &&
+        success.paths![0].points?.isNotEmpty == true) {
+      /// import this [import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';] package
+      points =
+          VietmapPolylineDecoder.decodePolyline(success.paths![0].points!);
+    }
+  });
+
+  /// Draw the route on the map
+  Line? line = await _mapController?.addPolyline(
+    PolylineOptions(
+        geometry: points,
+        polylineColor: Colors.red,
+        polylineWidth: 14.0,
+        polylineOpacity: 0.5),
+  );
+```
 <br>
 
 # Troubleshooting
-- Our SDK uses the key to identify the markers and update their location while the user does some gestures, so we strongly recommend you add the key for all of the widgets in the screen which use the map SDK:
+- Our SDK uses the key to identify the markers and update their location while the user does some gestures, so we strongly recommend you add the key for all of the widgets in the screen that use the map SDK:
  ```dart
- Stack(
-  children:[
-    MarkerLayer(
-      ...
-    ),
-    Positioned(
-      key: const Key('yourWidgetKey'),
-      ...
-    ),
-  ]
- )
+  Stack(
+    children:[
+      MarkerLayer(
+        ...
+      ),
+      Positioned(
+        key: const Key('yourWidgetKey'),
+        ...
+      ),
+    ]
+  )
  ```
 
 Demo code [here](./example/lib/main.dart)
-# Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tag to the application work normally
+## Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tag to the application work normally
 
 <br></br>
 <br></br>
@@ -296,7 +407,5 @@ Contact for [support](https://vietmap.vn/lien-he)
 
 Vietmap API document [here](https://maps.vietmap.vn/docs/map-api/overview/)
 
-Have a bug to report? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). If possible, include a full log and information which shows the issue.
+Have a bug to report? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). If possible, include a full log and information that shows the issue.
 Have a feature request? [Open an issue](https://github.com/vietmap-company/flutter-map-sdk/issues). Tell us what the feature should do and why you want the feature.
-
-[Tài liệu tiếng Việt](./README.vi.md)

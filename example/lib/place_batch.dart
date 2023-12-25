@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:maplibre_gl_example/constant.dart';
+import 'package:vietmap_gl_example/constant.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'page.dart';
@@ -13,34 +13,34 @@ const fillOptions = [
   PolygonOptions(
     geometry: [
       [
-        LatLng(-33.719, 151.150),
-        LatLng(-33.858, 151.150),
-        LatLng(-33.866, 151.401),
-        LatLng(-33.747, 151.328),
-        LatLng(-33.719, 151.150),
+        LatLng(10.719, 106.150),
+        LatLng(10.858, 106.150),
+        LatLng(10.866, 106.401),
+        LatLng(10.747, 106.328),
+        LatLng(10.719, 106.150),
       ],
       [
-        LatLng(-33.762, 151.250),
-        LatLng(-33.827, 151.250),
-        LatLng(-33.833, 151.347),
-        LatLng(-33.762, 151.250),
+        LatLng(10.762, 106.250),
+        LatLng(10.827, 106.250),
+        LatLng(10.833, 106.347),
+        LatLng(10.762, 106.250),
       ]
     ],
     polygonColor: Color(0xFFFF0000),
   ),
   PolygonOptions(geometry: [
     [
-      LatLng(-33.719, 151.550),
-      LatLng(-33.858, 151.550),
-      LatLng(-33.866, 151.801),
-      LatLng(-33.747, 151.728),
-      LatLng(-33.719, 151.550),
+      LatLng(10.719, 106.550),
+      LatLng(10.858, 106.550),
+      LatLng(10.866, 106.801),
+      LatLng(10.747, 106.728),
+      LatLng(10.719, 106.550),
     ],
     [
-      LatLng(-33.762, 151.650),
-      LatLng(-33.827, 151.650),
-      LatLng(-33.833, 151.747),
-      LatLng(-33.762, 151.650),
+      LatLng(10.762, 106.650),
+      LatLng(10.827, 106.650),
+      LatLng(10.833, 106.747),
+      LatLng(10.762, 106.650),
     ]
   ], polygonColor: Color(0xFFFF0000)),
 ];
@@ -68,7 +68,7 @@ class BatchAddBodyState extends State<BatchAddBody> {
   List<Line> _lines = [];
   List<Symbol> _symbols = [];
 
-  static final LatLng center = const LatLng(-33.86711, 151.1947171);
+  static final LatLng center = const LatLng(10.86711, 106.1947171);
 
   late VietmapController controller;
 
@@ -153,7 +153,7 @@ class BatchAddBodyState extends State<BatchAddBody> {
               onStyleLoadedCallback: () => addImageFromAsset(controller,
                   "custom-marker", "assets/symbols/custom-marker.png"),
               initialCameraPosition: const CameraPosition(
-                target: LatLng(-33.8, 151.511),
+                target: LatLng(10.8, 106.511),
                 zoom: 8.2,
               ),
               annotationOrder: const [

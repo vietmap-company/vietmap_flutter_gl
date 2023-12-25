@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
+import 'constant.dart';
 import 'page.dart';
 
 class GetMapInfoPage extends ExamplePage {
@@ -68,29 +69,7 @@ class _GetMapInfoBodyState extends State<GetMapInfoBody> {
               compassEnabled: false,
               annotationOrder: [],
               // myLocationEnabled: false,
-              styleString: '''{
-                "version": 8,
-                "sources": {
-                  "OSM": {
-                    "type": "raster",
-                    "tiles": [
-                      "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                      "https://b.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                      "https://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    ],
-                    "tileSize": 256,
-                    "attribution": "© OpenStreetMap contributors",
-                    "maxzoom": 18
-                  }
-                },
-                "layers": [
-                  {
-                    "id": "OSM-layer",
-                    "source": "OSM",
-                    "type": "raster"
-                  }
-                ]
-              }''',
+              styleString: YOUR_STYLE_URL_HERE,
             ),
           ),
         ),

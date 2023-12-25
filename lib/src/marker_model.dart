@@ -3,7 +3,11 @@ part of vietmap_flutter_gl;
 class Marker {
   final Widget child;
   final LatLng latLng;
+
+  /// Make sure the width of the marker are match with it child width to the marker display exactly
   final double width;
+
+  /// Make sure the height of the marker are match with it child height to the marker display exactly
   final double height;
 
   /// The alignment of the marker, which controls where the [child] is drawn

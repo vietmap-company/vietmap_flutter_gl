@@ -14,7 +14,7 @@ import io.flutter.plugin.common.BinaryMessenger;
 class VietmapGLBuilder implements VietmapGLOptionsSink {
   public final String TAG = getClass().getSimpleName();
   private final VietMapGLOptions options =
-      new VietMapGLOptions().attributionEnabled(true).logoEnabled(false).textureMode(true);
+      new VietMapGLOptions().attributionEnabled(true).logoEnabled(true).textureMode(true);
   private boolean trackCameraPosition = false;
   private boolean myLocationEnabled = false;
   private boolean dragEnabled = true;

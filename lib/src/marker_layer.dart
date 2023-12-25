@@ -38,6 +38,9 @@ class _MarkerLayerState extends State<MarkerLayer> {
     var _newMarker = <MarkerWidget>[];
     var _newMarkerStates = <MarkerState>[];
     Map<String, bool> _newMarkerKey = {};
+    // print('-----------------------------------------------');
+    // print(_mapController.cameraPosition?.bearing);
+    // print('-----------------------------------------------');
     _mapController.toScreenLocationBatch(param).then((value) {
       if (value.isEmpty || widget.markers.isEmpty) {
       } else {
@@ -81,11 +84,11 @@ class _MarkerLayerState extends State<MarkerLayer> {
   void initState() {
     onMapListener = () {
       if (_mapController.isCameraMoving) {
-        _updateMarkerPosition();
+        _updateMarkerPosition(_mapController.cameraPosition);
       }
     };
     onMarkerLayerListener = (cameraPosition) {
-      _updateMarkerPosition();
+      _updateMarkerPosition(cameraPosition);
     };
     _mapController.getPlatform.onCameraIdlePlatform.add(onMarkerLayerListener!);
     _mapController.addListener(onMapListener!);
@@ -119,7 +122,7 @@ class _MarkerLayerState extends State<MarkerLayer> {
     super.dispose();
   }
 
-  void _updateMarkerPosition() {
+  void _updateMarkerPosition(CameraPosition? cameraPosition) {
     final coordinates = <LatLng>[];
 
     for (final markerState in _markerStates) {
@@ -129,7 +132,7 @@ class _MarkerLayerState extends State<MarkerLayer> {
     _mapController.toScreenLocationBatch(coordinates).then((points) {
       _markerStates.asMap().forEach((i, value) {
         if (points.length > i && _markerStates.length > i) {
-          _markerStates[i].updatePosition(points[i]);
+          _markerStates[i].updatePosition(points[i], 0);
         }
       });
     });

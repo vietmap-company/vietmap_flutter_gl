@@ -1,4 +1,4 @@
-import 'dart:ui';
+part of vietmap_gl_platform_interface;
 
 extension ColorExtension on Color? {
   String toHex() {

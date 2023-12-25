@@ -132,7 +132,7 @@ class _ClusterLayerState extends State<ClusterLayer> {
     _mapController.toScreenLocationBatch(coordinates).then((points) {
       _markerStates.asMap().forEach((i, value) {
         if (points.length > i && _markerStates.length > i) {
-          _markerStates[i].updatePosition(points[i]);
+          _markerStates[i].updatePosition(points[i], 0);
         }
       });
     });

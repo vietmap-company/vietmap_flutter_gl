@@ -6,8 +6,9 @@ library vietmap_flutter_gl;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
-import 'dart:math';
+import 'dart:math' hide log;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -76,5 +77,9 @@ part 'src/marker_layer.dart';
 
 part 'src/marker_model.dart';
 
+part 'src/static_marker_model.dart';
+
 part 'src/cluster_layer.dart';
 // part 'src/location_marker.dart';
+
+part 'src/static_marker_layer.dart';

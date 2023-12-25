@@ -1,1 +1,1 @@
-Contains the web platform implementation for the [Flutter Maplibre GL plugin](https://github.com/maplibre/flutter-maplibre-gl).
+A plugin for [Vietmap Flutter GL](https://pub.dev/packages/vietmap_flutter_gl) and [Vietmap Flutter Navigation](https://pub.dev/packages/vietmap_flutter_navigation) SDK.
