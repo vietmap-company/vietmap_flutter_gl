@@ -1,3 +1,5 @@
+## 0.1.4
+- Fix `VietmapPolylineDecoder` `encode` and `decode` function
 ## 0.1.2 
 - Add `VietmapPolyline` class to handle some polyline properties
 ## 0.1.0

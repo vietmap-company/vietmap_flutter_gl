@@ -19,7 +19,7 @@ jobs:
           channel: ${{ env.FLUTTER_CHANNEL }}
           cache: true
       - name: Lint analysis
-        run: flutter format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
 
   lint:
     name: "Static code analysis"
@@ -83,19 +83,19 @@ jobs:
           name: Runner.app
           path: example/build/ios/iphonesimulator
 
-  build-web:
-    name: "Build web"
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: example
+  # build-web:
+  #   name: "Build web"
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: example
 
-    steps:
-    - uses: actions/checkout@v3
-    - uses: subosito/flutter-action@v2.8.0
-      with:
-        channel: ${{ env.FLUTTER_CHANNEL }}
-        cache: true
-    - run: flutter pub get
-    - name: Build web
-      run: flutter build web
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - uses: subosito/flutter-action@v2.8.0
+  #     with:
+  #       channel: ${{ env.FLUTTER_CHANNEL }}
+  #       cache: true
+  #   - run: flutter pub get
+  #   - name: Build web
+  #     run: flutter build web

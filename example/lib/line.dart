@@ -76,10 +76,10 @@ class PolylineBodyState extends State<PolylineBody> {
     controller!.addPolyline(
       PolylineOptions(
           geometry: [
-            LatLng(-33.86711, 151.1947171),
-            LatLng(-33.86711, 151.1947171),
-            LatLng(-32.86711, 151.1947171),
-            LatLng(-33.86711, 152.1947171),
+            LatLng(18.7037164, 105.655785),
+            LatLng(18.794076, 105.578259),
+            LatLng(18.926043, 105.565797),
+            LatLng(19.071928, 105.623953),
           ],
           polylineColor: Colors.red,
           polylineWidth: 14.0,
@@ -169,8 +169,8 @@ class PolylineBodyState extends State<PolylineBody> {
               onMapCreated: _onMapCreated,
               onStyleLoadedCallback: _onStyleLoadedCallback,
               initialCameraPosition: const CameraPosition(
-                target: LatLng(-33.852, 151.211),
-                zoom: 11.0,
+                target: LatLng(18.7037164, 105.655785),
+                zoom: 6.0,
               ),
             ),
           ),

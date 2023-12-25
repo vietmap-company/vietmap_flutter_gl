@@ -1,4 +1,4 @@
-# maplibre_gl_example
+# vietmap_gl_example
 
 Demonstrates how to use the vietmap_flutter_gl plugin.
 

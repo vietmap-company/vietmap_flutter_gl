@@ -475,6 +475,7 @@ final class VietmapGLController
             Float maxZoom,
             PropertyValue[] properties,
             boolean enableInteraction,
+            boolean belowRoadName,
             Expression filter) {
         LineLayer lineLayer = new LineLayer(layerName, sourceName);
         lineLayer.setProperties(properties);
@@ -490,11 +491,19 @@ final class VietmapGLController
         if (filter != null) {
             lineLayer.setFilter(filter);
         }
+
         if (belowLayerId != null) {
+
             style.addLayerBelow(lineLayer, belowLayerId);
-        } else {
+        }
+        if(belowRoadName != false){
+            style.addLayerBelow( lineLayer, "vmadmin_province");
+        }
+        else {
             style.addLayer(lineLayer);
         }
+
+
         if (enableInteraction) {
             interactiveFeatureLayerIds.add(layerName);
         }
@@ -948,6 +957,7 @@ final class VietmapGLController
                 final Double maxzoom = call.argument("maxzoom");
                 final String filter = call.argument("filter");
                 final boolean enableInteraction = call.argument("enableInteraction");
+                final boolean belowRoadName = call.argument("belowRoadName");
                 final PropertyValue[] properties =
                         LayerPropertyConverter.interpretLineLayerProperties(call.argument("properties"));
 
@@ -961,6 +971,7 @@ final class VietmapGLController
                         maxzoom != null ? maxzoom.floatValue() : null,
                         properties,
                         enableInteraction,
+                        belowRoadName,
                         filterExpression);
                 updateLocationComponentLayer();
 

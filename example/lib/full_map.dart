@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
+import 'constant.dart';
 import 'page.dart';
 
 class FullMapPage extends ExamplePage {
@@ -59,8 +60,7 @@ class FullMapState extends State<FullMap> {
       onUserLocationUpdated: (location) {
         print(location.latitude);
       },
-      styleString:
-          "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE",
+      styleString: YOUR_STYLE_URL_HERE,
     ));
   }
 }

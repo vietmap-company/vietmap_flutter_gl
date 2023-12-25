@@ -613,11 +613,12 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
   @override
   Future<void> addLineLayer(
       String sourceId, String layerId, Map<String, dynamic> properties,
-      {String? belowLayerId = 'vmadmin_province',
+      {String? belowLayerId,
       String? sourceLayer,
       double? minzoom,
       double? maxzoom,
       dynamic filter,
+      bool belowRoadName = true,
       required bool enableInteraction}) async {
     await _channel.invokeMethod('lineLayer#add', <String, dynamic>{
       'sourceId': sourceId,
@@ -628,6 +629,7 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
       'maxzoom': maxzoom,
       'filter': jsonEncode(filter),
       'enableInteraction': enableInteraction,
+      'belowRoadName': belowRoadName,
       'properties': properties
           .map((key, value) => MapEntry<String, String>(key, jsonEncode(value)))
     });

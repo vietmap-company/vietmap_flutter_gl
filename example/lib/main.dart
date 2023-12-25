@@ -114,21 +114,53 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+              onPressed: () {
+                var nres = VietmapPolylineDecoder.decodePolyline(
+                  'y`uoSse~mjEuL_KsFsEeNuL{FqF}CwCgM}L{PgP}A}Aax@vScShF{PpEsHzBmj@tOk]~IyQzE{KtCyKrCmRbF{a@tKc\rIga@nKi`@bKsO`EwRdFyGpAsMX}DeDeDy@mD?eCh@yBjAwBfCcLqGwUgNiF}CuMwHwBqAeFoCcLuG_CqBgQeQ{UaT{HaHgBoBgKqJ{K{KkHaG_GaFsImHuNwLeGuFwBsCkR_W{EoGnOwPxFkGfNoOzP`OvH|FhBvAjCpB|JpHbAr@',
+                );
+                _mapController?.addPolyline(PolylineOptions(
+                  geometry: nres,
+                  polylineColor: Colors.red,
+                  polylineWidth: 14.0,
+                ));
+                var eres = VietmapPolylineDecoder.encodePolyline(nres);
+                log(eres);
+                print(nres);
+              },
+              child: Icon(Icons.calculate)),
+          FloatingActionButton(
             onPressed: () {
               var line = [
-                LatLng(38.878605, -77.031669),
-                LatLng(38.881946, -77.029609),
-                LatLng(38.884084, -77.020339),
-                LatLng(38.885821, -77.025661),
-                LatLng(38.889563, -77.021884),
-                LatLng(38.892368, -77.019824),
+                LatLng(10.759197, 106.67581799999999),
+                LatLng(10.759416, 106.67601000000002),
+                LatLng(10.759538, 106.67611599999998),
+                LatLng(10.759781, 106.676335),
+                LatLng(10.759907, 106.67645600000003),
+                LatLng(10.759986, 106.67653200000001),
+                LatLng(10.760214, 106.67675500000001),
+                LatLng(10.7605, 106.677031),
+                LatLng(10.760546999999999, 106.677078),
+                LatLng(10.76146, 106.67674599999998),
+                LatLng(10.761782, 106.67662899999999),
+                LatLng(10.762068, 106.67652399999997),
+                LatLng(10.762222, 106.67646200000001),
+                LatLng(10.762917, 106.676195),
+                LatLng(10.763403, 106.676019),
+                LatLng(10.763703999999999, 106.67590899999999),
+                LatLng(10.76391, 106.67583400000001),
+                LatLng(10.764115, 106.67575999999997),
+                LatLng(10.764426, 106.67564600000003),
+                LatLng(10.764984, 106.67544299999997),
+                LatLng(10.76521, 106.67544799999996),
+                LatLng(10.765758, 106.67524800000001),
+                LatLng(10.766290999999999, 106.67505399999999),
+                LatLng(10.766556999999999, 106.674957)
               ];
-              // var pt = LatLng(38.884017, -77.037076);
-              var pt = LatLng(38.888017, -77.027076);
+              var pt = LatLng(10.761782, 106.67662899999999);
 
               var snapped =
                   VietmapPolyline.nearestLatLngOnLine(line, pt, Unit.miles);
-              print(snapped.toJson());
+              print(snapped?.toJson());
               _mapController?.addPolyline(PolylineOptions(
                 geometry: line,
                 polylineColor: Colors.black,
@@ -143,7 +175,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
                   circleColor: Colors.yellow,
                   circleRadius: 5));
               _mapController?.addCircle(CircleOptions(
-                  geometry: snapped.point,
+                  geometry: snapped?.point,
                   circleColor: Colors.red,
                   circleRadius: 5));
 
@@ -161,11 +193,11 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
               ));
               _mapController?.addPolyline(PolylineOptions(
                 geometry: data[1],
-                polylineColor: Colors.red,
+                polylineColor: Colors.black,
                 polylineWidth: 14.0,
               ));
             },
-            child: Icon(Icons.calculate),
+            child: Icon(Icons.shape_line_outlined),
           ),
           FloatingActionButton(
             tooltip: 'Add marker',

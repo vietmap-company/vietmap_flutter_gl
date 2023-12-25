@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vietmap_gl_example/constant.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 
 import 'page.dart';
@@ -250,7 +251,7 @@ class FullMapState extends State<FullMap> {
         body: Stack(
           children: [
             VietmapGL(
-              styleString: styleInfo.baseStyle,
+              styleString: YOUR_STYLE_URL_HERE,
               onMapCreated: _onMapCreated,
               initialCameraPosition: styleInfo.position,
               onStyleLoadedCallback: _onStyleLoadedCallback,

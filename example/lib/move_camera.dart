@@ -59,10 +59,10 @@ class MoveCameraState extends State<MoveCamera> {
                     mapController.moveCamera(
                       CameraUpdate.newCameraPosition(
                         const CameraPosition(
-                          bearing: 270.0,
-                          target: LatLng(51.5160895, -0.1294527),
-                          tilt: 30.0,
-                          zoom: 17.0,
+                          bearing: 0.0,
+                          target: LatLng(18.6094114, 103.5862087),
+                          tilt: 0.0,
+                          zoom: 3.0,
                         ),
                       ),
                     );
@@ -73,7 +73,7 @@ class MoveCameraState extends State<MoveCamera> {
                   onPressed: () {
                     mapController.moveCamera(
                       CameraUpdate.newLatLng(
-                        const LatLng(56.1725505, 10.1850512),
+                        const LatLng(16.4533864, 107.5359136),
                       ),
                     );
                   },
@@ -99,7 +99,7 @@ class MoveCameraState extends State<MoveCamera> {
                   onPressed: () {
                     mapController.moveCamera(
                       CameraUpdate.newLatLngZoom(
-                        const LatLng(37.4231613, -122.087159),
+                        const LatLng(21.0227384, 105.8163641),
                         11.0,
                       ),
                     );
@@ -109,7 +109,7 @@ class MoveCameraState extends State<MoveCamera> {
                 TextButton(
                   onPressed: () {
                     mapController.moveCamera(
-                      CameraUpdate.scrollBy(150.0, -225.0),
+                      CameraUpdate.scrollBy(50.0, 25.0),
                     );
                   },
                   child: const Text('scrollBy'),

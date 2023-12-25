@@ -3,7 +3,7 @@ on: [workflow_dispatch]
 
 env:
   FLUTTER_CHANNEL: 'stable'
-  FLUTTER_VERSION: '2.10.5'
+  FLUTTER_VERSION: '3.13.9'
   
 jobs:
   format:
@@ -19,7 +19,7 @@ jobs:
           cache: true
       - name: format
         run: |
-          flutter format .
+          dart format .
           git config --global user.name "Format Bot"
           git config --global user.email "format-bot-flutter-maplibre-gl@localhost"
           git add .

@@ -1,3 +1,9 @@
+## 1.3.4, Dec 18, 2023
+* Upgrade `vietmap_gl_platform_interface` to version `0.1.4`
+* Fix `VietmapPolylineDecoder` `encode` and `decode` function
+* Fix draw polyline below the road name
+## 1.3.3, Dec 15, 2023
+* Provide query `Point` from tile map with `queryRenderedFeatures` function inside `VietmapMapController` class
 ## 1.3.2, Dec 11, 2023
 * Provide `nearestLatLngOnLine` and `splitRouteByLatLng` function inside `VietmapPolyline` class, which help show shipper/vehicle location on route and remove route traveled by shipper/vehicle.
 * `splitRouteByLatLng` will split route into 2 parts, which are `routeBeforeLatLng` and `routeAfterLatLng`, you can use one of them to to update the route of shipper/vehicle traveled.
