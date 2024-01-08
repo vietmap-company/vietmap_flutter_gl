@@ -117,7 +117,7 @@ final class VietmapGLController
     private final VietmapGLPlugin.LifecycleProvider lifecycleProvider;
     private final float density;
     private final Context context;
-    private final String styleStringInitial;
+    private String styleStringInitial;
     private MapView mapView;
     private VietMapGL vietmapGL;
     private boolean trackCameraPosition = false;
@@ -407,6 +407,7 @@ final class VietmapGLController
     }
 
     private void setGeoJsonSource(String sourceName, String geojson) {
+        if(geojson==null) return;
         FeatureCollection featureCollection = FeatureCollection.fromJson(geojson);
         GeoJsonSource geoJsonSource = style.getSourceAs(sourceName);
         addedFeaturesByLayer.put(sourceName, featureCollection);
@@ -415,6 +416,7 @@ final class VietmapGLController
     }
 
     private void setGeoJsonFeature(String sourceName, String geojsonFeature) {
+        if(geojsonFeature==null) return;
         Feature feature = Feature.fromJson(geojsonFeature);
         FeatureCollection featureCollection = addedFeaturesByLayer.get(sourceName);
         GeoJsonSource geoJsonSource = style.getSourceAs(sourceName);
@@ -496,10 +498,9 @@ final class VietmapGLController
 
             style.addLayerBelow(lineLayer, belowLayerId);
         }
-        if(belowRoadName != false){
-            style.addLayerBelow( lineLayer, "vmadmin_province");
-        }
-        else {
+        if (belowRoadName != false) {
+            style.addLayerBelow(lineLayer, "vmadmin_province");
+        } else {
             style.addLayer(lineLayer);
         }
 
@@ -911,6 +912,11 @@ final class VietmapGLController
                 setGeoJsonSource(sourceId, geojson);
                 result.success(null);
                 break;
+            }
+            case "map#setStyle": {
+                styleStringInitial = call.argument("style");
+                vietmapGL.clear();
+                setStyleString(styleStringInitial);
             }
             case "source#setFeature": {
                 final String sourceId = call.argument("sourceId");

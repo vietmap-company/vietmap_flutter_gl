@@ -567,6 +567,13 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
     });
   }
 
+  @override
+  Future<void> setStyle(String style) async {
+    await _channel.invokeMethod('map#setStyle', <String, dynamic>{
+      'style': style,
+    });
+  }
+
   Future setCameraBounds({
     required double west,
     required double north,

@@ -56,6 +56,7 @@ class VietmapController extends ChangeNotifier {
     this.onMapClick,
     this.onMapLongClick,
     this.onMapRendered,
+    this.onMapFirstRendered,
     //this.onAttributionClick,
     this.onCameraTrackingDismissed,
     this.onCameraTrackingChanged,
@@ -64,7 +65,7 @@ class VietmapController extends ChangeNotifier {
     this.onCameraIdle,
   }) : _vietmapGlPlatform = vietmapGlPlatform {
     _cameraPosition = initialCameraPosition;
-
+    bool _isFirstRenderedCalled = false;
     _vietmapGlPlatform.onFeatureTappedPlatform.add((payload) {
       for (final fun
           in List<OnFeatureInteractionCallback>.from(onFeatureTapped)) {
@@ -108,6 +109,10 @@ class VietmapController extends ChangeNotifier {
     _vietmapGlPlatform.onMapRenderedPlatform.add((_) {
       if (onMapRendered != null) {
         onMapRendered!();
+      }
+      if (onMapFirstRendered != null && !_isFirstRenderedCalled) {
+        onMapFirstRendered!();
+        _isFirstRenderedCalled = true;
       }
     });
     _vietmapGlPlatform.onMapStyleLoadedPlatform.add((_) {
@@ -180,6 +185,7 @@ class VietmapController extends ChangeNotifier {
 
   final OnStyleLoadedCallback? onStyleLoadedCallback;
   final OnMapRenderedCallback? onMapRendered;
+  final OnMapRenderedCallback? onMapFirstRendered;
   final OnMapClickCallback? onMapClick;
   final OnMapLongClickCallback? onMapLongClick;
 
@@ -337,6 +343,36 @@ class VietmapController extends ChangeNotifier {
   Future<void> setGeoJsonSource(
       String sourceId, Map<String, dynamic> geojson) async {
     await _vietmapGlPlatform.setGeoJsonSource(sourceId, geojson);
+  }
+
+  /// Set new style for the map, using this instead of [VietmapGl.styleUrl]
+  /// [keepExistingAnnotations] will keep the existing annotations on the map
+  /// when the style changes, defaults to [true]. If set to [false] all existing
+  /// annotations will be removed from the map when the style changes.
+  /// [duration] is the amount of time, which awaits before the annotations are
+  /// re-added to the map. This is useful if you want to show a transition
+  /// value is in milliseconds.
+  Future<void> setStyle(String style,
+      {bool keepExistingAnnotations = true, int duration = 150}) async {
+    var polygonAnnotation = this.polygonManager?.annotations;
+    var polylineAnnotation = this.polylineManager?.annotations;
+    var circleAnnotation = this.circleManager?.annotations;
+    var symbolAnnotation = this.symbolManager?.annotations;
+    await _vietmapGlPlatform.setStyle(style);
+    if (keepExistingAnnotations) {
+      Future.delayed(Duration(milliseconds: duration)).then((value) {
+        this.polygonManager?.clear();
+        this.polylineManager?.clear();
+        this.circleManager?.clear();
+        this.symbolManager?.clear();
+        this.polygonManager?.addAll(polygonAnnotation ?? []);
+        this.polylineManager?.addAll(polylineAnnotation ?? []);
+        this.circleManager?.addAll(circleAnnotation ?? []);
+        this.symbolManager?.addAll(symbolAnnotation ?? []);
+
+        notifyListeners();
+      });
+    }
   }
 
   /// Sets new geojson data to and existing source

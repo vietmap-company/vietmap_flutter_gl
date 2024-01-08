@@ -19,6 +19,7 @@ class VietmapGL extends StatefulWidget {
     this.cameraTargetBounds = CameraTargetBounds.unbounded,
     required this.styleString,
     this.onMapRenderedCallback,
+    this.onMapFirstRenderedCallback,
     this.minMaxZoomPreference = MinMaxZoomPreference.unbounded,
     this.rotateGesturesEnabled = true,
     this.scrollGesturesEnabled = true,
@@ -77,11 +78,16 @@ class VietmapGL extends StatefulWidget {
   /// Please note: you should only add annotations (e.g. symbols or circles) after `onStyleLoadedCallback` has been called.
   final MapCreatedCallback? onMapCreated;
 
-  /// Called when the map is rendered for the first time.
+  /// Called when the map is rendered for the first time or the style map has changed.
   /// This is useful if you want to make sure the map is fully rendered before taking a snapshot
   /// or do some action with mapController, which only work properly after the map is rendered successfully.
-  ///
   final OnMapRenderedCallback? onMapRenderedCallback;
+
+  /// Called when the map is rendered for the first time.
+  /// This is useful if you want to make sure the map is fully rendered before taking a snapshot
+  /// Use this callback instead of [initState], because the [onMapFirstRenderedCallback] will be
+  /// `called only once` after the map is rendered for the first time.
+  final OnMapRenderedCallback? onMapFirstRenderedCallback;
 
   /// Called when the map style has been successfully loaded and the annotation managers have been enabled.
   /// Please note: you should only add annotations (e.g. symbols or circles) after this callback has been called.
@@ -296,28 +302,28 @@ class _VietmapGLState extends State<VietmapGL> {
 
   Future<void> onPlatformViewCreated(int id) async {
     final VietmapController controller = VietmapController(
-      vietmapGlPlatform: _vietmapGlPlatform,
-      initialCameraPosition: widget.initialCameraPosition,
-      onStyleLoadedCallback: () {
-        if (_controller.isCompleted) {
-          if (widget.onStyleLoadedCallback != null)
-            widget.onStyleLoadedCallback!();
-        } else {
-          if (widget.onStyleLoadedCallback != null)
-            _controller.future.then((_) => widget.onStyleLoadedCallback!());
-        }
-      },
-      onMapClick: widget.onMapClick,
-      onUserLocationUpdated: widget.onUserLocationUpdated,
-      onMapLongClick: widget.onMapLongClick,
-      onCameraTrackingDismissed: widget.onCameraTrackingDismissed,
-      onCameraTrackingChanged: widget.onCameraTrackingChanged,
-      onCameraIdle: widget.onCameraIdle,
-      onMapIdle: widget.onMapIdle,
-      annotationOrder: widget.annotationOrder,
-      annotationConsumeTapEvents: widget.annotationConsumeTapEvents,
-      onMapRendered: widget.onMapRenderedCallback,
-    );
+        vietmapGlPlatform: _vietmapGlPlatform,
+        initialCameraPosition: widget.initialCameraPosition,
+        onStyleLoadedCallback: () {
+          if (_controller.isCompleted) {
+            if (widget.onStyleLoadedCallback != null)
+              widget.onStyleLoadedCallback!();
+          } else {
+            if (widget.onStyleLoadedCallback != null)
+              _controller.future.then((_) => widget.onStyleLoadedCallback!());
+          }
+        },
+        onMapClick: widget.onMapClick,
+        onUserLocationUpdated: widget.onUserLocationUpdated,
+        onMapLongClick: widget.onMapLongClick,
+        onCameraTrackingDismissed: widget.onCameraTrackingDismissed,
+        onCameraTrackingChanged: widget.onCameraTrackingChanged,
+        onCameraIdle: widget.onCameraIdle,
+        onMapIdle: widget.onMapIdle,
+        annotationOrder: widget.annotationOrder,
+        annotationConsumeTapEvents: widget.annotationConsumeTapEvents,
+        onMapRendered: widget.onMapRenderedCallback,
+        onMapFirstRendered: widget.onMapFirstRenderedCallback);
     await _vietmapGlPlatform.initPlatform(id);
     _controller.complete(controller);
     if (widget.onMapCreated != null) {
