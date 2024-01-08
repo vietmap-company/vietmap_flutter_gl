@@ -112,7 +112,7 @@ abstract class VietmapGlPlatform {
       {String? promoteId});
 
   Future<void> setGeoJsonSource(String sourceId, Map<String, dynamic> geojson);
-
+  Future<void> setStyle(String style);
   Future<void> setCameraBounds({
     required double west,
     required double north,

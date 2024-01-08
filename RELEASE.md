@@ -1,6 +1,8 @@
 ## Contributing
+### Flutter Vietmap GL
 - Increase the version number in `pubspec.yaml` according to [semantic versioning](https://semver.org/).
 - Update `CHANGELOG.md` with the new version number and changes.
+- Change the version of vietmap_gl_platform_interface in `pubspec.yaml` to the lastest version.
 - Run the following commands to format and analyze the code:
 ```bash
 dart format . && dart fix --apply && flutter analyze 
@@ -15,6 +17,19 @@ No issues found!
 ```bash
 flutter pub publish
 ```
+### vietmap_gl_platform_interface
+- Increase the version number in `pubspec.yaml` according to [semantic versioning](https://semver.org/).
+- Update `CHANGELOG.md` with the new version number and changes.
+- Run the following commands to format and analyze the code:
+```bash
+dart format . && dart fix --apply && flutter analyze 
+```
+Make sure that all tests are passing before submitting a pull request.
+```bash
+No issues found! 
+```
+- Commit your changes and open a pull request.
+
 ## Release
 
 Current process: for each release we also create a separate branch (`release-x.y.z`), tag (`x.y.z`) and Github release (`x.y.z`).

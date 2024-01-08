@@ -1,3 +1,6 @@
+## 0.1.5
+- Provide `setStyle` function to set map style
+- Fix the map not keep annotation when change map style
 ## 0.1.4
 - Fix `VietmapPolylineDecoder` `encode` and `decode` function
 ## 0.1.2 

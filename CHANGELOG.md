@@ -1,3 +1,8 @@
+## 1.3.6, Jan 04, 2023
+* Fix the map not keep annotation when change map style
+## 1.3.5, Jan 04, 2023
+* Upgrade `vietmap_gl_platform_interface` to version `0.1.5`
+* Provide `setStyle` function to set map style
 ## 1.3.4, Dec 18, 2023
 * Upgrade `vietmap_gl_platform_interface` to version `0.1.4`
 * Fix `VietmapPolylineDecoder` `encode` and `decode` function

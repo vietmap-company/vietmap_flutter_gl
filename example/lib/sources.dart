@@ -264,7 +264,6 @@ class FullMapState extends State<FullMap> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     "Current source ${styleInfo.name}",
-                    textScaleFactor: 1.4,
                   ),
                 ),
               ),

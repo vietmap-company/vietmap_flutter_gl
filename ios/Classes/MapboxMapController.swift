@@ -174,7 +174,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             }
         case "map#updateContentInsets":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
-
+            
             if let bounds = arguments["bounds"] as? [String: Any],
                let top = bounds["top"] as? CGFloat,
                let left = bounds["left"] as? CGFloat,
@@ -249,7 +249,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                         withJSONObject: dictionary,
                         options: []
                     ),
-                        let theJSONText = String(data: theJSONData, encoding: .utf8)
+                       let theJSONText = String(data: theJSONData, encoding: .utf8)
                     {
                         featuresJson.append(theJSONText)
                     }
@@ -340,14 +340,14 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                 if let duration = arguments["duration"] as? TimeInterval {
                     mapView.setCamera(camera, withDuration: TimeInterval(duration / 1000),
                                       animationTimingFunction: CAMediaTimingFunction(name: CAMediaTimingFunctionName
-                                          .easeInEaseOut))
+                                        .easeInEaseOut))
                     result(nil)
                 } else {
                     mapView.setCamera(camera, animated: true)
                 }
             }
             result(nil)
-
+            
         case "symbolLayer#add":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let sourceId = arguments["sourceId"] as? String else { return }
@@ -359,7 +359,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             let minzoom = arguments["minzoom"] as? Double
             let maxzoom = arguments["maxzoom"] as? Double
             let filter = arguments["filter"] as? String
-
+            
             let addResult = addSymbolLayer(
                 sourceId: sourceId,
                 layerId: layerId,
@@ -375,7 +375,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             case .success: result(nil)
             case let .failure(error): result(error.flutterError)
             }
-
+            
         case "lineLayer#add":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let sourceId = arguments["sourceId"] as? String else { return }
@@ -387,7 +387,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             let minzoom = arguments["minzoom"] as? Double
             let maxzoom = arguments["maxzoom"] as? Double
             let filter = arguments["filter"] as? String
-
+            
             let addResult = addLineLayer(
                 sourceId: sourceId,
                 layerId: layerId,
@@ -403,7 +403,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             case .success: result(nil)
             case let .failure(error): result(error.flutterError)
             }
-
+            
         case "fillLayer#add":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let sourceId = arguments["sourceId"] as? String else { return }
@@ -415,7 +415,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             let minzoom = arguments["minzoom"] as? Double
             let maxzoom = arguments["maxzoom"] as? Double
             let filter = arguments["filter"] as? String
-
+            
             let addResult = addFillLayer(
                 sourceId: sourceId,
                 layerId: layerId,
@@ -431,7 +431,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             case .success: result(nil)
             case let .failure(error): result(error.flutterError)
             }
-
+            
         case "circleLayer#add":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let sourceId = arguments["sourceId"] as? String else { return }
@@ -443,7 +443,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             let minzoom = arguments["minzoom"] as? Double
             let maxzoom = arguments["maxzoom"] as? Double
             let filter = arguments["filter"] as? String
-
+            
             let addResult = addCircleLayer(
                 sourceId: sourceId,
                 layerId: layerId,
@@ -459,7 +459,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             case .success: result(nil)
             case let .failure(error): result(error.flutterError)
             }
-
+            
         case "hillshadeLayer#add":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let sourceId = arguments["sourceId"] as? String else { return }
@@ -477,7 +477,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                 properties: properties
             )
             result(nil)
-
+            
         case "rasterLayer#add":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let sourceId = arguments["sourceId"] as? String else { return }
@@ -495,7 +495,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                 properties: properties
             )
             result(nil)
-
+            
         case "style#addImage":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let name = arguments["name"] as? String else { return }
@@ -510,14 +510,14 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                 mapView.style?.setImage(image, forName: name)
             }
             result(nil)
-
+            
         case "style#addImageSource":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let imageSourceId = arguments["imageSourceId"] as? String else { return }
             guard let bytes = arguments["bytes"] as? FlutterStandardTypedData else { return }
             guard let data = bytes.data as? Data else { return }
             guard let image = UIImage(data: data) else { return }
-
+            
             guard let coordinates = arguments["coordinates"] as? [[Double]] else { return }
             let quad = MGLCoordinateQuad(
                 topLeft: CLLocationCoordinate2D(
@@ -537,7 +537,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                     longitude: coordinates[1][1]
                 )
             )
-
+            
             // Check for duplicateSource error
             if mapView.style?.source(withIdentifier: imageSourceId) != nil {
                 result(FlutterError(
@@ -547,14 +547,14 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                 ))
                 return
             }
-
+            
             let source = MGLImageSource(
                 identifier: imageSourceId,
                 coordinateQuad: quad,
                 image: image
             )
             mapView.style?.addSource(source)
-
+            
             result(nil)
         case "style#removeSource":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
@@ -571,7 +571,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             guard let imageSourceId = arguments["imageSourceId"] as? String else { return }
             let minzoom = arguments["minzoom"] as? Double
             let maxzoom = arguments["maxzoom"] as? Double
-
+            
             // Check for duplicateLayer error
             if (mapView.style?.layer(withIdentifier: imageLayerId)) != nil {
                 result(FlutterError(
@@ -590,17 +590,17 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                 ))
                 return
             }
-
+            
             let layer = MGLRasterStyleLayer(identifier: imageLayerId, source: source)
-
+            
             if let minzoom = minzoom {
                 layer.minimumZoomLevel = Float(minzoom)
             }
-
+            
             if let maxzoom = maxzoom {
                 layer.maximumZoomLevel = Float(maxzoom)
             }
-
+            
             mapView.style?.addLayer(layer)
             result(nil)
         case "style#addLayerBelow":
@@ -610,7 +610,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             guard let belowLayerId = arguments["belowLayerId"] as? String else { return }
             let minzoom = arguments["minzoom"] as? Double
             let maxzoom = arguments["maxzoom"] as? Double
-
+            
             // Check for duplicateLayer error
             if (mapView.style?.layer(withIdentifier: imageLayerId)) != nil {
                 result(FlutterError(
@@ -638,20 +638,20 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
                 ))
                 return
             }
-
+            
             let layer = MGLRasterStyleLayer(identifier: imageLayerId, source: source)
-
+            
             if let minzoom = minzoom {
                 layer.minimumZoomLevel = Float(minzoom)
             }
-
+            
             if let maxzoom = maxzoom {
                 layer.maximumZoomLevel = Float(maxzoom)
             }
-
+            
             mapView.style?.insertLayer(layer, below: belowLayer)
             result(nil)
-
+            
         case "style#removeLayer":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let layerId = arguments["layerId"] as? String else { return }
@@ -662,7 +662,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             interactiveFeatureLayerIds.remove(layerId)
             mapView.style?.removeLayer(layer)
             result(nil)
-
+            
         case "map#setCameraBounds":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let west = arguments["west"] as? Double else { return }
@@ -670,14 +670,14 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             guard let south = arguments["south"] as? Double else { return }
             guard let east = arguments["east"] as? Double else { return }
             guard let padding = arguments["padding"] as? CGFloat else { return }
-
+            
             let southwest = CLLocationCoordinate2D(latitude: south, longitude: west)
             let northeast = CLLocationCoordinate2D(latitude: north, longitude: east)
             let bounds = MGLCoordinateBounds(sw: southwest, ne: northeast)
             mapView.setVisibleCoordinateBounds(bounds, edgePadding: UIEdgeInsets(top: padding,
-                left: padding, bottom: padding, right: padding) , animated: true)
+                                                                                 left: padding, bottom: padding, right: padding) , animated: true)
             result(nil)
-
+            
         case "style#setFilter":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let layerId = arguments["layerId"] as? String else { return }
@@ -690,35 +690,39 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
             case .success: result(nil)
             case let .failure(error): result(error.flutterError)
             }
-
+            
         case "source#addGeoJson":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let sourceId = arguments["sourceId"] as? String else { return }
             guard let geojson = arguments["geojson"] as? String else { return }
             addSourceGeojson(sourceId: sourceId, geojson: geojson)
             result(nil)
-
+            
         case "style#addSource":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let sourceId = arguments["sourceId"] as? String else { return }
             guard let properties = arguments["properties"] as? [String: Any] else { return }
             addSource(sourceId: sourceId, properties: properties)
             result(nil)
-
+            
         case "source#setGeoJson":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let sourceId = arguments["sourceId"] as? String else { return }
             guard let geojson = arguments["geojson"] as? String else { return }
             setSource(sourceId: sourceId, geojson: geojson)
             result(nil)
-
+            
         case "source#setFeature":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let sourceId = arguments["sourceId"] as? String else { return }
             guard let geojson = arguments["geojsonFeature"] as? String else { return }
             setFeature(sourceId: sourceId, geojsonFeature: geojson)
             result(nil)
-
+        case "map#setStyle":
+            guard let arguments = methodCall.arguments as? [String: Any] else {return}
+            guard let newStyle = arguments["style"] as? String else {return}
+            setStyleString(styleString: newStyle)
+            result(nil)
         case "layer#setVisibility":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             guard let layerId = arguments["layerId"] as? String else { return }
@@ -1509,6 +1513,7 @@ class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, Ma
     }
 
     func setStyleString(styleString: String) {
+        
         // Check if json, url, absolute path or asset path:
         if styleString.isEmpty {
             NSLog("setStyleString - string empty")

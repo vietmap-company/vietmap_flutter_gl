@@ -6,7 +6,6 @@ import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
 import 'dart:math' show Random;
 
-import 'constant.dart';
 import 'map_demo.dart';
 
 void main() {
@@ -24,7 +23,9 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
   VietmapController? _mapController;
   List<Marker> temp = [];
   UserLocation? userLocation;
-
+  bool isVector = true;
+  String styleString =
+      "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE";
   void _onMapCreated(VietmapController controller) {
     setState(() {
       _mapController = controller;
@@ -51,11 +52,15 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           myLocationEnabled: true,
           // myLocationTrackingMode: MyLocationTrackingMode.TrackingCompass,
           // myLocationRenderMode: MyLocationRenderMode.NORMAL,
-          styleString: YOUR_STYLE_URL_HERE,
+          // styleString: YOUR_STYLE_URL_HERE,
+          // styleString:
+          //     "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE",
+          styleString: styleString,
           trackCameraPosition: true,
           onMapCreated: _onMapCreated,
           compassEnabled: false,
-          onMapRenderedCallback: () {
+          onMapRenderedCallback: () {},
+          onMapFirstRenderedCallback: () {
             _mapController?.animateCamera(CameraUpdate.newCameraPosition(
                 CameraPosition(
                     target: LatLng(10.739031, 106.680524),
@@ -334,6 +339,22 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
             tooltip: 'Remove all',
             onPressed: () {
               _mapController?.recenter();
+            },
+            child: Icon(Icons.center_focus_strong),
+          ),
+          FloatingActionButton(
+            tooltip: 'Change Style',
+            onPressed: () {
+              if (isVector) {
+                isVector = false;
+                _mapController?.setStyle(
+                    "https://maps.vietmap.vn/api/maps/google-satellite/styles.json?apikey=YOUR_API_KEY_HERE",
+                    keepExistingAnnotations: true);
+              } else {
+                isVector = true;
+                _mapController?.setStyle(
+                    "https://maps.vietmap.vn/api/maps/google/styles.json?apikey=YOUR_API_KEY_HERE");
+              }
             },
             child: Icon(Icons.center_focus_strong),
           ),
