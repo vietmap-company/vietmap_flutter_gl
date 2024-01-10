@@ -78,8 +78,20 @@ Upgrade min ios version to 12.0 in the Podfile (iOS) file, at path **ios/Podfile
         },
     );
 ```
+### Change map style
+- To change the map style, you need to get the style URL from [Vietmap](https://bit.ly/vietmap-api) and use the `setStyle` function.
+```dart
+  _mapController?.setStyle(
+      "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE");
+```
+- You can also keep/remove the annotations on the map with input params `keepExistingAnnotations`. (This function did not remove annotations inside the `MarkerLayer` and `StaticMarkerLayer`)
+```dart
+  _mapController?.setStyle(
+      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE",
+      keepExistingAnnotations: true);
+```
 
-VIETMAP now provides 2 types of custom maps
+VIETMAP now provides many types of custom maps
 
 |Name|Description|
 |--- |--- |
@@ -87,9 +99,13 @@ VIETMAP now provides 2 types of custom maps
 |Raster url|```https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE```|
 |Vector|Vector tiles are small packages of vector data that can be downloaded and rendered on a client device, such as a web browser or mobile app. The vector data can include information such as street names, building footprints, and topographic features.|
 |Vector url|```https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE```|
+|Satellite|Satellite imagery consists of photographs of Earth or other planets made by means of artificial satellites.|
+|Hybrid|Hybrid maps are a combination of satellite imagery overlaid with vector data that provides a visual reference for locations and features.|
+
 
 Read more about [Raster and Vector](https://maps.vietmap.vn/docs/map-api/tilemap/)
 
+[Email us](mailto:maps-api.support@vietmap.vn) to get the Satellite and Hybrid map style URL.
 ## Map Interactions
 The VietmapGL Maps Flutter SDK allows you to define interactions that you can activate on the map to enable gestures and click events. The following interactions are supported
 
@@ -108,7 +124,7 @@ Tilt is the camera's angle from the nadir (directly facing the Earth) and uses u
 The map camera tilt can also adjust by placing two fingertips on the map and moving both fingers up and down in parallel at the same time or
 
 #### Bearing
-Bearing represents the direction that the camera is pointing in and is measured in degrees _clockwise__ from north__.
+Bearing represents the direction that the camera is pointing in and is measured in degrees __clockwise from north__.
 
 The camera's default bearing is 0 degrees (i.e. "true north") causing the map compass to hide until the camera bearing becomes a non-zero value. Bearing levels use six decimal point precision, which enables you to restrict/set/lock a map's bearing with extreme precision. In addition to programmatically adjusting the camera bearing, the user can place two fingertips on the map and rotate their fingers.
 
@@ -339,7 +355,7 @@ It sets a callback that's invoked when the user clicks on the map:
 ```
 
 ### Find a route between 2 or more points
-- We've created a package to find a route between 2 or more points, you can find the
+- We've created a package to support finding a route between 2 or more points and other features, you can find the
 [vietmap_flutter_plugin](https://pub.dev/packages/vietmap_flutter_plugin) to use it.
 - Run this command in the terminal to add the library to the project:
 ```bash
@@ -358,18 +374,14 @@ It sets a callback that's invoked when the user clicks on the map:
   routingResponse.fold((Failure failure) {
     // handle failure here
   }, (VietMapRoutingModel success) {
-    if (success.paths?.isNotEmpty == true &&
-        success.paths![0].points?.isNotEmpty == true) {
-      /// import this [import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';] package
-      points =
-          VietmapPolylineDecoder.decodePolyline(success.paths![0].points!);
-    }
+    // handle success here
+    
   });
 
   /// Draw the route on the map
   Line? line = await _mapController?.addPolyline(
     PolylineOptions(
-        geometry: points,
+        geometry: pointsLatLng,
         polylineColor: Colors.red,
         polylineWidth: 14.0,
         polylineOpacity: 0.5),
@@ -394,7 +406,7 @@ It sets a callback that's invoked when the user clicks on the map:
  ```
 
 Demo code [here](./example/lib/main.dart)
-## Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tag to the application work normally
+## Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tags to the application works normally
 
 <br></br>
 <br></br>
