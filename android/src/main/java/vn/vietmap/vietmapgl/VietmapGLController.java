@@ -1088,16 +1088,7 @@ final class VietmapGLController
                 Log.e(TAG, "location component: getLastLocation");
                 if (this.myLocationEnabled && locationComponent != null && locationEngine != null) {
                     Map<String, Object> reply = new HashMap<>();
-                    if (ActivityCompat.checkSelfPermission(
-                            context,
-                            Manifest.permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(
-                            context,
-                            Manifest.permission.ACCESS_COARSE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                    ) {
-                        return;
-                    }
+
                     locationEngine.getLastLocation(
                             new LocationEngineCallback<LocationEngineResult>() {
                                 @Override

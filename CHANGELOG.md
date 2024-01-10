@@ -1,3 +1,8 @@
+## 1.3.8, Jan 10, 2023
+* Update `README.md` document
+* Fix android `LocationComponents` overloads
+## 1.3.7, Jan 08, 2023
+* Update `README.md` document
 ## 1.3.6, Jan 04, 2023
 * Fix the map not keep annotation when change map style
 ## 1.3.5, Jan 04, 2023
