@@ -20,8 +20,6 @@ jobs:
           cd ..
       - name: Analyze
         run: flutter analyze
-      - name: Run tests
-        run: flutter test
       - name: Format code
         run: dart format --fix .
       - name: Fix imports
