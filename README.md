@@ -1,6 +1,8 @@
 # Vietmap Flutter GL - Flutter map SDK
 [<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://bit.ly/vietmap-api)
 
+### v2.0.0-pre-release update
+- We created a new feature to ensure that the API key provided by Vietmap can only be used by the application(s) that register with our system.
 
 Contact [vietmap.vn](https://bit.ly/vietmap-api) to register a valid key.
 

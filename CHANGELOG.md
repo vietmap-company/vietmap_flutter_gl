@@ -1,11 +1,14 @@
-## 1.3.8, Jan 10, 2023
+## 2.0.0-beta, Jan 23, 2024
+* Created a new feature to ensure that the API key provided by Vietmap can only be used by the application(s) that register with our system.
+* Thêm dữ liệu được mã hóa để xác minh API key không được bên thứ 3 sử dụng nếu không có sự đồng ý từ Vietmap hoặc tổ chức của bạn
+## 1.3.8, Jan 10, 2024
 * Update `README.md` document
 * Fix android `LocationComponents` overloads
-## 1.3.7, Jan 08, 2023
+## 1.3.7, Jan 08, 2024
 * Update `README.md` document
-## 1.3.6, Jan 04, 2023
+## 1.3.6, Jan 04, 2024
 * Fix the map not keep annotation when change map style
-## 1.3.5, Jan 04, 2023
+## 1.3.5, Jan 04, 2024
 * Upgrade `vietmap_gl_platform_interface` to version `0.1.5`
 * Provide `setStyle` function to set map style
 ## 1.3.4, Dec 18, 2023
