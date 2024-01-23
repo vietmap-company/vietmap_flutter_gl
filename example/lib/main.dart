@@ -25,7 +25,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
   UserLocation? userLocation;
   bool isVector = true;
   String styleString =
-      "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE";
+      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE";
   void _onMapCreated(VietmapController controller) {
     setState(() {
       _mapController = controller;
@@ -59,6 +59,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           trackCameraPosition: true,
           onMapCreated: _onMapCreated,
           compassEnabled: false,
+
           onMapRenderedCallback: () {},
           onMapFirstRenderedCallback: () {
             _mapController?.animateCamera(CameraUpdate.newCameraPosition(
