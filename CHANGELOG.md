@@ -1,6 +1,6 @@
 ## 2.0.0-beta, Jan 23, 2024
 * Created a new feature to ensure that the API key provided by Vietmap can only be used by the application(s) that register with our system.
-* Thêm dữ liệu được mã hóa để xác minh API key không được bên thứ 3 sử dụng nếu không có sự đồng ý từ Vietmap hoặc tổ chức của bạn
+* Add encrypted data for API key verification that cannot be used by 3rd parties without consent from Vietmap or your organization
 ## 1.3.8, Jan 10, 2024
 * Update `README.md` document
 * Fix android `LocationComponents` overloads
