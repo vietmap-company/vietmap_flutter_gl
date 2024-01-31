@@ -6,10 +6,12 @@ class StaticMarker extends Marker {
   /// You can get [bearing/heading] from GPS location,
   /// If only use StaticMarker to add a non-moving marker, you can set this value to 0
   final double bearing;
+  final Offset? rotateOrigin;
   StaticMarker(
       {required this.bearing,
       required Widget child,
       required LatLng latLng,
+      this.rotateOrigin,
       double width = 20,
       double height = 20,
       Alignment alignment = Alignment.center})

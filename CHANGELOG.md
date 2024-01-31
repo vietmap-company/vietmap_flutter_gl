@@ -1,11 +1,13 @@
-## 1.3.8, Jan 10, 2023
+## 1.3.9, Jan 31, 2024
+* Add `rotateOrigin` offset and fix `alignment` in `StaticMarkerLayer`
+## 1.3.8, Jan 10, 2024
 * Update `README.md` document
 * Fix android `LocationComponents` overloads
-## 1.3.7, Jan 08, 2023
+## 1.3.7, Jan 08, 2024
 * Update `README.md` document
-## 1.3.6, Jan 04, 2023
+## 1.3.6, Jan 04, 2024
 * Fix the map not keep annotation when change map style
-## 1.3.5, Jan 04, 2023
+## 1.3.5, Jan 04, 2024
 * Upgrade `vietmap_gl_platform_interface` to version `0.1.5`
 * Provide `setStyle` function to set map style
 ## 1.3.4, Dec 18, 2023

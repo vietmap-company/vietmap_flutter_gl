@@ -9,6 +9,7 @@ class MarkerWidget extends StatefulWidget {
   final double height;
   final Alignment alignment;
   final double angle;
+  final Offset? rotateOrigin;
   MarkerWidget(
       {required String key,
       required this.coordinate,
@@ -17,6 +18,7 @@ class MarkerWidget extends StatefulWidget {
       required this.child,
       this.angle = 0,
       required this.width,
+      this.rotateOrigin,
       this.alignment = Alignment.center,
       required this.height})
       : super(key: Key(key));
@@ -89,7 +91,11 @@ class MarkerState extends State with TickerProviderStateMixin {
     return Positioned(
         left: _position.x / ratio - _leftPosition,
         top: _position.y / ratio - _topPosition,
-        child: Transform.rotate(angle: _angle, child: getChild()));
+        child: Transform.rotate(
+            alignment: (widget as MarkerWidget).alignment,
+            origin: (widget as MarkerWidget).rotateOrigin,
+            angle: _angle,
+            child: getChild()));
   }
 
   void updatePosition(Point<num> point, double angle) {
