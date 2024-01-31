@@ -64,6 +64,16 @@ Upgrade min ios version to 12.0 in the Podfile (iOS) file, at path **ios/Podfile
   platform :ios, '12.0' 
 ```
 
+In your terminal, cd to the ios folder and run the command below to install the pod file `(you can skip this step if you only build for Android or run the app on the Windows/Linux PC)`
+```bash
+  cd ios && pod install && cd ..
+```
+
+- If the project shows an issue when upgrading to the new version when running the `pod install` command, please remove the `ios/.symlinks`, `ios/Pods` folders, and `Podfile.lock` file, then run the below command to update the pod file. 
+```bash
+  pod install --repo-update
+```
+
 ## Main characteristics
 
 ### Show the map
