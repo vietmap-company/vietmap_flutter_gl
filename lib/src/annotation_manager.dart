@@ -161,8 +161,8 @@ abstract class AnnotationManager<T extends Annotation> {
       // set all
       await _setAll();
     } else {
-      log(_makeLayerId(layerIndex).toString());
-      log(anntotation.toGeoJson().toString());
+      // log(_makeLayerId(layerIndex).toString());
+      // log(anntotation.toGeoJson().toString());
       await controller.setGeoJsonFeature(
           _makeLayerId(layerIndex), anntotation.toGeoJson());
     }
@@ -181,6 +181,7 @@ class PolylineManager extends AnnotationManager<Line> {
         );
 
   static const _baseProperties = PolylineLayerProperties(
+    // lineCap: [Expressions.get, 'lineCap'],
     lineJoin: [Expressions.get, 'lineJoin'],
     lineOpacity: [Expressions.get, 'lineOpacity'],
     lineColor: [Expressions.get, 'lineColor'],

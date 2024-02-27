@@ -19,11 +19,14 @@ class VietmapExampleMapView extends StatefulWidget {
   State<VietmapExampleMapView> createState() => _VietmapExampleMapViewState();
 }
 
-class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
+class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
+    with TickerProviderStateMixin {
   VietmapController? _mapController;
   List<Marker> temp = [];
   UserLocation? userLocation;
   bool isVector = true;
+  late RouteSimulator routeSimulator;
+  LatLng? currentLatLng;
   String styleString =
       "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE";
   void _onMapCreated(VietmapController controller) {
@@ -61,12 +64,60 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           compassEnabled: false,
 
           onMapRenderedCallback: () {},
-          onMapFirstRenderedCallback: () {
+          onMapFirstRenderedCallback: () async {
+            var latLngList = VietmapPolylineDecoder.decodePolyline(
+                '}s{`Ac_hjSjAkCFQRu@Lu@F_@D]Ng@ZaALa@JY~AoDDEmBiBe@[WMg@M_@KmA]uA_@a@KkA]qA[[Gs@MUE_AKu@Co@Ew@CYAmAGeBKaAEsAKCQMQUGM?KBIFGHCJoBO{@Ck@AQ@MZAJAjAG|ACz@MnCEnAGlBCx@EjA?\\EvAEjBE~@Cr@F?HqBv@DBSDIBAl@HFADAVSD@JLB@h@BDADEDAJ@',
+                false);
+            print(latLngList);
+
+            _mapController?.addPolyline(PolylineOptions(
+              geometry: latLngList,
+              polylineColor: Colors.blue,
+              polylineWidth: 14.0,
+              polylineJoin: "round",
+            ));
+            List<LatLng> listData = [];
+            Line? lineDrive;
             _mapController?.animateCamera(CameraUpdate.newCameraPosition(
                 CameraPosition(
-                    target: LatLng(10.739031, 106.680524),
-                    zoom: 10,
-                    tilt: 60)));
+                    target: LatLng(10.800499, 106.708610), zoom: 15, tilt: 0)));
+
+            RouteSimulator routeSimulator = RouteSimulator(latLngList, this,
+                duration: Duration(seconds: 5), repeat: true);
+
+            print(routeSimulator.getAnimationController.isCompleted);
+
+            lineDrive = await _mapController?.addPolyline(PolylineOptions(
+              geometry: latLngList,
+              polylineColor: Colors.black,
+              polylineWidth: 2.0,
+            ));
+            routeSimulator.addListener(
+                (LatLng? latLng, int? index, double? distance) =>
+                    this.setState(() {
+                      listData.clear();
+                      int i = 0;
+                      listData = latLngList.where((element) {
+                        return i++ <= index!;
+                      }).toList();
+                      if (latLng != null) {
+                        listData.add(latLng);
+                        currentLatLng = latLng;
+                        if (lineDrive != null && listData.length >= 2)
+                          _mapController?.updatePolyline(
+                              lineDrive,
+                              PolylineOptions(
+                                geometry: listData,
+                                polylineColor: Colors.red,
+                                polylineWidth: 14.0,
+                                polylineJoin: "round",
+                              ));
+                      }
+                    }));
+            routeSimulator.start();
+            this.setState(() {
+              this.routeSimulator = routeSimulator;
+            });
           },
           onUserLocationUpdated: (location) {
             setState(() {
@@ -81,6 +132,18 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
             log(data.toString());
           },
         ),
+        // _mapController == null || currentLatLng == null
+        //     ? SizedBox.shrink()
+        //     : MarkerLayer(
+        //         ignorePointer: true,
+        //         mapController: _mapController!,
+        //         markers: [
+        //             Marker(
+        //                 width: 25,
+        //                 height: 25,
+        //                 child: _markerWidget(Icons.circle, 25),
+        //                 latLng: currentLatLng!),
+        //           ]),
         _mapController == null
             ? SizedBox.shrink()
             : MarkerLayer(
@@ -364,7 +427,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
     );
   }
 
-  _markerWidget(IconData icon) {
-    return Icon(icon, color: Colors.red, size: 50);
+  _markerWidget(IconData icon, [double size = 50]) {
+    return Icon(icon, color: Colors.green, size: size);
   }
 }
