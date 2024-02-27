@@ -6,7 +6,6 @@ library vietmap_flutter_gl;
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:math' hide log;
 import 'package:flutter/foundation.dart';
