@@ -25,7 +25,7 @@ jobs:
       - run: flutter pub get
       
       - name: Generate docs
-        run: flutter pub global run dartdoc
+        run: flutter pub global run dartdoc --path doc
 
       - name: Push docs
         run: |
