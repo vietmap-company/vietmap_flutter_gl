@@ -584,7 +584,6 @@ class KMeans {
       final List<double> newMean = List<double>.filled(dim, 0.0);
       double n = 0.0;
       for (int j = 0; j < _scaledPoints.length; j++) {
-        // TODO(zra): Only iterate over the points in the right cluster.
         if (clusters[j] != i) {
           continue;
         }

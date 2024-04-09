@@ -7,6 +7,7 @@ import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart
 import 'dart:math' show Random;
 
 import 'map_demo.dart';
+import 'vietmap_api_key.dart';
 
 void main() {
   runApp(MaterialApp(home: VietmapExampleMapView()));
@@ -28,7 +29,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
   late RouteSimulator routeSimulator;
   LatLng? currentLatLng;
   String styleString =
-      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE";
+      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=$YOUR_API_KEY_HERE";
   void _onMapCreated(VietmapController controller) {
     setState(() {
       _mapController = controller;
@@ -133,6 +134,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+              heroTag: 'btn1',
               onPressed: () {
                 var nres = VietmapPolylineDecoder.decodePolyline(
                   'y`uoSse~mjEuL_KsFsEeNuL{FqF}CwCgM}L{PgP}A}Aax@vScShF{PpEsHzBmj@tOk]~IyQzE{KtCyKrCmRbF{a@tKc\rIga@nKi`@bKsO`EwRdFyGpAsMX}DeDeDy@mD?eCh@yBjAwBfCcLqGwUgNiF}CuMwHwBqAeFoCcLuG_CqBgQeQ{UaT{HaHgBoBgKqJ{K{KkHaG_GaFsImHuNwLeGuFwBsCkR_W{EoGnOwPxFkGfNoOzP`OvH|FhBvAjCpB|JpHbAr@',
@@ -148,6 +150,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
               },
               child: Icon(Icons.calculate)),
           FloatingActionButton(
+            heroTag: 'btn2',
             onPressed: () {
               var line = [
                 LatLng(10.759197, 106.67581799999999),
@@ -219,6 +222,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
             child: Icon(Icons.shape_line_outlined),
           ),
           FloatingActionButton(
+            heroTag: 'btn3',
             tooltip: 'Add marker',
             onPressed: () {
               if ((_mapController?.cameraPosition?.zoom ?? 0) > 7) {
@@ -251,6 +255,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
           ),
           SizedBox(height: 10),
           FloatingActionButton(
+            heroTag: 'btn4',
             onPressed: () async {
               var latLngList = VietmapPolylineDecoder.decodePolyline(
                   '}s{`Ac_hjSjAkCFQRu@Lu@F_@D]Ng@ZaALa@JY~AoDDEmBiBe@[WMg@M_@KmA]uA_@a@KkA]qA[[Gs@MUE_AKu@Co@Ew@CYAmAGeBKaAEsAKCQMQUGM?KBIFGHCJoBO{@Ck@AQ@MZAJAjAG|ACz@MnCEnAGlBCx@EjA?\\EvAEjBE~@Cr@F?HqBv@DBSDIBAl@HFADAVSD@JLB@h@BDADEDAJ@',
@@ -311,6 +316,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
             child: Icon(Icons.animation),
           ),
           FloatingActionButton(
+            heroTag: 'btn5',
             tooltip: 'Add polyline',
             onPressed: () async {
               var line = await _mapController?.addPolyline(
@@ -353,6 +359,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
           ),
           SizedBox(height: 10),
           FloatingActionButton(
+            heroTag: 'btn6',
             tooltip: 'Add polygon',
             onPressed: () async {
               var polygon = await _mapController?.addPolygon(
@@ -398,6 +405,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
           ),
           SizedBox(height: 10),
           FloatingActionButton(
+            heroTag: 'btn7',
             tooltip: 'Remove all',
             onPressed: () {
               _mapController?.clearLines();
@@ -410,13 +418,15 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
             child: Icon(Icons.clear),
           ),
           FloatingActionButton(
-            tooltip: 'Remove all',
+            heroTag: 'btn8',
+            tooltip: 'Recenter',
             onPressed: () {
               _mapController?.recenter();
             },
             child: Icon(Icons.center_focus_strong),
           ),
           FloatingActionButton(
+            heroTag: 'btn9',
             tooltip: 'Change Style',
             onPressed: () {
               if (isVector) {
@@ -435,9 +445,5 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
         ],
       ),
     );
-  }
-
-  _markerWidget(IconData icon, [double size = 50]) {
-    return Icon(icon, color: Colors.green, size: size);
   }
 }

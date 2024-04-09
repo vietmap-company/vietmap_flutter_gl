@@ -6,6 +6,7 @@ import 'package:vietmap_gl_example/given_bounds.dart';
 
 import 'animate_camera.dart';
 import 'annotation_order_maps.dart';
+import 'clustering.dart';
 import 'full_map.dart';
 import 'line.dart';
 
@@ -48,6 +49,7 @@ final List<ExamplePage> _allPages = <ExamplePage>[
   ClickAnnotationPage(),
   // Sources(),
   GivenBoundsPage(),
+  MapClusteringPage(),
   // GetMapInfoPage(),
 ];
 

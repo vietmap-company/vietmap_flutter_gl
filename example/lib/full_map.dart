@@ -39,7 +39,6 @@ class FullMapState extends State<FullMap> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        // TODO: commented out when cherry-picking https://github.com/flutter-mapbox-gl/maps/pull/775
         // needs different dark and light styles in this repo
         // floatingActionButton: Padding(
         // padding: const EdgeInsets.all(32.0),
@@ -51,7 +50,6 @@ class FullMapState extends State<FullMap> {
         // ),
         // ),
         body: VietmapGL(
-      // TODO: styleString: isLight ? MapboxStyles.LIGHT : MapboxStyles.DARK,
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0)),
       onStyleLoadedCallback: _onStyleLoadedCallback,
