@@ -60,6 +60,7 @@ class _StaticMarkerLayerState extends State<StaticMarkerLayer> {
             addMarkerState: (_) {
               _newMarkerStates.add(_);
             },
+            rotateOrigin: widget.markers[i].rotateOrigin,
             child: widget.markers[i].child,
             width: widget.markers[i].width,
             height: widget.markers[i].height,
@@ -141,6 +142,7 @@ class _StaticMarkerLayerState extends State<StaticMarkerLayer> {
   void _addMarker(Point<double> point, StaticMarker markerModel) {
     setState(() {
       _markers.add(MarkerWidget(
+        rotateOrigin: markerModel.rotateOrigin,
         angle: _getRotateAngle(markerModel.bearing),
         key: _rnd.nextInt(100000).toString() +
             markerModel.latLng.latitude.toString() +

@@ -1,8 +1,13 @@
+
 ## 2.0.0-beta-2, Jan 23, 2024
 * Create animated polyline demo screen.
 ## 2.0.0-beta, Jan 23, 2024
 * Created a new feature to ensure that the API key provided by Vietmap can only be used by the application(s) that register with our system.
 * Add encrypted data for API key verification that cannot be used by 3rd parties without consent from Vietmap or your organization
+
+## 1.3.9, Jan 31, 2024
+* Add `rotateOrigin` offset and fix `alignment` in `StaticMarkerLayer`
+
 ## 1.3.8, Jan 10, 2024
 * Update `README.md` document
 * Fix android `LocationComponents` overloads
