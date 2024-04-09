@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:vietmap_gl_example/page.dart';
-import 'package:vietmap_gl_example/vietmap_api_key.dart';
 
 const apiKey = "YOUR-API-KEY";
 
@@ -209,6 +208,6 @@ class MapState extends State<Map> {
   }
 
   String _mapStyleUrl() {
-    return "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=$YOUR_API_KEY_HERE";
+    return "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE";
   }
 }

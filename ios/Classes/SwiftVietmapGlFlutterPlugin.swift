@@ -3,11 +3,11 @@ import Foundation
 import VietMap
 import UIKit
 
-public class SwiftMapboxGlFlutterPlugin: NSObject, FlutterPlugin {
+public class SwiftVietmapGlFlutterPlugin: NSObject, FlutterPlugin {
     static var downloadOfflineRegionChannelHandler: OfflineChannelHandler? = nil
 
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let instance = MapboxMapFactory(withRegistrar: registrar)
+        let instance = VietmapMapFactory(withRegistrar: registrar)
         registrar.register(instance, withId: "plugins.flutter.io/mapbox_gl")
 
         let channel = FlutterMethodChannel(
