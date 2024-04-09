@@ -7,7 +7,6 @@ import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart
 import 'dart:math' show Random;
 
 import 'map_demo.dart';
-import 'vietmap_api_key.dart';
 
 void main() {
   runApp(MaterialApp(home: VietmapExampleMapView()));
@@ -29,7 +28,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
   late RouteSimulator routeSimulator;
   LatLng? currentLatLng;
   String styleString =
-      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=$YOUR_API_KEY_HERE";
+      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE";
   void _onMapCreated(VietmapController controller) {
     setState(() {
       _mapController = controller;

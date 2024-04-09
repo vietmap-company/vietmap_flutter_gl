@@ -2,7 +2,7 @@ import VietMap
 import MapboxAnnotationExtension
 
 class Convert {
-    class func interpretMapboxMapOptions(options: Any?, delegate: MapboxMapOptionsSink) {
+    class func interpretMapboxMapOptions(options: Any?, delegate: VietmapMapOptionsSink) {
         guard let options = options as? [String: Any] else { return }
         if let cameraTargetBounds = options["cameraTargetBounds"] as? [[[Double]]] {
             delegate

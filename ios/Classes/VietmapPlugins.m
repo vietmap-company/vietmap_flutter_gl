@@ -1,8 +1,8 @@
-#import "MapboxMapsPlugin.h"
+#import "VietmapPlugins.h"
 #import "vietmap_flutter_gl/vietmap_flutter_gl-Swift.h"
 
-@implementation MapboxMapsPlugin 
+@implementation VietmapPlugins
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftMapboxGlFlutterPlugin registerWithRegistrar:registrar];
+  [SwiftVietmapGlFlutterPlugin registerWithRegistrar:registrar];
 }
 @end

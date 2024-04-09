@@ -2,7 +2,7 @@ import Flutter
 import VietMap
 import MapboxAnnotationExtension
 
-class MapboxMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, MapboxMapOptionsSink,
+class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, VietmapMapOptionsSink,
     UIGestureRecognizerDelegate
 {
     private var registrar: FlutterPluginRegistrar

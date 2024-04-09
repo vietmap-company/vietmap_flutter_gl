@@ -1,7 +1,7 @@
 
 import VietMap
 
-protocol MapboxMapOptionsSink {
+protocol VietmapMapOptionsSink {
     func setCameraTargetBounds(bounds: MGLCoordinateBounds?)
     func setCompassEnabled(compassEnabled: Bool)
     func setStyleString(styleString: String)
