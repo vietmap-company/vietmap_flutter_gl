@@ -1,3 +1,5 @@
+## 2.0.0, Apr 9, 2024
+* Upgrade to Vietmap Native SDK v2.0.0
 ## 2.0.0-beta-2, Jan 23, 2024
 * Create animated polyline demo screen.
 ## 2.0.0-beta, Jan 23, 2024
