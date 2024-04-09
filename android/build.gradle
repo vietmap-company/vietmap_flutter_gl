@@ -5,11 +5,10 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:8.1.4'
     }
 }
 
@@ -18,15 +17,13 @@ rootProject.allprojects {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        jcenter()
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-
-    compileSdkVersion 33
+    compileSdk 34
     ndkVersion "20.1.5948944"
 
     defaultConfig {
@@ -42,11 +39,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     dependencies {
-        implementation 'com.github.vietmap-company:maps-sdk-android:2.3.0'
+        implementation 'com.github.vietmap-company:maps-sdk-android:2.5.0'
         implementation 'com.github.vietmap-company:maps-sdk-plugin-localization-android:2.0.0'
         implementation 'com.github.vietmap-company:vietmap-services-geojson-android:1.0.0'
         implementation 'com.github.vietmap-company:vietmap-services-turf-android:1.0.2'
-        implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+        implementation 'com.squareup.okhttp3:okhttp:4.10.0'
         implementation 'com.google.code.gson:gson:2.10.1'
     }
     compileOptions {
@@ -54,8 +51,4 @@ android {
         targetCompatibility 1.8
     }
 }
-//
-//dependencies {
-//    implementation files('MapboxGLAndroidSDK-release.aar')
-//}
 

@@ -7,6 +7,7 @@ import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart
 import 'dart:math' show Random;
 
 import 'map_demo.dart';
+import 'vietmap_api_key.dart';
 
 void main() {
   runApp(MaterialApp(home: VietmapExampleMapView()));
@@ -19,13 +20,16 @@ class VietmapExampleMapView extends StatefulWidget {
   State<VietmapExampleMapView> createState() => _VietmapExampleMapViewState();
 }
 
-class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
+class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
+    with TickerProviderStateMixin {
   VietmapController? _mapController;
   List<Marker> temp = [];
   UserLocation? userLocation;
   bool isVector = true;
+  late RouteSimulator routeSimulator;
+  LatLng? currentLatLng;
   String styleString =
-      "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE";
+      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=$YOUR_API_KEY_HERE";
   void _onMapCreated(VietmapController controller) {
     setState(() {
       _mapController = controller;
@@ -50,27 +54,26 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
       body: Stack(children: [
         VietmapGL(
           myLocationEnabled: true,
-          // myLocationTrackingMode: MyLocationTrackingMode.TrackingCompass,
-          // myLocationRenderMode: MyLocationRenderMode.NORMAL,
+
+          myLocationTrackingMode: MyLocationTrackingMode.None,
+          myLocationRenderMode: MyLocationRenderMode.NORMAL,
           // styleString: YOUR_STYLE_URL_HERE,
           // styleString:
           //     "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE",
           styleString: styleString,
           trackCameraPosition: true,
           onMapCreated: _onMapCreated,
+
           compassEnabled: false,
+
           onMapRenderedCallback: () {},
-          onMapFirstRenderedCallback: () {
-            _mapController?.animateCamera(CameraUpdate.newCameraPosition(
-                CameraPosition(
-                    target: LatLng(10.739031, 106.680524),
-                    zoom: 10,
-                    tilt: 60)));
-          },
+          onMapFirstRenderedCallback: () async {},
           onUserLocationUpdated: (location) {
-            setState(() {
-              userLocation = location;
-            });
+            // setState(() {
+            //   userLocation = location;
+            //   print(location.latitude);
+            //   print(location.heading?.trueHeading);
+            // });
           },
           initialCameraPosition: const CameraPosition(
               target: LatLng(10.739031, 106.680524), zoom: 2),
@@ -80,45 +83,58 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
             log(data.toString());
           },
         ),
-        _mapController == null
-            ? SizedBox.shrink()
-            : MarkerLayer(
-                ignorePointer: true,
-                mapController: _mapController!,
-                markers: [
-                    Marker(
-                        width: 50,
-                        height: 50,
-                        // bearing: 40.93711606958891 + 97,
+        // _mapController == null || currentLatLng == null
+        //     ? SizedBox.shrink()
+        //     : MarkerLayer(
+        //         ignorePointer: true,
+        //         mapController: _mapController!,
+        //         markers: [
+        //             Marker(
+        //                 width: 25,
+        //                 height: 25,
+        //                 child: _markerWidget(Icons.circle, 25),
+        //                 latLng: currentLatLng!),
+        //           ]),
+        // _mapController == null
+        //     ? SizedBox.shrink()
+        //     : MarkerLayer(
+        //         ignorePointer: true,
+        //         mapController: _mapController!,
+        //         markers: [
+        //             Marker(
+        //                 width: 50,
+        //                 height: 50,
+        //                 // bearing: 40.93711606958891 + 97,
 
-                        child: _markerWidget(Icons.arrow_upward_rounded),
-                        latLng: LatLng(10.759305, 106.675912)),
-                  ]),
-        _mapController == null
-            ? SizedBox.shrink()
-            : StaticMarkerLayer(
-                ignorePointer: true,
-                mapController: _mapController!,
-                markers: [
-                    StaticMarker(
-                        width: 50,
-                        height: 50,
-                        // bearing: 40.93711606958891 + 97,
-                        bearing: 0,
-                        child: _markerWidget(Icons.arrow_upward_outlined),
-                        latLng: LatLng(10.759305, 106.675912)),
-                  ]),
-        _mapController == null
-            ? SizedBox.shrink()
-            : MarkerLayer(
-                ignorePointer: true,
-                mapController: _mapController!,
-                markers: temp),
+        //                 child: _markerWidget(Icons.arrow_upward_rounded),
+        //                 latLng: LatLng(10.759305, 106.675912)),
+        //           ]),
+        // _mapController == null
+        //     ? SizedBox.shrink()
+        //     : StaticMarkerLayer(
+        //         ignorePointer: true,
+        //         mapController: _mapController!,
+        //         markers: [
+        //             StaticMarker(
+        //                 width: 50,
+        //                 height: 50,
+        //                 // bearing: 40.93711606958891 + 97,
+        //                 bearing: 0,
+        //                 child: _markerWidget(Icons.arrow_upward_outlined),
+        //                 latLng: LatLng(10.759305, 106.675912)),
+        //           ]),
+        // _mapController == null
+        //     ? SizedBox.shrink()
+        //     : MarkerLayer(
+        //         ignorePointer: true,
+        //         mapController: _mapController!,
+        //         markers: temp),
       ]),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+              heroTag: 'btn1',
               onPressed: () {
                 var nres = VietmapPolylineDecoder.decodePolyline(
                   'y`uoSse~mjEuL_KsFsEeNuL{FqF}CwCgM}L{PgP}A}Aax@vScShF{PpEsHzBmj@tOk]~IyQzE{KtCyKrCmRbF{a@tKc\rIga@nKi`@bKsO`EwRdFyGpAsMX}DeDeDy@mD?eCh@yBjAwBfCcLqGwUgNiF}CuMwHwBqAeFoCcLuG_CqBgQeQ{UaT{HaHgBoBgKqJ{K{KkHaG_GaFsImHuNwLeGuFwBsCkR_W{EoGnOwPxFkGfNoOzP`OvH|FhBvAjCpB|JpHbAr@',
@@ -134,6 +150,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
               },
               child: Icon(Icons.calculate)),
           FloatingActionButton(
+            heroTag: 'btn2',
             onPressed: () {
               var line = [
                 LatLng(10.759197, 106.67581799999999),
@@ -205,6 +222,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
             child: Icon(Icons.shape_line_outlined),
           ),
           FloatingActionButton(
+            heroTag: 'btn3',
             tooltip: 'Add marker',
             onPressed: () {
               if ((_mapController?.cameraPosition?.zoom ?? 0) > 7) {
@@ -237,6 +255,68 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           ),
           SizedBox(height: 10),
           FloatingActionButton(
+            heroTag: 'btn4',
+            onPressed: () async {
+              var latLngList = VietmapPolylineDecoder.decodePolyline(
+                  '}s{`Ac_hjSjAkCFQRu@Lu@F_@D]Ng@ZaALa@JY~AoDDEmBiBe@[WMg@M_@KmA]uA_@a@KkA]qA[[Gs@MUE_AKu@Co@Ew@CYAmAGeBKaAEsAKCQMQUGM?KBIFGHCJoBO{@Ck@AQ@MZAJAjAG|ACz@MnCEnAGlBCx@EjA?\\EvAEjBE~@Cr@F?HqBv@DBSDIBAl@HFADAVSD@JLB@h@BDADEDAJ@',
+                  false);
+              print(latLngList);
+
+              _mapController?.addPolyline(PolylineOptions(
+                geometry: latLngList,
+                polylineColor: Colors.blue,
+                polylineWidth: 14.0,
+                polylineJoin: "round",
+              ));
+              List<LatLng> listData = [];
+              Line? lineDrive;
+              _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                      target: LatLng(10.800499, 106.708610),
+                      zoom: 15,
+                      tilt: 0)));
+
+              RouteSimulator routeSimulator = RouteSimulator(latLngList, this,
+                  duration: Duration(seconds: 5), repeat: true);
+
+              print(routeSimulator.getAnimationController.isCompleted);
+
+              lineDrive = await _mapController?.addPolyline(PolylineOptions(
+                geometry: latLngList,
+                polylineColor: Colors.black,
+                polylineWidth: 2.0,
+              ));
+              routeSimulator.addListener(
+                  (LatLng? latLng, int? index, double? distance) =>
+                      this.setState(() {
+                        listData.clear();
+                        int i = 0;
+                        listData = latLngList.where((element) {
+                          return i++ <= index!;
+                        }).toList();
+                        if (latLng != null) {
+                          listData.add(latLng);
+                          currentLatLng = latLng;
+                          if (lineDrive != null && listData.length >= 2)
+                            _mapController?.updatePolyline(
+                                lineDrive,
+                                PolylineOptions(
+                                  geometry: listData,
+                                  polylineColor: Colors.red,
+                                  polylineWidth: 14.0,
+                                  polylineJoin: "round",
+                                ));
+                        }
+                      }));
+              routeSimulator.start();
+              this.setState(() {
+                this.routeSimulator = routeSimulator;
+              });
+            },
+            child: Icon(Icons.animation),
+          ),
+          FloatingActionButton(
+            heroTag: 'btn5',
             tooltip: 'Add polyline',
             onPressed: () async {
               var line = await _mapController?.addPolyline(
@@ -279,6 +359,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           ),
           SizedBox(height: 10),
           FloatingActionButton(
+            heroTag: 'btn6',
             tooltip: 'Add polygon',
             onPressed: () async {
               var polygon = await _mapController?.addPolygon(
@@ -324,6 +405,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
           ),
           SizedBox(height: 10),
           FloatingActionButton(
+            heroTag: 'btn7',
             tooltip: 'Remove all',
             onPressed: () {
               _mapController?.clearLines();
@@ -336,13 +418,15 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
             child: Icon(Icons.clear),
           ),
           FloatingActionButton(
-            tooltip: 'Remove all',
+            heroTag: 'btn8',
+            tooltip: 'Recenter',
             onPressed: () {
               _mapController?.recenter();
             },
             child: Icon(Icons.center_focus_strong),
           ),
           FloatingActionButton(
+            heroTag: 'btn9',
             tooltip: 'Change Style',
             onPressed: () {
               if (isVector) {
@@ -361,9 +445,5 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView> {
         ],
       ),
     );
-  }
-
-  _markerWidget(IconData icon) {
-    return Icon(icon, color: Colors.red, size: 50);
   }
 }

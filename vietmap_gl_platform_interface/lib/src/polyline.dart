@@ -52,6 +52,7 @@ class PolylineOptions {
   /// By default, every non-specified field is null, meaning no desire to change
   /// line defaults or current configuration.
   const PolylineOptions({
+    this.polylineCap,
     this.polylineJoin,
     this.polylineOpacity,
     this.polylineColor,
@@ -65,6 +66,7 @@ class PolylineOptions {
   });
 
   final String? polylineJoin;
+  final String? polylineCap;
   final double? polylineOpacity;
   final Color? polylineColor;
   final double? polylineWidth;
@@ -79,6 +81,7 @@ class PolylineOptions {
 
   PolylineOptions copyWith(PolylineOptions changes) {
     return PolylineOptions(
+      polylineCap: changes.polylineCap ?? polylineCap,
       polylineJoin: changes.polylineJoin ?? polylineJoin,
       polylineOpacity: changes.polylineOpacity ?? polylineOpacity,
       polylineColor: changes.polylineColor ?? polylineColor,
@@ -101,6 +104,7 @@ class PolylineOptions {
       }
     }
 
+    addIfPresent('lineCap', polylineCap);
     addIfPresent('lineJoin', polylineJoin);
     addIfPresent('lineOpacity', polylineOpacity);
     addIfPresent('lineColor', polylineColor.toHex());

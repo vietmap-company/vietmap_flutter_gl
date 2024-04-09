@@ -69,13 +69,13 @@ class PlacePolygonBodyState extends State<PlacePolygonBody> {
     DragEventType type = eventType;
     switch (type) {
       case DragEventType.start:
-        // TODO: Handle this case.
+        // Handle start drag here
         break;
       case DragEventType.drag:
-        // TODO: Handle this case.
+        // handle drag here.
         break;
       case DragEventType.end:
-        // TODO: Handle this case.
+        // Handle end drag here
         break;
     }
   }

@@ -6,16 +6,15 @@ library vietmap_flutter_gl;
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:math' hide log;
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:geolocator/geolocator.dart';
 
+import 'package:turf/turf.dart' as turf;
 import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
 
 export 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart'
@@ -83,3 +82,5 @@ part 'src/cluster_layer.dart';
 // part 'src/location_marker.dart';
 
 part 'src/static_marker_layer.dart';
+
+part 'src/animated_polyline.dart';

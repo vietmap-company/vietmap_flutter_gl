@@ -1,6 +1,8 @@
 # Vietmap Flutter GL - Flutter map SDK
 [<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://bit.ly/vietmap-api)
 
+### v2.0.0-pre-release update
+- We created a new feature to ensure that the API key provided by Vietmap can only be used by the application(s) that register with our system.
 
 Contact [vietmap.vn](https://bit.ly/vietmap-api) to register a valid key.
 
@@ -60,6 +62,16 @@ Upgrade min ios version to 12.0 in the Podfile (iOS) file, at path **ios/Podfile
 
 ```ruby
   platform :ios, '12.0' 
+```
+
+In your terminal, cd to the ios folder and run the command below to install the pod file `(you can skip this step if you only build for Android or run the app on the Windows/Linux PC)`
+```bash
+  cd ios && pod install && cd ..
+```
+
+- If the project shows an issue when upgrading to the new version when running the `pod install` command, please remove the `ios/.symlinks`, `ios/Pods` folders, and `Podfile.lock` file, then run the below command to update the pod file. 
+```bash
+  pod install --repo-update
 ```
 
 ## Main characteristics

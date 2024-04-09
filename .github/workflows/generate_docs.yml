@@ -2,7 +2,7 @@ name: Generate docs
 
 on:
   push:
-      branches: [ main ]
+      branches: [ main, pre-release-2.0.0 ]
 
 jobs:
   generate-docs:
@@ -25,12 +25,12 @@ jobs:
       - run: flutter pub get
       
       - name: Generate docs
-        run: flutter pub global run dartdoc
+        run: flutter pub global run dartdoc --output doc
 
       - name: Push docs
         run: |
           git config --global user.name "Docs Bot"
-          git config --global user.email "docs-bot-flutter-maplibre-gl@localhost"
+          git config --global user.email "docs-bot-flutter-vietmap-gl@localhost"
           git add -f doc
           git commit -m "docs: ${{ github.event.commits[0].id }}"
-          git push --force origin main:docs
+          git push --force origin pre-release-2.0.0:docs
