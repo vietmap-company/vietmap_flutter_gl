@@ -28,7 +28,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
   late RouteSimulator routeSimulator;
   LatLng? currentLatLng;
   String styleString =
-      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE";
+      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=6411732992b3c4def7a117893215b9163a15e69065c0874d";
   void _onMapCreated(VietmapController controller) {
     setState(() {
       _mapController = controller;
@@ -407,6 +407,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
             heroTag: 'btn7',
             tooltip: 'Remove all',
             onPressed: () {
+              routeSimulator.stop();
               _mapController?.clearLines();
               _mapController?.clearPolygons();
               setState(() {
