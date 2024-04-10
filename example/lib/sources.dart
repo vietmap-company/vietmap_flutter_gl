@@ -157,7 +157,7 @@ class FullMapState extends State<FullMap> {
     );
   }
 
-  static Future<void> addDem(VietmapController controller) async { 
+  static Future<void> addDem(VietmapController controller) async {
     // await controller.addSource(
     //     "dem",
     //     RasterDemSourceProperties(

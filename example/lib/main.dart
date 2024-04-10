@@ -407,6 +407,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
             heroTag: 'btn7',
             tooltip: 'Remove all',
             onPressed: () {
+              routeSimulator.stop();
               _mapController?.clearLines();
               _mapController?.clearPolygons();
               setState(() {
