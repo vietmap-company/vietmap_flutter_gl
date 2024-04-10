@@ -1,3 +1,5 @@
+## 2.0.1, Apr 10, 2024
+* Fix iOS plugin registrant.
 ## 2.0.0, Apr 9, 2024
 * Upgrade to Vietmap Native SDK v2.0.0
 ## 2.0.0-beta-2, Jan 23, 2024
