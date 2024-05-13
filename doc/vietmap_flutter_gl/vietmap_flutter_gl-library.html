@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="vietmap_flutter_gl library API docs, for the Dart programming language.">
+  <title>vietmap_flutter_gl library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">vietmap_flutter_gl</a></li>
+    <li class="self-crumb">vietmap_flutter_gl.dart</li>
+  </ol>
+  <div class="self-name">vietmap_flutter_gl</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar=""
+    data-below-sidebar="vietmap_flutter_gl&#47;vietmap_flutter_gl-library-sidebar.html">
+  
+    <div>
+      
+
+      <h1>
+        <span class="kind-library">vietmap_flutter_gl</span>
+        library 
+ 
+
+      </h1>
+    </div>
+
+    
+
+
+    <section class="summary offset-anchor" id="classes">
+      <h2>Classes</h2>
+
+      <dl>
+          <dt id="Annotation">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/Annotation-class.html">Annotation</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="AnnotationManager">
+  <span class="name "><a href="../vietmap_flutter_gl/AnnotationManager-class.html">AnnotationManager</a><span class="signature">&lt;<wbr><span class="type-parameter">T extends <a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/Annotation-class.html">Annotation</a></span>&gt;</span></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="ArgumentCallbacks">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/ArgumentCallbacks-class.html">ArgumentCallbacks</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span></span> 
+
+</dt>
+<dd>
+  Mutable collection of <a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/ArgumentCallback.html">ArgumentCallback</a> instances, itself an <a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/ArgumentCallback.html">ArgumentCallback</a>.
+</dd>
+
+          <dt id="CameraPosition">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/CameraPosition-class.html">CameraPosition</a></span> 
+
+</dt>
+<dd>
+  The position of the map "camera", the view point from which the world is
+shown in the map view. Aggregates the camera's <a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/CameraPosition/target.html">target</a> geographical
+location, its <a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/CameraPosition/zoom.html">zoom</a> level, <a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/CameraPosition/tilt.html">tilt</a> angle, and <a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/CameraPosition/bearing.html">bearing</a>.
+</dd>
+
+          <dt id="CameraTargetBounds">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/CameraTargetBounds-class.html">CameraTargetBounds</a></span> 
+
+</dt>
+<dd>
+  Bounds for the map camera target.
+</dd>
+
+          <dt id="CameraUpdate">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/CameraUpdate-class.html">CameraUpdate</a></span> 
+
+</dt>
+<dd>
+  Defines a camera move, supporting absolute moves as well as moves relative
+the current position.
+</dd>
+
+          <dt id="Circle">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/Circle-class.html">Circle</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="CircleLayerProperties">
+  <span class="name "><a href="../vietmap_flutter_gl/CircleLayerProperties-class.html">CircleLayerProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="CircleManager">
+  <span class="name "><a href="../vietmap_flutter_gl/CircleManager-class.html">CircleManager</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="CircleOptions">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/CircleOptions-class.html">CircleOptions</a></span> 
+
+</dt>
+<dd>
+  Configuration options for <a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/Circle-class.html">Circle</a> instances.
+</dd>
+
+          <dt id="ClusterLayer">
+  <span class="name "><a href="../vietmap_flutter_gl/ClusterLayer-class.html">ClusterLayer</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="DownloadRegionStatus">
+  <span class="name "><a href="../vietmap_flutter_gl/DownloadRegionStatus-class.html">DownloadRegionStatus</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="Error">
+  <span class="name "><a href="../vietmap_flutter_gl/Error-class.html">Error</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="Expressions">
+  <span class="name "><a href="../vietmap_flutter_gl/Expressions-class.html">Expressions</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="GeojsonSourceProperties">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/GeojsonSourceProperties-class.html">GeojsonSourceProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="HillshadeLayerProperties">
+  <span class="name "><a href="../vietmap_flutter_gl/HillshadeLayerProperties-class.html">HillshadeLayerProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="ImageSourceProperties">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/ImageSourceProperties-class.html">ImageSourceProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="InProgress">
+  <span class="name "><a href="../vietmap_flutter_gl/InProgress-class.html">InProgress</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="LatLng">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/LatLng-class.html">LatLng</a></span> 
+
+</dt>
+<dd>
+  A pair of latitude and longitude coordinates, stored as degrees.
+</dd>
+
+          <dt id="LatLngBounds">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/LatLngBounds-class.html">LatLngBounds</a></span> 
+
+</dt>
+<dd>
+  A latitude/longitude aligned rectangle.
+</dd>
+
+          <dt id="LatLngQuad">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/LatLngQuad-class.html">LatLngQuad</a></span> 
+
+</dt>
+<dd>
+  A geographical area representing a non-aligned quadrilateral
+This class does not wrap values to the world bounds
+</dd>
+
+          <dt id="LayerProperties">
+  <span class="name "><a href="../vietmap_flutter_gl/LayerProperties-class.html">LayerProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="Line">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/Line-class.html">Line</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="Marker">
+  <span class="name "><a href="../vietmap_flutter_gl/Marker-class.html">Marker</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="MarkerLayer">
+  <span class="name "><a href="../vietmap_flutter_gl/MarkerLayer-class.html">MarkerLayer</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="MarkerState">
+  <span class="name "><a href="../vietmap_flutter_gl/MarkerState-class.html">MarkerState</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="MarkerWidget">
+  <span class="name "><a href="../vietmap_flutter_gl/MarkerWidget-class.html">MarkerWidget</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="MinMaxZoomPreference">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/MinMaxZoomPreference-class.html">MinMaxZoomPreference</a></span> 
+
+</dt>
+<dd>
+  Preferred bounds for map camera zoom level.
+</dd>
+
+          <dt id="OfflineRegion">
+  <span class="name "><a href="../vietmap_flutter_gl/OfflineRegion-class.html">OfflineRegion</a></span> 
+
+</dt>
+<dd>
+  Description of a downloaded region including its identifier.
+</dd>
+
+          <dt id="OfflineRegionDefinition">
+  <span class="name "><a href="../vietmap_flutter_gl/OfflineRegionDefinition-class.html">OfflineRegionDefinition</a></span> 
+
+</dt>
+<dd>
+  Description of region to be downloaded. Identifier will be generated when
+the download is initiated.
+</dd>
+
+          <dt id="Polygon">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/Polygon-class.html">Polygon</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="PolygonLayerProperties">
+  <span class="name "><a href="../vietmap_flutter_gl/PolygonLayerProperties-class.html">PolygonLayerProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="PolygonManager">
+  <span class="name "><a href="../vietmap_flutter_gl/PolygonManager-class.html">PolygonManager</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="PolygonOptions">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/PolygonOptions-class.html">PolygonOptions</a></span> 
+
+</dt>
+<dd>
+  Configuration options for <a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/Polygon-class.html">Polygon</a> instances.
+</dd>
+
+          <dt id="PolylineAnimation">
+  <span class="name "><a href="../vietmap_flutter_gl/PolylineAnimation-class.html">PolylineAnimation</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="PolylineLayerProperties">
+  <span class="name "><a href="../vietmap_flutter_gl/PolylineLayerProperties-class.html">PolylineLayerProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="PolylineManager">
+  <span class="name "><a href="../vietmap_flutter_gl/PolylineManager-class.html">PolylineManager</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="PolylineOptions">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/PolylineOptions-class.html">PolylineOptions</a></span> 
+
+</dt>
+<dd>
+  Configuration options for <a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/Line-class.html">Line</a> instances.
+</dd>
+
+          <dt id="RasterDemSourceProperties">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/RasterDemSourceProperties-class.html">RasterDemSourceProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="RasterLayerProperties">
+  <span class="name "><a href="../vietmap_flutter_gl/RasterLayerProperties-class.html">RasterLayerProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="RasterSourceProperties">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/RasterSourceProperties-class.html">RasterSourceProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="RouteSimulator">
+  <span class="name "><a href="../vietmap_flutter_gl/RouteSimulator-class.html">RouteSimulator</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="SourceProperties">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/SourceProperties-class.html">SourceProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="StaticMarker">
+  <span class="name "><a href="../vietmap_flutter_gl/StaticMarker-class.html">StaticMarker</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="StaticMarkerLayer">
+  <span class="name "><a href="../vietmap_flutter_gl/StaticMarkerLayer-class.html">StaticMarkerLayer</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="Success">
+  <span class="name "><a href="../vietmap_flutter_gl/Success-class.html">Success</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="Symbol">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/Symbol-class.html">Symbol</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="SymbolLayerProperties">
+  <span class="name "><a href="../vietmap_flutter_gl/SymbolLayerProperties-class.html">SymbolLayerProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="SymbolManager">
+  <span class="name "><a href="../vietmap_flutter_gl/SymbolManager-class.html">SymbolManager</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="SymbolOptions">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/SymbolOptions-class.html">SymbolOptions</a></span> 
+
+</dt>
+<dd>
+  Configuration options for <a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/Symbol-class.html">Symbol</a> instances.
+</dd>
+
+          <dt id="UserHeading">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/UserHeading-class.html">UserHeading</a></span> 
+
+</dt>
+<dd>
+  Type represents a geomagnetic value, measured in microteslas, relative to a
+device axis in three dimensional space.
+</dd>
+
+          <dt id="UserLocation">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/UserLocation-class.html">UserLocation</a></span> 
+
+</dt>
+<dd>
+  User's observed location
+</dd>
+
+          <dt id="VectorSourceProperties">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/VectorSourceProperties-class.html">VectorSourceProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="VideoSourceProperties">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/VideoSourceProperties-class.html">VideoSourceProperties</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="VietmapController">
+  <span class="name "><a href="../vietmap_flutter_gl/VietmapController-class.html">VietmapController</a></span> 
+
+</dt>
+<dd>
+  Controller for a single Vietmap instance running on the host platform.
+</dd>
+
+          <dt id="VietmapGL">
+  <span class="name "><a href="../vietmap_flutter_gl/VietmapGL-class.html">VietmapGL</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="enums">
+      <h2>Enums</h2>
+
+      <dl>
+          <dt id="AnnotationType">
+  <span class="name "><a href="../vietmap_flutter_gl/AnnotationType.html">AnnotationType</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="AttributionButtonPosition">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/AttributionButtonPosition.html">AttributionButtonPosition</a></span> 
+
+</dt>
+<dd>
+  Attribution Button Position
+</dd>
+
+          <dt id="CompassViewPosition">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/CompassViewPosition.html">CompassViewPosition</a></span> 
+
+</dt>
+<dd>
+  Compass View Position
+</dd>
+
+          <dt id="DragEventType">
+  <span class="name "><a href="../vietmap_flutter_gl/DragEventType.html">DragEventType</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
+          <dt id="MyLocationRenderMode">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/MyLocationRenderMode.html">MyLocationRenderMode</a></span> 
+
+</dt>
+<dd>
+  Render mode
+</dd>
+
+          <dt id="MyLocationTrackingMode">
+  <span class="name "><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/MyLocationTrackingMode.html">MyLocationTrackingMode</a></span> 
+
+</dt>
+<dd>
+  The camera mode, which determines how the map camera will track the rendered location.
+</dd>
+
+      </dl>
+    </section>
+
+
+
+    <section class="summary offset-anchor" id="extensions">
+      <h2>Extensions</h2>
+
+      <dl>
+          <dt id="ColorConversion">
+  <span class="name "><a href="../vietmap_flutter_gl/ColorConversion.html">ColorConversion</a></span>
+  on <a href="https://api.flutter.dev/flutter/dart-ui/Color-class.html">Color</a>
+  
+
+</dt>
+<dd>
+  
+</dd>
+
+
+      </dl>
+    </section>
+
+
+
+    <section class="summary offset-anchor" id="functions">
+      <h2>Functions</h2>
+
+      <dl class="callables">
+          <dt id="buildFeatureCollection" class="callable">
+  <span class="name"><a href="../vietmap_flutter_gl/buildFeatureCollection.html">buildFeatureCollection</a></span><span class="signature">(<wbr><span class="parameter" id="buildFeatureCollection-param-features"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">features</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="deleteOfflineRegion" class="callable">
+  <span class="name"><a href="../vietmap_flutter_gl/deleteOfflineRegion.html">deleteOfflineRegion</a></span><span class="signature">(<wbr><span class="parameter" id="deleteOfflineRegion-param-id"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">id</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="downloadOfflineRegion" class="callable">
+  <span class="name"><a href="../vietmap_flutter_gl/downloadOfflineRegion.html">downloadOfflineRegion</a></span><span class="signature">(<wbr><span class="parameter" id="downloadOfflineRegion-param-definition"><span class="type-annotation"><a href="../vietmap_flutter_gl/OfflineRegionDefinition-class.html">OfflineRegionDefinition</a></span> <span class="parameter-name">definition</span>, {</span><span class="parameter" id="downloadOfflineRegion-param-metadata"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">metadata</span> = <span class="default-value">const {}</span>, </span><span class="parameter" id="downloadOfflineRegion-param-onEvent"><span class="type-annotation">dynamic</span> <span class="parameter-name">onEvent</span>(<span class="parameter" id="param-event"><span class="type-annotation"><a href="../vietmap_flutter_gl/DownloadRegionStatus-class.html">DownloadRegionStatus</a></span> <span class="parameter-name">event</span></span>)?</span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../vietmap_flutter_gl/OfflineRegion-class.html">OfflineRegion</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="getListOfRegions" class="callable">
+  <span class="name"><a href="../vietmap_flutter_gl/getListOfRegions.html">getListOfRegions</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../vietmap_flutter_gl/OfflineRegion-class.html">OfflineRegion</a></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="getRandomString" class="callable">
+  <span class="name"><a href="../vietmap_flutter_gl/getRandomString.html">getRandomString</a></span><span class="signature">(<wbr>[<span class="parameter" id="getRandomString-param-length"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">length</span> = <span class="default-value">10</span></span>])
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="installOfflineMapTiles" class="callable">
+  <span class="name"><a href="../vietmap_flutter_gl/installOfflineMapTiles.html">installOfflineMapTiles</a></span><span class="signature">(<wbr><span class="parameter" id="installOfflineMapTiles-param-tilesDb"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">tilesDb</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Copy tiles db file passed in to the tiles cache directory (sideloaded) to
+make tiles available offline.
+  
+
+</dd>
+
+          <dt id="mergeOfflineRegions" class="callable">
+  <span class="name"><a href="../vietmap_flutter_gl/mergeOfflineRegions.html">mergeOfflineRegions</a></span><span class="signature">(<wbr><span class="parameter" id="mergeOfflineRegions-param-path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">path</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../vietmap_flutter_gl/OfflineRegion-class.html">OfflineRegion</a></span>&gt;</span></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="setHttpHeaders" class="callable">
+  <span class="name"><a href="../vietmap_flutter_gl/setHttpHeaders.html">setHttpHeaders</a></span><span class="signature">(<wbr><span class="parameter" id="setHttpHeaders-param-headers"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span> <span class="parameter-name">headers</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="setOffline" class="callable">
+  <span class="name"><a href="../vietmap_flutter_gl/setOffline.html">setOffline</a></span><span class="signature">(<wbr><span class="parameter" id="setOffline-param-offline"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">offline</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="setOfflineTileCountLimit" class="callable">
+  <span class="name"><a href="../vietmap_flutter_gl/setOfflineTileCountLimit.html">setOfflineTileCountLimit</a></span><span class="signature">(<wbr><span class="parameter" id="setOfflineTileCountLimit-param-limit"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">limit</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+          <dt id="updateOfflineRegionMetadata" class="callable">
+  <span class="name"><a href="../vietmap_flutter_gl/updateOfflineRegionMetadata.html">updateOfflineRegionMetadata</a></span><span class="signature">(<wbr><span class="parameter" id="updateOfflineRegionMetadata-param-id"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">id</span>, </span><span class="parameter" id="updateOfflineRegionMetadata-param-metadata"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter">dynamic</span>&gt;</span></span> <span class="parameter-name">metadata</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../vietmap_flutter_gl/OfflineRegion-class.html">OfflineRegion</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+      </dl>
+    </section>
+
+    <section class="summary offset-anchor" id="typedefs">
+      <h2>Typedefs</h2>
+
+      <dl>
+          
+  <dt id="MapCreatedCallback" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/MapCreatedCallback.html">MapCreatedCallback</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">(<span class="parameter" id="MapCreatedCallback-param-controller"><span class="type-annotation"><a href="../vietmap_flutter_gl/VietmapController-class.html">VietmapController</a></span> <span class="parameter-name">controller</span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="OnCameraIdleCallback" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/OnCameraIdleCallback.html">OnCameraIdleCallback</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">()</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="OnCameraTrackingChangedCallback" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/OnCameraTrackingChangedCallback.html">OnCameraTrackingChangedCallback</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">(<span class="parameter" id="OnCameraTrackingChangedCallback-param-mode"><span class="type-annotation"><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/MyLocationTrackingMode.html">MyLocationTrackingMode</a></span> <span class="parameter-name">mode</span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="OnCameraTrackingDismissedCallback" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/OnCameraTrackingDismissedCallback.html">OnCameraTrackingDismissedCallback</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">()</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="OnFeatureDragCallback" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/OnFeatureDragCallback.html">OnFeatureDragCallback</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">(<span class="parameter" id="OnFeatureDragCallback-param-id"><span class="type-annotation">dynamic</span> <span class="parameter-name">id</span>, {</span><span class="parameter" id="OnFeatureDragCallback-param-current"><span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/LatLng-class.html">LatLng</a></span> <span class="parameter-name">current</span>, </span><span class="parameter" id="OnFeatureDragCallback-param-delta"><span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/LatLng-class.html">LatLng</a></span> <span class="parameter-name">delta</span>, </span><span class="parameter" id="OnFeatureDragCallback-param-eventType"><span>required</span> <span class="type-annotation"><a href="../vietmap_flutter_gl/DragEventType.html">DragEventType</a></span> <span class="parameter-name">eventType</span>, </span><span class="parameter" id="OnFeatureDragCallback-param-origin"><span>required</span> <span class="type-annotation"><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/LatLng-class.html">LatLng</a></span> <span class="parameter-name">origin</span>, </span><span class="parameter" id="OnFeatureDragCallback-param-point"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-math/Point-class.html">Point</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>&gt;</span></span> <span class="parameter-name">point</span></span>})</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="OnFeatureInteractionCallback" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/OnFeatureInteractionCallback.html">OnFeatureInteractionCallback</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">(<span class="parameter" id="OnFeatureInteractionCallback-param-id"><span class="type-annotation">dynamic</span> <span class="parameter-name">id</span>, </span><span class="parameter" id="OnFeatureInteractionCallback-param-point"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-math/Point-class.html">Point</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>&gt;</span></span> <span class="parameter-name">point</span>, </span><span class="parameter" id="OnFeatureInteractionCallback-param-coordinates"><span class="type-annotation"><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/LatLng-class.html">LatLng</a></span> <span class="parameter-name">coordinates</span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="OnMapClickCallback" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/OnMapClickCallback.html">OnMapClickCallback</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">(<span class="parameter" id="OnMapClickCallback-param-point"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-math/Point-class.html">Point</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>&gt;</span></span> <span class="parameter-name">point</span>, </span><span class="parameter" id="OnMapClickCallback-param-coordinates"><span class="type-annotation"><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/LatLng-class.html">LatLng</a></span> <span class="parameter-name">coordinates</span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="OnMapIdleCallback" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/OnMapIdleCallback.html">OnMapIdleCallback</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">()</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="OnMapLongClickCallback" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/OnMapLongClickCallback.html">OnMapLongClickCallback</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">(<span class="parameter" id="OnMapLongClickCallback-param-point"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-math/Point-class.html">Point</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>&gt;</span></span> <span class="parameter-name">point</span>, </span><span class="parameter" id="OnMapLongClickCallback-param-coordinates"><span class="type-annotation"><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/LatLng-class.html">LatLng</a></span> <span class="parameter-name">coordinates</span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="OnMapRenderedCallback" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/OnMapRenderedCallback.html">OnMapRenderedCallback</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">()</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="OnStyleLoadedCallback" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/OnStyleLoadedCallback.html">OnStyleLoadedCallback</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">()</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+          
+  <dt id="OnUserLocationUpdated" class="callable">
+    <span class="name"><a href="../vietmap_flutter_gl/OnUserLocationUpdated.html">OnUserLocationUpdated</a></span><span class="signature">
+      <span class="returntype parameter">= void Function<span class="signature">(<span class="parameter" id="OnUserLocationUpdated-param-location"><span class="type-annotation"><a href="https://pub.dev/documentation/vietmap_gl_platform_interface/0.1.5/vietmap_gl_platform_interface/UserLocation-class.html">UserLocation</a></span> <span class="parameter-name">location</span></span>)</span></span>
+    </span>
+    
+
+  </dt>
+  <dd>
+    
+    
+
+  </dd>
+
+      </dl>
+    </section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">vietmap_flutter_gl</a></li>
+    <li class="self-crumb">vietmap_flutter_gl.dart</li>
+</ol>
+
+
+    <h5><span class="package-name">vietmap_flutter_gl</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="../vietmap_flutter_gl/vietmap_flutter_gl-library.html">vietmap_flutter_gl</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+    <h5>vietmap_flutter_gl library</h5>
+  </div><!--/sidebar-offcanvas-right-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    vietmap_flutter_gl
+      2.0.1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="vietmap_flutter_gl API docs, for the Dart programming language.">
+  <title>vietmap_flutter_gl - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://github.com/vietmap-company">vietmap_flutter_gl package</a></li>
+  </ol>
+  <div class="self-name">vietmap_flutter_gl</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button" title="Toggle brightness">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        dark_mode
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        light_mode
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h1 id="vietmap-flutter-gl---flutter-map-sdk">Vietmap Flutter GL - Flutter map SDK</h1>
+<p><a href="https://bit.ly/vietmap-api"><img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"> </a></p><p></p>
+<h3 id="troubleshooting-with-new-simulator-version">Troubleshooting with new simulator version</h3>
+<p><a href="https://github.com/vietmap-company/vietmap_flutter_gl/actions/workflows/flutter_ci.yml"><img src="https://github.com/vietmap-company/vietmap_flutter_gl/actions/workflows/flutter_ci.yml/badge.svg" alt="Flutter CI"></a></p>
+<pre class="language-dart"><code>The new update of the simulator run on iOS 17.4 will not run normally with our SDK. 
+Please use another version of the simulator or a real device to build and test the SDK.
+</code></pre>
+<p>Contact <a href="https://bit.ly/vietmap-api">vietmap.vn</a> to register a valid key.</p>
+<p><a href="./README.vi.md">Tài liệu tiếng Việt</a></p>
+<h2 id="getting-started">Getting started</h2>
+<p>Add library to <code>pubspec.yaml</code> file</p>
+<pre class="language-yaml"><code class="language-yaml">  vietmap_flutter_gl: latest_version
+</code></pre>
+<p>Check the latest version at <a href="https://pub.dev/packages/vietmap_flutter_gl">https://pub.dev/packages/vietmap_flutter_gl</a></p>
+<p>or run this command in the terminal to add the library to the project:</p>
+<pre class="language-bash"><code class="language-bash">  flutter pub add vietmap_flutter_gl
+</code></pre>
+<h2 id="android-config">Android config</h2>
+<p>Add the below code to the build.gradle (project) file at path: <strong>android/build.gradle</strong></p>
+<pre class="language-gradle"><code class="language-gradle"> maven { url "https://jitpack.io" }
+</code></pre>
+<p>at the repositories block</p>
+<pre class="language-gradle"><code class="language-gradle">
+  allprojects {
+      repositories {
+          google()
+          mavenCentral()
+          maven { url "https://jitpack.io" }
+      }
+  }
+</code></pre>
+<p>Upgrade the minSdkVersion to a minimum is 24 in the build.gradle (app) file, at path <strong>android/app/build.gradle</strong></p>
+<pre class="language-gradle"><code class="language-gradle">  minSdkVersion 24
+</code></pre>
+<h2 id="ios-config">iOS config</h2>
+<p>Add the below codes to the Info.plist file.</p>
+<pre class="language-ruby"><code class="language-ruby">  &lt;key&gt;NSLocationAlwaysAndWhenInUseUsageDescription&lt;/key&gt;
+  &lt;string&gt;Your request location description&lt;/string&gt;
+  &lt;key&gt;NSLocationAlwaysUsageDescription&lt;/key&gt;
+  &lt;string&gt;Your request location description&lt;/string&gt;
+  &lt;key&gt;NSLocationWhenInUseUsageDescription&lt;/key&gt;
+  &lt;string&gt;Your request location description&lt;/string&gt;
+</code></pre>
+<p>Upgrade min ios version to 12.0 in the Podfile (iOS) file, at path <strong>ios/Podfile</strong> (uncomment the line below)</p>
+<pre class="language-ruby"><code class="language-ruby">  platform :ios, '12.0' 
+</code></pre>
+<p>In your terminal, cd to the ios folder and run the command below to install the pod file <code>(you can skip this step if you only build for Android or run the app on the Windows/Linux PC)</code></p>
+<pre class="language-bash"><code class="language-bash">  cd ios &amp;&amp; pod install &amp;&amp; cd ..
+</code></pre>
+<ul>
+<li>If the project shows an issue when upgrading to the new version when running the <code>pod install</code> command, please remove the <code>ios/.symlinks</code>, <code>ios/Pods</code> folders, and <code>Podfile.lock</code> file, then run the below command to update the pod file.</li>
+</ul>
+<pre class="language-bash"><code class="language-bash">  pod install --repo-update
+</code></pre>
+<h2 id="main-characteristics">Main characteristics</h2>
+<h3 id="show-the-map">Show the map</h3>
+<pre class="language-dart"><code class="language-dart">    VietmapGL(
+      styleString:
+          'https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE',
+      initialCameraPosition:
+          CameraPosition(target: LatLng(10.762317, 106.654551)),
+      onMapCreated: (VietmapController controller) {
+          setState(() {
+            _mapController = controller;
+          });
+        },
+    );
+</code></pre>
+<h3 id="change-map-style">Change map style</h3>
+<ul>
+<li>To change the map style, you need to get the style URL from <a href="https://bit.ly/vietmap-api">Vietmap</a> and use the <code>setStyle</code> function.</li>
+</ul>
+<pre class="language-dart"><code class="language-dart">  _mapController?.setStyle(
+      "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE");
+</code></pre>
+<ul>
+<li>You can also keep/remove the annotations on the map with input params <code>keepExistingAnnotations</code>. (This function did not remove annotations inside the <code>MarkerLayer</code> and <code>StaticMarkerLayer</code>)</li>
+</ul>
+<pre class="language-dart"><code class="language-dart">  _mapController?.setStyle(
+      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE",
+      keepExistingAnnotations: true);
+</code></pre>
+<p>VIETMAP now provides many types of custom maps</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raster</td>
+<td>The map data is typically stored as raster images, which are then divided into a grid of small tiles, each containing a specific portion of the map.</td>
+</tr>
+<tr>
+<td>Raster url</td>
+<td><code>https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE</code></td>
+</tr>
+<tr>
+<td>Vector</td>
+<td>Vector tiles are small packages of vector data that can be downloaded and rendered on a client device, such as a web browser or mobile app. The vector data can include information such as street names, building footprints, and topographic features.</td>
+</tr>
+<tr>
+<td>Vector url</td>
+<td><code>https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE</code></td>
+</tr>
+<tr>
+<td>Satellite</td>
+<td>Satellite imagery consists of photographs of Earth or other planets made by means of artificial satellites.</td>
+</tr>
+<tr>
+<td>Hybrid</td>
+<td>Hybrid maps are a combination of satellite imagery overlaid with vector data that provides a visual reference for locations and features.</td>
+</tr>
+</tbody>
+</table>
+<p>Read more about <a href="https://maps.vietmap.vn/docs/map-api/tilemap/">Raster and Vector</a></p>
+<p><a href="mailto:maps-api.support@vietmap.vn">Email us</a> to get the Satellite and Hybrid map style URL.</p>
+<h2 id="map-interactions">Map Interactions</h2>
+<p>The VietmapGL Maps Flutter SDK allows you to define interactions that you can activate on the map to enable gestures and click events. The following interactions are supported</p>
+<h3 id="zoom-controls">Zoom Controls</h3>
+<p>The map supports the familiar two-finger pinch and zooms to change the zoom level as well as double tap to zoom in. Set zoom to 4 for country-level display and 18 for house number display. In this SDK the camera position plays an important role</p>
+<p>And following operations can be performed using the CameraPosition</p>
+<h4 id="target">Target</h4>
+<p>The target is a single latitude and longitude coordinate that the camera centers it on. Changing the camera's target will move the camera to the inputted coordinates. The target is a LatLng object. The target coordinate is always <em>at the center of the viewport</em>.</p>
+<h4 id="tilt">Tilt</h4>
+<p>Tilt is the camera's angle from the nadir (directly facing the Earth) and uses unit degrees. The camera's minimum (default) tilt is 0 degrees, and the maximum tilt is 60. Tilt levels use six decimal points of precision, which enables you to restrict/set/lock a map's bearing with extreme precision.</p>
+<p>The map camera tilt can also adjust by placing two fingertips on the map and moving both fingers up and down in parallel at the same time or</p>
+<h4 id="bearing">Bearing</h4>
+<p>Bearing represents the direction that the camera is pointing in and is measured in degrees <strong>clockwise from north</strong>.</p>
+<p>The camera's default bearing is 0 degrees (i.e. "true north") causing the map compass to hide until the camera bearing becomes a non-zero value. Bearing levels use six decimal point precision, which enables you to restrict/set/lock a map's bearing with extreme precision. In addition to programmatically adjusting the camera bearing, the user can place two fingertips on the map and rotate their fingers.</p>
+<h4 id="zoom">Zoom</h4>
+<p>Zoom controls the scale of the map and consumes any value between 0 and 22. At zoom level 0, the viewport shows continents and other world features. A middle value of 11 will show city-level details. At a higher zoom level, the map will begin to show buildings and points of interest. The camera can zoom in the following ways:</p>
+<ul>
+<li>Pinch motion two fingers to zoom in and out.</li>
+<li>Quickly tap twice on the map with a single finger to zoom in.</li>
+<li>Quickly tap twice on the map with a single finger and hold your finger down on the screen after the second tap.</li>
+<li>Then slide the finger up to zoom out and down to zoom out.</li>
+</ul>
+<h5 id="sdk-allows-various-methods-to-move-and-animate-the-camera-to-a-particular-location-">SDK allows various methods to move, and animate the camera to a particular location :</h5>
+<pre class="language-dart"><code class="language-dart">  _mapController?.moveCamera(CameraUpdate.newLatLngZoom(LatLng(22.553147478403194, 77.23388671875), 14));  
+  _mapController?.animateCamera(CameraUpdate.newLatLngZoom(LatLng(28.698791, 77.121243), 14));  
+</code></pre>
+<h2 id="map-events">Map Events</h2>
+<h3 id="map-clicklong-click">Map Click/Long click</h3>
+<p>If you want to respond to a user tapping on a point on the map, you can use an onMapClick callback.</p>
+<p>It sets a callback that's invoked when the user clicks on the map:</p>
+<pre class="language-dart"><code class="language-dart">  VietmapGL(    
+    initialCameraPosition: _kInitialPosition,    
+    onMapClick: (point, latlng) =&gt;{    
+      print(latlng.toString())  
+  }, )  
+</code></pre>
+<h5 id="sets-a-callback-thats-invoked-when-the-user-long-clicks-on-the-map-view">Sets a callback that's invoked when the user long clicks on the map view.</h5>
+<pre class="language-dart"><code class="language-dart">  VietmapGL(    
+    initialCameraPosition: _kInitialPosition,    
+    onMapLongClick: (point, latlng) =&gt;{    
+      print(latlng.toString())  
+  }, )  
+</code></pre>
+<h5 id="sets-a-callback-thats-invoked-when-the-map-is-completely-rendered">Sets a callback that's invoked when the map is completely rendered.</h5>
+<h5 id="encourage-this-callback-to-call-some-action-on-the-initial-after-the-map-is-completely-loaded">Encourage this callback to call some action on the initial, after the map is completely loaded</h5>
+<pre class="language-dart"><code class="language-dart">  VietmapGL(    
+    initialCameraPosition: _kInitialPosition,    
+    onMapRenderedCallback: () {
+              _mapController?.animateCamera(CameraUpdate.newCameraPosition(
+                  CameraPosition(
+                      target: LatLng(10.739031, 106.680524),
+                      zoom: 10,
+                      tilt: 60)));
+      },
+    )  
+</code></pre>
+<h2 id="map-overlays">Map Overlays</h2>
+<h3 id="add-marker-marked-a-point-in-the-map-with-a-custom-widget">Add marker (Marked a point in the map with a custom widget)</h3>
+<ul>
+<li>We provide two types of markers, the first is a <code>simple marker</code>, and the second is a <code>static marker</code>. The simple marker <code>will not rotate</code> when the map rotates, and the static marker <code>will rotate</code> with the map.</li>
+</ul>
+<div style="width:100%; text-align:center">
+  <img src="https://github.com/vietmap-company/flutter-map-sdk/raw/main/gif/marker_demo.gif" alt="drawing" width="400">
+</div>
+<h3 id="add-a-simple-marker-marked-a-point-in-the-map-with-a-custom-widget-the-marker-will-not-rotate-when-the-map-rotates">Add a simple marker (Marked a point in the map with a custom widget, the marker will not rotate when the map rotates)</h3>
+<ul>
+<li>The marker support anchor with input is an alignment, which requires width and height to calculate the position of the marker, the default for both of them is 20</li>
+<li>Make sure the <code>width and height of the marker match with its child's</code> width and height to the marker display exactly</li>
+</ul>
+<pre class="language-dart"><code class="language-dart">  Stack(
+    children: [
+      VietmapGL(
+        trackCameraPosition: true, // Will track the map change to update the marker position in realtime
+        ...
+        ),
+      MarkerLayer(
+        ignorePointer: true, // Will ignore all user gestures on the marker
+        mapController: _mapController!,
+        markers: [
+              Marker(
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle),
+                    child: Center(
+                      child: Text(
+                        'Simple text marker',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  latLng: LatLng(10.727416, 106.735597)),
+              Marker(
+                  child: Icon(Icons.location_on),
+                  latLng: LatLng(10.792765, 106.674143)),
+        ])
+  ])
+    
+</code></pre>
+<h3 id="add-a-static-marker-marked-a-point-in-the-map-with-a-custom-widget-the-marker-will-rotate-with-the-map">Add a static marker (Marked a point in the map with a custom widget, the marker will rotate with the map)</h3>
+<ul>
+<li>
+<p>The static marker support rotates with input is a bearing, you can find this value when get GPS location.</p>
+</li>
+<li>
+<p>We recommend using this marker for location-based applications, tracking the location of the driver. Then the driver's vehicle will rotate in the right direction even when the user rotates the map at any angle.</p>
+</li>
+</ul>
+<pre class="language-dart"><code class="language-dart">  Stack(
+    children: [
+      VietmapGL(
+        trackCameraPosition: true, // Will track the map change to update the marker position in realtime
+        ...
+        ),
+      StaticMarkerLayer(
+        ignorePointer: true,
+        mapController: _mapController!,
+        markers: [
+          StaticMarker(
+            width: 50,
+            height: 50,
+            bearing: 0,
+            child: Container(
+              width: 50,
+              height: 50,
+              child:Icon(Icons.arrow_downward_rounded)),
+            latLng: LatLng(10.736657, 106.672240)),
+          ]),
+  ])
+</code></pre>
+<h4 id="note-you-must-enable-trackcameraposition-true-at-_vietmapgl-which-ensures-the-markerlayer-renders-normally">Note: You must enable <code>trackCameraPosition: true</code>, at _VietmapGL, which ensures the MarkerLayer renders normally</h4>
+<h3 id="add-a-linepolyline-a-line-connects-2-points-on-the-map">Add a Line/Polyline (A line connects 2 points on the map)</h3>
+<pre class="language-dart"><code class="language-dart">    Line? line = await _mapController?.addPolyline(
+      PolylineOptions(
+          geometry: [
+            LatLng(10.736657, 106.672240),
+            LatLng(10.766543, 106.742378),
+            LatLng(10.775818, 106.640497),
+            LatLng(10.727416, 106.735597),
+            LatLng(10.792765, 106.674143),
+            LatLng(10.736657, 106.672240),
+          ],
+          polylineColor: Colors.red,
+          polylineWidth: 14.0,
+          polylineOpacity: 0.5),
+    );
+</code></pre>
+<h3 id="update-polyline">Update polyLine</h3>
+<pre class="language-dart"><code class="language-dart">    _mapController?.updatePolyline(
+      line,
+      PolylineOptions(
+          geometry: [
+            LatLng(10.736657, 106.672240),
+            LatLng(10.766543, 106.742378),
+            LatLng(10.775818, 106.640497),
+            LatLng(10.727416, 106.735597),
+            LatLng(10.792765, 106.674143),
+            LatLng(10.736657, 106.672240),
+          ],
+          polylineColor: Colors.blue,
+          polylineWidth: 14.0,
+          polylineOpacity: 1,
+          draggable: true),
+    );
+</code></pre>
+<h3 id="remove-a-polyline">Remove a Polyline</h3>
+<pre class="language-dart"><code class="language-dart">    _mapController?.removePolyline(line);  
+</code></pre>
+<h3 id="remove-all-polyline">Remove all Polyline</h3>
+<pre class="language-dart"><code class="language-dart">    _mapController?.clearLines();
+</code></pre>
+<h3 id="add-a-fillpolygon">Add a Fill/Polygon</h3>
+<pre class="language-dart"><code class="language-dart">    Polygon? = await _mapController?.addPolygon(
+      PolygonOptions(
+          geometry: [
+            [
+              LatLng(10.736657, 106.672240),
+              LatLng(10.766543, 106.742378),
+              LatLng(10.775818, 106.640497),
+              LatLng(10.727416, 106.735597),
+              LatLng(10.792765, 106.674143),
+              LatLng(10.736657, 106.672240),
+            ]
+          ],
+          polygonColor: Colors.red,
+          polygonOpacity: 0.5,
+          draggable: true),
+    );
+</code></pre>
+<h3 id="update-polygon">Update Polygon</h3>
+<pre class="language-dart"><code class="language-dart">    _mapController?.updatePolygon(
+      polygon,
+      PolygonOptions(
+          geometry: [
+            [
+              LatLng(10.736657, 106.672240),
+              LatLng(10.766543, 106.742378),
+              LatLng(10.775818, 106.640497),
+              LatLng(10.727416, 106.735597),
+              LatLng(10.792765, 106.674143),
+              LatLng(10.736657, 106.672240),
+            ]
+          ],
+          polygonColor: Colors.blue,
+          polygonOpacity: 1,
+          draggable: true),
+    );
+</code></pre>
+<h3 id="remove-a-polygon">Remove a Polygon</h3>
+<pre class="language-dart"><code class="language-dart">    _mapController?.removePolygon(polygon);  
+</code></pre>
+<h3 id="remove-all-polygon">Remove all Polygon</h3>
+<pre class="language-dart"><code class="language-dart">    _mapController?.clearPolygons();
+</code></pre>
+<h3 id="find-a-route-between-2-or-more-points">Find a route between 2 or more points</h3>
+<ul>
+<li>We've created a package to support finding a route between 2 or more points and other features, you can find the
+<a href="https://pub.dev/packages/vietmap_flutter_plugin">vietmap_flutter_plugin</a> to use it.</li>
+<li>Run this command in the terminal to add the library to the project:</li>
+</ul>
+<pre class="language-bash"><code class="language-bash">  flutter pub add vietmap_flutter_plugin
+</code></pre>
+<ul>
+<li>Example code:</li>
+</ul>
+<pre class="language-dart"><code class="language-dart">  List&lt;LatLng&gt; points = [];
+  /// Get the route between 2 points
+  var routingResponse = await Vietmap.routing(VietMapRoutingParams(points: [
+    const LatLng(21.027763, 105.834160),
+    const LatLng(21.027763, 105.834160)
+  ]));
+
+  /// Handle the response
+  routingResponse.fold((Failure failure) {
+    // handle failure here
+  }, (VietMapRoutingModel success) {
+    // handle success here
+    
+  });
+
+  /// Draw the route on the map
+  Line? line = await _mapController?.addPolyline(
+    PolylineOptions(
+        geometry: pointsLatLng,
+        polylineColor: Colors.red,
+        polylineWidth: 14.0,
+        polylineOpacity: 0.5),
+  );
+</code></pre>
+<br>
+<h1 id="troubleshooting">Troubleshooting</h1>
+<ul>
+<li>Our SDK uses the key to identify the markers and update their location while the user does some gestures, so we strongly recommend you add the key for all of the widgets in the screen that use the map SDK:</li>
+</ul>
+<pre class="language-dart"><code class="language-dart"> Stack(
+   children:[
+     MarkerLayer(
+       ...
+     ),
+     Positioned(
+       key: const Key('yourWidgetKey'),
+       ...
+     ),
+   ]
+ )
+</code></pre>
+<p>Demo code <a href="./example/lib/main.dart">here</a></p>
+<h2 id="note-replace-apikey-which-is-provided-by-vietmap-to-all-_your_api_key_here_-tags-to-the-application-works-normally">Note: Replace apikey which is provided by VietMap to all <em>YOUR_API_KEY_HERE</em> tags to the application works normally</h2>
+<p><br><br>
+<br><br></p>
+<p><a href="https://vietmap.vn/maps-api"><img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"> </a></p>
+Email us: <a href="mailto:maps-api.support@vietmap.vn"></a><a href="mailto:maps-api.support@vietmap.vn">maps-api.support@vietmap.vn</a><p></p>
+<p>Contact for <a href="https://vietmap.vn/lien-he">support</a></p>
+<p>Vietmap API document <a href="https://maps.vietmap.vn/docs/map-api/overview/">here</a></p>
+<p>Have a bug to report? <a href="https://github.com/vietmap-company/flutter-map-sdk/issues">Open an issue</a>. If possible, include a full log and information that shows the issue.
+Have a feature request? <a href="https://github.com/vietmap-company/flutter-map-sdk/issues">Open an issue</a>. Tell us what the feature should do and why you want the feature.</p>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="vietmap_flutter_gl">
+  <span class="name"><a href="vietmap_flutter_gl/vietmap_flutter_gl-library.html">vietmap_flutter_gl</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="https://github.com/vietmap-company">vietmap_flutter_gl package</a></li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">vietmap_flutter_gl</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="vietmap_flutter_gl/vietmap_flutter_gl-library.html">vietmap_flutter_gl</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    vietmap_flutter_gl
+      2.0.1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
