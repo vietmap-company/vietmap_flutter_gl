@@ -17,6 +17,7 @@ import 'page.dart';
 import 'place_circle.dart';
 
 import 'place_polygon.dart';
+import 'route_simulator.dart';
 import 'scrolling_map.dart';
 
 import 'custom_marker.dart';
@@ -100,12 +101,18 @@ class _MapsDemoState extends State<MapsDemo> {
     return Scaffold(
       appBar: AppBar(title: const Text('VietmapGL examples')),
       body: ListView.builder(
-        itemCount: _allPages.length,
-        itemBuilder: (_, int index) => ListTile(
-          leading: _allPages[index].leading,
-          title: Text(_allPages[index].title),
-          onTap: () => _pushPage(context, _allPages[index]),
-        ),
+        itemCount: _allPages.length + 1,
+        itemBuilder: (_, int index) => index < _allPages.length
+            ? ListTile(
+                leading: _allPages[index].leading,
+                title: Text(_allPages[index].title),
+                onTap: () => _pushPage(context, _allPages[index]),
+              )
+            : ListTile(
+                leading: RouteSimulatorScreen().leading,
+                title: Text(RouteSimulatorScreen().title),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute<void>(
+                    builder: (_) => RouteSimulatorScreen()))),
       ),
     );
   }
