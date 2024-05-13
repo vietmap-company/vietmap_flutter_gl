@@ -33,4 +33,4 @@ jobs:
           git config --global user.email "docs-bot-flutter-vietmap-gl@localhost"
           git add -f doc
           git commit -m "docs: ${{ github.event.commits[0].id }}"
-          git push --force origin pre-release-2.0.0:docs
+          git push --force origin ${{ github.head_ref || github.ref_name }} :docs
