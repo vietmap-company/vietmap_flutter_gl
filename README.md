@@ -2,6 +2,8 @@
 [<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://bit.ly/vietmap-api)
 
 ### Troubleshooting with new simulator version
+[![Flutter CI](https://github.com/vietmap-company/vietmap_flutter_gl/actions/workflows/flutter_ci.yml/badge.svg)](https://github.com/vietmap-company/vietmap_flutter_gl/actions/workflows/flutter_ci.yml)
+
 ```
 The new update of the simulator run on iOS 17.4 will not run normally with our SDK. 
 Please use another version of the simulator or a real device to build and test the SDK.
@@ -13,7 +15,7 @@ Contact [vietmap.vn](https://bit.ly/vietmap-api) to register a valid key.
 
 ## Getting started
 
-Add library to pubspec.yaml file
+Add library to `pubspec.yaml` file
 ```yaml
   vietmap_flutter_gl: latest_version
 ```
