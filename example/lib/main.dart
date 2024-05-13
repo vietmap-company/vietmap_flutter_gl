@@ -275,8 +275,11 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
                       zoom: 15,
                       tilt: 0)));
 
-              RouteSimulator routeSimulator = RouteSimulator(latLngList, this,
-                  duration: Duration(seconds: 5), repeat: true);
+              RouteSimulator routeSimulator =
+                  RouteSimulator(latLngList, this, onLocationChange: (p0) {
+                print(p0.latitude);
+                print(p0.longitude);
+              }, duration: Duration(seconds: 15), repeat: false);
 
               print(routeSimulator.getAnimationController.isCompleted);
 
