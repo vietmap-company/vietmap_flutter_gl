@@ -5,8 +5,10 @@ import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart
 import 'constant.dart';
 
 class RouteSimulatorScreen extends StatefulWidget {
-  Widget leading = Icon(Icons.map);
-  String title = 'Route Simulator';
+  RouteSimulatorScreen({Key? key}) : super(key: key);
+  // const RouteSimulatorScreen({Key? key});
+  final Widget leading = Icon(Icons.map);
+  final String title = 'Route Simulator';
   @override
   State<RouteSimulatorScreen> createState() => _RouteSimulatorScreenState();
 }
