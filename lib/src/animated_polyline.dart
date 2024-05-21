@@ -67,6 +67,7 @@ class RouteSimulator {
   late AnimationController _animationController;
   Timer? timer;
   late Duration duration;
+  Function(LatLng)? _onLocationChange;
 
   /// vsync from `TickerProviderStateMixin` class, used to init
   /// AnimationController
@@ -74,13 +75,14 @@ class RouteSimulator {
       {double speed = 0.001,
       bool repeat = false,
       Duration duration = const Duration(seconds: 10),
+      Function(LatLng)? onLocationChange,
       double upperBound = 2.2,
       AnimationBehavior animationBehavior = AnimationBehavior.normal}) {
     _polyline = PolylineAnimation(listLatLng);
     _currentDistance = 0;
     _speed = speed;
     this.duration = duration;
-
+    _onLocationChange = onLocationChange;
     _animationController = AnimationController(
         upperBound: upperBound,
         vsync: vsync,
@@ -92,7 +94,6 @@ class RouteSimulator {
           _animationController.repeat();
         }
       });
-    ;
   }
 
   get getAnimationController => _animationController;
@@ -125,6 +126,11 @@ class RouteSimulator {
       // interpolate between previous to current distance
       var currentPosition =
           _polyline.coordinateFromStart(_animationController.value);
+      if (_onLocationChange != null) {
+        _onLocationChange!(LatLng(
+            currentPosition.geometry?.coordinates.lat.toDouble() ?? 0,
+            currentPosition.geometry?.coordinates.lng.toDouble() ?? 0));
+      }
       emit(currentPosition);
       if (_currentDistance > _polyline.totalDistance) {
         reset();
