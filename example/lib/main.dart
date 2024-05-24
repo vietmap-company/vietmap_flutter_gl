@@ -82,18 +82,23 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
             log(data.toString());
           },
         ),
-        // _mapController == null || currentLatLng == null
-        //     ? SizedBox.shrink()
-        //     : MarkerLayer(
-        //         ignorePointer: true,
-        //         mapController: _mapController!,
-        //         markers: [
-        //             Marker(
-        //                 width: 25,
-        //                 height: 25,
-        //                 child: _markerWidget(Icons.circle, 25),
-        //                 latLng: currentLatLng!),
-        //           ]),
+        _mapController == null || currentLatLng == null
+            ? SizedBox.shrink()
+            : MarkerLayer(
+                ignorePointer: true,
+                mapController: _mapController!,
+                markers: [
+                    Marker(
+                        alignment: Alignment.bottomCenter,
+                        width: 50,
+                        height: 50,
+                        child: Icon(
+                          Icons.car_repair_rounded,
+                          size: 50,
+                          color: Colors.black,
+                        ),
+                        latLng: currentLatLng!),
+                  ]),
         // _mapController == null
         //     ? SizedBox.shrink()
         //     : MarkerLayer(
@@ -259,7 +264,6 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
               var latLngList = VietmapPolylineDecoder.decodePolyline(
                   '}s{`Ac_hjSjAkCFQRu@Lu@F_@D]Ng@ZaALa@JY~AoDDEmBiBe@[WMg@M_@KmA]uA_@a@KkA]qA[[Gs@MUE_AKu@Co@Ew@CYAmAGeBKaAEsAKCQMQUGM?KBIFGHCJoBO{@Ck@AQ@MZAJAjAG|ACz@MnCEnAGlBCx@EjA?\\EvAEjBE~@Cr@F?HqBv@DBSDIBAl@HFADAVSD@JLB@h@BDADEDAJ@',
                   false);
-              print(latLngList);
 
               _mapController?.addPolyline(PolylineOptions(
                 geometry: latLngList,
@@ -272,14 +276,14 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
               _mapController?.animateCamera(CameraUpdate.newCameraPosition(
                   CameraPosition(
                       target: LatLng(10.800499, 106.708610),
-                      zoom: 15,
+                      zoom: 14.5,
                       tilt: 0)));
 
               RouteSimulator routeSimulator =
                   RouteSimulator(latLngList, this, onLocationChange: (p0) {
                 print(p0.latitude);
                 print(p0.longitude);
-              }, duration: Duration(seconds: 15), repeat: false);
+              }, duration: Duration(seconds: 5), repeat: false);
 
               print(routeSimulator.getAnimationController.isCompleted);
 

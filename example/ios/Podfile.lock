@@ -16,7 +16,7 @@ DEPENDENCIES:
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - Flutter (from `Flutter`)
   - location (from `.symlinks/plugins/location/ios`)
-  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - vietmap_flutter_gl (from `.symlinks/plugins/vietmap_flutter_gl/ios`)
 
 SPEC REPOS:
@@ -31,15 +31,15 @@ EXTERNAL SOURCES:
   location:
     :path: ".symlinks/plugins/location/ios"
   path_provider_foundation:
-    :path: ".symlinks/plugins/path_provider_foundation/ios"
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
   vietmap_flutter_gl:
     :path: ".symlinks/plugins/vietmap_flutter_gl/ios"
 
 SPEC CHECKSUMS:
   device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   location: d5cf8598915965547c3f36761ae9cc4f4e87d22e
-  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   VietMap: a147ccecc4132376c657793af9834b565c85a22a
   vietmap_flutter_gl: b78d7024a8293a79f4744e19de7767aa4f7adb50
 

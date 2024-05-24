@@ -11,7 +11,7 @@ Please use another version of the simulator or a real device to build and test t
 
 Contact [vietmap.vn](https://bit.ly/vietmap-api) to register a valid key.
 
-[Tài liệu tiếng Việt](./README.vi.md)
+<!-- [Tài liệu tiếng Việt](./README.vi.md) -->
 
 ## Getting started
 
@@ -202,6 +202,7 @@ It sets a callback that's invoked when the user clicks on the map:
 <div style="width:100%; text-align:center" >
   <img src="https://github.com/vietmap-company/flutter-map-sdk/raw/main/gif/marker_demo.gif" alt="drawing" width="400"/>
 </div>
+
 
 ### Add a simple marker (Marked a point in the map with a custom widget, the marker will not rotate when the map rotates)
 - The marker support anchor with input is an alignment, which requires width and height to calculate the position of the marker, the default for both of them is 20
@@ -404,6 +405,71 @@ It sets a callback that's invoked when the user clicks on the map:
         polylineOpacity: 0.5),
   );
 ```
+
+
+### Route simulator
+- We're created a class for simulating the route from the list of points, you can find the `RouteSimulator` class in this example code.
+- Please change the `upperBound`, `duration`, and `speed` to get the best experience for the simulator.
+- Did not repeat the simulator too quick and too much, it will make the app lag.
+<div style="width:100%; text-align:center" >
+  <img src="
+  https://github.com/vietmap-company/vietmap_flutter_gl/blob/main/gif/route_simulator.gif?raw=true" alt="drawing" width="400"/>
+</div>
+
+- Example code:
+
+```dart
+  /// Decode the polyline to list of LatLng
+  var latLngList = VietmapPolylineDecoder.decodePolyline(
+      '}s{`Ac_hjSjAkCFQRu@Lu@F_@D]Ng@ZaALa@JY~AoDDEmBiBe@[WMg@M_@KmA]uA_@a@KkA]qA[[Gs@MUE_AKu@Co@Ew@CYAmAGeBKaAEsAKCQMQUGM?KBIFGHCJoBO{@Ck@AQ@MZAJAjAG|ACz@MnCEnAGlBCx@EjA?\\EvAEjBE~@Cr@F?HqBv@DBSDIBAl@HFADAVSD@JLB@h@BDADEDAJ@',
+      false); 
+
+  List<LatLng> listData = [];
+  Line? lineDrive; 
+  /// Create the simulator
+  RouteSimulator routeSimulator =
+      RouteSimulator(
+      latLngList, this,
+      duration: Duration(seconds: 15), 
+      repeat: false);
+
+  /// Add the polyline to the map
+  lineDrive = await _mapController?.addPolyline(PolylineOptions(
+    geometry: latLngList,
+    polylineColor: Colors.black,
+    polylineWidth: 2.0,
+  ));
+  routeSimulator.addListener(
+      (LatLng? latLng, int? index, double? distance) =>
+          this.setState(() {
+            /// Clear old data
+            listData.clear();
+            int i = 0;
+            /// Find the current route from list of points
+            listData = latLngList.where((element) {
+              return i++ <= index!;
+            }).toList();
+
+            if (latLng != null) {
+              /// Add latest location to the list
+              listData.add(latLng);
+              currentLatLng = latLng;
+              if (lineDrive != null && listData.length >= 2)
+                /// Update the polyline with the latest location
+                _mapController?.updatePolyline(
+                    lineDrive,
+                    PolylineOptions(
+                      geometry: listData,
+                      polylineColor: Colors.red,
+                      polylineWidth: 14.0,
+                      polylineJoin: "round",
+                    ));
+            }
+          }));
+  /// Start the simulator
+  routeSimulator.start();
+```
+
 <br>
 
 # Troubleshooting

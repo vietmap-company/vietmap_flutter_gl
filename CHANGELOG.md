@@ -1,3 +1,10 @@
+## 2.0.3, May 24, 2024
+* Upgrade `turf` library to version `0.0.10`
+* Provide `Route Simulator Animation` for tracking driver/demo screen
+* Update `README.md` document for `Route Simulator Animation`
+## 2.0.2, May 21, 2024
+* Upgrade VietMap android SDK
+* Fix SDK crash on `armeabi-v7a` device
 ## 2.0.1, Apr 10, 2024
 * Fix iOS plugin registrant.
 ## 2.0.0, Apr 9, 2024
