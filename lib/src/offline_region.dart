@@ -1,4 +1,4 @@
-part of vietmap_flutter_gl;
+part of '../vietmap_flutter_gl.dart';
 
 /// Description of region to be downloaded. Identifier will be generated when
 /// the download is initiated.

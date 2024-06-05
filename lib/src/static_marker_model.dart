@@ -1,4 +1,4 @@
-part of vietmap_flutter_gl;
+part of '../vietmap_flutter_gl.dart';
 
 class StaticMarker extends Marker {
   /// The bearing of the marker, in degrees clockwise from north.

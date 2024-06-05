@@ -1,4 +1,4 @@
-part of vietmap_flutter_gl;
+part of '../vietmap_flutter_gl.dart';
 
 class PolylineAnimation {
   List<turf.Position> _coordinates = [];
@@ -64,10 +64,12 @@ class RouteSimulator {
   double _currentDistance = 0;
   late double _speed;
   Function(LatLng?, int?, double?)? _listener;
+  Function(LatLng?, int?, double?, LatLng?)? _v2Listener;
   late AnimationController _animationController;
   Timer? timer;
   late Duration duration;
   Function(LatLng)? _onLocationChange;
+  LatLng? previousLatLng;
 
   /// vsync from `TickerProviderStateMixin` class, used to init
   /// AnimationController
@@ -98,11 +100,17 @@ class RouteSimulator {
 
   get getAnimationController => _animationController;
 
+  /// use `addV2Listener` instead
+  @deprecated
+  void addListener(void Function(LatLng?, int?, double?)? listener) {
+    _listener = listener;
+  }
+
   /// this function return current `LatLng` and a value that present if the
   /// animation is completed (1 time).
   /// Function(LatLng? currentLatLng, int? nearestIndex, double? distance)
-  void addListener(void Function(LatLng?, int?, double?)? listener) {
-    _listener = listener;
+  void addV2Listener(void Function(LatLng?, int?, double?, LatLng?)? listener) {
+    _v2Listener = listener;
   }
 
   void start() {
@@ -124,14 +132,18 @@ class RouteSimulator {
     _animationController.addListener(() {
       _currentDistance += _speed;
       // interpolate between previous to current distance
+
       var currentPosition =
           _polyline.coordinateFromStart(_animationController.value);
+      var currentLatLng = LatLng(
+          currentPosition.geometry?.coordinates.lat.toDouble() ?? 0,
+          currentPosition.geometry?.coordinates.lng.toDouble() ?? 0);
+
       if (_onLocationChange != null) {
-        _onLocationChange!(LatLng(
-            currentPosition.geometry?.coordinates.lat.toDouble() ?? 0,
-            currentPosition.geometry?.coordinates.lng.toDouble() ?? 0));
+        _onLocationChange!(currentLatLng);
       }
       emit(currentPosition);
+      previousLatLng = currentLatLng;
       if (_currentDistance > _polyline.totalDistance) {
         reset();
         return;
@@ -149,6 +161,17 @@ class RouteSimulator {
                 pointFeature.geometry!.coordinates.lng.toDouble()),
             pointFeature.properties?['nearestIndex'],
             pointFeature.properties?['distance']);
+      }
+    }
+
+    if (_v2Listener != null) {
+      if (pointFeature?.geometry != null) {
+        _v2Listener!(
+            LatLng(pointFeature!.geometry!.coordinates.lat.toDouble(),
+                pointFeature.geometry!.coordinates.lng.toDouble()),
+            pointFeature.properties?['nearestIndex'],
+            pointFeature.properties?['distance'],
+            previousLatLng);
       }
     }
   }

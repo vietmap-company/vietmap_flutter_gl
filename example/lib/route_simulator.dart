@@ -88,27 +88,27 @@ class _RouteSimulatorScreenState extends State<RouteSimulatorScreen>
             polylineColor: Colors.black,
             polylineWidth: 2.0,
           ));
-          routeSimulator.addListener(
-              (LatLng? latLng, int? index, double? distance) =>
-                  this.setState(() {
-                    listData.clear();
-                    int i = 0;
-                    listData = latLngList.where((element) {
-                      return i++ <= index!;
-                    }).toList();
-                    if (latLng != null) {
-                      listData.add(latLng);
-                      if (lineDrive != null && listData.length >= 2)
-                        _mapController?.updatePolyline(
-                            lineDrive,
-                            PolylineOptions(
-                              geometry: listData,
-                              polylineColor: Colors.red,
-                              polylineWidth: 14.0,
-                              polylineJoin: "round",
-                            ));
-                    }
-                  }));
+          routeSimulator.addV2Listener((LatLng? latLng, int? index,
+                  double? distance, LatLng? recentLatLng) =>
+              this.setState(() {
+                listData.clear();
+                int i = 0;
+                listData = latLngList.where((element) {
+                  return i++ <= index!;
+                }).toList();
+                if (latLng != null) {
+                  listData.add(latLng);
+                  if (lineDrive != null && listData.length >= 2)
+                    _mapController?.updatePolyline(
+                        lineDrive,
+                        PolylineOptions(
+                          geometry: listData,
+                          polylineColor: Colors.red,
+                          polylineWidth: 14.0,
+                          polylineJoin: "round",
+                        ));
+                }
+              }));
           routeSimulator.start();
           this.setState(() {
             this.routeSimulator = routeSimulator;
