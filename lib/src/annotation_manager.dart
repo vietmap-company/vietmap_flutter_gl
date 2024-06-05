@@ -1,4 +1,4 @@
-part of vietmap_flutter_gl;
+part of '../vietmap_flutter_gl.dart';
 
 abstract class AnnotationManager<T extends Annotation> {
   final VietmapController controller;

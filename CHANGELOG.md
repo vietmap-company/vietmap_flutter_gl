@@ -1,3 +1,6 @@
+## 2.1.0, Jun 5, 2024
+* Deprecate `RouteSimulator.addListener` listener, use `RouteSimulator.addV2Listener` instead.
+* Provide `recentLatLng` for `RouteSimulator.addV2Listener` listener, use for calculate heading angle of shipper/vehicle using `VietmapPolyline.calculateFinalBearing(previousLatLng, latLng)`.
 ## 2.0.3, May 24, 2024
 * Upgrade `turf` library to version `0.0.10`
 * Provide `Route Simulator Animation` for tracking driver/demo screen

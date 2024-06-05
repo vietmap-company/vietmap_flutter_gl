@@ -201,9 +201,7 @@ It sets a callback that's invoked when the user clicks on the map:
 - We provide two types of markers, the first is a `simple marker`, and the second is a `static marker`. The simple marker `will not rotate` when the map rotates, and the static marker `will rotate` with the map.
 <div style="width:100%; text-align:center" >
   <img src="https://github.com/vietmap-company/flutter-map-sdk/raw/main/gif/marker_demo.gif" alt="drawing" width="400"/>
-</div>
-
-
+</div> 
 ### Add a simple marker (Marked a point in the map with a custom widget, the marker will not rotate when the map rotates)
 - The marker support anchor with input is an alignment, which requires width and height to calculate the position of the marker, the default for both of them is 20
 - Make sure the `width and height of the marker match with its child's` width and height to the marker display exactly
@@ -412,8 +410,7 @@ It sets a callback that's invoked when the user clicks on the map:
 - Please change the `upperBound`, `duration`, and `speed` to get the best experience for the simulator.
 - Did not repeat the simulator too quick and too much, it will make the app lag.
 <div style="width:100%; text-align:center" >
-  <img src="
-  https://github.com/vietmap-company/vietmap_flutter_gl/blob/main/gif/route_simulator.gif?raw=true" alt="drawing" width="400"/>
+  <img src="https://github.com/vietmap-company/vietmap_flutter_gl/blob/main/gif/route_simulator.gif?raw=true" alt="drawing" width="400"/>
 </div>
 
 - Example code:
@@ -439,8 +436,8 @@ It sets a callback that's invoked when the user clicks on the map:
     polylineColor: Colors.black,
     polylineWidth: 2.0,
   ));
-  routeSimulator.addListener(
-      (LatLng? latLng, int? index, double? distance) =>
+  routeSimulator.addV2Listener(
+      (LatLng? latLng, int? index, double? distance, LatLng? previousLatLng) =>
           this.setState(() {
             /// Clear old data
             listData.clear();
@@ -449,7 +446,10 @@ It sets a callback that's invoked when the user clicks on the map:
             listData = latLngList.where((element) {
               return i++ <= index!;
             }).toList();
-
+            if (previousLatLng != null) {
+              _busBearing =
+                  VietmapPolyline.calculateFinalBearing(previousLatLng, latLng);
+            }
             if (latLng != null) {
               /// Add latest location to the list
               listData.add(latLng);
