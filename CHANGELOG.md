@@ -1,3 +1,5 @@
+## 2.2.1. Jun 10, 2024
+* Upgrade `vietmap_flutter_plugin` to version `0.3.1`
 ## 2.2.0, Jun 10, 2024
 * Upgrade `vietmap_gl_platform_interface` to version `0.2.0`
 * Provide `VietMapSnapEngine`
