@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   turf: ^0.0.10
-  vietmap_gl_platform_interface: ^0.1.5
+  vietmap_gl_platform_interface: ^0.2.0
 
 
 

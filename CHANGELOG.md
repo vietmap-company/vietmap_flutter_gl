@@ -1,3 +1,7 @@
+## 2.2.0, Jun 10, 2024
+* Upgrade `vietmap_gl_platform_interface` to version `0.2.0`
+* Provide `VietMapSnapEngine`
+* Create `Driver tracking` demo screen
 ## 2.1.0, Jun 5, 2024
 * Deprecate `RouteSimulator.addListener` listener, use `RouteSimulator.addV2Listener` instead.
 * Provide `recentLatLng` for `RouteSimulator.addV2Listener` listener, use for calculate heading angle of shipper/vehicle using `VietmapPolyline.calculateFinalBearing(previousLatLng, latLng)`.
