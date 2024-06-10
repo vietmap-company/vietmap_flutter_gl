@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:vietmap_gl_example/driver_tracking_example.dart';
 
 import 'package:vietmap_gl_example/given_bounds.dart';
 
@@ -51,6 +52,7 @@ final List<ExamplePage> _allPages = <ExamplePage>[
   // Sources(),
   GivenBoundsPage(),
   MapClusteringPage(),
+  DriverTrackingPage()
   // GetMapInfoPage(),
 ];
 

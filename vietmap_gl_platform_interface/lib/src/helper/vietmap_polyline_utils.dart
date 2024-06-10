@@ -213,6 +213,10 @@ class VietmapPolyline {
     return _radiansToDegrees(atan2(a, b));
   }
 
+  static calculateFinalBearing(LatLng start, LatLng end) {
+    return _bearing(start, end);
+  }
+
   static num _bearing(LatLng start, LatLng end, {bool calcFinal = false}) =>
       _bearingRaw(start, end, calcFinal: calcFinal);
 

@@ -20,6 +20,7 @@ dependencies:
   # temporary fix:
   platform: ^3.1.0
   device_info_plus: ^3.2.2 
+  vietmap_flutter_plugin: ^0.2.0
 
 dependency_overrides:
   vietmap_gl_platform_interface:
@@ -60,6 +61,7 @@ flutter:
     - assets/symbols/custom-marker.png
     - assets/style.json
     - assets/sydney.png
+    - assets/
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.io/assets-and-images/#from-packages
