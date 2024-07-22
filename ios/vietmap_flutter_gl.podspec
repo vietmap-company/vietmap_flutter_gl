@@ -15,7 +15,9 @@ A new Flutter plugin.
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'VietMap', '1.2.0'
+  
+  s.dependency 'VietMap', '~> 2.0.0'
+  # s.vendored_frameworks = 'Frameworks/VietMap.xcframework', '2.0.0'
   s.swift_version = '4.2'
   s.ios.deployment_target = '9.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386', 'FRAMEWORK_SEARCH_PATHS' => '$(PROJECT_DIR)/Frameworks' }

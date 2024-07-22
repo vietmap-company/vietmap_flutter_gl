@@ -1,3 +1,9 @@
+## 3.0.0-pre.4, Jul 22, 2024
+* `Deprecated` default UserLocation icon, use `UserLocationLayer` instead.
+## 3.0.0-pre.2, Jun 18, 2024
+* Migrate to Metal renderer on iOS
+## 3.0.0-pre.1, Jun 16, 2024
+* Migrate to Metal renderer on iOS
 ## 2.2.1. Jun 10, 2024
 * Upgrade `vietmap_flutter_plugin` to version `0.3.1`
 ## 2.2.0, Jun 10, 2024

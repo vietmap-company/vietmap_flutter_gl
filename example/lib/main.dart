@@ -54,8 +54,8 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
         VietmapGL(
           myLocationEnabled: true,
 
-          myLocationTrackingMode: MyLocationTrackingMode.None,
-          myLocationRenderMode: MyLocationRenderMode.NORMAL,
+          myLocationTrackingMode: MyLocationTrackingMode.TrackingCompass,
+          myLocationRenderMode: MyLocationRenderMode.COMPASS,
           // styleString: YOUR_STYLE_URL_HERE,
           // styleString:
           //     "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE",
@@ -67,13 +67,14 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
 
           onMapRenderedCallback: () {},
           onMapFirstRenderedCallback: () async {},
-          onUserLocationUpdated: (location) {
-            // setState(() {
-            //   userLocation = location;
-            //   print(location.latitude);
-            //   print(location.heading?.trueHeading);
-            // });
-          },
+          // onUserLocationUpdated: (location) {
+          //   print(location.horizontalAccuracy);
+          //   // setState(() {
+          //   //   userLocation = location;
+          //   //   print(location.latitude);
+          //   //   print(location.heading?.trueHeading);
+          //   // });
+          // },
           initialCameraPosition: const CameraPosition(
               target: LatLng(10.739031, 106.680524), zoom: 2),
           onMapClick: (point, coordinates) async {
@@ -82,6 +83,29 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
             log(data.toString());
           },
         ),
+        _mapController == null
+            ? SizedBox.shrink()
+            : UserLocationLayer(
+                mapController: _mapController!,
+                locationIcon: Icon(
+                  Icons.circle,
+                  color: Colors.blue,
+                  size: 50,
+                ),
+                bearingIcon: Container(
+                  width: 30,
+                  height: 30,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: Icon(
+                    Icons.arrow_upward,
+                    color: Colors.red,
+                    size: 15,
+                  ),
+                ),
+                ignorePointer: true,
+              ),
         _mapController == null || currentLatLng == null
             ? SizedBox.shrink()
             : MarkerLayer(
