@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -50,9 +49,8 @@ class _DriverTrackingState extends State<DriverTracking>
       distanceFilter: 1,
     );
     var bearing = 0.0;
-    StreamSubscription<Position> positionStream =
-        Geolocator.getPositionStream(locationSettings: locationSettings)
-            .listen((Position? position) {
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((Position? position) {
       if (lastDriverLocation != null) {
         bearing = VietmapPolyline.calculateFinalBearing(lastDriverLocation!,
             LatLng(position!.latitude, position.longitude));
@@ -63,9 +61,8 @@ class _DriverTrackingState extends State<DriverTracking>
       if (vietmapController != null) {
         vietmapController?.moveCamera(CameraUpdate.newLatLng(driverLocation));
       }
-      print(position == null
-          ? 'Unknown'
-          : '${position.latitude.toString()}, ${position.longitude.toString()}');
+      print(
+          '${position.latitude.toString()}, ${position.longitude.toString()}');
     });
   }
 

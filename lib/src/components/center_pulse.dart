@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
- 
+
 class CirclePainter extends CustomPainter {
   final Color color;
   final double radius;

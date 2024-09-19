@@ -1,4 +1,5 @@
 ## 3.0.0, Sep 19, 2024
+* Refactor `==` operator override 
 * Fix `UserLocationLayer` icon not rotate on user tilt map.
 * Allow custom `UserLocationLayer` pulse color & opacity.
 * `Deprecated` default UserLocation icon, use `UserLocationLayer` instead.

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'constant.dart';
 import 'page.dart';
 
 class LocalStylePage extends ExamplePage {
