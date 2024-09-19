@@ -1188,8 +1188,12 @@ class VietmapMapController: NSObject, FlutterPlatformView, MLNMapViewDelegate, V
                 if let id = belowLayerId, let belowLayer = style.layer(withIdentifier: id) {
                     style.insertLayer(layer, below: belowLayer)
                 } else {
-                    
-                    style.insertLayer(layer, below: style.layer(withIdentifier: "vmadmin_province")!)
+                    if let layerId = style.layer(withIdentifier: "vmadmin_province"){
+                        
+                        style.insertLayer(layer, below: layerId)
+                    }else{
+                        style.addLayer(layer)
+                    }
                 }
                 if enableInteraction {
                     interactiveFeatureLayerIds.insert(layerId)

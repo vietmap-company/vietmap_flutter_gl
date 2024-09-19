@@ -6,6 +6,8 @@ class UserLocationLayer extends StatefulWidget {
 
   /// The icon that will be used to represent the user's bearing on the map.
   final Widget? bearingIcon;
+  final Color pulseColor;
+  final double pulseOpacity;
 
   /// The controller of the map.
   final VietmapController mapController;
@@ -28,7 +30,9 @@ class UserLocationLayer extends StatefulWidget {
       this.bearingIcon,
       required this.mapController,
       this.ignorePointer,
-      this.iconSize = 50})
+      this.pulseOpacity = 0.3,
+      this.iconSize = 50,
+      this.pulseColor = Colors.blue})
       : super(key: key);
 
   @override
@@ -44,6 +48,7 @@ class _UserLocationLayerState extends State<UserLocationLayer> {
   LatLng? _location;
   Point<num>? _initialPosition;
   double get _iconSize => widget.iconSize;
+  double lastBearing = 0;
   @override
   void didUpdateWidget(covariant UserLocationLayer oldWidget) {
     _updatePulseSize();
@@ -197,7 +202,7 @@ class _UserLocationLayerState extends State<UserLocationLayer> {
                   size: Size(_pulseSize, _pulseSize),
                   painter: CirclePainter(
                     radius: _pulseSize / 2,
-                    color: Colors.red.withOpacity(0.6),
+                    color: widget.pulseColor.withOpacity(widget.pulseOpacity),
                   ),
                 ),
               ),
@@ -248,6 +253,7 @@ class _UserLocationLayerState extends State<UserLocationLayer> {
             addMarkerState: (_) {
               _positionMarkerStates = _;
             },
+            tiltRotate: _mapController._cameraPosition?.tilt ?? 0,
             alignment: Alignment.center,
             child: _updateUserLocationWidget(),
             width: _iconSize,
