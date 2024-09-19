@@ -4,6 +4,9 @@
 
 package vn.vietmap.vietmapgl;
 
+import static androidx.core.content.ContextCompat.getDrawable;
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -12,8 +15,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,10 +29,16 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -58,6 +71,7 @@ import vn.vietmap.vietmapsdk.geometry.LatLng;
 import vn.vietmap.vietmapsdk.geometry.LatLngBounds;
 import vn.vietmap.vietmapsdk.geometry.LatLngQuad;
 import vn.vietmap.vietmapsdk.geometry.VisibleRegion;
+import vn.vietmap.vietmapsdk.location.CompassListener;
 import vn.vietmap.vietmapsdk.location.LocationComponent;
 import vn.vietmap.vietmapsdk.location.LocationComponentActivationOptions;
 import vn.vietmap.vietmapsdk.location.LocationComponentOptions;
@@ -65,6 +79,7 @@ import vn.vietmap.vietmapsdk.location.OnCameraTrackingChangedListener;
 import vn.vietmap.vietmapsdk.location.engine.LocationEngine;
 import vn.vietmap.vietmapsdk.location.engine.LocationEngineCallback;
 import vn.vietmap.vietmapsdk.location.engine.LocationEngineDefault;
+import vn.vietmap.vietmapsdk.location.engine.LocationEngineRequest;
 import vn.vietmap.vietmapsdk.location.engine.LocationEngineResult;
 import vn.vietmap.vietmapsdk.location.modes.CameraMode;
 import vn.vietmap.vietmapsdk.location.modes.RenderMode;
@@ -140,7 +155,9 @@ final class VietmapGLController
 
     private Set<String> interactiveFeatureLayerIds;
     private Map<String, FeatureCollection> addedFeaturesByLayer;
-
+    private float lastKnownHeading = 0.0F;
+    private CompassListener compassListener;
+    private Location lastKnowLocation;
     private LatLngBounds bounds = null;
     Style.OnStyleLoaded onStyleLoadedCallback =
             new Style.OnStyleLoaded() {
@@ -156,12 +173,14 @@ final class VietmapGLController
                     // }
 
                     LocationEngineDefault locationEngineDefault = LocationEngineDefault.INSTANCE;
+
                     locationEngine = locationEngineDefault.getDefaultLocationEngine(context);
 
 
                     if (null != bounds) {
                         vietmapGL.setLatLngBoundsForCameraTarget(bounds);
                     }
+
 
                     vietmapGL.addOnMapClickListener(VietmapGLController.this);
                     vietmapGL.addOnMapLongClickListener(VietmapGLController.this);
@@ -308,13 +327,13 @@ final class VietmapGLController
 //              context, style, buildLocationComponentOptions(style));
             locationComponent.activateLocationComponent(options.build());
 
+
             locationComponent.setLocationEngine(locationEngine);
             // locationComponent.setRenderMode(RenderMode.COMPASS); // remove or keep default?
             locationComponent.setMaxAnimationFps(30);
             updateMyLocationTrackingMode();
             updateMyLocationRenderMode();
             locationComponent.addOnCameraTrackingChangedListener(this);
-
 //      locationComponent.setLocationComponentEnabled(true);
             if (myLocationEnabled) {
                 startListeningForLocationUpdates();
@@ -323,7 +342,7 @@ final class VietmapGLController
             }
 
             if (locationComponent != null) {
-                locationComponent.setLocationComponentEnabled(myLocationEnabled);
+//                locationComponent.setLocationComponentEnabled(myLocationEnabled);
             }
         } else {
             Log.e(TAG, "missing location permissions");
@@ -364,6 +383,8 @@ final class VietmapGLController
                 LocationComponentOptions.builder(context);
         optionsBuilder.trackingGesturesManagement(true);
 
+
+//        optionsBuilder.pulseColor(0xFF000000);
         final String lastLayerId = getLastLayerOnStyle(style);
         if (lastLayerId != null) {
             optionsBuilder.layerAbove(lastLayerId);
@@ -375,7 +396,6 @@ final class VietmapGLController
         if (location == null) {
             return;
         }
-
 
         final Map<String, Object> userLocation = new HashMap<>(6);
         userLocation.put("position", new double[]{location.getLatitude(), location.getLongitude()});
@@ -407,7 +427,7 @@ final class VietmapGLController
     }
 
     private void setGeoJsonSource(String sourceName, String geojson) {
-        if(geojson==null) return;
+        if (geojson == null) return;
         FeatureCollection featureCollection = FeatureCollection.fromJson(geojson);
         GeoJsonSource geoJsonSource = style.getSourceAs(sourceName);
         addedFeaturesByLayer.put(sourceName, featureCollection);
@@ -416,7 +436,7 @@ final class VietmapGLController
     }
 
     private void setGeoJsonFeature(String sourceName, String geojsonFeature) {
-        if(geojsonFeature==null) return;
+        if (geojsonFeature == null) return;
         Feature feature = Feature.fromJson(geojsonFeature);
         FeatureCollection featureCollection = addedFeaturesByLayer.get(sourceName);
         GeoJsonSource geoJsonSource = style.getSourceAs(sourceName);
@@ -678,7 +698,7 @@ final class VietmapGLController
                     result.success(null);
                 } catch (RuntimeException exception) {
                     Log.d(TAG, exception.toString());
-                    result.error("MAPBOX LOCALIZATION PLUGIN ERROR", exception.toString(), null);
+                    result.error("VIETMAP LOCALIZATION PLUGIN ERROR", exception.toString(), null);
                 }
                 break;
             }
@@ -712,7 +732,7 @@ final class VietmapGLController
                     result.success(null);
                 } catch (RuntimeException exception) {
                     Log.d(TAG, exception.toString());
-                    result.error("MAPBOX LOCALIZATION PLUGIN ERROR", exception.toString(), null);
+                    result.error("VIETMAP LOCALIZATION PLUGIN ERROR", exception.toString(), null);
                 }
                 break;
             }
@@ -1798,24 +1818,56 @@ final class VietmapGLController
     }
 
     private void startListeningForLocationUpdates() {
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+//        getSystemService(context, LocationManager.class).requestLocationUpdates(LocationManager.GPS_PROVIDER,
+//                1000, 0, new LocationListener() {
+//                    @Override
+//                    public void onLocationChanged(@NonNull Location location) {
+//                        onUserLocationUpdate(location);
+//                    }
+//                });
         if (locationEngineCallback == null
                 && locationComponent != null
                 && locationComponent.getLocationEngine() != null) {
+
             locationEngineCallback =
                     new LocationEngineCallback<LocationEngineResult>() {
                         @Override
                         public void onSuccess(LocationEngineResult result) {
-                            onUserLocationUpdate(result.getLastLocation());
+                            lastKnowLocation = result.getLastLocation();
+
+                            lastKnowLocation.setBearing(lastKnownHeading);
+                            onUserLocationUpdate(lastKnowLocation);
                         }
 
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                         }
                     };
+
+            compassListener =new CompassListener() {
+                @Override
+                public void onCompassChanged(float userHeading) {
+                    lastKnownHeading = userHeading;
+                    if(lastKnowLocation!=null) {
+                        lastKnowLocation.setBearing(lastKnownHeading);
+                        onUserLocationUpdate(lastKnowLocation);
+                    }
+
+                }
+
+                @Override
+                public void onCompassAccuracyChange(int i) {
+
+                }
+            };
+            locationComponent.getCompassEngine().addCompassListener(compassListener);
             locationComponent
+
                     .getLocationEngine()
+
                     .requestLocationUpdates(
-                            locationComponent.getLocationEngineRequest(), locationEngineCallback, null);
+                            locationComponent.getLocationEngineRequest(), locationEngineCallback, Looper.getMainLooper());
         }
     }
 
@@ -1826,14 +1878,15 @@ final class VietmapGLController
             locationComponent.getLocationEngine().removeLocationUpdates(locationEngineCallback);
             locationEngineCallback = null;
         }
+        locationComponent.getCompassEngine().removeCompassListener(compassListener);
     }
 
     private void updateMyLocationTrackingMode() {
-        int[] mapboxTrackingModes =
+        int[] vietmapTrackingModes =
                 new int[]{
                         CameraMode.NONE, CameraMode.TRACKING, CameraMode.TRACKING_COMPASS, CameraMode.TRACKING_GPS
                 };
-        locationComponent.setCameraMode(mapboxTrackingModes[this.myLocationTrackingMode]);
+        locationComponent.setCameraMode(vietmapTrackingModes[this.myLocationTrackingMode]);
     }
 
     private void updateMyLocationRenderMode() {

@@ -4,6 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:vietmap_gl_example/driver_tracking_example.dart';
 
 import 'package:vietmap_gl_example/given_bounds.dart';
+import 'package:vietmap_gl_example/local_style.dart';
 
 import 'animate_camera.dart';
 import 'annotation_order_maps.dart';
@@ -39,7 +40,7 @@ final List<ExamplePage> _allPages = <ExamplePage>[
   // PlaceSymbolPage(),
   // PlaceSourcePage(),
   PolylinePage(),
-  // LocalStylePage(),
+  LocalStylePage(),
   LayerPage(),
   PlaceCirclePage(),
   PlacePolygonPage(),

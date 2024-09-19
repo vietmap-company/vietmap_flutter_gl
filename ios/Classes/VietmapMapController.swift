@@ -1,14 +1,13 @@
 import Flutter
 import VietMap
-import MapboxAnnotationExtension
 
-class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, VietmapMapOptionsSink,
+class VietmapMapController: NSObject, FlutterPlatformView, MLNMapViewDelegate, VietmapMapOptionsSink,
     UIGestureRecognizerDelegate
 {
     private var registrar: FlutterPluginRegistrar
     private var channel: FlutterMethodChannel?
 
-    private var mapView: MGLMapView
+    private var mapView: MLNMapView
     private var isMapReady = false
     private var dragEnabled = true
     private var isFirstStyleLoad = true
@@ -16,16 +15,16 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
     private var mapReadyResult: FlutterResult?
     private var previousDragCoordinate: CLLocationCoordinate2D?
     private var originDragCoordinate: CLLocationCoordinate2D?
-    private var dragFeature: MGLFeature?
+    private var dragFeature: MLNFeature?
 
     private var initialTilt: CGFloat?
-    private var cameraTargetBounds: MGLCoordinateBounds?
+    private var cameraTargetBounds: MLNCoordinateBounds?
     private var trackCameraPosition = false
     private var myLocationEnabled = false
     private var scrollingEnabled = true
 
     private var interactiveFeatureLayerIds = Set<String>()
-    private var addedShapesByLayer = [String: MGLShape]()
+    private var addedShapesByLayer = [String: MLNShape]()
 
     func view() -> UIView {
         return mapView
@@ -37,7 +36,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         arguments args: Any?,
         registrar: FlutterPluginRegistrar
     ) {
-        mapView = MGLMapView(frame: frame)
+        mapView = MLNMapView(frame: frame)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.registrar = registrar
 
@@ -75,7 +74,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         if let args = args as? [String: Any] {
             Convert.interpretMapboxMapOptions(options: args["options"], delegate: self)
             if let initialCameraPosition = args["initialCameraPosition"] as? [String: Any],
-               let camera = MGLMapCamera.fromDict(initialCameraPosition, mapView: mapView),
+               let camera = MLNMapCamera.fromDict(initialCameraPosition, mapView: mapView),
                let zoom = initialCameraPosition["zoom"] as? Double
             {
                 mapView.setCenter(
@@ -107,11 +106,6 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         }
         
         mapView.logoView.isHidden = false
-    }
-    func removeAllForController(controller: MGLAnnotationController, ids: [String]){
-        let idSet = Set(ids)
-        let annotations = controller.styleAnnotations()
-        controller.removeStyleAnnotations(annotations.filter { idSet.contains($0.identifier) })
     }
 
     func gestureRecognizer(
@@ -146,7 +140,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
                 result(nil)
             }
         case "map#invalidateAmbientCache":
-            MGLOfflineStorage.shared.invalidateAmbientCache {
+            MLNOfflineStorage.shared.invalidateAmbientCache {
                 error in
                 if let error = error {
                     result(error)
@@ -157,7 +151,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         case "map#updateMyLocationTrackingMode":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             if let myLocationTrackingMode = arguments["mode"] as? UInt,
-               let trackingMode = MGLUserTrackingMode(rawValue: myLocationTrackingMode)
+               let trackingMode = MLNUserTrackingMode(rawValue: myLocationTrackingMode)
             {
                 setMyLocationTrackingMode(myLocationTrackingMode: trackingMode)
             }
@@ -220,7 +214,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
                 filterExpression = NSPredicate(mglJSONObject: filter)
             }
             var reply = [String: NSObject]()
-            var features: [MGLFeature] = []
+            var features: [MLNFeature] = []
             if let x = arguments["x"] as? Double, let y = arguments["y"] as? Double {
                 features = mapView.visibleFeatures(
                     at: CGPoint(x: x, y: y),
@@ -260,10 +254,10 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         case "map#setTelemetryEnabled":
             guard let arguments = methodCall.arguments as? [String: Any] else { return }
             let telemetryEnabled = arguments["enabled"] as? Bool
-            UserDefaults.standard.set(telemetryEnabled, forKey: "MGLMapboxMetricsEnabled")
+            UserDefaults.standard.set(telemetryEnabled, forKey: "MLNMapboxMetricsEnabled")
             result(nil)
         case "map#getTelemetryEnabled":
-            let telemetryEnabled = UserDefaults.standard.bool(forKey: "MGLMapboxMetricsEnabled")
+            let telemetryEnabled = UserDefaults.standard.bool(forKey: "MLNMapboxMetricsEnabled")
             result(telemetryEnabled)
         case "map#getVisibleRegion":
             var reply = [String: NSObject]()
@@ -519,7 +513,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
             guard let image = UIImage(data: data) else { return }
             
             guard let coordinates = arguments["coordinates"] as? [[Double]] else { return }
-            let quad = MGLCoordinateQuad(
+            let quad = MLNCoordinateQuad(
                 topLeft: CLLocationCoordinate2D(
                     latitude: coordinates[0][0],
                     longitude: coordinates[0][1]
@@ -548,7 +542,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
                 return
             }
             
-            let source = MGLImageSource(
+            let source = MLNImageSource(
                 identifier: imageSourceId,
                 coordinateQuad: quad,
                 image: image
@@ -591,7 +585,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
                 return
             }
             
-            let layer = MGLRasterStyleLayer(identifier: imageLayerId, source: source)
+            let layer = MLNRasterStyleLayer(identifier: imageLayerId, source: source)
             
             if let minzoom = minzoom {
                 layer.minimumZoomLevel = Float(minzoom)
@@ -639,7 +633,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
                 return
             }
             
-            let layer = MGLRasterStyleLayer(identifier: imageLayerId, source: source)
+            let layer = MLNRasterStyleLayer(identifier: imageLayerId, source: source)
             
             if let minzoom = minzoom {
                 layer.minimumZoomLevel = Float(minzoom)
@@ -673,7 +667,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
             
             let southwest = CLLocationCoordinate2D(latitude: south, longitude: west)
             let northeast = CLLocationCoordinate2D(latitude: north, longitude: east)
-            let bounds = MGLCoordinateBounds(sw: southwest, ne: northeast)
+            let bounds = MLNCoordinateBounds(sw: southwest, ne: northeast)
             mapView.setVisibleCoordinateBounds(bounds, edgePadding: UIEdgeInsets(top: padding,
                                                                                  left: padding, bottom: padding, right: padding) , animated: true)
             result(nil)
@@ -748,13 +742,13 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
             }
             
             var reply = [String: NSObject]()
-            var features: [MGLFeature] = []
+            var features: [MLNFeature] = []
             
             guard let style = mapView.style else { return }
             if let source = style.source(withIdentifier: sourceId) {
-                if let vectorSource = source as? MGLVectorTileSource {
+                if let vectorSource = source as? MLNVectorTileSource {
                     features = vectorSource.features(sourceLayerIdentifiers: sourceLayerId, predicate: filterExpression)
-                } else if let shapeSource = source as? MGLShapeSource {
+                } else if let shapeSource = source as? MLNShapeSource {
                     features = shapeSource.features(matching: filterExpression)
                 }
             }
@@ -804,7 +798,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
             guard let layer = style.layer(withIdentifier: layerId) else { return }
             
             var currentLayerFilter : String = ""
-            if let vectorLayer = layer as? MGLVectorStyleLayer {
+            if let vectorLayer = layer as? MLNVectorStyleLayer {
                 if let layerFilter = vectorLayer.predicate {
                     
                     let jsonExpression = layerFilter.mgl_jsonExpressionObject
@@ -857,14 +851,14 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         mapView.showsUserLocation = myLocationEnabled
     }
 
-    private func getCamera() -> MGLMapCamera? {
+    private func getCamera() -> MLNMapCamera? {
         return trackCameraPosition ? mapView.camera : nil
     }
 
     /*
      *  Scan layers from top to bottom and return the first matching feature
      */
-    private func firstFeatureOnLayers(at: CGPoint) -> MGLFeature? {
+    private func firstFeatureOnLayers(at: CGPoint) -> MLNFeature? {
         guard let style = mapView.style else { return nil }
 
         // get layers in order (interactiveFeatureLayerIds is unordered)
@@ -1000,7 +994,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
      * Override the attribution button's click target to handle the event locally.
      * Called if the application supplies an onAttributionClick handler.
      */
-    func setupAttribution(_ mapView: MGLMapView) {
+    func setupAttribution(_ mapView: MLNMapView) {
         mapView.attributionButton.removeTarget(
             mapView,
             action: #selector(mapView.showAttribution),
@@ -1022,9 +1016,9 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
     } */
 
     /*
-     *  MGLMapViewDelegate
+     *  MLNMapViewDelegate
      */
-    func mapView(_ mapView: MGLMapView, didFinishLoading _: MGLStyle) {
+    func mapView(_ mapView: MLNMapView, didFinishLoading _: MLNStyle) {
         isMapReady = true
         updateMyLocationEnabled()
 
@@ -1051,19 +1045,19 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         }
     }
     
-    func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
+    func mapViewDidFinishRenderingMap(_ mapView: MLNMapView, fullyRendered: Bool) {
         if let channel = channel {
             channel.invokeMethod("map#onMapRendered", arguments: nil)
         }
     }
 
     // handle missing images
-    func mapView(_: MGLMapView, didFailToLoadImage name: String) -> UIImage? {
+    func mapView(_: MLNMapView, didFailToLoadImage name: String) -> UIImage? {
         return loadIconImage(name: name)
     }
 
-    func mapView(_ mapView: MGLMapView, shouldChangeFrom _: MGLMapCamera,
-                 to newCamera: MGLMapCamera) -> Bool
+    func mapView(_ mapView: MLNMapView, shouldChangeFrom _: MLNMapCamera,
+                 to newCamera: MLNMapCamera) -> Bool
     {
         guard let bbox = cameraTargetBounds else { return true }
 
@@ -1081,14 +1075,14 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         mapView.camera = currentCamera
 
         // Test if the newCameraCenter and newVisibleCoordinates are inside bbox.
-        let inside = MGLCoordinateInCoordinateBounds(newCameraCenter, bbox)
-        let intersects = MGLCoordinateInCoordinateBounds(newVisibleCoordinates.ne, bbox) &&
-            MGLCoordinateInCoordinateBounds(newVisibleCoordinates.sw, bbox)
+        let inside = MLNCoordinateInCoordinateBounds(newCameraCenter, bbox)
+        let intersects = MLNCoordinateInCoordinateBounds(newVisibleCoordinates.ne, bbox) &&
+            MLNCoordinateInCoordinateBounds(newVisibleCoordinates.sw, bbox)
 
         return inside && intersects
     }
 
-    func mapView(_: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
+    func mapView(_: MLNMapView, didUpdate userLocation: MLNUserLocation?) {
         if let channel = channel, let userLocation = userLocation,
            let location = userLocation.location
         {
@@ -1098,8 +1092,17 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
             ])
         }
     }
+    func mapView(_ mapView: MLNMapView, viewFor annotation: MLNAnnotation) -> MLNAnnotationView? {
+            // Substitute our custom view for the user location annotation. This custom view is defined below.
+            if annotation is MLNUserLocation && mapView.userLocation != nil {
+                return CustomUserLocationAnnotationView()
+//                return nil
+            }
+            return nil
+        }
+    
 
-    func mapView(_: MGLMapView, didChange mode: MGLUserTrackingMode, animated _: Bool) {
+    func mapView(_: MLNMapView, didChange mode: MLNUserTrackingMode, animated _: Bool) {
         if let channel = channel {
             channel.invokeMethod("map#onCameraTrackingChanged", arguments: ["mode": mode.rawValue])
             if mode == .none {
@@ -1121,7 +1124,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
     ) -> Result<Void, MethodCallError> {
         if let style = mapView.style {
             if let source = style.source(withIdentifier: sourceId) {
-                let layer = MGLSymbolStyleLayer(identifier: layerId, source: source)
+                let layer = MLNSymbolStyleLayer(identifier: layerId, source: source)
                 LayerPropertyConverter.addSymbolProperties(
                     symbolLayer: layer,
                     properties: properties
@@ -1166,7 +1169,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
     ) -> Result<Void, MethodCallError> {
         if let style = mapView.style {
             if let source = style.source(withIdentifier: sourceId) {
-                let layer = MGLLineStyleLayer(identifier: layerId, source: source)
+                let layer = MLNLineStyleLayer(identifier: layerId, source: source)
                 LayerPropertyConverter.addLineProperties(lineLayer: layer, properties: properties)
                 if let sourceLayerIdentifier = sourceLayerIdentifier {
                     layer.sourceLayerIdentifier = sourceLayerIdentifier
@@ -1185,7 +1188,12 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
                 if let id = belowLayerId, let belowLayer = style.layer(withIdentifier: id) {
                     style.insertLayer(layer, below: belowLayer)
                 } else {
-                    style.addLayer(layer)
+                    if let layerId = style.layer(withIdentifier: "vmadmin_province"){
+                        
+                        style.insertLayer(layer, below: layerId)
+                    }else{
+                        style.addLayer(layer)
+                    }
                 }
                 if enableInteraction {
                     interactiveFeatureLayerIds.insert(layerId)
@@ -1208,7 +1216,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
     ) -> Result<Void, MethodCallError> {
         if let style = mapView.style {
             if let source = style.source(withIdentifier: sourceId) {
-                let layer = MGLFillStyleLayer(identifier: layerId, source: source)
+                let layer = MLNFillStyleLayer(identifier: layerId, source: source)
                 LayerPropertyConverter.addFillProperties(fillLayer: layer, properties: properties)
                 if let sourceLayerIdentifier = sourceLayerIdentifier {
                     layer.sourceLayerIdentifier = sourceLayerIdentifier
@@ -1250,7 +1258,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
     ) -> Result<Void, MethodCallError> {
         if let style = mapView.style {
             if let source = style.source(withIdentifier: sourceId) {
-                let layer = MGLCircleStyleLayer(identifier: layerId, source: source)
+                let layer = MLNCircleStyleLayer(identifier: layerId, source: source)
                 LayerPropertyConverter.addCircleProperties(
                     circleLayer: layer,
                     properties: properties
@@ -1282,7 +1290,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         return .success(())
     }
 
-    func setFilter(_ layer: MGLStyleLayer, _ filter: String) -> Result<Void, MethodCallError> {
+    func setFilter(_ layer: MLNStyleLayer, _ filter: String) -> Result<Void, MethodCallError> {
         do {
             let filter = try JSONSerialization.jsonObject(
                 with: filter.data(using: .utf8)!,
@@ -1292,7 +1300,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
                 return .success(())
             }
             let predicate = NSPredicate(mglJSONObject: filter)
-            if let layer = layer as? MGLVectorStyleLayer {
+            if let layer = layer as? MLNVectorStyleLayer {
                 layer.predicate = predicate
             } else {
                 return .failure(MethodCallError.invalidLayerType(
@@ -1315,7 +1323,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
     ) {
         if let style = mapView.style {
             if let source = style.source(withIdentifier: sourceId) {
-                let layer = MGLHillshadeStyleLayer(identifier: layerId, source: source)
+                let layer = MLNHillshadeStyleLayer(identifier: layerId, source: source)
                 LayerPropertyConverter.addHillshadeProperties(
                     hillshadeLayer: layer,
                     properties: properties
@@ -1345,7 +1353,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
     ) {
         if let style = mapView.style {
             if let source = style.source(withIdentifier: sourceId) {
-                let layer = MGLRasterStyleLayer(identifier: layerId, source: source)
+                let layer = MLNRasterStyleLayer(identifier: layerId, source: source)
                 LayerPropertyConverter.addRasterProperties(
                     rasterLayer: layer,
                     properties: properties
@@ -1367,7 +1375,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
 
     func addSource(sourceId: String, properties: [String: Any]) {
         if let style = mapView.style, let type = properties["type"] as? String {
-            var source: MGLSource?
+            var source: MLNSource?
 
             switch type {
             case "vector":
@@ -1405,19 +1413,19 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         }
     }
 
-    func mapViewDidBecomeIdle(_: MGLMapView) {
+    func mapViewDidBecomeIdle(_: MLNMapView) {
         if let channel = channel {
             channel.invokeMethod("map#onIdle", arguments: [])
         }
     }
 
-    func mapView(_: MGLMapView, regionWillChangeAnimated _: Bool) {
+    func mapView(_: MLNMapView, regionWillChangeAnimated _: Bool) {
         if let channel = channel {
             channel.invokeMethod("camera#onMoveStarted", arguments: [])
         }
     }
 
-    func mapViewRegionIsChanging(_ mapView: MGLMapView) {
+    func mapViewRegionIsChanging(_ mapView: MLNMapView) {
         if !trackCameraPosition { return }
         if let channel = channel {
             channel.invokeMethod("camera#onMove", arguments: [
@@ -1426,7 +1434,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         }
     }
 
-    func mapView(_ mapView: MGLMapView, regionDidChangeAnimated _: Bool) {
+    func mapView(_ mapView: MLNMapView, regionDidChangeAnimated _: Bool) {
         let arguments = trackCameraPosition ? [
             "position": getCamera()?.toDict(mapView: mapView)
         ] : [:]
@@ -1437,11 +1445,11 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
 
     func addSourceGeojson(sourceId: String, geojson: String) {
         do {
-            let parsed = try MGLShape(
+            let parsed = try MLNShape(
                 data: geojson.data(using: .utf8)!,
                 encoding: String.Encoding.utf8.rawValue
             )
-            let source = MGLShapeSource(identifier: sourceId, shape: parsed, options: [:])
+            let source = MLNShapeSource(identifier: sourceId, shape: parsed, options: [:])
             addedShapesByLayer[sourceId] = parsed
             mapView.style?.addSource(source)
             // print(source)
@@ -1450,11 +1458,11 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
 
     func setSource(sourceId: String, geojson: String) {
         do {
-            let parsed = try MGLShape(
+            let parsed = try MLNShape(
                 data: geojson.data(using: .utf8)!,
                 encoding: String.Encoding.utf8.rawValue
             )
-            if let source = mapView.style?.source(withIdentifier: sourceId) as? MGLShapeSource {
+            if let source = mapView.style?.source(withIdentifier: sourceId) as? MLNShapeSource {
                 addedShapesByLayer[sourceId] = parsed
                 source.shape = parsed
             }
@@ -1463,13 +1471,13 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
 
     func setFeature(sourceId: String, geojsonFeature: String) {
         do {
-            let newShape = try MGLShape(
+            let newShape = try MLNShape(
                 data: geojsonFeature.data(using: .utf8)!,
                 encoding: String.Encoding.utf8.rawValue
             )
-            if let source = mapView.style?.source(withIdentifier: sourceId) as? MGLShapeSource,
-               let shape = addedShapesByLayer[sourceId] as? MGLShapeCollectionFeature,
-               let feature = newShape as? MGLShape & MGLFeature
+            if let source = mapView.style?.source(withIdentifier: sourceId) as? MLNShapeSource,
+               let shape = addedShapesByLayer[sourceId] as? MLNShapeCollectionFeature,
+               let feature = newShape as? MLNShape & MLNFeature
             {
                 if let index = shape.shapes
                     .firstIndex(where: {
@@ -1486,7 +1494,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
                     var shapes = shape.shapes
                     shapes[index] = feature
 
-                    source.shape = MGLShapeCollectionFeature(shapes: shapes)
+                    source.shape = MLNShapeCollectionFeature(shapes: shapes)
                 }
 
                 addedShapesByLayer[sourceId] = source.shape
@@ -1498,7 +1506,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
     /*
      *  MapboxMapOptionsSink
      */
-    func setCameraTargetBounds(bounds: MGLCoordinateBounds?) {
+    func setCameraTargetBounds(bounds: MLNCoordinateBounds?) {
         cameraTargetBounds = bounds
     }
 
@@ -1573,8 +1581,9 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         updateMyLocationEnabled()
     }
 
-    func setMyLocationTrackingMode(myLocationTrackingMode: MGLUserTrackingMode) {
+    func setMyLocationTrackingMode(myLocationTrackingMode: MLNUserTrackingMode) {
         mapView.userTrackingMode = myLocationTrackingMode
+        
     }
 
     func setMyLocationRenderMode(myLocationRenderMode: MyLocationRenderMode) {
@@ -1592,9 +1601,17 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         mapView.logoViewMargins = CGPoint(x: x, y: y)
     }
 
-    func setCompassViewPosition(position: MGLOrnamentPosition) {
+    func setCompassViewPosition(position: MLNOrnamentPosition) {
         mapView.compassViewPosition = position
     }
+    
+//    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+//           // Substitute our custom view for the user location annotation. This custom view is defined below.
+//           if annotation is MGLUserLocation && mapView.userLocation != nil {
+//               return CustomUserLocationAnnotationView()
+//           }
+//           return nil
+//       }
 
     func setCompassViewMargins(x: Double, y: Double) {
         mapView.compassViewMargins = CGPoint(x: x, y: y)
@@ -1604,7 +1621,7 @@ class VietmapMapController: NSObject, FlutterPlatformView, MGLMapViewDelegate, V
         mapView.attributionButtonMargins = CGPoint(x: x, y: y)
     }
 
-    func setAttributionButtonPosition(position: MGLOrnamentPosition) {
+    func setAttributionButtonPosition(position: MLNOrnamentPosition) {
         mapView.attributionButtonPosition = position
     }
 }
@@ -1613,5 +1630,94 @@ extension String {
     func deletingPrefix(_ prefix: String) -> String {
         guard self.hasPrefix(prefix) else { return self }
         return String(self.dropFirst(prefix.count))
+    }
+}
+
+
+// Create a subclass of MGLUserLocationAnnotationView.
+class CustomUserLocationAnnotationView: MLNUserLocationAnnotationView {
+    let size: CGFloat = 1
+    var dot: CALayer!
+    var arrow: CAShapeLayer!
+
+    // -update is a method inherited from MLNUserLocationAnnotationView. It updates the appearance of the user location annotation when needed. This can be called many times a second, so be careful to keep it lightweight.
+    override func update() {
+        if frame.isNull {
+            frame = CGRect(x: 0, y: 0, width: size, height: size)
+            return setNeedsLayout()
+        }
+
+        // Check whether we have the user’s location yet.
+        if CLLocationCoordinate2DIsValid(userLocation!.coordinate) {
+            setupLayers()
+            updateHeading()
+        }
+    }
+
+    private func updateHeading() {
+        // Show the heading arrow, if the heading of the user is available.
+        if let heading = userLocation!.heading?.trueHeading {
+            arrow.isHidden = false
+
+            // Get the difference between the map’s current direction and the user’s heading, then convert it from degrees to radians.
+            let rotation: CGFloat = -MLNRadiansFromDegrees(mapView!.direction - heading)
+
+            // If the difference would be perceptible, rotate the arrow.
+            if abs(rotation) > 0.01 {
+                // Disable implicit animations of this rotation, which reduces lag between changes.
+                CATransaction.begin()
+                CATransaction.setDisableActions(true)
+                arrow.setAffineTransform(CGAffineTransform.identity.rotated(by: rotation))
+                CATransaction.commit()
+            }
+        } else {
+            arrow.isHidden = true
+        }
+    }
+
+    private func setupLayers() {
+        // This dot forms the base of the annotation.
+        if dot == nil {
+            dot = CALayer()
+            dot.bounds = CGRect(x: 0, y: 0, width: size, height: size)
+
+            // Use CALayer’s corner radius to turn this layer into a circle.
+            dot.cornerRadius = size / 2
+            dot.backgroundColor = super.tintColor.cgColor
+            dot.borderWidth = 0
+            dot.borderColor = UIColor.white.cgColor
+            layer.addSublayer(dot)
+        }
+
+        // This arrow overlays the dot and is rotated with the user’s heading.
+        if arrow == nil {
+            arrow = CAShapeLayer()
+            arrow.path = arrowPath()
+            arrow.frame = CGRect(x: 0, y: 0, width: size / 2, height: size / 2)
+            arrow.position = CGPoint(x: dot.frame.midX, y: dot.frame.midY)
+            arrow.fillColor = dot.borderColor
+            layer.addSublayer(arrow)
+        }
+    }
+
+    // Calculate the vector path for an arrow, for use in a shape layer.
+    private func arrowPath() -> CGPath {
+        let max: CGFloat = size / 2
+        let pad: CGFloat = 3
+
+        let top =    CGPoint(x: max * 0.5, y: 0)
+        let left =   CGPoint(x: 0 + pad,   y: max - pad)
+        let right =  CGPoint(x: max - pad, y: max - pad)
+        let center = CGPoint(x: max * 0.5, y: max * 0.6)
+
+        let bezierPath = UIBezierPath()
+        bezierPath.move(to: top)
+        bezierPath.addLine(to: left)
+        bezierPath.addLine(to: center)
+        bezierPath.addLine(to: right)
+        bezierPath.addLine(to: top)
+        bezierPath.close()
+
+        return bezierPath.cgPath
     }
 }

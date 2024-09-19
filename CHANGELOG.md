@@ -1,3 +1,17 @@
+## 3.0.0, Sep 19, 2024
+* Fix `UserLocationLayer` icon not rotate on user tilt map.
+* Allow custom `UserLocationLayer` pulse color & opacity.
+* `Deprecated` default UserLocation icon, use `UserLocationLayer` instead.
+* Migrate to Metal renderer on iOS
+## 3.0.0-pre.5, Jul 23, 2024 
+* Fix `UserLocationLayer` icon not rotate on user tilt map.
+* Allow custom `UserLocationLayer` pulse color & opacity.
+## 3.0.0-pre.4, Jul 22, 2024
+* `Deprecated` default UserLocation icon, use `UserLocationLayer` instead.
+## 3.0.0-pre.2, Jun 18, 2024
+* Migrate to Metal renderer on iOS
+## 3.0.0-pre.1, Jun 16, 2024
+* Migrate to Metal renderer on iOS
 ## 2.2.1. Jun 10, 2024
 * Upgrade `vietmap_flutter_plugin` to version `0.3.1`
 ## 2.2.0, Jun 10, 2024

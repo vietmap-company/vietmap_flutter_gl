@@ -114,3 +114,4 @@ app.*.symbols
 !/dev/ci/**/Gemfile.lock
 google-java-format-1.13.0-all-deps.jar
 /gif/
+/example/build/

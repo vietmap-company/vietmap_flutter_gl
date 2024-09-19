@@ -12,9 +12,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 // import 'package:geolocator/geolocator.dart';
 
 import 'package:turf/turf.dart' as turf;
+import 'package:vietmap_flutter_gl/src/components/center_pulse.dart';
 import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
 
 export 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart'
@@ -79,7 +81,7 @@ part 'src/marker_model.dart';
 part 'src/static_marker_model.dart';
 
 part 'src/cluster_layer.dart';
-// part 'src/location_marker.dart';
+part 'src/user_location_layer.dart';
 
 part 'src/static_marker_layer.dart';
 

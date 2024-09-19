@@ -224,7 +224,8 @@ class VietmapGL extends StatefulWidget {
   /// * All currently requested tiles have loaded
   /// * All fade/transition animations have completed
   final OnMapIdleCallback? onMapIdle;
-  // This flag has no effect anymore and will be removed in the next major release.
+
+  /// This flag has no effect anymore and will be removed in the next major release.
   @deprecated
   final bool? useDelayedDisposal;
 

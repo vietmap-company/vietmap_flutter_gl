@@ -39,7 +39,7 @@ class LocalStyleState extends State<LocalStyle> {
 
       await new Directory(stylesDir).create(recursive: true);
 
-      File styleFile = new File('$stylesDir/style.json');
+      File styleFile = new File('$stylesDir/color_tiles.json');
 
       await styleFile.writeAsString(styleJSON);
 
@@ -63,7 +63,7 @@ class LocalStyleState extends State<LocalStyle> {
 
     return new Scaffold(
         body: VietmapGL(
-      styleString: YOUR_STYLE_URL_HERE,
+      styleString: styleAbsoluteFilePath!,
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0)),
       onStyleLoadedCallback: onStyleLoadedCallback,

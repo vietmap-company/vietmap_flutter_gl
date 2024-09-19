@@ -100,6 +100,7 @@ class RouteSimulator {
 
   get getAnimationController => _animationController;
 
+  /// this function is deprecated and will be removed in the future,
   /// use `addV2Listener` instead
   @deprecated
   void addListener(void Function(LatLng?, int?, double?)? listener) {

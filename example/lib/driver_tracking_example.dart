@@ -1,7 +1,8 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:vietmap_gl_example/page.dart';
 import 'package:vietmap_gl_platform_interface/vietmap_gl_platform_interface.dart';
@@ -35,12 +36,37 @@ class _DriverTrackingState extends State<DriverTracking>
   LatLng? _driverLatLng = LatLng(10.757549832396515, 106.65865699447431);
   double _driverBearing = 0;
   RouteSimulator? routeSimulator;
-
+  LatLng? lastDriverLocation;
   @override
   void initState() {
     Vietmap.getInstance('YOUR_API_KEY_HERE');
-
+    _startListenGPS();
     super.initState();
+  }
+
+  _startListenGPS() async {
+    final LocationSettings locationSettings = LocationSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 1,
+    );
+    var bearing = 0.0;
+    StreamSubscription<Position> positionStream =
+        Geolocator.getPositionStream(locationSettings: locationSettings)
+            .listen((Position? position) {
+      if (lastDriverLocation != null) {
+        bearing = VietmapPolyline.calculateFinalBearing(lastDriverLocation!,
+            LatLng(position!.latitude, position.longitude));
+      }
+      LatLng driverLocation = LatLng(position!.latitude, position.longitude);
+      _updateDriverLocation(bearing, driverLocation);
+      lastDriverLocation = driverLocation;
+      if (vietmapController != null) {
+        vietmapController?.moveCamera(CameraUpdate.newLatLng(driverLocation));
+      }
+      print(position == null
+          ? 'Unknown'
+          : '${position.latitude.toString()}, ${position.longitude.toString()}');
+    });
   }
 
   @override
@@ -168,6 +194,13 @@ class _DriverTrackingState extends State<DriverTracking>
       // NOTE: - Notify the customer here
       log(distanceRemaining.toString());
       log('Alert for the customer to prepare for the delivery');
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                title: Text('Alert'),
+                content:
+                    Text('Alert for the customer to prepare for the delivery'),
+              ));
       routeSimulator?.stop();
     }
   }

@@ -10,6 +10,7 @@ class MarkerWidget extends StatefulWidget {
   final Alignment alignment;
   final double angle;
   final Offset? rotateOrigin;
+  final double tiltRotate;
   MarkerWidget(
       {required String key,
       required this.coordinate,
@@ -17,6 +18,7 @@ class MarkerWidget extends StatefulWidget {
       required this.addMarkerState,
       required this.child,
       this.angle = 0,
+      this.tiltRotate = 0,
       required this.width,
       this.rotateOrigin,
       this.alignment = Alignment.center,
@@ -31,7 +33,7 @@ class MarkerWidget extends StatefulWidget {
   }
 }
 
-class MarkerState extends State with TickerProviderStateMixin {
+class MarkerState extends State {
   Point _position;
   double _angle;
   MarkerState(this._position, this._angle);
@@ -91,10 +93,13 @@ class MarkerState extends State with TickerProviderStateMixin {
     return Positioned(
         left: _position.x / ratio - _leftPosition,
         top: _position.y / ratio - _topPosition,
-        child: Transform.rotate(
+        child: Transform(
             alignment: (widget as MarkerWidget).alignment,
             origin: (widget as MarkerWidget).rotateOrigin,
-            angle: _angle,
+            transform: Matrix4.rotationX(
+                (widget as MarkerWidget).tiltRotate * pi / 180)
+              ..rotateY(0)
+              ..rotateZ(_angle),
             child: getChild()));
   }
 

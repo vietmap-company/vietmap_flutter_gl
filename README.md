@@ -1,13 +1,7 @@
 # Vietmap Flutter GL - Flutter map SDK
 [<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://bit.ly/vietmap-api)
 
-### Troubleshooting with new simulator version
 [![Flutter CI](https://github.com/vietmap-company/vietmap_flutter_gl/actions/workflows/flutter_ci.yml/badge.svg)](https://github.com/vietmap-company/vietmap_flutter_gl/actions/workflows/flutter_ci.yml)
-
-```
-The new update of the simulator run on iOS 17.4 will not run normally with our SDK. 
-Please use another version of the simulator or a real device to build and test the SDK.
-```
 
 Contact [vietmap.vn](https://bit.ly/vietmap-api) to register a valid key.
 
@@ -269,6 +263,46 @@ It sets a callback that's invoked when the user clicks on the map:
             latLng: LatLng(10.736657, 106.672240)),
           ]),
   ])
+```
+
+
+### Show User Location
+- To show the user's location on the map, you need to enable the `myLocationEnabled` property in the `VietmapGL` widget.
+```dart
+  myLocationEnabled: true,
+  myLocationTrackingMode: MyLocationTrackingMode.TrackingCompass,
+  myLocationRenderMode: MyLocationRenderMode.COMPASS,
+```
+
+- Custom user location icon as below:
+
+The bearing icon is the icon that shows the direction of the user's location, you can customize it with the `bearingIcon` property.
+
+Add the below code to the `Stack` which contains the `VietmapGL` and other `MarkerLayer` widgets to show the user's location on the map.
+```dart
+  _mapController == null
+    ? SizedBox.shrink()
+    : UserLocationLayer(
+        mapController: _mapController!,
+        locationIcon: Icon(
+          Icons.circle,
+          color: Colors.blue,
+          size: 50,
+        ),
+        bearingIcon: Container(
+          width: 30,
+          height: 30,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle, color: Colors.white),
+          child: Icon(
+            Icons.arrow_upward,
+            color: Colors.red,
+            size: 15,
+          ),
+        ),
+        ignorePointer: true,
+      ),
 ```
 
 #### Note: You must enable `trackCameraPosition: true`, at _VietmapGL, which ensures the MarkerLayer renders normally 

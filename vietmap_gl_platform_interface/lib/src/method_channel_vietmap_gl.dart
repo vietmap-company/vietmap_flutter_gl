@@ -347,8 +347,11 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
   @override
   Future<LatLng> requestMyLocationLatLng() async {
     try {
-      final Map<dynamic, dynamic> reply = await _channel.invokeMethod(
+      final Map<dynamic, dynamic>? reply = await _channel.invokeMethod(
           'locationComponent#getLastLocation', null);
+      if (reply == null) {
+        return Future.error('No location available');
+      }
       double latitude = 0.0, longitude = 0.0;
       if (reply.containsKey('latitude') && reply['latitude'] != null) {
         latitude = double.parse(reply['latitude'].toString());
