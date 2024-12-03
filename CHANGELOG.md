@@ -1,3 +1,7 @@
+## 3.1.1, Nov 20, 2024
+* Update namespace for android plugin
+## 3.1.0-pre.1, Oct 14, 2024
+* Update `ClusterLayer` to support custom cluster icon with custom cluster widget
 ## 3.0.0, Sep 19, 2024
 * Refactor `==` operator override 
 * Fix `UserLocationLayer` icon not rotate on user tilt map.

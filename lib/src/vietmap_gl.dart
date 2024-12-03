@@ -462,6 +462,7 @@ class _VietmapOptions {
     addIfNonNull('tiltGesturesEnabled', tiltGesturesEnabled);
     addIfNonNull('zoomGesturesEnabled', zoomGesturesEnabled);
     addIfNonNull('doubleClickZoomEnabled', doubleClickZoomEnabled);
+    addIfNonNull('quickZoomEnabled', doubleClickZoomEnabled);
 
     addIfNonNull('trackCameraPosition', trackCameraPosition);
     addIfNonNull('myLocationEnabled', myLocationEnabled);

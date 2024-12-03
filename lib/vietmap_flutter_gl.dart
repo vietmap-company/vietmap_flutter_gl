@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:supercluster/supercluster.dart';
 // import 'package:geolocator/geolocator.dart';
 
 import 'package:turf/turf.dart' as turf;

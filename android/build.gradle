@@ -23,6 +23,8 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
+
+    namespace "vn.vietmap.vietmapgl"
     compileSdk 34
     ndkVersion "20.1.5948944"
 

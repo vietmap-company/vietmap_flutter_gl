@@ -12,8 +12,8 @@ import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'page.dart';
 
 final LatLngBounds sydneyBounds = LatLngBounds(
-  southwest: const LatLng(-34.022631, 150.620685),
-  northeast: const LatLng(-33.571835, 151.325952),
+  southwest: const LatLng(21.37726, 103.00711),
+  northeast: const LatLng(21.3887, 103.01707),
 );
 
 class MapUiPage extends ExamplePage {
@@ -152,6 +152,9 @@ class MapUiBodyState extends State<MapUiBody> {
       ),
       onPressed: () {
         setState(() {
+          mapController!.animateCamera(
+            CameraUpdate.newLatLngBounds(sydneyBounds),
+          );
           _cameraTargetBounds = _cameraTargetBounds.bounds == null
               ? CameraTargetBounds(sydneyBounds)
               : CameraTargetBounds.unbounded;

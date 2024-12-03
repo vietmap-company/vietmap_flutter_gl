@@ -5,6 +5,7 @@
 package vn.vietmap.vietmapgl;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import vn.vietmap.vietmapsdk.camera.CameraPosition;
 import vn.vietmap.vietmapsdk.geometry.LatLngBounds;
@@ -17,6 +18,7 @@ class VietmapGLBuilder implements VietmapGLOptionsSink {
       new VietMapGLOptions().attributionEnabled(true).logoEnabled(true).textureMode(true);
   private boolean trackCameraPosition = false;
   private boolean myLocationEnabled = false;
+  private boolean quickZoomGesturesEnabled = true;
   private boolean dragEnabled = true;
   private int myLocationTrackingMode = 0;
   private int myLocationRenderMode = 0;
@@ -36,7 +38,7 @@ class VietmapGLBuilder implements VietmapGLOptionsSink {
     controller.setMyLocationTrackingMode(myLocationTrackingMode);
     controller.setMyLocationRenderMode(myLocationRenderMode);
     controller.setTrackCameraPosition(trackCameraPosition);
-
+//    controller.setQuickZoomGesturesEnabled(quickZoomGesturesEnabled);
     if (null != bounds) {
       controller.setCameraTargetBounds(bounds);
     }
@@ -52,6 +54,13 @@ class VietmapGLBuilder implements VietmapGLOptionsSink {
   public void setCompassEnabled(boolean compassEnabled) {
     options.compassEnabled(compassEnabled);
   }
+
+  @Override
+    public void setQuickZoomGesturesEnabled(boolean quickZoomGesturesEnabled) {
+    Log.d("Compass Disabled", "setQuickZoomGesturesEnabled: " + quickZoomGesturesEnabled);
+        options.quickZoomGesturesEnabled(quickZoomGesturesEnabled);
+        this.quickZoomGesturesEnabled = quickZoomGesturesEnabled;
+    }
 
   @Override
   public void setCameraTargetBounds(LatLngBounds bounds) {

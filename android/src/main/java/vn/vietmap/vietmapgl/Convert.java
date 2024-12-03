@@ -217,6 +217,10 @@ class Convert {
     if (compassEnabled != null) {
       sink.setCompassEnabled(toBoolean(compassEnabled));
     }
+    final Object quickZoomEnabled = data.get("quickZoomEnabled");
+    if (quickZoomEnabled != null) {
+      sink.setQuickZoomGesturesEnabled(toBoolean(quickZoomEnabled));
+    }
     final Object styleString = data.get("styleString");
     if (styleString != null) {
       sink.setStyleString(toString(styleString));

@@ -24,6 +24,8 @@ interface VietmapGLOptionsSink {
 
   void setTiltGesturesEnabled(boolean tiltGesturesEnabled);
 
+  void setQuickZoomGesturesEnabled(boolean quickZoomGesturesEnabled);
+
   void setTrackCameraPosition(boolean trackCameraPosition);
 
   void setZoomGesturesEnabled(boolean zoomGesturesEnabled);

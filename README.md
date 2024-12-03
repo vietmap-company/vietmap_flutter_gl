@@ -196,6 +196,7 @@ It sets a callback that's invoked when the user clicks on the map:
 <div style="width:100%; text-align:center" >
   <img src="https://github.com/vietmap-company/flutter-map-sdk/raw/main/gif/marker_demo.gif" alt="drawing" width="400"/>
 </div> 
+
 ### Add a simple marker (Marked a point in the map with a custom widget, the marker will not rotate when the map rotates)
 - The marker support anchor with input is an alignment, which requires width and height to calculate the position of the marker, the default for both of them is 20
 - Make sure the `width and height of the marker match with its child's` width and height to the marker display exactly
@@ -264,7 +265,64 @@ It sets a callback that's invoked when the user clicks on the map:
           ]),
   ])
 ```
-
+### Cluster Marker (Group multiple markers into a single marker)
+- The cluster marker will group multiple markers into a single marker when they are close to each other, and the number of markers is define in the `customClusterWidget` value.
+- The cluster marker will show the number of markers inside it, and you can customize the cluster marker with the `customClusterWidget` value. The key of the `customClusterWidget` is the number of markers inside the cluster marker, and the value is the widget that you want to show. It will find the nearest (round down) number of markers inside the cluster marker to show the widget. You should provide the widget for the number of markers from the smallest  (2 is the smallest).
+```dart
+  ClusterLayer(
+      customClusterWidget: {
+        5: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.red,
+            shape: BoxShape.circle,
+          ),
+          alignment: Alignment.center,
+        ),
+        3: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.green,
+            shape: BoxShape.circle,
+          ),
+          alignment: Alignment.center,
+        ),
+        2: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            shape: BoxShape.circle,
+          ),
+          alignment: Alignment.center,
+        )
+      },
+      ignorePointer: true,
+      clusterTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+      ),
+      mapController: _mapController!,
+      markers: [
+        Marker(
+            width: 50,
+            height: 50,
+            child: Icon(Icons.arrow_upward_rounded),
+            latLng: LatLng(10.759305, 106.675912)),
+        Marker(
+            width: 50,
+            height: 50,
+            child: Icon(Icons.arrow_upward_rounded),
+            latLng: LatLng(10.769305, 106.685912)),
+        Marker(
+            width: 50,
+            height: 50,
+            child: Icon(Icons.arrow_upward_rounded),
+            latLng: LatLng(10.749305, 106.665912)), 
+      ]),
+```
 
 ### Show User Location
 - To show the user's location on the map, you need to enable the `myLocationEnabled` property in the `VietmapGL` widget.

@@ -221,7 +221,7 @@ class VietmapController extends ChangeNotifier {
   /// The current set of symbols on this map.
   ///
   /// The returned set will be a detached snapshot of the symbols collection.
-  Set<Symbol> get symbols => symbolManager!.annotations;
+  Set<Symbol> get symbols => symbolManager?.annotations ?? Set<Symbol>();
 
   /// Callbacks to receive tap events for lines placed on this map.
   final ArgumentCallbacks<Line> onPolylineTapped = ArgumentCallbacks<Line>();
@@ -229,17 +229,17 @@ class VietmapController extends ChangeNotifier {
   /// The current set of lines on this map.
   ///
   /// The returned set will be a detached snapshot of the lines collection.
-  Set<Line> get polylines => polylineManager!.annotations;
+  Set<Line> get polylines => polylineManager?.annotations ?? new Set<Line>();
 
   /// The current set of circles on this map.
   ///
   /// The returned set will be a detached snapshot of the circles collection.
-  Set<Circle> get circles => circleManager!.annotations;
+  Set<Circle> get circles => circleManager?.annotations ?? Set<Circle>();
 
   /// The current set of fills on this map.
   ///
   /// The returned set will be a detached snapshot of the fills collection.
-  Set<Polygon> get polygons => polygonManager!.annotations;
+  Set<Polygon> get polygons => polygonManager?.annotations ?? Set<Polygon>();
 
   /// True if the map camera is currently moving.
   bool get isCameraMoving => _isCameraMoving;
@@ -686,7 +686,7 @@ class VietmapController extends ChangeNotifier {
   Future<Symbol> addSymbol(SymbolOptions options, [Map? data]) async {
     final effectiveOptions = SymbolOptions.defaultOptions.copyWith(options);
     final symbol = Symbol(getRandomString(), effectiveOptions, data);
-    await symbolManager!.add(symbol);
+    await symbolManager?.add(symbol);
     notifyListeners();
     return symbol;
   }
@@ -706,7 +706,7 @@ class VietmapController extends ChangeNotifier {
         Symbol(getRandomString(),
             SymbolOptions.defaultOptions.copyWith(options[i]), data?[i])
     ];
-    await symbolManager!.addAll(symbols);
+    await symbolManager?.addAll(symbols);
 
     notifyListeners();
     return symbols;
@@ -720,8 +720,8 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> updateSymbol(Symbol symbol, SymbolOptions changes) async {
-    await symbolManager!
-        .set(symbol..options = symbol.options.copyWith(changes));
+    await symbolManager
+        ?.set(symbol..options = symbol.options.copyWith(changes));
 
     notifyListeners();
   }
@@ -730,6 +730,9 @@ class VietmapController extends ChangeNotifier {
   /// This may be different from the value of `symbol.options.geometry` if the symbol is draggable.
   /// In that case this method provides the symbol's actual position, and `symbol.options.geometry` the last programmatically set position.
   Future<LatLng> getSymbolLatLng(Symbol symbol) async {
+    if (symbol.options.geometry == null) {
+      return LatLng(0, 0);
+    }
     return symbol.options.geometry!;
   }
 
@@ -741,7 +744,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> removeSymbol(Symbol symbol) async {
-    await symbolManager!.remove(symbol);
+    await symbolManager?.remove(symbol);
     notifyListeners();
   }
 
@@ -753,7 +756,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> removeSymbols(Iterable<Symbol> symbols) async {
-    await symbolManager!.removeAll(symbols);
+    await symbolManager?.removeAll(symbols);
     notifyListeners();
   }
 
@@ -764,7 +767,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> clearSymbols() async {
-    symbolManager!.clear();
+    symbolManager?.clear();
     notifyListeners();
   }
 
@@ -778,7 +781,7 @@ class VietmapController extends ChangeNotifier {
   Future<Line> addPolyline(PolylineOptions options, [Map? data]) async {
     final effectiveOptions = PolylineOptions.defaultOptions.copyWith(options);
     final line = Line(getRandomString(), effectiveOptions, data);
-    await polylineManager!.add(line);
+    await polylineManager?.add(line);
     notifyListeners();
     return line;
   }
@@ -797,7 +800,7 @@ class VietmapController extends ChangeNotifier {
         Line(getRandomString(),
             PolylineOptions.defaultOptions.copyWith(options[i]), data?[i])
     ];
-    await polylineManager!.addAll(lines);
+    await polylineManager?.addAll(lines);
 
     notifyListeners();
     return lines;
@@ -812,7 +815,7 @@ class VietmapController extends ChangeNotifier {
   /// The returned [Future] completes once listeners have been notified.
   Future<void> updatePolyline(Line line, PolylineOptions changes) async {
     line.options = line.options.copyWith(changes);
-    await polylineManager!.set(line);
+    await polylineManager?.set(line);
     notifyListeners();
   }
 
@@ -820,6 +823,9 @@ class VietmapController extends ChangeNotifier {
   /// This may be different from the value of `line.options.geometry` if the line is draggable.
   /// In that case this method provides the line's actual position, and `line.options.geometry` the last programmatically set position.
   Future<List<LatLng>> getLineLatLngs(Line line) async {
+    if (line.options.geometry == null) {
+      return [];
+    }
     return line.options.geometry!;
   }
 
@@ -831,7 +837,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> removePolyline(Line line) async {
-    await polylineManager!.remove(line);
+    await polylineManager?.remove(line);
     notifyListeners();
   }
 
@@ -843,7 +849,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> removeLines(Iterable<Line> lines) async {
-    await polylineManager!.removeAll(lines);
+    await polylineManager?.removeAll(lines);
     notifyListeners();
   }
 
@@ -854,7 +860,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> clearLines() async {
-    await polylineManager!.clear();
+    await polylineManager?.clear();
     notifyListeners();
   }
 
@@ -869,7 +875,7 @@ class VietmapController extends ChangeNotifier {
     final CircleOptions effectiveOptions =
         CircleOptions.defaultOptions.copyWith(options);
     final circle = Circle(getRandomString(), effectiveOptions, data);
-    await circleManager!.add(circle);
+    await circleManager?.add(circle);
     notifyListeners();
     return circle;
   }
@@ -889,7 +895,7 @@ class VietmapController extends ChangeNotifier {
         Circle(getRandomString(),
             CircleOptions.defaultOptions.copyWith(options[i]), data?[i])
     ];
-    await circleManager!.addAll(cricles);
+    await circleManager?.addAll(cricles);
 
     notifyListeners();
     return cricles;
@@ -904,7 +910,7 @@ class VietmapController extends ChangeNotifier {
   /// The returned [Future] completes once listeners have been notified.
   Future<void> updateCircle(Circle circle, CircleOptions changes) async {
     circle.options = circle.options.copyWith(changes);
-    await circleManager!.set(circle);
+    await circleManager?.set(circle);
 
     notifyListeners();
   }
@@ -913,6 +919,9 @@ class VietmapController extends ChangeNotifier {
   /// This may be different from the value of `circle.options.geometry` if the circle is draggable.
   /// In that case this method provides the circle's actual position, and `circle.options.geometry` the last programmatically set position.
   Future<LatLng> getCircleLatLng(Circle circle) async {
+    if (circle.options.geometry == null) {
+      return LatLng(0, 0);
+    }
     return circle.options.geometry!;
   }
 
@@ -924,7 +933,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> removeCircle(Circle circle) async {
-    circleManager!.remove(circle);
+    circleManager?.remove(circle);
 
     notifyListeners();
   }
@@ -937,7 +946,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> removeCircles(Iterable<Circle> circles) async {
-    await circleManager!.removeAll(circles);
+    await circleManager?.removeAll(circles);
     notifyListeners();
   }
 
@@ -948,7 +957,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> clearCircles() async {
-    circleManager!.clear();
+    circleManager?.clear();
 
     notifyListeners();
   }
@@ -964,7 +973,7 @@ class VietmapController extends ChangeNotifier {
     final PolygonOptions effectiveOptions =
         PolygonOptions.defaultOptions.copyWith(options);
     final polygon = Polygon(getRandomString(), effectiveOptions, data);
-    await polygonManager!.add(polygon);
+    await polygonManager?.add(polygon);
     notifyListeners();
     return polygon;
   }
@@ -984,7 +993,7 @@ class VietmapController extends ChangeNotifier {
         Polygon(getRandomString(),
             PolygonOptions.defaultOptions.copyWith(options[i]), data?[i])
     ];
-    await polygonManager!.addAll(polygons);
+    await polygonManager?.addAll(polygons);
 
     notifyListeners();
     return polygons;
@@ -999,7 +1008,7 @@ class VietmapController extends ChangeNotifier {
   /// The returned [Future] completes once listeners have been notified.
   Future<void> updatePolygon(Polygon polygon, PolygonOptions changes) async {
     polygon.options = polygon.options.copyWith(changes);
-    await polygonManager!.set(polygon);
+    await polygonManager?.set(polygon);
 
     notifyListeners();
   }
@@ -1011,7 +1020,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> clearPolygons() async {
-    await polygonManager!.clear();
+    await polygonManager?.clear();
 
     notifyListeners();
   }
@@ -1024,7 +1033,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> removePolygon(Polygon polygon) async {
-    await polygonManager!.remove(polygon);
+    await polygonManager?.remove(polygon);
     notifyListeners();
   }
 
@@ -1036,7 +1045,7 @@ class VietmapController extends ChangeNotifier {
   ///
   /// The returned [Future] completes once listeners have been notified.
   Future<void> removePolygons(Iterable<Polygon> polygons) async {
-    await polygonManager!.removeAll(polygons);
+    await polygonManager?.removeAll(polygons);
     notifyListeners();
   }
 
