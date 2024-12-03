@@ -1665,6 +1665,11 @@ final class VietmapGLController
     }
 
     @Override
+    public void setQuickZoomGesturesEnabled(boolean quickZoomGesturesEnabled) {
+        vietmapGL.getUiSettings().setQuickZoomGesturesEnabled(quickZoomGesturesEnabled);
+    }
+
+    @Override
     public void setRotateGesturesEnabled(boolean rotateGesturesEnabled) {
         vietmapGL.getUiSettings().setRotateGesturesEnabled(rotateGesturesEnabled);
     }
