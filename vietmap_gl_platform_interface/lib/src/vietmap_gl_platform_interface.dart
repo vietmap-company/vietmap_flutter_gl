@@ -180,7 +180,7 @@ abstract class VietmapGlPlatform {
   Future<void> addSource(String sourceId, SourceProperties properties);
 
   Future<void> setLayerVisibility(String layerId, bool visible);
-
+  Future<void> updateUserLocationLayerIcon(bool isEnable);
   @mustCallSuper
   void dispose() {
     // clear all callbacks to avoid cyclic refs

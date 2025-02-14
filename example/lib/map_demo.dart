@@ -76,7 +76,7 @@ class _MapsDemoState extends State<MapsDemo> {
     if (!kIsWeb && Platform.isAndroid) {
       final androidInfo = await DeviceInfoPlugin().androidInfo;
       final sdkVersion = androidInfo.version.sdkInt;
-      if (sdkVersion != null && sdkVersion >= 29) {
+      if (sdkVersion >= 29) {
         VietmapGL.useHybridComposition = true;
       } else {
         VietmapGL.useHybridComposition = false;

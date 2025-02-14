@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
@@ -143,6 +144,7 @@ final class VietmapGLController
     private boolean dragEnabled = true;
     private MethodChannel.Result mapReadyResult;
     private LocationComponent locationComponent = null;
+    private boolean isCustomizeLocationMarker = true;
     private LocationEngine locationEngine = null;
     private LocationEngineCallback<LocationEngineResult> locationEngineCallback = null;
     private LocalizationPlugin localizationPlugin;
@@ -164,7 +166,6 @@ final class VietmapGLController
                 @Override
                 public void onStyleLoaded(@NonNull Style style) {
                     VietmapGLController.this.style = style;
-
                     // commented out while cherry-picking upstream956
                     // if (myLocationEnabled) {
                     //   if (hasLocationPermission()) {
@@ -176,17 +177,14 @@ final class VietmapGLController
 
                     locationEngine = locationEngineDefault.getDefaultLocationEngine(context);
 
-
                     if (null != bounds) {
                         vietmapGL.setLatLngBoundsForCameraTarget(bounds);
                     }
-
-
                     vietmapGL.addOnMapClickListener(VietmapGLController.this);
                     vietmapGL.addOnMapLongClickListener(VietmapGLController.this);
                     localizationPlugin = new LocalizationPlugin(mapView, vietmapGL, style);
-
                     updateMyLocationEnabled();
+                    Log.d(TAG, "onStyleLoaded");
                     methodChannel.invokeMethod("map#onStyleLoaded", null);
                 }
             };
@@ -241,6 +239,7 @@ final class VietmapGLController
 
     @Override
     public void onMapReady(VietMapGL vietmapGL) {
+        Log.d(TAG, "onMapReady:--------------------- ");
         this.vietmapGL = vietmapGL;
         if (mapReadyResult != null) {
             mapReadyResult.success(null);
@@ -292,12 +291,15 @@ final class VietmapGLController
 
     @Override
     public void setStyleString(String styleString) {
+        Log.d(TAG, "setStyleString is called-------------------------------");
         // clear old layer id from the location Component
         clearLocationComponentLayer();
         styleString = styleString.trim();
 
         // Check if json, url, absolute path or asset path:
         if (styleString == null || styleString.isEmpty()) {
+
+            vietmapGL.setStyle("");
             Log.e(TAG, "setStyleString - string empty or null");
         } else if (styleString.startsWith("{") || styleString.startsWith("[")) {
             vietmapGL.setStyle(new Style.Builder().fromJson(styleString), onStyleLoadedCallback);
@@ -319,12 +321,36 @@ final class VietmapGLController
 
     private void enableLocationComponent(@NonNull Style style) {
         if (hasLocationPermission()) {
+
+
             LocationComponentActivationOptions.Builder options = LocationComponentActivationOptions.builder(context, style);
 
             locationComponent = vietmapGL.getLocationComponent();
-
 //      locationComponent.activateLocationComponent(
 //              context, style, buildLocationComponentOptions(style));
+//            options.locationComponentOptions(buildLocationComponentOptions(style));
+            if(this.isCustomizeLocationMarker) {
+                final LocationComponentOptions.Builder optionsBuilder =
+                        LocationComponentOptions.builder(context);
+                optionsBuilder.backgroundDrawable(R.drawable.ic_action_name);
+                optionsBuilder.foregroundDrawable(R.drawable.ic_action_name);
+                optionsBuilder.bearingDrawable(R.drawable.ic_action_name);
+                optionsBuilder.gpsDrawable(R.drawable.ic_action_name);
+                optionsBuilder.backgroundDrawableStale(R.drawable.ic_action_name);
+                optionsBuilder.foregroundDrawableStale(R.drawable.ic_action_name);
+                optionsBuilder.pulseColor(Color.TRANSPARENT);
+                optionsBuilder.accuracyColor(Color.TRANSPARENT);
+                optionsBuilder.bearingTintColor(Color.TRANSPARENT);
+                optionsBuilder.backgroundStaleTintColor(Color.TRANSPARENT);
+                optionsBuilder.backgroundTintColor(Color.TRANSPARENT);
+                optionsBuilder.foregroundStaleTintColor(Color.TRANSPARENT);
+                optionsBuilder.foregroundTintColor(Color.TRANSPARENT);
+                optionsBuilder.elevation(0);
+                optionsBuilder.pulseAlpha(0);
+                optionsBuilder.accuracyAlpha(0);
+                options.locationComponentOptions(optionsBuilder.build());
+            }
+
             locationComponent.activateLocationComponent(options.build());
 
 
@@ -342,7 +368,7 @@ final class VietmapGLController
             }
 
             if (locationComponent != null) {
-//                locationComponent.setLocationComponentEnabled(myLocationEnabled);
+                locationComponent.setLocationComponentEnabled(myLocationEnabled);
             }
         } else {
             Log.e(TAG, "missing location permissions");
@@ -350,7 +376,8 @@ final class VietmapGLController
     }
 
     private void updateLocationComponentLayer() {
-        if (locationComponent != null && locationComponentRequiresUpdate()) {
+
+        if (locationComponent != null && locationComponent.isLocationComponentActivated() && locationComponentRequiresUpdate()) {
             locationComponent.applyStyle(buildLocationComponentOptions(style));
         }
     }
@@ -383,6 +410,10 @@ final class VietmapGLController
                 LocationComponentOptions.builder(context);
         optionsBuilder.trackingGesturesManagement(true);
 
+        optionsBuilder.backgroundDrawable(R.drawable.launch_background);
+        optionsBuilder.foregroundDrawable(R.drawable.launch_background);
+        optionsBuilder.bearingDrawable(R.drawable.launch_background);
+        optionsBuilder.gpsDrawable(R.drawable.launch_background);
 
 //        optionsBuilder.pulseColor(0xFF000000);
         final String lastLayerId = getLastLayerOnStyle(style);
@@ -672,7 +703,7 @@ final class VietmapGLController
 
     @Override
     public void onMethodCall(MethodCall call, MethodChannel.Result result) {
-
+        Log.d(TAG, "onMethodCall:--------------------- " + call.method);
         switch (call.method) {
             case "map#waitForMap":
                 if (vietmapGL != null) {
@@ -858,11 +889,23 @@ final class VietmapGLController
                 }
                 break;
             }
+            case "map#updateUserLocationLayerIcon":{
+                isCustomizeLocationMarker = call.argument("isEnable");
+
+                if (vietmapGL != null) {
+                    updateMyLocationEnabled();
+                }
+            }
             case "map#queryRenderedFeatures": {
                 Map<String, Object> reply = new HashMap<>();
                 List<Feature> features;
+                String[] layerIds = null;
+                if(call.argument("layerIds") != null) {
+                     layerIds = ((List<String>) call.argument("layerIds")).toArray(new String[0]);
+                }else{
+                    layerIds = new String[0];
+                }
 
-                String[] layerIds = ((List<String>) call.argument("layerIds")).toArray(new String[0]);
                 List<Object> filter = call.argument("filter");
                 JsonElement jsonElement = filter == null ? null : new Gson().toJsonTree(filter);
                 JsonArray jsonArray = null;
@@ -881,6 +924,9 @@ final class VietmapGLController
                     Double top = call.argument("top");
                     Double right = call.argument("right");
                     Double bottom = call.argument("bottom");
+                    if(left == null || top == null || right == null || bottom == null){
+                        return;
+                    }
                     RectF rectF =
                             new RectF(
                                     left.floatValue(), top.floatValue(), right.floatValue(), bottom.floatValue());
@@ -1597,8 +1643,9 @@ final class VietmapGLController
         if (disposed) {
             return;
         }
-
+        Log.d(TAG, "onCreate called--------------------------");
         mapView.onCreate(null);
+        mapView.setBackgroundColor(Color.WHITE);
     }
 
     @Override
@@ -1607,6 +1654,7 @@ final class VietmapGLController
             return;
         }
         mapView.onStart();
+        mapView.setBackgroundColor(Color.WHITE);
     }
 
     @Override
@@ -1616,6 +1664,7 @@ final class VietmapGLController
             return;
         }
         mapView.onResume();
+        mapView.setBackgroundColor(Color.WHITE);
         recenter();
         if (myLocationEnabled) {
             startListeningForLocationUpdates();
@@ -1892,6 +1941,7 @@ final class VietmapGLController
                         CameraMode.NONE, CameraMode.TRACKING, CameraMode.TRACKING_COMPASS, CameraMode.TRACKING_GPS
                 };
         locationComponent.setCameraMode(vietmapTrackingModes[this.myLocationTrackingMode]);
+
     }
 
     private void updateMyLocationRenderMode() {

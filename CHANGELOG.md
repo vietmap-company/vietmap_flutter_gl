@@ -1,3 +1,5 @@
+## 3.2.1, Feb 14, 2025
+* Fix black screen on first load map Android
 ## 3.1.1, Nov 20, 2024
 * Update namespace for android plugin
 ## 3.1.0-pre.1, Oct 14, 2024

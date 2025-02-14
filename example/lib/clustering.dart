@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:vietmap_gl_example/page.dart';
 
-
 const apiKey = "YOUR-API-KEY";
 
 class MapClusteringPage extends ExamplePage {
