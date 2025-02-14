@@ -4,7 +4,7 @@ on: [push, pull_request, workflow_dispatch]
 
 env:
   FLUTTER_CHANNEL: 'stable'
-  FLUTTER_VERSION: '3.13.9'
+  FLUTTER_VERSION: '3.24.0'
 
 jobs:
   format:
