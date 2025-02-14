@@ -156,6 +156,9 @@ class VietmapMapController: NSObject, FlutterPlatformView, MLNMapViewDelegate, V
                 setMyLocationTrackingMode(myLocationTrackingMode: trackingMode)
             }
             result(nil)
+        
+        case "map#updateUserLocationLayerIcon":
+            result(nil)
         case "map#matchMapLanguageWithDeviceDefault":
             if let style = mapView.style {
                 style.localizeLabels(into: nil)

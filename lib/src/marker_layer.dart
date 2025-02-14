@@ -41,6 +41,7 @@ class _MarkerLayerState extends State<MarkerLayer> {
     // print('-----------------------------------------------');
     // print(_mapController.cameraPosition?.bearing);
     // print('-----------------------------------------------');
+
     _mapController.toScreenLocationBatch(param).then((value) {
       if (value.isEmpty || widget.markers.isEmpty) {
       } else {

@@ -41,7 +41,7 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
     dependencies {
-        implementation 'com.github.vietmap-company:maps-sdk-android:2.6.0'
+        implementation 'com.github.vietmap-company:maps-sdk-android:3.3.0'
         implementation 'com.github.vietmap-company:maps-sdk-plugin-localization-android:2.0.0'
         implementation 'com.github.vietmap-company:vietmap-services-geojson-android:1.0.0'
         implementation 'com.github.vietmap-company:vietmap-services-turf-android:1.0.2'

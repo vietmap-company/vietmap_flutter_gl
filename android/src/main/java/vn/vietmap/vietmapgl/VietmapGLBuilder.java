@@ -5,6 +5,7 @@
 package vn.vietmap.vietmapgl;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import vn.vietmap.vietmapsdk.camera.CameraPosition;
@@ -15,7 +16,7 @@ import io.flutter.plugin.common.BinaryMessenger;
 class VietmapGLBuilder implements VietmapGLOptionsSink {
   public final String TAG = getClass().getSimpleName();
   private final VietMapGLOptions options =
-      new VietMapGLOptions().attributionEnabled(true).logoEnabled(true).textureMode(true);
+      new VietMapGLOptions().attributionEnabled(true).logoEnabled(true).textureMode(true).foregroundLoadColor(0xFFF6F1E4);
   private boolean trackCameraPosition = false;
   private boolean myLocationEnabled = false;
   private boolean quickZoomGesturesEnabled = true;

@@ -43,6 +43,7 @@ class VietmapGL extends StatefulWidget {
     this.onCameraTrackingChanged,
     this.onCameraIdle,
     this.onMapIdle,
+    this.isCustomizeUserIcon = true,
     this.annotationOrder = const [
       AnnotationType.polyline,
       AnnotationType.symbol,
@@ -164,6 +165,10 @@ class VietmapGL extends StatefulWidget {
   /// `Info.plist` file. This will automatically prompt the user for permissions
   /// when the map tries to turn on the My Location layer.
   final bool myLocationEnabled;
+
+  /// If `myLocationEnabled` is true, the SDK will disable the default location.
+  /// Please use `UserLocationLayer` to customize the user location icon.
+  final bool isCustomizeUserIcon;
 
   /// The mode used to let the map's camera follow the device's physical location.
   /// `myLocationEnabled` needs to be true for values other than `MyLocationTrackingMode.None` to work.
@@ -338,6 +343,7 @@ class _VietmapGLState extends State<VietmapGL> {
       }
       controller.updateMyLocationTrackingMode(locationTrackingMode);
     }
+    controller.updateUserLocationLayerIcon(widget.isCustomizeUserIcon);
   }
 }
 

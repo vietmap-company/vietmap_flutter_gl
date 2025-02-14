@@ -626,6 +626,10 @@ class VietmapController extends ChangeNotifier {
         .updateMyLocationTrackingMode(myLocationTrackingMode);
   }
 
+  Future<void> updateUserLocationLayerIcon(bool isEnable) async {
+    return _vietmapGlPlatform.updateUserLocationLayerIcon(isEnable);
+  }
+
   /// Updates the language of the map labels to match the device's language.
   ///
   /// The returned [Future] completes after the change has been made on the
@@ -1355,6 +1359,10 @@ class VietmapController extends ChangeNotifier {
     return (await _vietmapGlPlatform.getSourceIds())
         .whereType<String>()
         .toList();
+  }
+
+  void addOnMapMoveListener(Function(void) onMapMove) {
+    _vietmapGlPlatform.onCameraMoveStartedPlatform.add(onMapMove);
   }
 
   @override
