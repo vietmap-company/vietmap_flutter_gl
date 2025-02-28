@@ -1,3 +1,5 @@
+## 3.2.2, Feb 28, 2025
+* Fix UserLocationLayer icon failed to load on Android
 ## 3.2.1, Feb 14, 2025
 * Fix black screen on first load map Android
 ## 3.1.1, Nov 20, 2024

@@ -241,7 +241,8 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
 
   @override
   Future<void> updateUserLocationLayerIcon(bool isEnable) async {
-    await _channel.invokeMethod('map#updateUserLocationLayerIcon', <String, dynamic>{
+    await _channel
+        .invokeMethod('map#updateUserLocationLayerIcon', <String, dynamic>{
       'isEnable': isEnable,
     });
   }

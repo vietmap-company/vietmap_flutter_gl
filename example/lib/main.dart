@@ -29,7 +29,7 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
   LatLng? currentLatLng;
   MyLocationRenderMode myLocationRenderMode = MyLocationRenderMode.NORMAL;
   String styleString =
-      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE";
+      "https://maps.vietmap.vn/api/maps/light/styles.json?apiKey=YOUR_API_KEY_HERE";
   void _onMapCreated(VietmapController controller) {
     setState(() {
       _mapController = controller;
@@ -56,14 +56,18 @@ class _VietmapExampleMapViewState extends State<VietmapExampleMapView>
           myLocationEnabled: true,
           myLocationTrackingMode: MyLocationTrackingMode.TrackingCompass,
           myLocationRenderMode: myLocationRenderMode,
-          isCustomizeUserIcon: false,
+          isCustomizeUserIcon: true,
+
+          trackCameraPosition: true,
+          zoomGesturesEnabled: true,
+          scrollGesturesEnabled: true,
           // styleString: YOUR_STYLE_URL_HERE,
           // styleString:
           //     "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE",
           styleString: styleString,
-          trackCameraPosition: true,
+          // trackCameraPosition: true,
           onMapCreated: _onMapCreated,
-          zoomGesturesEnabled: true,
+          // zoomGesturesEnabled: true,
           compassEnabled: true,
 
           onMapRenderedCallback: () {},
