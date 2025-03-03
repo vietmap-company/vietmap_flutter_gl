@@ -1,7 +1,8 @@
-name: maplibre_gl_workspace
+name: vietmap_gl_workspace
 publish_to: 'none'
-repository: https://github.com/maplibre/flutter-maplibre-gl
-issue_tracker: https://github.com/maplibre/flutter-maplibre-gl/issues
+homepage: https://maps.vietmap.vn
+repository: https://github.com/vietmap-company/vietmap_flutter_gl
+issue_tracker: https://github.com/vietmap-company/vietmap_flutter_gl/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'

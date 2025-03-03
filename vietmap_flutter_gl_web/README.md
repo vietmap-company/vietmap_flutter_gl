@@ -1,0 +1,1 @@
+Contains the web interfaces for the [Flutter VietMapGL plugin](https://github.com/maplibre/flutter-maplibre-gl).

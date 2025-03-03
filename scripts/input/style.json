@@ -1006,7 +1006,7 @@
     "symbol-avoid-edges":{
       "type":"boolean",
       "default":false,
-      "doc":"If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like MapLibre GL JS, enabling this property is not needed to prevent clipped labels at tile boundaries.",
+      "doc":"If true, the symbols will not cross tile edges to avoid mutual collisions. Recommended in layers that don't have enough padding in the vector tile to prevent collisions, or if it is a point symbol layer placed after a line symbol layer. When using a client that supports global collision detection, like VietMapGL JS, enabling this property is not needed to prevent clipped labels at tile boundaries.",
       "sdk-support":{
         "basic functionality":{
           "js":"0.10.0",
@@ -3455,7 +3455,7 @@
         }
       },
       "is-supported-script":{
-        "doc":"Returns `true` if the input string is expected to render legibly. Returns `false` if the input string contains sections that cannot be rendered without potential loss of meaning (e.g. Indic scripts that require complex text shaping, or right-to-left scripts if the the `mapbox-gl-rtl-text` plugin is not in use in MapLibre GL JS).",
+        "doc":"Returns `true` if the input string is expected to render legibly. Returns `false` if the input string contains sections that cannot be rendered without potential loss of meaning (e.g. Indic scripts that require complex text shaping, or right-to-left scripts if the the `mapbox-gl-rtl-text` plugin is not in use in VietMapGL JS).",
         "group":"String",
         "sdk-support":{
           "basic functionality":{
