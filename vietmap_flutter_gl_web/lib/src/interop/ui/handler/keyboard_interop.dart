@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.handler.keyboard;
+library vietmap.interop.ui.handler.keyboard;
 
 import 'package:js/js.dart';
 

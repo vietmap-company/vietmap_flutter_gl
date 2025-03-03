@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.handler.dbclick_zoom;
+library vietmap.interop.ui.handler.dbclick_zoom;
 
 import 'package:js/js.dart';
 import 'package:vietmap_flutter_gl_web/src/interop/ui/events_interop.dart';

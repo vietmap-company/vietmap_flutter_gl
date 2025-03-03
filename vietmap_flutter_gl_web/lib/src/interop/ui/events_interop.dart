@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.events;
+library vietmap.interop.ui.events;
 
 import 'dart:html';
 import 'package:js/js.dart';

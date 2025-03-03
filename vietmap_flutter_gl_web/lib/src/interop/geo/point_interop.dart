@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.geo.point;
+library vietmap.interop.geo.point;
 
 import 'package:js/js.dart';
 

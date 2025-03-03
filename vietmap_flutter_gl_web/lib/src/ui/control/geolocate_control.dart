@@ -74,7 +74,7 @@ class PositionOptions extends JsObjectWrapper<PositionOptionsJsImpl> {
 /// @param {Object} [options.showUserLocation=true] By default a dot will be shown on the map at the user's location. Set to `false` to disable.
 ///
 /// @example
-/// map.addControl(new maplibregl.GeolocateControl({
+/// map.addControl(new GeolocateControl({
 ///     positionOptions: {
 ///         enableHighAccuracy: true
 ///     },

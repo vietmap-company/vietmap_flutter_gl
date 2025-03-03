@@ -217,7 +217,7 @@ class VietmapController extends VietmapGlPlatform
 
   @override
   Future<void> matchMapLanguageWithDeviceDefault() async {
-    // Fix in https://github.com/maplibre/flutter-maplibre-gl/issues/263
+    // Fix in https://github.com/vietmap-company/vietmap_flutter_gl/issues/263
     // ignore: deprecated_member_use
     setMapLanguage(ui.window.locale.languageCode);
   }

@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.style.evaluation_parameters;
+library vietmap.interop.style.evaluation_parameters;
 
 import 'package:js/js.dart';
 

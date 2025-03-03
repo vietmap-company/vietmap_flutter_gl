@@ -1,4 +1,4 @@
-part of '../vietmap_flutter_gl.dart';
+part of vietmap_gl;
 
 class StaticMarkerLayer extends StatefulWidget {
   final List<StaticMarker> markers;

@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.handler.drag_rotate;
+library vietmap.interop.ui.handler.drag_rotate;
 
 import 'dart:html';
 

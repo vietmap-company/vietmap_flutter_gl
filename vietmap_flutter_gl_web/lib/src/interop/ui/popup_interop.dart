@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.popup;
+library vietmap.interop.ui.popup;
 
 import 'dart:html';
 import 'package:js/js.dart';
@@ -43,7 +43,7 @@ import 'package:vietmap_flutter_gl_web/src/interop/util/evented_interop.dart';
 ///  'left': [markerRadius, (markerHeight - markerRadius) /// -1],
 ///  'right': [-markerRadius, (markerHeight - markerRadius) /// -1]
 ///  };
-/// var popup = new maplibregl.Popup({offset: popupOffsets, className: 'my-class'})
+/// var popup = new Popup({offset: popupOffsets, className: 'my-class'})
 ///   .setLngLat(e.lngLat)
 ///   .setHTML("<h1>Hello World!</h1>")
 ///   .setMaxWidth("300px")
@@ -60,7 +60,7 @@ class PopupJsImpl extends EventedJsImpl {
 
   /// Adds the popup to a map.
   ///
-  /// @param {VietmapGL} map The MapLibre JS JS map to add the popup to.
+  /// @param {VietmapGL} map The VietmapGL JS JS map to add the popup to.
   /// @returns {Popup} `this`
   external PopupJsImpl addTo(VietmapGLJsImpl map);
 
@@ -70,7 +70,7 @@ class PopupJsImpl extends EventedJsImpl {
   /// Removes the popup from the map it has been added to.
   ///
   /// @example
-  /// var popup = new maplibregl.Popup().addTo(map);
+  /// var popup = new Popup().addTo(map);
   /// popup.remove();
   /// @returns {Popup} `this`
   external PopupJsImpl remove();
@@ -109,7 +109,7 @@ class PopupJsImpl extends EventedJsImpl {
   /// @param text Textual content for the popup.
   /// @returns {Popup} `this`
   /// @example
-  /// var popup = new maplibregl.Popup()
+  /// var popup = new Popup()
   ///   .setLngLat(e.lngLat)
   ///   .setText('Hello, world!')
   ///   .addTo(map);
@@ -146,7 +146,7 @@ class PopupJsImpl extends EventedJsImpl {
   /// // create an element with the popup content
   /// var div = window.document.createElement('div');
   /// div.innerHTML = 'Hello, world!';
-  /// var popup = new maplibregl.Popup()
+  /// var popup = new Popup()
   ///   .setLngLat(e.lngLat)
   ///   .setDOMContent(div)
   ///   .addTo(map);
@@ -157,7 +157,7 @@ class PopupJsImpl extends EventedJsImpl {
   /// @param {string} className Non-empty string with CSS class name to add to popup container
   ///
   /// @example
-  /// let popup = new maplibregl.Popup()
+  /// let popup = new Popup()
   /// popup.addClassName('some-class')
   external addClassName(String className);
 
@@ -166,7 +166,7 @@ class PopupJsImpl extends EventedJsImpl {
   /// @param {string} className Non-empty string with CSS class name to remove from popup container
   ///
   /// @example
-  /// let popup = new maplibregl.Popup()
+  /// let popup = new Popup()
   /// popup.removeClassName('some-class')
   external removeClassName(String className);
 
@@ -177,7 +177,7 @@ class PopupJsImpl extends EventedJsImpl {
   /// @returns {boolean} if the class was removed return false, if class was added, then return true
   ///
   /// @example
-  /// let popup = new maplibregl.Popup()
+  /// let popup = new Popup()
   /// popup.toggleClassName('toggleClass')
   external bool toggleClassName(String className);
 }

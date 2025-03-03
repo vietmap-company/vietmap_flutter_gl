@@ -24,7 +24,7 @@ import 'package:vietmap_flutter_gl_web/src/ui/handler/touch_zoom_rotate.dart';
 ///  and fires events as users interact with it.
 ///
 ///  You create a `VietmapGL` by specifying a `container` and other options.
-///  Then MapLibre JS JS initializes the map on the page and returns your `VietmapGL`
+///  Then VietmapGL JS JS initializes the map on the page and returns your `VietmapGL`
 ///  object.
 ///
 ///  ```dart
@@ -353,11 +353,11 @@ class VietmapGL extends Camera {
   ///  or with only a [options] argument) is equivalent to passing a bounding box encompassing the entire
   ///  map viewport.
   ///  @param {Object} [options]
-  ///  @param {Array<string>} `options.layers` An array of [style layer IDs](https://maplibre.org/maplibre-style-spec/#layer-id) for the query to inspect.
+  ///  @param {Array<string>} `options.layers` An array of [style layer IDs](#layer-id) for the query to inspect.
   ///    Only features within these layers will be returned. If this parameter is undefined, all layers will be checked.
-  ///  @param {Array} `options.filter` A [filter](https://maplibre.org/maplibre-style-spec/#other-filter)
+  ///  @param {Array} `options.filter` A [filter](#other-filter)
   ///    to limit query results.
-  ///  @param {boolean} [options.validate=true] Whether to check if the `options.filter` conforms to the MapLibre JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+  ///  @param {boolean} [options.validate=true] Whether to check if the `options.filter` conforms to the VietmapGL JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
   ///
   ///  @returns {Array<Object>} An array of [GeoJSON](http://geojson.org/)
   ///  [feature objects](https://tools.ietf.org/html/rfc7946#section-3.2).
@@ -442,9 +442,9 @@ class VietmapGL extends Camera {
   ///  @param {Object} [parameters]
   ///  @param {string} `parameters.sourceLayer` The name of the [source layer]
   ///    to query./// For vector tile sources, this parameter is required.* For GeoJSON sources, it is ignored.
-  ///  @param {Array} `parameters.filter` A [filter](https://maplibre.org/maplibre-style-spec/#other-filter)
+  ///  @param {Array} `parameters.filter` A [filter](#other-filter)
   ///    to limit query results.
-  ///  @param {boolean} `parameters.validate=true` Whether to check if the `parameters.filter` conforms to the MapLibre JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+  ///  @param {boolean} `parameters.validate=true` Whether to check if the `parameters.filter` conforms to the VietmapGL JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
   ///
   ///  @returns {Array<Object>} An array of [GeoJSON](http://geojson.org/)
   ///  [Feature objects](https://tools.ietf.org/html/rfc7946#section-3.2).
@@ -472,7 +472,7 @@ class VietmapGL extends Camera {
   List<dynamic> querySourceFeatures(String sourceId, dynamic parameters) =>
       jsObject.querySourceFeatures(sourceId, parameters);
 
-  ///  Updates the map's MapLibre style object with a new value.
+  ///  Updates the map's VietmapGL style object with a new value.
   ///
   ///  If a style is already set when this is used and options.diff is set to true, the map renderer will attempt to compare the given style
   ///  against the map's current state and perform only the changes necessary to make the map style match the desired state. Changes in sprites
@@ -482,7 +482,7 @@ class VietmapGL extends Camera {
   ///
   ///
   ///  @param style A JSON object conforming to the schema described in the
-  ///    [MapLibre Style Specification](https://maplibre.org/maplibre-style-spec/), or a URL to such JSON.
+  ///    [VietmapGL Style Specification](), or a URL to such JSON.
   ///  @param {Object} [options]
   ///  @param {boolean} [options.diff=true] If false, force a 'full' update, removing the current style
   ///    and building the given one instead of attempting a diff-based update.
@@ -496,7 +496,7 @@ class VietmapGL extends Camera {
   VietmapGL setStyle(dynamic style, [dynamic options]) =>
       VietmapGL.fromJsObject(jsObject.setStyle(style));
 
-  ///  Returns the map's MapLibre style object, which can be used to recreate the map's style.
+  ///  Returns the map's VietmapGL style object, which can be used to recreate the map's style.
   ///
   ///  @returns {Object} The map's style object.
   ///
@@ -504,7 +504,7 @@ class VietmapGL extends Camera {
   ///  var styleJson = map.getStyle();
   dynamic getStyle() => jsObject.getStyle();
 
-  /// Return each layer of the  MapLibre style object, which can be used to check the order, toggle the visibility or change properties
+  /// Return each layer of the  VietmapGL style object, which can be used to check the order, toggle the visibility or change properties
   List<dynamic> getLayers() => Style.fromJsObject(jsObject.getStyle()).layers;
 
   ///  Returns a Boolean indicating whether the map's style is fully loaded.
@@ -519,7 +519,7 @@ class VietmapGL extends Camera {
   ///
   ///  @param {string} id The ID of the source to add. Must not conflict with existing sources.
   ///  @param {Object} source The source object, conforming to the
-  ///  MapLibre Style Specification's [source definition](https://maplibre.org/maplibre-style-spec/#sources) or
+  ///  VietmapGL Style Specification's [source definition](#sources) or
   ///  [CanvasSourceOptions].
   ///  @fires source.add
   ///  @returns {VietmapGL} `this`
@@ -590,10 +590,10 @@ class VietmapGL extends Camera {
 
   ///  Add an image to the style. This image can be displayed on the map like any other icon in the style's
   ///  [sprite]  using the image's ID with
-  ///  [`icon-image`](https://maplibre.org/maplibre-style-spec/#layout-symbol-icon-image),
-  ///  [`background-pattern`](https://maplibre.org/maplibre-style-spec/#paint-background-background-pattern),
-  ///  [`fill-pattern`](https://maplibre.org/maplibre-style-spec/#paint-fill-fill-pattern),
-  ///  or [`line-pattern`](https://maplibre.org/maplibre-style-spec/#paint-line-line-pattern).
+  ///  [`icon-image`](#layout-symbol-icon-image),
+  ///  [`background-pattern`](#paint-background-background-pattern),
+  ///  [`fill-pattern`](#paint-fill-fill-pattern),
+  ///  or [`line-pattern`](#paint-line-line-pattern).
   ///  A {@link VietmapGL#error} event will be fired if there is not enough space in the sprite to add this image.
   ///
   ///  @param id The ID of the image.
@@ -642,10 +642,10 @@ class VietmapGL extends Camera {
 
   ///  Update an existing image in a style. This image can be displayed on the map like any other icon in the style's
   ///  [sprite]  using the image's ID with
-  ///  [`icon-image`](https://maplibre.org/maplibre-style-spec/#layout-symbol-icon-image),
-  ///  [`background-pattern`](https://maplibre.org/maplibre-style-spec/#paint-background-background-pattern),
-  ///  [`fill-pattern`](https://maplibre.org/maplibre-style-spec/#paint-fill-fill-pattern),
-  ///  or [`line-pattern`](https://maplibre.org/maplibre-style-spec/#paint-line-line-pattern).
+  ///  [`icon-image`](#layout-symbol-icon-image),
+  ///  [`background-pattern`](#paint-background-background-pattern),
+  ///  [`fill-pattern`](#paint-fill-fill-pattern),
+  ///  or [`line-pattern`](#paint-line-line-pattern).
   ///
   ///  @param id The ID of the image.
   ///  @param image The image as an `HTMLImageElement`, `ImageData`, or object with `width`, `height`, and `data`
@@ -712,14 +712,14 @@ class VietmapGL extends Camera {
   ///
   List<String> listImages() => jsObject.listImages();
 
-  ///  Adds a [MapLibre style layer](https://maplibre.org/maplibre-style-spec/#layers)
+  ///  Adds a [VietmapGL style layer](#layers)
   ///  to the map's style.
   ///
   ///  A layer defines how data from a specified source will be styled. Read more about layer types
-  ///  and available paint and layout properties in the [MapLibre Style Specification](https://maplibre.org/maplibre-style-spec/#layers).
+  ///  and available paint and layout properties in the [VietmapGL Style Specification](#layers).
   ///
-  ///  @param {Object | CustomLayerInterface} layer The style layer to add, conforming to the MapLibre Style Specification's
-  ///    [layer definition](https://maplibre.org/maplibre-style-spec/#layers).
+  ///  @param {Object | CustomLayerInterface} layer The style layer to add, conforming to the VietmapGL Style Specification's
+  ///    [layer definition](#layers).
   ///  @param {string} [beforeId] The ID of an existing layer to insert the new layer before.
   ///    If this argument is omitted, the layer will be appended to the end of the layers array.
   ///
@@ -777,8 +777,8 @@ class VietmapGL extends Camera {
   dynamic getLayer(String id) => jsObject.getLayer(id);
 
   ///  Sets the zoom extent for the specified style layer. The zoom extent includes the
-  ///  [minimum zoom level](https://maplibre.org/maplibre-style-spec/#layer-minzoom)
-  ///  and [maximum zoom level](https://maplibre.org/maplibre-style-spec/#layer-maxzoom))
+  ///  [minimum zoom level](#layer-minzoom)
+  ///  and [maximum zoom level](#layer-maxzoom))
   ///  at which the layer will be rendered.
   ///
   ///  Note: For style layers using vector sources, style layers cannot be rendered at zoom levels lower than the
@@ -800,10 +800,10 @@ class VietmapGL extends Camera {
   ///  Sets the filter for the specified style layer.
   ///
   ///  @param {string} layerId The ID of the layer to which the filter will be applied.
-  ///  @param {Array | null | undefined} filter The filter, conforming to the MapLibre Style Specification's
-  ///    [filter definition](https://maplibre.org/maplibre-style-spec/#other-filter).  If `null` or `undefined` is provided, the function removes any existing filter from the layer.
+  ///  @param {Array | null | undefined} filter The filter, conforming to the VietmapGL Style Specification's
+  ///    [filter definition](#other-filter).  If `null` or `undefined` is provided, the function removes any existing filter from the layer.
   ///  @param {Object} [options]
-  ///  @param {boolean} [options.validate=true] Whether to check if the filter conforms to the MapLibre JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+  ///  @param {boolean} [options.validate=true] Whether to check if the filter conforms to the VietmapGL JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
   ///
   ///  @returns {VietmapGL} `this`
   ///  @example
@@ -827,9 +827,9 @@ class VietmapGL extends Camera {
   ///  @param {string} layerId The ID of the layer to set the paint property in.
   ///  @param {string} name The name of the paint property to set.
   ///  @param {*} value The value of the paint property to set.
-  ///    Must be of a type appropriate for the property, as defined in the [MapLibre Style Specification](https://maplibre.org/maplibre-style-spec/).
+  ///    Must be of a type appropriate for the property, as defined in the [VietmapGL Style Specification]().
   ///  @param {Object} [options]
-  ///  @param {boolean} [options.validate=true] Whether to check if `value` conforms to the MapLibre JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+  ///  @param {boolean} [options.validate=true] Whether to check if `value` conforms to the VietmapGL JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
   ///  @returns {VietmapGL} `this`
   ///  @example
   ///  map.setPaintProperty('my-layer', 'fill-color', '#faafee');
@@ -852,9 +852,9 @@ class VietmapGL extends Camera {
   ///
   ///  @param {string} layerId The ID of the layer to set the layout property in.
   ///  @param {string} name The name of the layout property to set.
-  ///  @param {*} value The value of the layout property. Must be of a type appropriate for the property, as defined in the [MapLibre Style Specification](https://maplibre.org/maplibre-style-spec/).
+  ///  @param {*} value The value of the layout property. Must be of a type appropriate for the property, as defined in the [VietmapGL Style Specification]().
   ///  @param {Object} [options]
-  ///  @param {boolean} [options.validate=true] Whether to check if `value` conforms to the MapLibre JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+  ///  @param {boolean} [options.validate=true] Whether to check if `value` conforms to the VietmapGL JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
   ///  @returns {VietmapGL} `this`
   ///  @example
   ///  map.setLayoutProperty('my-layer', 'visibility', 'none');
@@ -872,9 +872,9 @@ class VietmapGL extends Camera {
 
   ///  Sets the any combination of light values.
   ///
-  ///  @param light Light properties to set. Must conform to the [MapLibre Style Specification](https://maplibre.org/maplibre-style-spec/#light).
+  ///  @param light Light properties to set. Must conform to the [VietmapGL Style Specification](#light).
   ///  @param {Object} [options]
-  ///  @param {boolean} [options.validate=true] Whether to check if the filter conforms to the MapLibre JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
+  ///  @param {boolean} [options.validate=true] Whether to check if the filter conforms to the VietmapGL JS Style Specification. Disabling validation is a performance optimization that should only be used if you have previously validated the values you will be passing to this function.
   ///  @returns {VietmapGL} `this`
   VietmapGL setLight(dynamic light, StyleSetterOptions options) =>
       VietmapGL.fromJsObject(jsObject.setLight(light, options.jsObject));
@@ -1040,7 +1040,7 @@ class VietmapGL extends Camera {
 
   set vertices(bool value) => jsObject.vertices;
 
-  ///  The version of MapLibre JS JS in use as specified in package.json, CHANGELOG.md, and the GitHub release.
+  ///  The version of VietmapGL JS JS in use as specified in package.json, CHANGELOG.md, and the GitHub release.
   ///
   ///  @name version
   ///  @instance
@@ -1064,7 +1064,7 @@ class MapOptions extends JsObjectWrapper<MapOptionsJsImpl> {
   /// If `false`, no mouse, touch, or keyboard listeners will be attached to the map, so it will not respond to interaction.
   bool get interactive => jsObject.interactive;
 
-  /// The HTML element in which MapLibre JS JS will render the map, or the element's string `id`. The specified element must have no children.
+  /// The HTML element in which VietmapGL JS JS will render the map, or the element's string `id`. The specified element must have no children.
   /// `HTMLElement` or `String`
   dynamic get container => jsObject.container;
 
@@ -1086,10 +1086,10 @@ class MapOptions extends JsObjectWrapper<MapOptionsJsImpl> {
   /// `String` or `List<String>`
   dynamic get customAttribution => jsObject.customAttribution;
 
-  /// A string representing the position of the MapLibre wordmark on the map. Valid options are `top-left`,`top-right`, `bottom-left`, `bottom-right`.
+  /// A string representing the position of the VietmapGL wordmark on the map. Valid options are `top-left`,`top-right`, `bottom-left`, `bottom-right`.
   String get logoPosition => jsObject.logoPosition;
 
-  /// If `true`, map creation will fail if the performance of MapLibre
+  /// If `true`, map creation will fail if the performance of VietmapGL
   /// GL JS would be dramatically worse than expected (i.e. a software renderer would be used).
   bool get failIfMajorPerformanceCaveat =>
       jsObject.failIfMajorPerformanceCaveat;
@@ -1121,8 +1121,8 @@ class MapOptions extends JsObjectWrapper<MapOptionsJsImpl> {
   /// The maximum pitch of the map (0-60).
   num get maxPitch => jsObject.maxPitch;
 
-  ///  The map's MapLibre style. This must be an a JSON object conforming to
-  ///  the schema described in the [MapLibre Style Specification](https://maplibre.org/maplibre-style-spec/), or a URL to
+  ///  The map's VietmapGL style. This must be an a JSON object conforming to
+  ///  the schema described in the [VietmapGL Style Specification](), or a URL to
   ///  such JSON.
   dynamic get style => jsObject.style;
 
@@ -1147,16 +1147,16 @@ class MapOptions extends JsObjectWrapper<MapOptionsJsImpl> {
   /// If `true`, the map will automatically resize when the browser window resizes.
   bool get trackResize => jsObject.trackResize;
 
-  /// The inital geographical centerpoint of the map. If `center` is not specified in the constructor options, MapLibre JS JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `[0, 0]` Note: MapLibre JS uses longitude, latitude coordinate order (as opposed to latitude, longitude) to match GeoJSON.
+  /// The inital geographical centerpoint of the map. If `center` is not specified in the constructor options, VietmapGL JS JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `[0, 0]` Note: VietmapGL JS uses longitude, latitude coordinate order (as opposed to latitude, longitude) to match GeoJSON.
   LngLat get center => LngLat.fromJsObject(jsObject.center);
 
-  /// The initial zoom level of the map. If `zoom` is not specified in the constructor options, MapLibre JS JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
+  /// The initial zoom level of the map. If `zoom` is not specified in the constructor options, VietmapGL JS JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
   num get zoom => jsObject.zoom;
 
-  /// The initial bearing (rotation) of the map, measured in degrees counter-clockwise from north. If `bearing` is not specified in the constructor options, MapLibre JS JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
+  /// The initial bearing (rotation) of the map, measured in degrees counter-clockwise from north. If `bearing` is not specified in the constructor options, VietmapGL JS JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
   num get bearing => jsObject.bearing;
 
-  /// The initial pitch (tilt) of the map, measured in degrees away from the plane of the screen (0-60). If `pitch` is not specified in the constructor options, MapLibre JS JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
+  /// The initial pitch (tilt) of the map, measured in degrees away from the plane of the screen (0-60). If `pitch` is not specified in the constructor options, VietmapGL JS JS will look for it in the map's style object. If it is not specified in the style, either, it will default to `0`.
   num get pitch => jsObject.pitch;
 
   /// The initial bounds of the map. If `bounds` is specified, it overrides `center` and `zoom` constructor options.
@@ -1330,7 +1330,7 @@ class RequestParameters extends JsObjectWrapper<RequestParametersJsImpl> {
 ///  an exported method or class.
 ///
 ///  Controls must implement `onAdd` and `onRemove`, and must own an
-///  element, which is often a `div` element. To use MapLibre JS JS's
+///  element, which is often a `div` element. To use VietmapGL JS JS's
 ///  default control styling, add the `maplibregl-ctrl` class to your control's
 ///  node.
 ///

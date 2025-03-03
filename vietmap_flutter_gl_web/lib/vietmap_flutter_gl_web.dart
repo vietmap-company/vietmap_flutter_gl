@@ -35,8 +35,8 @@ import 'package:vietmap_flutter_gl_web/src/util/evented.dart';
 
 part 'src/convert.dart';
 
-part 'src/maplibre_map_plugin.dart';
+part 'src/vietmap_gl_map_plugin.dart';
 
 part 'src/options_sink.dart';
 
-part 'src/maplibre_web_gl_platform.dart';
+part 'src/vietmap_web_gl_platform.dart';

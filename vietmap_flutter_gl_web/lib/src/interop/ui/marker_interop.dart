@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.marker;
+library vietmap.interop.ui.marker;
 
 import 'dart:html';
 import 'package:js/js.dart';
@@ -20,7 +20,7 @@ import 'package:vietmap_flutter_gl_web/src/interop/util/evented_interop.dart';
 /// @param {string} [pitchAlignment='auto'] `map` aligns the `Marker` to the plane of the map. `viewport` aligns the `Marker` to the plane of the viewport. `auto` automatically matches the value of `rotationAlignment`.
 /// @param {string} [rotationAlignment='auto'] `map` aligns the `Marker`'s rotation relative to the map, maintaining a bearing as the map rotates. `viewport` aligns the `Marker`'s rotation relative to the viewport, agnostic to map rotations. `auto` is equivalent to `viewport`.
 /// ```dart
-/// var marker = maplibregl.Marker()
+/// var marker = Marker()
 ///   .setLngLat([30.5, 50.5])
 ///   .addTo(map);
 /// ```
@@ -37,7 +37,7 @@ class MarkerJsImpl extends EventedJsImpl {
 
   ///  Removes the marker from a map
   ///  @example
-  ///  var marker = new maplibregl.Marker().addTo(map);
+  ///  var marker = new Marker().addTo(map);
   ///  marker.remove();
   ///  @returns {Marker} `this`
   external MarkerJsImpl remove();

@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-part of '../vietmap_flutter_gl.dart';
+part of vietmap_gl;
 
 enum AnnotationType { polygon, line, circle, symbol }
 
 typedef MapCreatedCallback = void Function(VietmapController controller);
 
-/// Shows a MapLibre map.
-/// Also refer to the documentation of [maplibre_gl] and [VietmapController].
+/// Shows a VietmapGL map.
+/// Also refer to the documentation of [vietmap_gl] and [VietmapController].
 class VietmapGL extends StatefulWidget {
   const VietmapGL({
     super.key,
@@ -95,7 +95,7 @@ class VietmapGL extends StatefulWidget {
 
   /// How long a user has to click the map **on iOS** until a long click is registered.
   /// Has no effect on web or Android. Can not be changed at runtime, only the initial value is used.
-  /// If null, the default value of the native MapLibre library / of the OS is used.
+  /// If null, the default value of the native VietmapGL library / of the OS is used.
   final Duration? iosLongClickDuration;
 
   /// True if the map should show a compass when rotated.
@@ -111,7 +111,7 @@ class VietmapGL extends StatefulWidget {
   final CameraTargetBounds cameraTargetBounds;
 
   /// A VietMapGL style document defining the map's appearance.
-  /// A short introduction can be found in the documentation of the [maplibre_gl] library.
+  /// A short introduction can be found in the documentation of the [vietmap_gl] library.
   /// The following formats are supported:
   ///
   /// 1. Passing the URL of the map style. This should be a custom map style served remotely using a URL that start with 'http(s)://'
@@ -196,12 +196,12 @@ class VietmapGL extends StatefulWidget {
   /// Set the layout margins for the Compass
   final Point? compassViewMargins;
 
-  /// Set the position for the MapLibre Attribution Button
-  /// When set to null, the default value of the underlying MapLibre libraries is used,
+  /// Set the position for the VietmapGL Attribution Button
+  /// When set to null, the default value of the underlying VietmapGL libraries is used,
   /// which differs depending on the operating system the app is being run on.
   final AttributionButtonPosition? attributionButtonPosition;
 
-  /// Set the layout margins for the MapLibre Attribution Buttons. If you set this
+  /// Set the layout margins for the VietmapGL Attribution Buttons. If you set this
   /// value, you may also want to set [attributionButtonPosition] to harmonize
   /// the layout between iOS and Android, since the underlying frameworks have
   /// different defaults.
@@ -259,8 +259,8 @@ class _VietmapGLState extends State<VietmapGL> {
   final Completer<VietmapController> _controller =
       Completer<VietmapController>();
 
-  late _VietmapOptions _maplibreMapOptions;
-  final VietmapGlPlatform _maplibrePlatform =
+  late _VietmapOptions _vietmapGLOptions;
+  final VietmapGlPlatform _vietmapGLPlatform =
       VietmapGlPlatform.createInstance();
 
   @override
@@ -277,14 +277,14 @@ class _VietmapGLState extends State<VietmapGL> {
         'iosLongClickDurationMilliseconds':
             widget.iosLongClickDuration!.inMilliseconds,
     };
-    return _maplibrePlatform.buildView(
+    return _vietmapGLPlatform.buildView(
         creationParams, onPlatformViewCreated, widget.gestureRecognizers);
   }
 
   @override
   void initState() {
     super.initState();
-    _maplibreMapOptions = _VietmapOptions.fromWidget(widget);
+    _vietmapGLOptions = _VietmapOptions.fromWidget(widget);
   }
 
   @override
@@ -300,9 +300,9 @@ class _VietmapGLState extends State<VietmapGL> {
   void didUpdateWidget(VietmapGL oldWidget) {
     super.didUpdateWidget(oldWidget);
     final newOptions = _VietmapOptions.fromWidget(widget);
-    final updates = _maplibreMapOptions.updatesMap(newOptions);
+    final updates = _vietmapGLOptions.updatesMap(newOptions);
     _updateOptions(updates);
-    _maplibreMapOptions = newOptions;
+    _vietmapGLOptions = newOptions;
   }
 
   Future<void> _updateOptions(Map<String, dynamic> updates) async {
@@ -315,7 +315,7 @@ class _VietmapGLState extends State<VietmapGL> {
 
   Future<void> onPlatformViewCreated(int id) async {
     final controller = VietmapController(
-      maplibrePlatform: _maplibrePlatform,
+      vietmapGLPlatform: _vietmapGLPlatform,
       initialCameraPosition: widget.initialCameraPosition,
       onStyleLoadedCallback: () {
         if (_controller.isCompleted) {
@@ -334,7 +334,7 @@ class _VietmapGLState extends State<VietmapGL> {
       annotationOrder: widget.annotationOrder,
       annotationConsumeTapEvents: widget.annotationConsumeTapEvents,
     );
-    await _maplibrePlatform.initPlatform(id);
+    await _vietmapGLPlatform.initPlatform(id);
     _controller.complete(controller);
     widget.onMapCreated?.call(controller);
     controller.updateUserLocationLayerIcon(widget.isCustomizeUserIcon);

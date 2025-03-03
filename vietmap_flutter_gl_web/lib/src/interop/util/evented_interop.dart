@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.util.evented;
+library vietmap.interop.util.evented;
 
 import 'package:js/js.dart';
 import 'package:vietmap_flutter_gl_web/src/interop/geo/geojson_interop.dart';

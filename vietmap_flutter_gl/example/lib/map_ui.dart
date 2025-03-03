@@ -50,7 +50,7 @@ class MapUiBodyState extends State<MapUiBody> {
   // On Android the raw JSON can also be passed via a styleString, on iOS this is not supported.
   final List<String> _styleStrings = [VietmapStyles.demo, "assets/style.json"];
   final List<String> _styleStringLabels = [
-    "MapLibre demo style",
+    "VietmapGL demo style",
     "Local style file"
   ];
   bool _rotateGesturesEnabled = true;
@@ -307,10 +307,10 @@ class MapUiBodyState extends State<MapUiBody> {
 
   Widget _sourceFeaturesGetter() {
     return TextButton(
-      child: const Text('get source features (maplibre)'),
+      child: const Text('get source features (vietmap)'),
       onPressed: () async {
         final result = await mapController!
-            .querySourceFeatures("maplibre", "centroids", null);
+            .querySourceFeatures("vietmap", "centroids", null);
         debugPrint(result.toString());
       },
     );
@@ -359,7 +359,7 @@ class MapUiBodyState extends State<MapUiBody> {
 
   @override
   Widget build(BuildContext context) {
-    final maplibreMap = VietmapGL(
+    final vietmapGl = VietmapGL(
       onMapCreated: onMapCreated,
       initialCameraPosition: _kInitialPosition,
       trackCameraPosition: true,
@@ -463,7 +463,7 @@ class MapUiBodyState extends State<MapUiBody> {
           child: SizedBox(
             width: _mapExpanded ? null : 300.0,
             height: 200.0,
-            child: maplibreMap,
+            child: vietmapGl,
           ),
         ),
         Expanded(

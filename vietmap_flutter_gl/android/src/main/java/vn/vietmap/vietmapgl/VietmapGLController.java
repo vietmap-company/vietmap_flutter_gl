@@ -1852,7 +1852,7 @@ final class VietmapGLController
    * For more information check out:
    * <a href="https://github.com/flutter/flutter/issues/107297">Flutter issue</a>
    * <a href="https://github.com/flutter/engine/commit/8dc7cd1b1a33b5da561ac859cdcc49705ad1e598">Flutter Engine commit that introduced the issue</a>
-   * <a href="https://github.com/maplibre/flutter-maplibre-gl/issues/182">The reported issue in the MapLibre repo</a>
+   * <a href="https://github.com/vietmap-company/vietmap_flutter_gl/issues/182">The reported issue in the VietmapGL repo</a>
    */
   private void destroyMapViewIfNecessary() {
     if (mapView == null) {

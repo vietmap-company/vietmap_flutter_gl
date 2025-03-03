@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.control.navigation_control;
+library vietmap.interop.ui.control.navigation_control;
 
 import 'package:js/js.dart';
 import 'package:vietmap_flutter_gl_web/src/interop/ui/map_interop.dart';
@@ -22,7 +22,7 @@ class AttributionControlOptionsJsImpl {
 /// @param {Boolean} [options.compact] If `true`, the attribution control will always collapse when moving the map. If `false`,force the expanded attribution control. The default is a responsive attribution that collapses when the user moves the map on maps less than 640 pixels wide.
 /// @param {List<String>} [options.customAttribution] Attributions to show in addition to any other attributions.
 /// @example
-/// var attribution = new maplibregl.AttributionControl();
+/// var attribution = new AttributionControl();
 /// map.addControl(attribution, 'top-left');
 /// @see [Display map attribution controls](https://maplibre.org/maplibre-gl-js/docs/examples/attribution-position/)
 @JS('AttributionControl')

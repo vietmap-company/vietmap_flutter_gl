@@ -1,4 +1,4 @@
-part of '../vietmap_flutter_gl.dart';
+part of vietmap_gl;
 
 class UserLocationLayer extends StatefulWidget {
   /// The icon that will be used to represent the user's location on the map.

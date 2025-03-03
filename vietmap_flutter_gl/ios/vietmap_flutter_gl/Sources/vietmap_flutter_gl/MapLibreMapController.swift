@@ -1713,7 +1713,7 @@ class MapLibreMapController: NSObject, FlutterPlatformView, MLNMapViewDelegate, 
         if styleString.isEmpty {
             NSLog("setStyleString - string empty")
         } else if styleString.hasPrefix("{") || styleString.hasPrefix("[") {
-            // Currently the iOS MapLibre SDK does not have a builder for json.
+            // Currently the iOS VietmapGL SDK does not have a builder for json.
             NSLog("setStyleString - JSON style currently not supported")
         } else if styleString.hasPrefix("/") {
             // Absolute path

@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.control.geolocate_control;
+library vietmap.interop.ui.control.geolocate_control;
 
 import 'package:js/js.dart';
 import 'package:vietmap_flutter_gl_web/src/interop/ui/map_interop.dart';

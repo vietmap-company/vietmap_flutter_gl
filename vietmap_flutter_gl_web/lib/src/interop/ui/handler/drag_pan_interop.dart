@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.handler.drag_pan;
+library vietmap.interop.ui.handler.drag_pan;
 
 import 'dart:html';
 

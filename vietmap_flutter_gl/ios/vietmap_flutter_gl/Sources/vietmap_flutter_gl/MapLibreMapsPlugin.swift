@@ -131,7 +131,7 @@ public class MapLibreMapsPlugin: NSObject, FlutterPlugin {
         return cachesUrl
     }
 
-    // Copies the "offline" tiles to where MapLibre expects them
+    // Copies the "offline" tiles to where VietmapGL expects them
     private static func installOfflineMapTiles(registrar: FlutterPluginRegistrar, tilesdb: String) {
         var tilesUrl = getTilesUrl()
         let bundlePath = getTilesDbPath(registrar: registrar, tilesdb: tilesdb)

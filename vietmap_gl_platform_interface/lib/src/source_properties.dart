@@ -23,7 +23,7 @@ class VectorSourceProperties implements SourceProperties {
   /// northeast corners of the source's bounding box in the following order:
   /// `[sw.lng, sw.lat, ne.lng, ne.lat]`. When this property is included in
   /// a source, no tiles outside of the given bounds are requested by
-  /// MapLibre.
+  /// VietmapGL.
   ///
   /// Type: array
   ///   default: [-180, -85.051129, 180, 85.051129]
@@ -155,7 +155,7 @@ class RasterSourceProperties implements SourceProperties {
   /// northeast corners of the source's bounding box in the following order:
   /// `[sw.lng, sw.lat, ne.lng, ne.lat]`. When this property is included in
   /// a source, no tiles outside of the given bounds are requested by
-  /// MapLibre.
+  /// VietmapGL.
   ///
   /// Type: array
   ///   default: [-180, -85.051129, 180, 85.051129]
@@ -286,7 +286,7 @@ class RasterDemSourceProperties implements SourceProperties {
   /// northeast corners of the source's bounding box in the following order:
   /// `[sw.lng, sw.lat, ne.lng, ne.lat]`. When this property is included in
   /// a source, no tiles outside of the given bounds are requested by
-  /// MapLibre.
+  /// VietmapGL.
   ///
   /// Type: array
   ///   default: [-180, -85.051129, 180, 85.051129]

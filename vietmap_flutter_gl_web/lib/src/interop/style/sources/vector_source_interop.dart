@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.style.interop.sources.vector_source;
+library vietmap.style.interop.sources.vector_source;
 
 import 'package:js/js.dart';
 

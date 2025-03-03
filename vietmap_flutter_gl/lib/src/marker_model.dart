@@ -1,4 +1,4 @@
-part of '../vietmap_flutter_gl.dart';
+part of vietmap_gl;
 
 class Marker {
   final Widget child;

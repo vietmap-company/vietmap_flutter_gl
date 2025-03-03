@@ -6,16 +6,16 @@ import 'package:vietmap_flutter_gl_web/src/interop/interop.dart';
 ///
 ///  If no arguments are provided to the constructor, a `null` bounding box is created.
 ///
-///  Note that any MapLibre method that accepts a `LngLatBounds` object as an argument or option
+///  Note that any VietmapGL method that accepts a `LngLatBounds` object as an argument or option
 ///  can also accept an `Array` of two {@link LngLatLike} constructs and will perform an implicit conversion.
 ///  This flexible type is documented as {@link LngLatBoundsLike}.
 ///
 ///  @param {LngLatLike} [sw] The southwest corner of the bounding box.
 ///  @param {LngLatLike} [ne] The northeast corner of the bounding box.
 ///  @example
-///  var sw = new maplibregl.LngLat(-73.9876, 40.7661);
-///  var ne = new maplibregl.LngLat(-73.9397, 40.8002);
-///  var llb = new maplibregl.LngLatBounds(sw, ne);
+///  var sw = new LngLat(-73.9876, 40.7661);
+///  var ne = new LngLat(-73.9397, 40.8002);
+///  var llb = new LngLatBounds(sw, ne);
 class LngLatBounds extends JsObjectWrapper<LngLatBoundsJsImpl> {
   factory LngLatBounds(
     LngLat sw,
@@ -51,7 +51,7 @@ class LngLatBounds extends JsObjectWrapper<LngLatBoundsJsImpl> {
   ///
   ///  @returns {LngLat} The bounding box's center.
   ///  @example
-  ///  var llb = new maplibregl.LngLatBounds([-73.9876, 40.7661], [-73.9397, 40.8002]);
+  ///  var llb = new LngLatBounds([-73.9876, 40.7661], [-73.9397, 40.8002]);
   ///  llb.getCenter(); // = LngLat {lng: -73.96365, lat: 40.78315}
   LngLat getCenter() => LngLat.fromJsObject(jsObject.getCenter());
 
@@ -100,7 +100,7 @@ class LngLatBounds extends JsObjectWrapper<LngLatBoundsJsImpl> {
   ///  @returns {Array<Array<number>>} The bounding box represented as an array, consisting of the
   ///    southwest and northeast coordinates of the bounding represented as arrays of numbers.
   ///  @example
-  ///  var llb = new maplibregl.LngLatBounds([-73.9876, 40.7661], [-73.9397, 40.8002]);
+  ///  var llb = new LngLatBounds([-73.9876, 40.7661], [-73.9397, 40.8002]);
   ///  llb.toArray(); // = [[-73.9876, 40.7661], [-73.9397, 40.8002]]
   List<List<num>> toArray() => jsObject.toArray();
 
@@ -109,7 +109,7 @@ class LngLatBounds extends JsObjectWrapper<LngLatBoundsJsImpl> {
   ///  @returns {string} The bounding box represents as a string of the format
   ///    `'LngLatBounds(LngLat(lng, lat), LngLat(lng, lat))'`.
   ///  @example
-  ///  var llb = new maplibregl.LngLatBounds([-73.9876, 40.7661], [-73.9397, 40.8002]);
+  ///  var llb = new LngLatBounds([-73.9876, 40.7661], [-73.9397, 40.8002]);
   ///  llb.toString(); // = "LngLatBounds(LngLat(-73.9876, 40.7661), LngLat(-73.9397, 40.8002))"
   @override
   String toString() => jsObject.toString();
@@ -135,7 +135,7 @@ class LngLatBounds extends JsObjectWrapper<LngLatBoundsJsImpl> {
   ///  @returns {LngLatBounds} A new `LngLatBounds` object, if a conversion occurred, or the original `LngLatBounds` object.
   ///  @example
   ///  var arr = [[-73.9876, 40.7661], [-73.9397, 40.8002]];
-  ///  var llb = maplibregl.LngLatBounds.convert(arr);
+  ///  var llb = LngLatBounds.convert(arr);
   ///  llb;   // = LngLatBounds {_sw: LngLat {lng: -73.9876, lat: 40.7661}, _ne: LngLat {lng: -73.9397, lat: 40.8002}}
   LngLatBounds.convert(dynamic input)
       : this.fromJsObject(LngLatBoundsJsImpl.convert(input));

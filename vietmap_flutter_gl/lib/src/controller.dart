@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-part of '../vietmap_flutter_gl.dart';
+part of vietmap_gl;
 
 typedef OnMapClickCallback = void Function(
     Point<double> point, LatLng coordinates);
@@ -59,9 +59,9 @@ typedef MaplibreMapController = VietmapController;
 /// not for circles that are already contained in the map's style when the map is loaded or are added to that map's style with the methods from the advanced way (see below).
 /// The same of course applies for fills, lines and symbols.
 ///
-/// 2. *Advanced way to add annotations*: Modify the underlying MapLibre Style of the map to add a new data source (e.g. with the [addSource] method or the more specific methods like [addGeoJsonSource])
+/// 2. *Advanced way to add annotations*: Modify the underlying VietmapGL Style of the map to add a new data source (e.g. with the [addSource] method or the more specific methods like [addGeoJsonSource])
 /// and add a new layer to display the data of that source on the map (either with the [addLayer] method or with the more specific methods like [addCircleLayer], [addLineLayer] etc.).
-/// For more information about MapLibre Styles, see the documentation of [maplibre_gl] as well as the specification at [https://maplibre.org/maplibre-style-spec/].
+/// For more information about VietmapGL Styles, see the documentation of [maplibre_gl] as well as the specification at [].
 ///
 /// A MapLibreMapController is also a [ChangeNotifier]. Subscribers (change listeners) are notified upon changes to any of
 ///
@@ -74,7 +74,7 @@ typedef MaplibreMapController = VietmapController;
 /// Listeners are notified after changes have been applied on the platform side.
 class VietmapController extends ChangeNotifier {
   VietmapController({
-    required VietmapGlPlatform maplibrePlatform,
+    required VietmapGlPlatform vietmapGLPlatform,
     required CameraPosition initialCameraPosition,
     required Iterable<AnnotationType> annotationOrder,
     required Iterable<AnnotationType> annotationConsumeTapEvents,
@@ -87,7 +87,7 @@ class VietmapController extends ChangeNotifier {
     this.onMapIdle,
     this.onUserLocationUpdated,
     this.onCameraIdle,
-  }) : _vietmapGLPlatform = maplibrePlatform {
+  }) : _vietmapGLPlatform = vietmapGLPlatform {
     _cameraPosition = initialCameraPosition;
 
     _vietmapGLPlatform.onFeatureTappedPlatform.add((payload) {
@@ -397,7 +397,7 @@ class VietmapController extends ChangeNotifier {
   /// [filter] determines which features should be rendered in the layer.
   /// Filters are written as [expressions].
   ///
-  /// [expressions]: https://maplibre.org/maplibre-style-spec/expressions/
+
   Future<void> addSymbolLayer(
       String sourceId, String layerId, SymbolLayerProperties properties,
       {String? belowLayerId,
@@ -437,7 +437,7 @@ class VietmapController extends ChangeNotifier {
   /// [filter] determines which features should be rendered in the layer.
   /// Filters are written as [expressions].
   ///
-  /// [expressions]: https://maplibre.org/maplibre-style-spec/expressions/
+
   Future<void> addLineLayer(
       String sourceId, String layerId, LineLayerProperties properties,
       {String? belowLayerId,
@@ -488,7 +488,7 @@ class VietmapController extends ChangeNotifier {
   /// [filter] determines which features should be rendered in the layer.
   /// Filters are written as [expressions].
   ///
-  /// [expressions]: https://maplibre.org/maplibre-style-spec/expressions/
+
   Future<void> addFillLayer(
       String sourceId, String layerId, FillLayerProperties properties,
       {String? belowLayerId,
@@ -528,7 +528,7 @@ class VietmapController extends ChangeNotifier {
   /// [filter] determines which features should be rendered in the layer.
   /// Filters are written as [expressions].
   ///
-  /// [expressions]: https://maplibre.org/maplibre-style-spec/expressions/
+
   Future<void> addFillExtrusionLayer(
       String sourceId, String layerId, FillExtrusionLayerProperties properties,
       {String? belowLayerId,
@@ -568,7 +568,7 @@ class VietmapController extends ChangeNotifier {
   /// [filter] determines which features should be rendered in the layer.
   /// Filters are written as [expressions].
   ///
-  /// [expressions]: https://maplibre.org/maplibre-style-spec/expressions/
+
   Future<void> addCircleLayer(
       String sourceId, String layerId, CircleLayerProperties properties,
       {String? belowLayerId,
@@ -729,7 +729,7 @@ class VietmapController extends ChangeNotifier {
   /// "a lowercase language's ISO 639-1 alpha2 code (second column), a lowercase ISO 639-2 code if an ISO 639-1 code doesn't exist, or a ISO 639-3 code if neither of those exist".
   ///
   /// If your vector tiles do not follow this schema of having labels with "name:$language" for different language, this method will not work for you.
-  /// In that case, you need to adapt your MapLibre style accordingly yourself to use labels in your preferred language.
+  /// In that case, you need to adapt your VietmapGL style accordingly yourself to use labels in your preferred language.
   ///
   /// Attention: This may only be called after onStyleLoaded() has been invoked.
   ///
@@ -1300,7 +1300,7 @@ class VietmapController extends ChangeNotifier {
         layerId, sourceId, imageSourceId, minzoom, maxzoom);
   }
 
-  /// Removes a MapLibre style layer
+  /// Removes a VietmapGL style layer
   Future<void> removeLayer(String layerId) {
     return _vietmapGLPlatform.removeLayer(layerId);
   }
@@ -1382,7 +1382,7 @@ class VietmapController extends ChangeNotifier {
   /// Filters are written as [expressions].
   /// [filter] is not supported by RasterLayer and HillshadeLayer.
   ///
-  /// [expressions]: https://maplibre.org/maplibre-style-spec/expressions/
+
   Future<void> addLayer(
       String sourceId, String layerId, LayerProperties properties,
       {String? belowLayerId,

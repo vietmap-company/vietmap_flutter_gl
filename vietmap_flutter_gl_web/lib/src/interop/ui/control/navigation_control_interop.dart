@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.control.navigation_control;
+library vietmap.interop.ui.control.navigation_control;
 
 import 'package:js/js.dart';
 import 'package:vietmap_flutter_gl_web/src/interop/ui/map_interop.dart';
@@ -28,7 +28,7 @@ class NavigationControlOptionsJsImpl {
 /// @param {Boolean} [options.showZoom=true] If `true` the zoom-in and zoom-out buttons are included.
 /// @param {Boolean} [options.visualizePitch=false] If `true` the pitch is visualized by rotating X-axis of compass.
 /// @example
-/// var nav = new maplibregl.NavigationControl();
+/// var nav = new NavigationControl();
 /// map.addControl(nav, 'top-left');
 /// @see [Display map navigation controls](https://maplibre.org/maplibre-gl-js/docs/examples/navigation/)
 /// @see [Add a third party vector tile source](https://maplibre.org/maplibre-gl-js/docs/examples/third-party/)

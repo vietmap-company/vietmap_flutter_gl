@@ -1,4 +1,4 @@
-part of '../vietmap_flutter_gl.dart';
+part of vietmap_gl;
 
 Map<String, dynamic> buildFeatureCollection(
     List<Map<String, dynamic>> features) {

@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.handler.box_zoom;
+library vietmap.interop.ui.handler.box_zoom;
 
 import 'dart:html';
 

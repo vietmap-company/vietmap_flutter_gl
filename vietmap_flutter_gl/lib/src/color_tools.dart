@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-part of '../vietmap_flutter_gl.dart';
+part of vietmap_gl;
 
 extension ColorConversion on Color {
   String toHexStringRGB() {

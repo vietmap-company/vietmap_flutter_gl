@@ -45,8 +45,11 @@ class FullMapState extends State<FullMap> {
       myLocationTrackingMode: MyLocationTrackingMode.trackingGps,
       trackCameraPosition: true,
       isCustomizeUserIcon: false,
+      // For mobile
       styleString:
           'https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE',
+      // For web:
+      // styleString: 'https://maps.vietmap.vn/mt/tm/style.json?apikey=YOUR_API_KEY_HERE',
       onMapCreated: _onMapCreated,
       initialCameraPosition: const CameraPosition(target: LatLng(0.0, 0.0)),
       onStyleLoadedCallback: _onStyleLoadedCallback,

@@ -155,17 +155,17 @@ class OfflinePackDownloader {
               verifyPack(pack: pack) else { return }
         let maximumCount = (notification.userInfo?[MLNOfflinePackUserInfoKey.maximumCount]
             as AnyObject).uint64Value ?? 0
-        print("MapLibre tile count limit exceeded: \(maximumCount)")
+        print("VietmapGL tile count limit exceeded: \(maximumCount)")
         // set download state to inactive
         isCompleted = true
         channelHandler.onError(
             errorCode: "mapboxTileCountLimitExceeded",
-            errorMessage: "MapLibre tile count limit exceeded: \(maximumCount)",
+            errorMessage: "VietmapGL tile count limit exceeded: \(maximumCount)",
             errorDetails: nil
         )
         result(FlutterError(
             code: "mapboxTileCountLimitExceeded",
-            message: "MapLibre tile count limit exceeded: \(maximumCount)",
+            message: "VietmapGL tile count limit exceeded: \(maximumCount)",
             details: nil
         ))
         if let region = OfflineRegion.fromOfflinePack(pack) {

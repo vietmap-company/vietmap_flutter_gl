@@ -130,7 +130,7 @@ abstract class OfflineManagerUtils {
                             "vietmapTileCountLimitExceeded",
                             "VietMap tile count " + "limit " + "exceeded: " + limit,
                             null);
-                        // MapLibre even after crash
+                        // VietmapGL even after crash
                         // and not downloading fully
                         // region still keeps part
                         // of it in database, so we

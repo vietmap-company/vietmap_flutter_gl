@@ -20,7 +20,7 @@ import PackageDescription
 //         .target(
 //             name: "maplibre_gl",
 //             dependencies: [
-//                 .product(name: "MapLibre", package: "maplibre-gl-native-distribution")
+//                 .product(name: "VietmapGL", package: "maplibre-gl-native-distribution")
 //             ],
 //             cSettings: [
 //                 .headerSearchPath("include/maplibre_gl")

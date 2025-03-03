@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.camera;
+library vietmap.interop.ui.camera;
 
 import 'package:js/js.dart';
 import 'package:vietmap_flutter_gl_web/src/interop/geo/lng_lat_bounds_interop.dart';

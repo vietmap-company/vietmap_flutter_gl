@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.ui.handler.scroll_zoom;
+library vietmap.interop.ui.handler.scroll_zoom;
 
 import 'dart:html';
 

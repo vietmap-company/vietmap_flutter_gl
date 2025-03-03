@@ -106,12 +106,12 @@ class _MapsDemoState extends State<MapsDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('MapLibre examples')),
+      appBar: AppBar(title: const Text('VietmapGL examples')),
       body: ListView.builder(
         itemCount: _allPages.length + 1,
         itemBuilder: (_, int index) => index == _allPages.length
             ? const AboutListTile(
-                applicationName: "flutter-maplibre-gl example",
+                applicationName: "flutter-vietmap-gl example",
               )
             : ListTile(
                 leading: _allPages[index].leading,

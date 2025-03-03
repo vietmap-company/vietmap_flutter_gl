@@ -1,5 +1,5 @@
 @JS('vietmapgl')
-library maplibre.interop.style.style_image;
+library vietmap.interop.style.style_image;
 
 import 'package:js/js.dart';
 import 'package:vietmap_flutter_gl_web/src/interop/interop.dart';
