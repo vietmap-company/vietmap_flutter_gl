@@ -1,0 +1,65 @@
+group 'vn.vietmap.vietmapgl'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.9.0'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    if (project.android.hasProperty("namespace")) {
+        namespace 'vn.vietmap.vietmapgl'
+    }
+
+    compileSdkVersion 34
+    ndkVersion "27.0.12077973"
+
+    defaultConfig {
+        minSdkVersion 21
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+    dependencies {
+        implementation 'com.github.vietmap-company:maps-sdk-android:3.3.0'
+        implementation 'com.github.vietmap-company:maps-sdk-plugin-localization-android:2.0.0'
+        implementation 'com.github.vietmap-company:vietmap-services-geojson-android:1.0.0'
+        implementation 'com.github.vietmap-company:vietmap-services-turf-android:1.0.2'
+        implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+        implementation 'com.google.code.gson:gson:2.10.1'
+
+        implementation('com.google.android.gms:play-services-location:21.3.0')
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.10.1'
+}

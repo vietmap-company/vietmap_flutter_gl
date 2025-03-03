@@ -1,0 +1,48 @@
+PODS:
+  - device_info_plus (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - location (0.0.1):
+    - Flutter
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - VietMap (2.0.0)
+  - vietmap_flutter_gl (0.0.3):
+    - Flutter
+    - VietMap (~> 2.0.0)
+
+DEPENDENCIES:
+  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - Flutter (from `Flutter`)
+  - location (from `.symlinks/plugins/location/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - vietmap_flutter_gl (from `.symlinks/plugins/vietmap_flutter_gl/ios`)
+
+SPEC REPOS:
+  trunk:
+    - VietMap
+
+EXTERNAL SOURCES:
+  device_info_plus:
+    :path: ".symlinks/plugins/device_info_plus/ios"
+  Flutter:
+    :path: Flutter
+  location:
+    :path: ".symlinks/plugins/location/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  vietmap_flutter_gl:
+    :path: ".symlinks/plugins/vietmap_flutter_gl/ios"
+
+SPEC CHECKSUMS:
+  device_info_plus: 335f3ce08d2e174b9fdc3db3db0f4e3b1f66bd89
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  location: 155caecf9da4f280ab5fe4a55f94ceccfab838f8
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  VietMap: 1fc4a1e27896a19bc8b8a62e2227b1e0116a698d
+  vietmap_flutter_gl: 520778c328eaa39b02ae270d1871db518d5c15b0
+
+PODFILE CHECKSUM: 7be2f5f74864d463a8ad433546ed1de7e0f29aef
+
+COCOAPODS: 1.16.2
