@@ -1,4 +1,4 @@
-part of vietmap_gl_platform_interface;
+part of '../../vietmap_gl_platform_interface.dart';
 
 /// Decode the google encoded string using Encoded Polyline Algorithm Format
 /// for more info about the algorithm check https://developers.google.com/maps/documentation/utilities/polylinealgorithm
@@ -9,8 +9,7 @@ class VietmapPolylineDecoder {
     return _decodePolyline6(encodedString, isPolyline6 ? 1e6 : 1e5);
   }
 
-  static String encodePolyline(final List<LatLng> path,
-      [bool isPolyline6 = true]) {
+  static String encodePolyline(List<LatLng> path, [bool isPolyline6 = true]) {
     var lastLat = 0;
     var lastLng = 0;
     var mul = isPolyline6 ? 1e6 : 1e5;

@@ -1,4 +1,4 @@
-part of vietmap_gl_platform_interface;
+part of '../../vietmap_gl_platform_interface.dart';
 
 /// Support snapping user location to route,
 /// tracking user's distance to route, etc.
@@ -15,8 +15,8 @@ class VietMapSnapEngine {
 
   /// Calculate the distance of the route
   static double calculateRouteDistance(List<LatLng> route) {
-    double distance = 0.0;
-    for (int i = 0; i < route.length - 1; i++) {
+    var distance = 0.0;
+    for (var i = 0; i < route.length - 1; i++) {
       distance +=
           VietmapSphericalUtil.computeDistanceBetween(route[i], route[i + 1]);
     }
@@ -31,7 +31,7 @@ class VietMapSnapEngine {
   /// [limitDistance] the limit distance to consider the user is off route, default is 30 meters
   static bool isUserOffRoute(List<LatLng> route, LatLng point,
       {Unit unit = Unit.meters, double limitDistance = 30}) {
-    final NearestLatLngResult? nearest = snapToRoute(route, point, unit);
+    final nearest = snapToRoute(route, point, unit);
     if (nearest == null) {
       return true;
     }
@@ -41,11 +41,11 @@ class VietMapSnapEngine {
   /// Calculate the distance from the user's location to the end of the route.
   /// Response measure in meters
   static double distanceToEndOfRoute(List<LatLng> route, LatLng point) {
-    final NearestLatLngResult? nearest = snapToRoute(route, point);
+    final nearest = snapToRoute(route, point);
     if (nearest == null) {
       return 0;
     }
-    double distance = 0.0;
+    var distance = 0.0;
     distance =
         calculateRouteDistance([point, ...route.sublist(nearest.index + 1)]);
     return distance;
@@ -54,11 +54,11 @@ class VietMapSnapEngine {
   /// Calculate the distance from the user's location to the start of the route
   /// Response measure in meters
   static double distanceToStartOfRoute(List<LatLng> route, LatLng point) {
-    final NearestLatLngResult? nearest = snapToRoute(route, point);
+    final nearest = snapToRoute(route, point);
     if (nearest == null) {
       return 0;
     }
-    double distance = 0.0;
+    var distance = 0.0;
     distance =
         calculateRouteDistance([point, ...route.sublist(0, nearest.index)]);
     return distance;
@@ -69,7 +69,7 @@ class VietMapSnapEngine {
   /// [point] the user's location
   /// Return the remaining route from the user's location
   static List<LatLng> getRouteRemaining(List<LatLng> route, LatLng point) {
-    final NearestLatLngResult? nearest = snapToRoute(route, point);
+    final nearest = snapToRoute(route, point);
     if (nearest == null) {
       return route;
     }
@@ -81,7 +81,7 @@ class VietMapSnapEngine {
   /// [point] the user's location
   /// Return the traveled route from the user's location
   static List<LatLng> getRouteTraveled(List<LatLng> route, LatLng point) {
-    final NearestLatLngResult? nearest = snapToRoute(route, point);
+    final nearest = snapToRoute(route, point);
     if (nearest == null) {
       return [];
     }

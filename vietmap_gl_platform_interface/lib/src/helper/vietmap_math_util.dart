@@ -1,4 +1,4 @@
-part of vietmap_gl_platform_interface;
+part of '../../vietmap_gl_platform_interface.dart';
 
 class VietmapMathUtil {
   static num toRadians(num degrees) => degrees / 180.0 * pi;

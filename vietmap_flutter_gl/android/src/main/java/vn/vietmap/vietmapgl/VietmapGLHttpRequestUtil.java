@@ -4,7 +4,7 @@ import io.flutter.plugin.common.MethodChannel;
 import java.util.Map;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import vn.vietmap.vietmapsdk.module.http.HttpRequestUtil;
+import vn.vietmap.android.module.http.HttpRequestUtil;
 
 abstract class VietmapGLHttpRequestUtil {
 

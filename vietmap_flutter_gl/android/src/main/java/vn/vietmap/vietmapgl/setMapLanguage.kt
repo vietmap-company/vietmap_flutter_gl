@@ -2,11 +2,11 @@
 
 package vn.vietmap.vietmapgl
 
-import vn.vietmap.vietmapsdk.maps.VietMapGL
+import vn.vietmap.android.maps.VietMapGL
 
-import vn.vietmap.vietmapsdk.style.expressions.Expression
-import vn.vietmap.vietmapsdk.style.layers.PropertyFactory
-import vn.vietmap.vietmapsdk.style.layers.SymbolLayer
+import vn.vietmap.android.style.expressions.Expression
+import vn.vietmap.android.style.layers.PropertyFactory
+import vn.vietmap.android.style.layers.SymbolLayer
 
 fun VietMapGL.setMapLanguage(language: String) {
     val layers = this.style?.layers ?: emptyList()

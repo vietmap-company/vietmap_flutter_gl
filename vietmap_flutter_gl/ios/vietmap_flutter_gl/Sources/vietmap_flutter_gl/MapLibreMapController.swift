@@ -1191,7 +1191,13 @@ class MapLibreMapController: NSObject, FlutterPlatformView, MLNMapViewDelegate, 
             }
         }
     }
-
+    
+    func mapViewDidFinishRenderingMap(_ mapView: MLNMapView, fullyRendered: Bool) {
+        if let channel = channel {
+            channel.invokeMethod("map#onMapRendered", arguments: nil)
+        }
+    }
+    
     // handle missing images
     func mapView(_: MLNMapView, didFailToLoadImage name: String) -> UIImage? {
         return loadIconImage(name: name)

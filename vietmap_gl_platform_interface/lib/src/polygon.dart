@@ -66,17 +66,17 @@ class PolygonOptions {
   /// By default, every non-specified field is null, meaning no desire to change
   /// fill defaults or current configuration.
   const PolygonOptions(
-      {this.fillOpacity,
-      this.fillColor,
-      this.fillOutlineColor,
-      this.fillPattern,
+      {this.polygonOpacity,
+      this.polygonColor,
+      this.polygonOutlineColor,
+      this.polygonPattern,
       this.geometry,
       this.draggable});
 
-  final double? fillOpacity;
-  final String? fillColor;
-  final String? fillOutlineColor;
-  final String? fillPattern;
+  final double? polygonOpacity;
+  final Color? polygonColor;
+  final Color? polygonOutlineColor;
+  final String? polygonPattern;
   final List<List<LatLng>>? geometry;
   final bool? draggable;
 
@@ -84,10 +84,10 @@ class PolygonOptions {
 
   PolygonOptions copyWith(PolygonOptions changes) {
     return PolygonOptions(
-      fillOpacity: changes.fillOpacity ?? fillOpacity,
-      fillColor: changes.fillColor ?? fillColor,
-      fillOutlineColor: changes.fillOutlineColor ?? fillOutlineColor,
-      fillPattern: changes.fillPattern ?? fillPattern,
+      polygonOpacity: changes.polygonOpacity ?? polygonOpacity,
+      polygonColor: changes.polygonColor ?? polygonColor,
+      polygonOutlineColor: changes.polygonOutlineColor ?? polygonOutlineColor,
+      polygonPattern: changes.polygonPattern ?? polygonPattern,
       geometry: changes.geometry ?? geometry,
       draggable: changes.draggable ?? draggable,
     );
@@ -102,10 +102,10 @@ class PolygonOptions {
       }
     }
 
-    addIfPresent('fillOpacity', fillOpacity);
-    addIfPresent('fillColor', fillColor);
-    addIfPresent('fillOutlineColor', fillOutlineColor);
-    addIfPresent('fillPattern', fillPattern);
+    addIfPresent('fillOpacity', polygonOpacity);
+    addIfPresent('fillColor', polygonColor.toHex());
+    addIfPresent('fillOutlineColor', polygonOutlineColor.toHex());
+    addIfPresent('fillPattern', polygonPattern);
     if (addGeometry) {
       addIfPresent(
           'geometry',

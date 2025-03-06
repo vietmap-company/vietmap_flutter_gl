@@ -1,4 +1,4 @@
-## 4.0.0-pre.2, Mar 3, 2025
+## 4.0.0-pre.4, Mar 3, 2025
 * Update to Vietmap Native SDK v4.0.0
 ## 3.2.3, Feb 28, 2025
 * Fix crash on Android when load map on Android

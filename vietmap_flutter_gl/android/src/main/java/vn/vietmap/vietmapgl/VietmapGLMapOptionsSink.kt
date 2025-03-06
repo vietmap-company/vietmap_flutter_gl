@@ -3,8 +3,10 @@
 // found in the LICENSE file.
 package vn.vietmap.vietmapgl
 
-import vn.vietmap.vietmapsdk.geometry.LatLngBounds
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineRequest
+import vn.vietmap.android.geometry.LatLngBounds
+import vn.vietmap.android.location.engine.LocationEngineRequest
+//import vn.vietmap.android.geometry.LatLngBounds
+//import vn.vietmap.android.location.engine.LocationEngineRequest
 
 /** Receiver of VietmapGL configuration options.  */
 internal interface VietmapGLMapOptionsSink {

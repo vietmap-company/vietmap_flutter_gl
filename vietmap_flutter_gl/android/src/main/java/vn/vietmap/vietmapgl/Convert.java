@@ -10,13 +10,13 @@ import android.util.DisplayMetrics;
 
 import com.mapbox.geojson.Polygon;
 
-import vn.vietmap.vietmapsdk.camera.CameraPosition;
-import vn.vietmap.vietmapsdk.camera.CameraUpdate;
-import vn.vietmap.vietmapsdk.camera.CameraUpdateFactory;
-import vn.vietmap.vietmapsdk.geometry.LatLng;
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineRequest;
-import vn.vietmap.vietmapsdk.geometry.LatLngBounds;
-import vn.vietmap.vietmapsdk.maps.VietMapGL;
+import vn.vietmap.android.camera.CameraPosition;
+import vn.vietmap.android.camera.CameraUpdate;
+import vn.vietmap.android.camera.CameraUpdateFactory;
+import vn.vietmap.android.geometry.LatLng;
+import vn.vietmap.android.location.engine.LocationEngineRequest;
+import vn.vietmap.android.geometry.LatLngBounds;
+import vn.vietmap.android.maps.VietMapGL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;

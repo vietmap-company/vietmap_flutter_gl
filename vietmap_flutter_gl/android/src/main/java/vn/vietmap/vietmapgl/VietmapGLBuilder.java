@@ -7,11 +7,11 @@ package vn.vietmap.vietmapgl;
 import android.content.Context;
 import android.view.Gravity;
 import androidx.annotation.NonNull;
-import vn.vietmap.vietmapsdk.camera.CameraPosition;
-import vn.vietmap.vietmapsdk.geometry.LatLngBounds;
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineRequest;
+import vn.vietmap.android.camera.CameraPosition;
+import vn.vietmap.android.geometry.LatLngBounds;
+import vn.vietmap.android.location.engine.LocationEngineRequest;
 import io.flutter.plugin.common.BinaryMessenger;
-import vn.vietmap.vietmapsdk.maps.VietMapGLOptions;
+import vn.vietmap.android.maps.VietMapGLOptions;
 
 class VietmapGLBuilder implements VietmapGLMapOptionsSink {
   public final String TAG = getClass().getSimpleName();

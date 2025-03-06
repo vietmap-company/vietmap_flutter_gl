@@ -1,4 +1,4 @@
-part of vietmap_gl_platform_interface;
+part of '../../vietmap_gl_platform_interface.dart';
 
 /// Port of PolyUtil from android-maps-utils (https://github.com/googlemaps/android-maps-utils)
 class VietmapPolygonUtil {

@@ -59,6 +59,8 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
         onCameraIdlePlatform(cameraPosition);
       case 'map#onStyleLoaded':
         onMapStyleLoadedPlatform(null);
+      case 'map#onMapRendered':
+        onMapRenderedPlatform(null);
       case 'map#onMapClick':
         final double x = call.arguments['x'];
         final double y = call.arguments['y'];
@@ -846,7 +848,7 @@ class MethodChannelVietmapGl extends VietmapGlPlatform {
       'isEnable': isEnable,
     });
   }
-  
+
   @override
   Future<void> recenter() async {
     await _channel.invokeMethod('map#recenter');

@@ -14,10 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineCallback;
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineImpl;
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineRequest;
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineResult;
+import vn.vietmap.android.location.engine.LocationEngineCallback;
+import vn.vietmap.android.location.engine.LocationEngineImpl;
+import vn.vietmap.android.location.engine.LocationEngineRequest;
+import vn.vietmap.android.location.engine.LocationEngineResult;
 
 
 public class VietmapGLGPSLocationEngine implements LocationEngineImpl<LocationListener> {

@@ -55,7 +55,7 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
 
   void _onMapCreated(VietmapController controller) {
     this.controller = controller;
-    controller.onFillTapped.add(_onFillTapped);
+    controller.onPolygonTapped.add(_onFillTapped);
     this.controller!.onFeatureDrag.add(_onFeatureDrag);
   }
 
@@ -92,7 +92,7 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
 
   @override
   void dispose() {
-    controller?.onFillTapped.remove(_onFillTapped);
+    controller?.onPolygonTapped.remove(_onFillTapped);
     super.dispose();
   }
 
@@ -110,8 +110,8 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
     controller!.addPolygon(
       PolygonOptions(
           geometry: _defaultGeometry,
-          fillColor: "#FF0000",
-          fillOutlineColor: "#FF0000"),
+          polygonColor: Color(0xFFFF0000),
+          polygonOutlineColor: Color(0xFFFF0000)),
     );
     setState(() {
       _fillCount += 1;
@@ -150,37 +150,37 @@ class PlaceFillBodyState extends State<PlaceFillBody> {
   }
 
   Future<void> _changeFillOpacity() async {
-    var current = _selectedFill!.options.fillOpacity;
+    var current = _selectedFill!.options.polygonOpacity;
     current ??= 1.0;
 
     _updateSelectedFill(
-      PolygonOptions(fillOpacity: current < 0.1 ? 1.0 : current * 0.75),
+      PolygonOptions(polygonOpacity: current < 0.1 ? 1.0 : current * 0.75),
     );
   }
 
   Future<void> _changeFillColor() async {
-    var current = _selectedFill!.options.fillColor;
-    current ??= "#FF0000";
+    var current = _selectedFill!.options.polygonColor;
+    current ??= Color(0xFFFF0000);
 
     _updateSelectedFill(
-      const PolygonOptions(fillColor: "#FFFF00"),
+      const PolygonOptions(polygonColor: Color(0xFFFFFF00)),
     );
   }
 
   Future<void> _changeFillOutlineColor() async {
-    var current = _selectedFill!.options.fillOutlineColor;
-    current ??= "#FF0000";
+    var current = _selectedFill!.options.polygonOutlineColor;
+    current ??= Color(0xFFFF0000);
 
     _updateSelectedFill(
-      const PolygonOptions(fillOutlineColor: "#FFFF00"),
+      const PolygonOptions(polygonOutlineColor: Color(0xFFFFFF00)),
     );
   }
 
   Future<void> _changeFillPattern() async {
     final current =
-        _selectedFill!.options.fillPattern == null ? "assetImage" : null;
+        _selectedFill!.options.polygonPattern == null ? "assetImage" : null;
     _updateSelectedFill(
-      PolygonOptions(fillPattern: current),
+      PolygonOptions(polygonPattern: current),
     );
   }
 

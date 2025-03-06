@@ -25,7 +25,7 @@ const fillOptions = [
         LatLng(-33.762, 151.250),
       ]
     ],
-    fillColor: "#FF0000",
+    polygonColor: Color(0xFFFF0000),
   ),
   PolygonOptions(geometry: [
     [
@@ -41,7 +41,7 @@ const fillOptions = [
       LatLng(-33.833, 151.747),
       LatLng(-33.762, 151.650),
     ]
-  ], fillColor: "#FF0000"),
+  ], polygonColor: Color(0xFFFF0000)),
 ];
 
 class BatchAddPage extends ExamplePage {
@@ -82,7 +82,8 @@ class BatchAddBodyState extends State<BatchAddBody> {
     final listOptions = <PolylineOptions>[];
     for (final option in options) {
       for (final geom in option.geometry!) {
-        listOptions.add(PolylineOptions(geometry: geom, lineColor: "#00FF00"));
+        listOptions.add(
+            PolylineOptions(geometry: geom, polylineColor: Color(0xFF00FF00)));
       }
     }
     return listOptions;
@@ -94,8 +95,8 @@ class BatchAddBodyState extends State<BatchAddBody> {
     for (final option in options) {
       // put circles only on the outside
       for (final latLng in option.geometry!.first) {
-        circleOptions
-            .add(CircleOptions(geometry: latLng, circleColor: "#00FF00"));
+        circleOptions.add(
+            CircleOptions(geometry: latLng, circleColor: Color(0xFF00FF00)));
       }
     }
     return circleOptions;

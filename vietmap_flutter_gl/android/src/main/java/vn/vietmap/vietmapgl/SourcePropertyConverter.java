@@ -3,17 +3,17 @@ package vn.vietmap.vietmapgl;
 import android.net.Uri;
 import com.google.gson.Gson;
 import com.mapbox.geojson.FeatureCollection;
-import vn.vietmap.vietmapsdk.geometry.LatLng;
-import vn.vietmap.vietmapsdk.geometry.LatLngQuad;
-import vn.vietmap.vietmapsdk.maps.Style;
-import vn.vietmap.vietmapsdk.style.sources.GeoJsonOptions;
-import vn.vietmap.vietmapsdk.style.sources.GeoJsonSource;
-import vn.vietmap.vietmapsdk.style.sources.ImageSource;
-import vn.vietmap.vietmapsdk.style.sources.RasterDemSource;
-import vn.vietmap.vietmapsdk.style.sources.RasterSource;
-import vn.vietmap.vietmapsdk.style.sources.Source;
-import vn.vietmap.vietmapsdk.style.sources.TileSet;
-import vn.vietmap.vietmapsdk.style.sources.VectorSource;
+import vn.vietmap.android.geometry.LatLng;
+import vn.vietmap.android.geometry.LatLngQuad;
+import vn.vietmap.android.maps.Style;
+import vn.vietmap.android.style.sources.GeoJsonOptions;
+import vn.vietmap.android.style.sources.GeoJsonSource;
+import vn.vietmap.android.style.sources.ImageSource;
+import vn.vietmap.android.style.sources.RasterDemSource;
+import vn.vietmap.android.style.sources.RasterSource;
+import vn.vietmap.android.style.sources.Source;
+import vn.vietmap.android.style.sources.TileSet;
+import vn.vietmap.android.style.sources.VectorSource;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -124,7 +124,7 @@ class SourcePropertyConverter {
         Gson gson = new Gson();
         String geojson = gson.toJson(data);
         final FeatureCollection featureCollection = FeatureCollection.fromJson(geojson);
-        return new GeoJsonSource(id, featureCollection, options);
+        return new GeoJsonSource(id, String.valueOf(featureCollection), options);
       }
     }
     return null;

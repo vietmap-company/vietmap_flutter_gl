@@ -20,6 +20,8 @@ typedef OnFeatureDragnCallback = void Function(dynamic id,
 typedef OnMapLongClickCallback = void Function(
     Point<double> point, LatLng coordinates);
 
+typedef void OnMapRenderedCallback();
+
 typedef OnStyleLoadedCallback = void Function();
 
 typedef OnUserLocationUpdated = void Function(UserLocation location);
@@ -53,7 +55,7 @@ typedef MaplibreMapController = VietmapController;
 ///
 /// There are also properties like [circles] to get the current set of circles on the map, which had been added with [addCircle] or [addCircles].
 ///
-/// Click events on annotations that are added this way (with the [addCircle], [addPolyline] etc. methods) can be received by adding callbacks to [onCircleTapped], [onLineTapped] etc.
+/// Click events on annotations that are added this way (with the [addCircle], [addPolyline] etc. methods) can be received by adding callbacks to [onCircleTapped], [onPolylineTapped] etc.
 ///
 /// Note: [circles], [clearCircles] and [onCircleTapped] only work for circles added with [addCircle] or [addCircles],
 /// not for circles that are already contained in the map's style when the map is loaded or are added to that map's style with the methods from the advanced way (see below).
@@ -85,11 +87,14 @@ class VietmapController extends ChangeNotifier {
     this.onCameraTrackingDismissed,
     this.onCameraTrackingChanged,
     this.onMapIdle,
+    this.onMapRendered,
+    this.onMapFirstRendered,
     this.onUserLocationUpdated,
     this.onCameraIdle,
   }) : _vietmapGLPlatform = vietmapGLPlatform {
     _cameraPosition = initialCameraPosition;
 
+    bool _isFirstRenderedCalled = false;
     _vietmapGLPlatform.onFeatureTappedPlatform.add((payload) {
       for (final fun
           in List<OnFeatureInteractionCallback>.from(onFeatureTapped)) {
@@ -98,6 +103,15 @@ class VietmapController extends ChangeNotifier {
       }
     });
 
+    _vietmapGLPlatform.onMapRenderedPlatform.add((_) {
+      if (onMapRendered != null) {
+        onMapRendered!();
+      }
+      if (onMapFirstRendered != null && !_isFirstRenderedCalled) {
+        onMapFirstRendered!();
+        _isFirstRenderedCalled = true;
+      }
+    });
     _vietmapGLPlatform.onFeatureDraggedPlatform.add((payload) {
       for (final fun in List<OnFeatureDragnCallback>.from(onFeatureDrag)) {
         final enmDragEventType = DragEventType.values
@@ -137,10 +151,12 @@ class VietmapController extends ChangeNotifier {
         switch (type) {
           case AnnotationType.polygon:
             polygonManager = PolygonManager(this,
-                onTap: onFillTapped.call, enableInteraction: enableInteraction);
+                onTap: onPolygonTapped.call,
+                enableInteraction: enableInteraction);
           case AnnotationType.line:
             polylineManager = PolylineManager(this,
-                onTap: onLineTapped.call, enableInteraction: enableInteraction);
+                onTap: onPolylineTapped.call,
+                enableInteraction: enableInteraction);
           case AnnotationType.circle:
             circleManager = CircleManager(this,
                 onTap: onCircleTapped.call,
@@ -183,6 +199,8 @@ class VietmapController extends ChangeNotifier {
   CircleManager? circleManager;
   SymbolManager? symbolManager;
 
+  final OnMapRenderedCallback? onMapRendered;
+  final OnMapRenderedCallback? onMapFirstRendered;
   final OnStyleLoadedCallback? onStyleLoadedCallback;
   final OnMapClickCallback? onMapClick;
   final OnMapLongClickCallback? onMapLongClick;
@@ -203,7 +221,8 @@ class VietmapController extends ChangeNotifier {
   final ArgumentCallbacks<Circle> onCircleTapped = ArgumentCallbacks<Circle>();
 
   /// Callbacks to receive tap events for fills placed on this map.
-  final ArgumentCallbacks<Polygon> onFillTapped = ArgumentCallbacks<Polygon>();
+  final ArgumentCallbacks<Polygon> onPolygonTapped =
+      ArgumentCallbacks<Polygon>();
 
   /// Callbacks to receive tap events for features (geojson layer) placed on this map.
   final onFeatureTapped = <OnFeatureInteractionCallback>[];
@@ -221,7 +240,7 @@ class VietmapController extends ChangeNotifier {
   Set<Symbol> get symbols => symbolManager!.annotations;
 
   /// Callbacks to receive tap events for lines placed on this map.
-  final ArgumentCallbacks<Line> onLineTapped = ArgumentCallbacks<Line>();
+  final ArgumentCallbacks<Line> onPolylineTapped = ArgumentCallbacks<Line>();
 
   /// The current set of lines on this map added with the [addPolyline] or [addPolylines] methods.
   ///

@@ -119,9 +119,9 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
     controller.addPolyline(
       const PolylineOptions(
         draggable: false,
-        lineColor: "#ff0000",
-        lineWidth: 7.0,
-        lineOpacity: 1,
+        polylineColor: Color(0xFFff0000),
+        polylineWidth: 7.0,
+        polylineOpacity: 1,
         geometry: [
           LatLng(35.3649902, 32.0593003),
           LatLng(34.9475098, 31.1187944),
@@ -135,8 +135,8 @@ class _AnnotationOrderBodyState extends State<AnnotationOrderBody> {
     controller.addPolygon(
       const PolygonOptions(
         draggable: false,
-        fillColor: "#008888",
-        fillOpacity: 0.3,
+        polygonColor: Color(0xFF008888),
+        polygonOpacity: 0.3,
         geometry: [
           [
             LatLng(35.3649902, 32.0593003),

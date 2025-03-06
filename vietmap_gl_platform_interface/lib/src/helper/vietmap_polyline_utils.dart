@@ -1,4 +1,4 @@
-part of vietmap_gl_platform_interface;
+part of '../../vietmap_gl_platform_interface.dart';
 
 enum Unit {
   meters,
@@ -156,12 +156,12 @@ class VietmapPolyline {
     Unit unit = Unit.kilometers,
     bool snapInputLatLngToResult = true,
   }) {
-    var res = _nearestLatLngOnLine(line, point, unit, true);
-    var line1 = line.sublist(0, res?.index ?? -1 + 1);
+    final res = _nearestLatLngOnLine(line, point, unit, true);
+    final line1 = line.sublist(0, res?.index ?? -1 + 1);
     if (snapInputLatLngToResult) {
       line1.add(point);
     }
-    var line2 = line.sublist(res?.index ?? -1 + 1, line.length);
+    final line2 = line.sublist(res?.index ?? -1 + 1, line.length);
     if (snapInputLatLngToResult) {
       line2.insert(0, point);
     }
@@ -173,24 +173,24 @@ class VietmapPolyline {
 
   static num distanceRaw(LatLng from, LatLng to,
       [Unit unit = Unit.kilometers]) {
-    var dLat = _degreesToRadians((to.latitude - from.latitude));
-    var dLon = _degreesToRadians((to.longitude - from.longitude));
-    var lat1 = _degreesToRadians(from.latitude);
-    var lat2 = _degreesToRadians(to.latitude);
+    final dLat = _degreesToRadians(to.latitude - from.latitude);
+    final dLon = _degreesToRadians(to.longitude - from.longitude);
+    final lat1 = _degreesToRadians(from.latitude);
+    final lat2 = _degreesToRadians(to.latitude);
 
-    num a =
+    final num a =
         pow(sin(dLat / 2), 2) + pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
 
     return _radiansToLength(2 * atan2(sqrt(a), sqrt(1 - a)), unit);
   }
 
   static num _degreesToRadians(num degrees) {
-    num radians = degrees.remainder(360);
+    final radians = degrees.remainder(360);
     return radians * pi / 180;
   }
 
   static num _radiansToLength(num radians, [Unit unit = Unit.kilometers]) {
-    var factor = factors[unit];
+    final factor = factors[unit];
     if (factor == null) {
       throw Exception("$unit units is invalid");
     }
@@ -203,12 +203,13 @@ class VietmapPolyline {
       return _calculateFinalBearingRaw(start, end);
     }
 
-    num lng1 = _degreesToRadians(start.longitude);
-    num lng2 = _degreesToRadians(end.longitude);
-    num lat1 = _degreesToRadians(start.latitude);
-    num lat2 = _degreesToRadians(end.latitude);
-    num a = sin(lng2 - lng1) * cos(lat2);
-    num b = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(lng2 - lng1);
+    final lng1 = _degreesToRadians(start.longitude);
+    final lng2 = _degreesToRadians(end.longitude);
+    final lat1 = _degreesToRadians(start.latitude);
+    final lat2 = _degreesToRadians(end.latitude);
+    final num a = sin(lng2 - lng1) * cos(lat2);
+    final num b =
+        cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(lng2 - lng1);
 
     return _radiansToDegrees(atan2(a, b));
   }
@@ -222,7 +223,7 @@ class VietmapPolyline {
 
   static num _calculateFinalBearingRaw(LatLng start, LatLng end) {
     // Swap start & end
-    num reverseBearing = _bearingRaw(end, start) + 180;
+    final reverseBearing = _bearingRaw(end, start) + 180;
     return reverseBearing.remainder(360);
   }
 
@@ -231,21 +232,21 @@ class VietmapPolyline {
   //     _calculateFinalBearingRaw(start, end);
 
   static num _radiansToDegrees(num radians) {
-    num degrees = radians.remainder(2 * pi);
+    final num degrees = radians.remainder(2 * pi);
     return degrees * 180 / pi;
   }
 
   static LatLng _destinationRaw(LatLng origin, num distance, num bearing,
       [Unit unit = Unit.kilometers]) {
-    num longitude1 = _degreesToRadians(origin.longitude);
-    num latitude1 = _degreesToRadians(origin.latitude);
-    num bearingRad = _degreesToRadians(bearing);
-    num radians = _lengthToRadians(distance, unit);
+    final longitude1 = _degreesToRadians(origin.longitude);
+    final latitude1 = _degreesToRadians(origin.latitude);
+    final bearingRad = _degreesToRadians(bearing);
+    final radians = _lengthToRadians(distance, unit);
 
     // Main
-    num latitude2 = asin(sin(latitude1) * cos(radians) +
+    final num latitude2 = asin(sin(latitude1) * cos(radians) +
         cos(latitude1) * sin(radians) * cos(bearingRad));
-    num longitude2 = longitude1 +
+    final num longitude2 = longitude1 +
         atan2(sin(bearingRad) * sin(radians) * cos(latitude1),
             cos(radians) - sin(latitude1) * sin(latitude2));
     return LatLng(
@@ -259,7 +260,7 @@ class VietmapPolyline {
       _destinationRaw(origin, distance, bearing, unit);
 
   static num _lengthToRadians(num distance, [Unit unit = Unit.kilometers]) {
-    num? factor = factors[unit];
+    final factor = factors[unit];
     if (factor == null) {
       throw Exception("$unit units is invalid");
     }

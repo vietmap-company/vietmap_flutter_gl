@@ -34,17 +34,17 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
 
   void _onMapCreated(VietmapController controller) {
     this.controller = controller;
-    controller.onFillTapped.add(_onFillTapped);
+    controller.onPolygonTapped.add(_onFillTapped);
     controller.onCircleTapped.add(_onCircleTapped);
-    controller.onLineTapped.add(_onLineTapped);
+    controller.onPolylineTapped.add(_onLineTapped);
     controller.onSymbolTapped.add(_onSymbolTapped);
   }
 
   @override
   void dispose() {
-    controller?.onFillTapped.remove(_onFillTapped);
+    controller?.onPolygonTapped.remove(_onFillTapped);
     controller?.onCircleTapped.remove(_onCircleTapped);
-    controller?.onLineTapped.remove(_onLineTapped);
+    controller?.onPolylineTapped.remove(_onLineTapped);
     controller?.onSymbolTapped.remove(_onSymbolTapped);
     super.dispose();
   }
@@ -85,7 +85,7 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
     controller!.addCircle(
       const CircleOptions(
         geometry: LatLng(-33.881979408447314, 151.171361438502117),
-        circleStrokeColor: "#00FF00",
+        circleStrokeColor: Color(0xFF00FF00),
         circleStrokeWidth: 2,
         circleRadius: 16,
       ),
@@ -93,7 +93,7 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
     controller!.addCircle(
       const CircleOptions(
         geometry: LatLng(-33.894372606072309, 151.17576679759523),
-        circleStrokeColor: "#00FF00",
+        circleStrokeColor: Color(0xFF00FF00),
         circleStrokeWidth: 2,
         circleRadius: 30,
       ),
@@ -113,8 +113,8 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
           LatLng(-33.894372606072309, 151.17576679759523),
           LatLng(-33.900060683994681, 151.15765587687909),
         ],
-        lineColor: "#0000FF",
-        lineWidth: 20,
+        polylineColor: Color(0xFF0000FF),
+        polylineWidth: 20,
       ),
     );
 
@@ -131,8 +131,8 @@ class ClickAnnotationBodyState extends State<ClickAnnotationBody> {
             LatLng(-33.901517742631846, 151.178099204457737),
           ],
         ],
-        fillColor: "#FF0000",
-        fillOutlineColor: "#000000",
+        polygonColor: Color(0xFFFF0000),
+        polygonOutlineColor: Color(0xFF000000),
       ),
     );
   }

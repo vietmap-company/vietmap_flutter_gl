@@ -38,12 +38,12 @@ class LineBodyState extends State<LineBody> {
 
   void _onMapCreated(VietmapController controller) {
     this.controller = controller;
-    controller.onLineTapped.add(_onLineTapped);
+    controller.onPolylineTapped.add(_onLineTapped);
   }
 
   @override
   void dispose() {
-    controller?.onLineTapped.remove(_onLineTapped);
+    controller?.onPolylineTapped.remove(_onLineTapped);
     super.dispose();
   }
 
@@ -56,13 +56,13 @@ class LineBodyState extends State<LineBody> {
 
   _onLineTapped(Line line) async {
     await _updateSelectedLine(
-      const PolylineOptions(lineColor: "#ff0000"),
+      const PolylineOptions(polylineColor: Color(0xFFff0000)),
     );
     setState(() {
       _selectedLine = line;
     });
     await _updateSelectedLine(
-      const PolylineOptions(lineColor: "#ffe100"),
+      const PolylineOptions(polylineColor: Color(0xFFffe100)),
     );
   }
 
@@ -80,9 +80,9 @@ class LineBodyState extends State<LineBody> {
             LatLng(-32.86711, 151.1947171),
             LatLng(-33.86711, 152.1947171),
           ],
-          lineColor: "#ff0000",
-          lineWidth: 14.0,
-          lineOpacity: 0.5,
+          polylineColor: Color(0xFFff0000),
+          polylineWidth: 14.0,
+          polylineOpacity: 0.5,
           draggable: true),
     );
     setState(() {
@@ -111,26 +111,26 @@ class LineBodyState extends State<LineBody> {
 
   Future<void> _changeLinePattern() async {
     final current =
-        _selectedLine!.options.linePattern == null ? "assetImage" : null;
+        _selectedLine!.options.polylinePattern == null ? "assetImage" : null;
     await _updateSelectedLine(
-      PolylineOptions(linePattern: current),
+      PolylineOptions(polylinePattern: current),
     );
   }
 
   Future<void> _changeAlpha() async {
-    var current = _selectedLine!.options.lineOpacity;
+    var current = _selectedLine!.options.polylineOpacity;
     current ??= 1.0;
 
     await _updateSelectedLine(
-      PolylineOptions(lineOpacity: current < 0.1 ? 1.0 : current * 0.75),
+      PolylineOptions(polylineOpacity: current < 0.1 ? 1.0 : current * 0.75),
     );
   }
 
   Future<void> _toggleVisible() async {
-    var current = _selectedLine!.options.lineOpacity;
+    var current = _selectedLine!.options.polylineOpacity;
     current ??= 1.0;
     await _updateSelectedLine(
-      PolylineOptions(lineOpacity: current == 0.0 ? 1.0 : 0.0),
+      PolylineOptions(polylineOpacity: current == 0.0 ? 1.0 : 0.0),
     );
   }
 
@@ -139,9 +139,9 @@ class LineBodyState extends State<LineBody> {
     await controller!.addPolyline(
       const PolylineOptions(
         geometry: [LatLng(37.4220, -122.0841), LatLng(37.4240, -122.0941)],
-        lineColor: "#ff0000",
-        lineWidth: 14.0,
-        lineOpacity: 0.5,
+        polylineColor: Color(0xFFff0000),
+        polylineWidth: 14.0,
+        polylineOpacity: 0.5,
       ),
     );
   }

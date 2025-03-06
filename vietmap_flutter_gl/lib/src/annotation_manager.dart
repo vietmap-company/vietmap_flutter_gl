@@ -172,7 +172,8 @@ class PolylineManager extends AnnotationManager<Line> {
   PolylineManager(super.controller,
       {super.onTap, super.enableInteraction = true})
       : super(
-          selectLayer: (Line line) => line.options.linePattern == null ? 0 : 1,
+          selectLayer: (Line line) =>
+              line.options.polylinePattern == null ? 0 : 1,
         );
 
   static const _baseProperties = LineLayerProperties(
@@ -200,7 +201,7 @@ class PolygonManager extends AnnotationManager<Polygon> {
     super.enableInteraction = true,
   }) : super(
           selectLayer: (Polygon fill) =>
-              fill.options.fillPattern == null ? 0 : 1,
+              fill.options.polygonPattern == null ? 0 : 1,
         );
 
   @override

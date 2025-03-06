@@ -33,57 +33,60 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.mapbox.geojson.Feature;
-import com.mapbox.geojson.FeatureCollection;
-import vn.vietmap.android.gestures.AndroidGesturesManager;
-import vn.vietmap.android.gestures.MoveGestureDetector;
-import vn.vietmap.vietmapsdk.constants.VietMapConstants;
-import vn.vietmap.vietmapsdk.geometry.LatLngQuad;
-import vn.vietmap.vietmapsdk.geometry.VisibleRegion;
-import vn.vietmap.vietmapsdk.location.LocationComponent;
-import vn.vietmap.vietmapsdk.location.LocationComponentActivationOptions;
-import vn.vietmap.vietmapsdk.location.LocationComponentOptions;
-import vn.vietmap.vietmapsdk.location.OnCameraTrackingChangedListener;
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineDefault;
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineProxy;
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineRequest;
-import vn.vietmap.vietmapsdk.camera.CameraPosition;
-import vn.vietmap.vietmapsdk.camera.CameraUpdate;
-import vn.vietmap.vietmapsdk.camera.CameraUpdateFactory;
-import vn.vietmap.vietmapsdk.geometry.LatLng;
-import vn.vietmap.vietmapsdk.geometry.LatLngBounds;
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineCallback;
-import vn.vietmap.vietmapsdk.location.engine.LocationEngineResult;
-import vn.vietmap.vietmapsdk.location.modes.CameraMode;
-import vn.vietmap.vietmapsdk.location.modes.RenderMode;
-import vn.vietmap.vietmapsdk.maps.MapView;
-import vn.vietmap.vietmapsdk.maps.OnMapReadyCallback;
-import vn.vietmap.vietmapsdk.maps.Style;
-import vn.vietmap.vietmapsdk.maps.VietMapGL;
-import vn.vietmap.vietmapsdk.maps.VietMapGLOptions;
-import vn.vietmap.vietmapsdk.offline.OfflineManager;
-import vn.vietmap.vietmapsdk.style.expressions.Expression;
-import vn.vietmap.vietmapsdk.style.layers.CircleLayer;
-import vn.vietmap.vietmapsdk.style.layers.FillExtrusionLayer;
-import vn.vietmap.vietmapsdk.style.layers.FillLayer;
-import vn.vietmap.vietmapsdk.style.layers.HeatmapLayer;
-import vn.vietmap.vietmapsdk.style.layers.HillshadeLayer;
-import vn.vietmap.vietmapsdk.style.layers.Layer;
-import vn.vietmap.vietmapsdk.style.layers.LineLayer;
-import vn.vietmap.vietmapsdk.style.layers.Property;
-import vn.vietmap.vietmapsdk.style.layers.PropertyValue;
-import vn.vietmap.vietmapsdk.style.layers.RasterLayer;
-import vn.vietmap.vietmapsdk.style.layers.SymbolLayer;
-import vn.vietmap.vietmapsdk.style.layers.PropertyFactory;
+//import com.mapbox.geojson.Feature;
+//import com.mapbox.geojson.FeatureCollection;
+import org.maplibre.android.gestures.AndroidGesturesManager;
+import org.maplibre.android.gestures.MoveGestureDetector;
+import org.maplibre.geojson.Feature;
+import org.maplibre.geojson.FeatureCollection;
+
+import vn.vietmap.android.constants.VietMapConstants;
+import vn.vietmap.android.geometry.LatLngQuad;
+import vn.vietmap.android.geometry.VisibleRegion;
+import vn.vietmap.android.location.LocationComponent;
+import vn.vietmap.android.location.LocationComponentActivationOptions;
+import vn.vietmap.android.location.LocationComponentOptions;
+import vn.vietmap.android.location.OnCameraTrackingChangedListener;
+import vn.vietmap.android.location.engine.LocationEngineDefault;
+import vn.vietmap.android.location.engine.LocationEngineProxy;
+import vn.vietmap.android.location.engine.LocationEngineRequest;
+import vn.vietmap.android.camera.CameraPosition;
+import vn.vietmap.android.camera.CameraUpdate;
+import vn.vietmap.android.camera.CameraUpdateFactory;
+import vn.vietmap.android.geometry.LatLng;
+import vn.vietmap.android.geometry.LatLngBounds;
+import vn.vietmap.android.location.engine.LocationEngineCallback;
+import vn.vietmap.android.location.engine.LocationEngineResult;
+import vn.vietmap.android.location.modes.CameraMode;
+import vn.vietmap.android.location.modes.RenderMode;
+import vn.vietmap.android.maps.MapView;
+import vn.vietmap.android.maps.OnMapReadyCallback;
+import vn.vietmap.android.maps.Style;
+import vn.vietmap.android.maps.VietMapGL;
+import vn.vietmap.android.maps.VietMapGLOptions;
+import vn.vietmap.android.offline.OfflineManager;
+import vn.vietmap.android.style.expressions.Expression;
+import vn.vietmap.android.style.layers.CircleLayer;
+import vn.vietmap.android.style.layers.FillExtrusionLayer;
+import vn.vietmap.android.style.layers.FillLayer;
+import vn.vietmap.android.style.layers.HeatmapLayer;
+import vn.vietmap.android.style.layers.HillshadeLayer;
+import vn.vietmap.android.style.layers.Layer;
+import vn.vietmap.android.style.layers.LineLayer;
+import vn.vietmap.android.style.layers.Property;
+import vn.vietmap.android.style.layers.PropertyValue;
+import vn.vietmap.android.style.layers.RasterLayer;
+import vn.vietmap.android.style.layers.SymbolLayer;
+import vn.vietmap.android.style.layers.PropertyFactory;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.platform.PlatformView;
-import vn.vietmap.vietmapsdk.style.sources.CustomGeometrySource;
-import vn.vietmap.vietmapsdk.style.sources.GeoJsonSource;
-import vn.vietmap.vietmapsdk.style.sources.ImageSource;
-import vn.vietmap.vietmapsdk.style.sources.Source;
-import vn.vietmap.vietmapsdk.style.sources.VectorSource;
+import vn.vietmap.android.style.sources.CustomGeometrySource;
+import vn.vietmap.android.style.sources.GeoJsonSource;
+import vn.vietmap.android.style.sources.ImageSource;
+import vn.vietmap.android.style.sources.Source;
+import vn.vietmap.android.style.sources.VectorSource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -119,7 +122,7 @@ final class VietmapGLController
   private final VietmapGLPlugin.LifecycleProvider lifecycleProvider;
   private final float density;
   private final Context context;
-  private final String styleStringInitial;
+  private String styleStringInitial;
   /**
    * This container is returned as the final platform view instead of returning `mapView`.
    * See {@link VietmapGLController#destroyMapViewIfNecessary()} for details.
@@ -270,6 +273,8 @@ final class VietmapGLController
           }
         });
 
+    mapView.addOnDidFinishRenderingMapListener((rendered) ->
+            methodChannel.invokeMethod("map#onMapRendered", null));
     mapView.addOnDidBecomeIdleListener(this);
 
     setStyleString(styleStringInitial);
@@ -312,7 +317,7 @@ final class VietmapGLController
       LocationComponentActivationOptions.Builder options =
               LocationComponentActivationOptions
                       .builder(context, style);
-//                      .locationComponentOptions(buildLocationComponentOptions(style))
+//                      .locationComponentOptions(buildLocationComponentOptions(style));
 
       if (this.isCustomizeLocationMarker) {
         Log.d(TAG, "enableLocationComponent: customizeLocationMarker");
@@ -933,7 +938,8 @@ final class VietmapGLController
       case "map#queryRenderedFeatures":
         {
           Map<String, Object> reply = new HashMap<>();
-          List<Feature> features;
+          List<org.maplibre.geojson.Feature> features;
+          if(!call.hasArgument("layerIds")) return;
 
           String[] layerIds = ((List<String>) call.argument("layerIds")).toArray(new String[0]);
 
@@ -1310,7 +1316,7 @@ final class VietmapGLController
       case "locationComponent#getLastLocation":
         {
           Log.e(TAG, "location component: getLastLocation");
-          if (this.myLocationEnabled && locationComponent != null) {
+          if (this.myLocationEnabled && locationComponent != null&& locationComponent.isLocationComponentActivated()) {
             Map<String, Object> reply = new HashMap<>();
 
             vietmapGL.getLocationComponent().getLocationEngine().getLastLocation(
@@ -2118,6 +2124,7 @@ final class VietmapGLController
   private void startListeningForLocationUpdates() {
     if (locationEngineCallback == null
         && locationComponent != null
+        && locationComponent.isLocationComponentActivated()
         && locationComponent.getLocationEngine() != null) {
       locationEngineCallback =
           new LocationEngineCallback<LocationEngineResult>() {
@@ -2139,6 +2146,7 @@ final class VietmapGLController
   private void stopListeningForLocationUpdates() {
     if (locationEngineCallback != null
         && locationComponent != null
+            && locationComponent.isLocationComponentActivated()
         && locationComponent.getLocationEngine() != null) {
       locationComponent.getLocationEngine().removeLocationUpdates(locationEngineCallback);
       locationEngineCallback = null;

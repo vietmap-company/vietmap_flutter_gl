@@ -3,10 +3,10 @@
 
 package vn.vietmap.vietmapgl;
 
-import vn.vietmap.vietmapsdk.style.expressions.Expression;
-import vn.vietmap.vietmapsdk.style.layers.PropertyFactory
+import vn.vietmap.android.style.expressions.Expression;
+import vn.vietmap.android.style.layers.PropertyFactory
 ;
-import vn.vietmap.vietmapsdk.style.layers.PropertyValue;
+import vn.vietmap.android.style.layers.PropertyValue;
 
 import java.util.LinkedList;
 import java.util.List;

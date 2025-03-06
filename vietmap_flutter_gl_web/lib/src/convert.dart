@@ -302,29 +302,29 @@ class Convert {
       PolylineOptions options, Feature feature) {
     final properties = feature.properties;
     var geometry = feature.geometry;
-    if (options.lineJoin != null) {
-      properties['lineJoin'] = options.lineJoin;
+    if (options.polylineJoin != null) {
+      properties['lineJoin'] = options.polylineJoin;
     }
-    if (options.lineOpacity != null) {
-      properties['lineOpacity'] = options.lineOpacity;
+    if (options.polylineOpacity != null) {
+      properties['lineOpacity'] = options.polylineOpacity;
     }
-    if (options.lineColor != null) {
-      properties['lineColor'] = options.lineColor;
+    if (options.polylineColor != null) {
+      properties['lineColor'] = options.polylineColor;
     }
-    if (options.lineWidth != null) {
-      properties['lineWidth'] = options.lineWidth;
+    if (options.polylineWidth != null) {
+      properties['lineWidth'] = options.polylineWidth;
     }
-    if (options.lineGapWidth != null) {
-      properties['lineGapWidth'] = options.lineGapWidth;
+    if (options.polylineGapWidth != null) {
+      properties['lineGapWidth'] = options.polylineGapWidth;
     }
-    if (options.lineOffset != null) {
-      properties['lineOffset'] = options.lineOffset;
+    if (options.polylineOffset != null) {
+      properties['lineOffset'] = options.polylineOffset;
     }
-    if (options.lineBlur != null) {
-      properties['lineBlur'] = options.lineBlur;
+    if (options.polylineBlur != null) {
+      properties['lineBlur'] = options.polylineBlur;
     }
-    if (options.linePattern != null) {
-      properties['linePattern'] = options.linePattern;
+    if (options.polylinePattern != null) {
+      properties['linePattern'] = options.polylinePattern;
     }
     if (options.geometry != null) {
       geometry = Geometry(
@@ -409,17 +409,17 @@ class Convert {
     if (options.draggable != null) {
       properties['draggable'] = options.draggable;
     }
-    if (options.fillColor != null) {
-      properties['fillColor'] = options.fillColor;
+    if (options.polygonColor != null) {
+      properties['fillColor'] = options.polygonColor;
     }
-    if (options.fillOpacity != null) {
-      properties['fillOpacity'] = options.fillOpacity;
+    if (options.polygonOpacity != null) {
+      properties['fillOpacity'] = options.polygonOpacity;
     }
-    if (options.fillOutlineColor != null) {
-      properties['fillOutlineColor'] = options.fillOutlineColor;
+    if (options.polygonOutlineColor != null) {
+      properties['fillOutlineColor'] = options.polygonOutlineColor;
     }
-    if (options.fillPattern != null) {
-      properties['fillPattern'] = options.fillPattern;
+    if (options.polygonPattern != null) {
+      properties['fillPattern'] = options.polygonPattern;
     }
 
     if (options.geometry != null) {

@@ -54,26 +54,26 @@ class PolylineOptions {
   /// By default, every non-specified field is null, meaning no desire to change
   /// line defaults or current configuration.
   const PolylineOptions({
-    this.lineJoin,
-    this.lineOpacity,
-    this.lineColor,
-    this.lineWidth,
-    this.lineGapWidth,
-    this.lineOffset,
-    this.lineBlur,
-    this.linePattern,
+    this.polylineJoin,
+    this.polylineOpacity,
+    this.polylineColor,
+    this.polylineWidth,
+    this.polylineGapWidth,
+    this.polylineOffset,
+    this.polylineBlur,
+    this.polylinePattern,
     this.geometry,
     this.draggable,
   });
 
-  final String? lineJoin;
-  final double? lineOpacity;
-  final String? lineColor;
-  final double? lineWidth;
-  final double? lineGapWidth;
-  final double? lineOffset;
-  final double? lineBlur;
-  final String? linePattern;
+  final String? polylineJoin;
+  final double? polylineOpacity;
+  final Color? polylineColor;
+  final double? polylineWidth;
+  final double? polylineGapWidth;
+  final double? polylineOffset;
+  final double? polylineBlur;
+  final String? polylinePattern;
   final List<LatLng>? geometry;
   final bool? draggable;
 
@@ -81,14 +81,14 @@ class PolylineOptions {
 
   PolylineOptions copyWith(PolylineOptions changes) {
     return PolylineOptions(
-      lineJoin: changes.lineJoin ?? lineJoin,
-      lineOpacity: changes.lineOpacity ?? lineOpacity,
-      lineColor: changes.lineColor ?? lineColor,
-      lineWidth: changes.lineWidth ?? lineWidth,
-      lineGapWidth: changes.lineGapWidth ?? lineGapWidth,
-      lineOffset: changes.lineOffset ?? lineOffset,
-      lineBlur: changes.lineBlur ?? lineBlur,
-      linePattern: changes.linePattern ?? linePattern,
+      polylineJoin: changes.polylineJoin ?? polylineJoin,
+      polylineOpacity: changes.polylineOpacity ?? polylineOpacity,
+      polylineColor: changes.polylineColor ?? polylineColor,
+      polylineWidth: changes.polylineWidth ?? polylineWidth,
+      polylineGapWidth: changes.polylineGapWidth ?? polylineGapWidth,
+      polylineOffset: changes.polylineOffset ?? polylineOffset,
+      polylineBlur: changes.polylineBlur ?? polylineBlur,
+      polylinePattern: changes.polylinePattern ?? polylinePattern,
       geometry: changes.geometry ?? geometry,
       draggable: changes.draggable ?? draggable,
     );
@@ -103,14 +103,14 @@ class PolylineOptions {
       }
     }
 
-    addIfPresent('lineJoin', lineJoin);
-    addIfPresent('lineOpacity', lineOpacity);
-    addIfPresent('lineColor', lineColor);
-    addIfPresent('lineWidth', lineWidth);
-    addIfPresent('lineGapWidth', lineGapWidth);
-    addIfPresent('lineOffset', lineOffset);
-    addIfPresent('lineBlur', lineBlur);
-    addIfPresent('linePattern', linePattern);
+    addIfPresent('lineJoin', polylineJoin);
+    addIfPresent('lineOpacity', polylineOpacity);
+    addIfPresent('lineColor', polylineColor.toHex());
+    addIfPresent('lineWidth', polylineWidth);
+    addIfPresent('lineGapWidth', polylineGapWidth);
+    addIfPresent('lineOffset', polylineOffset);
+    addIfPresent('lineBlur', polylineBlur);
+    addIfPresent('linePattern', polylinePattern);
     if (addGeometry) {
       addIfPresent('geometry',
           geometry?.map((LatLng latLng) => latLng.toJson()).toList());
