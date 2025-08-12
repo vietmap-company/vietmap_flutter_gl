@@ -12,7 +12,7 @@ jobs:
     name: "Check formatting"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
         with:
           cache: true
@@ -24,7 +24,7 @@ jobs:
     name: "Static code analysis"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
         with:
           cache: true
@@ -43,7 +43,7 @@ jobs:
       matrix:
         sdk: [ '3.29.0', '' ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ matrix.sdk }}
@@ -76,7 +76,7 @@ jobs:
       matrix:
         sdk: [ '3.29.0', '' ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ matrix.sdk }}
@@ -107,7 +107,7 @@ jobs:
       matrix:
         sdk: [ '3.29.0', '' ]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ matrix.sdk }}
