@@ -42,12 +42,12 @@ at the repositories block
       }
   }
 ```
-Upgrade the minSdkVersion to a minimum is 24 in the build.gradle (app) file, at path **android/app/build.gradle**
+Upgrade the minSdkVersion to a minimum of 24 in the build.gradle (app) file, at path **android/app/build.gradle**
 ```gradle
   minSdkVersion 24
 ```
 ## iOS config
-Add the below codes to the Info.plist file.  
+Add the code below to the Info.plist file.
 ```ruby
   <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
   <string>Your request location description</string>
@@ -81,7 +81,7 @@ In your terminal, cd to the ios folder and run the command below to install the 
       styleString:
           'https://maps.vietmap.vn/maps/styles/tm/style.json?apikey=YOUR_API_KEY_HERE',
       initialCameraPosition:
-          CameraPosition(target: LatLng(10.762317, 106.654551)),
+          CameraPosition(target: LatLng(10.762317, 106.654551), zoom: 14),
       onMapCreated: (VietmapController controller) {
           setState(() {
             _mapController = controller;
@@ -93,18 +93,18 @@ In your terminal, cd to the ios folder and run the command below to install the 
 
 |Style|Description|URL|
 |--- |--- |--- |
-|Vector Default|The default style for VIETMAP maps, suitable for general use.|`https://maps.vietmap.vn/maps/styles/tm/style.json?apikey={your-apikey}`|
-|Vector Light|A lighter version of the default style, optimized for readability in bright conditions.|`https://maps.vietmap.vn/maps/styles/lm/style.json?apikey={your-apikey}`|
-|Vector Dark|A dark-themed style for better visibility in low-light conditions.|`https://maps.vietmap.vn/maps/styles/dm/style.json?apikey={your-apikey}`|
-|Raster Default|Raster tiles for the default style, suitable for traditional web mapping libraries.|`https://maps.vietmap.vn/maps/styles/tm/tiles.json?apikey={your-apikey}`|
+|Vector Default|The default style for VIETMAP maps, suitable for general use.|`https://maps.vietmap.vn/maps/styles/tm/style.json?apikey=YOUR_API_KEY_HERE`|
+|Vector Light|A lighter version of the default style, optimized for readability in bright conditions.|`https://maps.vietmap.vn/maps/styles/lm/style.json?apikey=YOUR_API_KEY_HERE`|
+|Vector Dark|A dark-themed style for better visibility in low-light conditions.|`https://maps.vietmap.vn/maps/styles/dm/style.json?apikey=YOUR_API_KEY_HERE`|
+<!-- |Raster Default|Raster tiles for the default style, suitable for traditional web mapping libraries.|`https://maps.vietmap.vn/maps/styles/tm/tiles.json?apikey={your-apikey}`|
 |Raster Light|Raster tiles for the light style, optimized for readability in bright conditions.|`https://maps.vietmap.vn/maps/styles/lm/tiles.json?apikey={your-apikey}`|
-|Raster Dark|Raster tiles for the dark style, suitable for low-light conditions.|`https://maps.vietmap.vn/maps/styles/dm/tiles.json?apikey={your-apikey}`|
+|Raster Dark|Raster tiles for the dark style, suitable for low-light conditions.|`https://maps.vietmap.vn/maps/styles/dm/tiles.json?apikey={your-apikey}`| -->
 
 
 - To change the map style, you need to get the style URL from [Vietmap](https://bit.ly/vietmap-api) and use the `setStyle` function.
 ```dart
   _mapController?.setStyle(
-      "https://maps.vietmap.vn/maps/styles/tm/tiles.json?apikey==YOUR_API_KEY_HERE");
+      "https://maps.vietmap.vn/maps/styles/tm/style.json?apikey=YOUR_API_KEY_HERE");
 ```
 - You can also keep/remove the annotations on the map with input params `keepExistingAnnotations`. (This function did not remove annotations inside the `MarkerLayer` and `StaticMarkerLayer`)
 ```dart
@@ -113,18 +113,18 @@ In your terminal, cd to the ios folder and run the command below to install the 
       keepExistingAnnotations: true);
 ```
 
-VIETMAP now provides many types of custom maps, including Raster, Vector, Satellite, and Hybrid maps. More information about the types of maps can be found below:
+VIETMAP now provides many types of custom maps, including Vector, Satellite, and Hybrid maps. More information about the types of maps can be found below:
 
 https://maps.vietmap.vn/docs/map-api/tilemap/#vietmap-maps-sdk-integration
 
 
-Read more about [Raster and Vector](https://maps.vietmap.vn/docs/map-api/tilemap/)
+Read more about [Vector](https://maps.vietmap.vn/docs/map-api/tilemap/)
 
 [Email us](mailto:maps-api.support@vietmap.vn) to get the Satellite and Hybrid map style URL.
 ## Map Interactions
 The VietmapGL Maps Flutter SDK allows you to define interactions that you can activate on the map to enable gestures and click events. The following interactions are supported
 
-### Zoom Controls
+#### Zoom Controls
 The map supports the familiar two-finger pinch and zooms to change the zoom level as well as double tap to zoom in. Set zoom to 4 for country-level display and 18 for house number display. In this SDK the camera position plays an important role
 
 And following operations can be performed using the CameraPosition
@@ -149,7 +149,7 @@ Zoom controls the scale of the map and consumes any value between 0 and 22. At z
 - Pinch motion two fingers to zoom in and out.
 - Quickly tap twice on the map with a single finger to zoom in.
 - Quickly tap twice on the map with a single finger and hold your finger down on the screen after the second tap.
-- Then slide the finger up to zoom out and down to zoom out.
+- Then slide the finger up to zoom out and down to zoom in.
 
 ##### SDK allows various methods to move, and animate the camera to a particular location :
 ~~~dart  
@@ -163,22 +163,24 @@ Zoom controls the scale of the map and consumes any value between 0 and 22. At z
 If you want to respond to a user tapping on a point on the map, you can use an onMapClick callback.
 
 It sets a callback that's invoked when the user clicks on the map:
-~~~dart  
+```dart  
   VietmapGL(    
     initialCameraPosition: _kInitialPosition,    
-    onMapClick: (point, latlng) =>{    
-      print(latlng.toString())  
-  }, )  
-~~~  
+    onMapClick: (point, latlng) {    
+      print(latlng.toString());  
+    }, 
+  )  
+```  
 
 ##### Sets a callback that's invoked when the user long clicks on the map view.
-~~~dart  
+```dart  
   VietmapGL(    
     initialCameraPosition: _kInitialPosition,    
-    onMapLongClick: (point, latlng) =>{    
-      print(latlng.toString())  
-  }, )  
-~~~  
+    onMapLongClick: (point, latlng) {    
+      print(latlng.toString());  
+    }, 
+  )  
+```  
 
 ##### Sets a callback that's invoked when the map is completely rendered.
 ##### Encourage this callback to call some action on the initial, after the map is completely loaded
@@ -211,7 +213,7 @@ It sets a callback that's invoked when the user clicks on the map:
       VietmapGL(
         trackCameraPosition: true, // Will track the map change to update the marker position in realtime
         ...
-        ),
+      ),
       MarkerLayer(
         ignorePointer: true, // Will ignore all user gestures on the marker
         mapController: _mapController!,
@@ -243,7 +245,7 @@ It sets a callback that's invoked when the user clicks on the map:
 ```
 
 ### Add a static marker (Marked a point in the map with a custom widget, the marker will rotate with the map)
-- The static marker support rotates with input is a bearing, you can find this value when get GPS location.
+- The static marker supports rotation with input as a bearing, you can find this value when getting GPS location.
 
 - We recommend using this marker for location-based applications, tracking the location of the driver. Then the driver's vehicle will rotate in the right direction even when the user rotates the map at any angle.
 ```dart
@@ -264,14 +266,14 @@ It sets a callback that's invoked when the user clicks on the map:
             child: Container(
               width: 50,
               height: 50,
-              child:Icon(Icons.arrow_downward_rounded)),
+              child: Icon(Icons.arrow_downward_rounded)),
             latLng: LatLng(10.736657, 106.672240)),
           ]),
   ])
 ```
 ### Cluster Marker (Group multiple markers into a single marker)
-- The cluster marker will group multiple markers into a single marker when they are close to each other, and the number of markers is define in the `customClusterWidget` value.
-- The cluster marker will show the number of markers inside it, and you can customize the cluster marker with the `customClusterWidget` value. The key of the `customClusterWidget` is the number of markers inside the cluster marker, and the value is the widget that you want to show. It will find the nearest (round down) number of markers inside the cluster marker to show the widget. You should provide the widget for the number of markers from the smallest  (2 is the smallest).
+- The cluster marker will group multiple markers into a single marker when they are close to each other, and the number of markers is defined in the `customClusterWidget` value.
+- The cluster marker will show the number of markers inside it, and you can customize the cluster marker with the `customClusterWidget` value. The key of the `customClusterWidget` is the number of markers inside the cluster marker, and the value is the widget that you want to show. It will find the nearest (round down) number of markers inside the cluster marker to show the widget. You should provide the widget for the number of markers from the smallest (2 is the smallest).
 ```dart
   ClusterLayer(
       customClusterWidget: {
@@ -389,37 +391,37 @@ Add the below code to the `Stack` which contains the `VietmapGL` and other `Mark
 ~~~  
 ### Update polyLine
 ```dart
-    _mapController?.updatePolyline(
-      line,
-      PolylineOptions(
-          geometry: [
-            LatLng(10.736657, 106.672240),
-            LatLng(10.766543, 106.742378),
-            LatLng(10.775818, 106.640497),
-            LatLng(10.727416, 106.735597),
-            LatLng(10.792765, 106.674143),
-            LatLng(10.736657, 106.672240),
-          ],
-          polylineColor: Colors.blue,
-          polylineWidth: 14.0,
-          polylineOpacity: 1,
-          draggable: true),
-    );
+      _mapController?.updatePolyline(
+        line,
+        PolylineOptions(
+            geometry: [
+              LatLng(10.736657, 106.672240),
+              LatLng(10.766543, 106.742378),
+              LatLng(10.775818, 106.640497),
+              LatLng(10.727416, 106.735597),
+              LatLng(10.792765, 106.674143),
+              LatLng(10.736657, 106.672240),
+            ],
+            polylineColor: Colors.blue,
+            polylineWidth: 14.0,
+            polylineOpacity: 1,
+            draggable: true),
+      );
 ```
 
 ### Remove a Polyline
-~~~dart  
+```dart  
     _mapController?.removePolyline(line);  
-~~~  
+```  
 
 ### Remove all Polyline
-~~~dart
-    _mapController?.clearLines();
-~~~
+```dart
+    _mapController?.clearPolylines();
+```
 
 ### Add a Fill/Polygon
-~~~dart  
-    Polygon? = await _mapController?.addPolygon(
+```dart  
+    Polygon? polygon = await _mapController?.addPolygon(
       PolygonOptions(
           geometry: [
             [
@@ -435,31 +437,31 @@ Add the below code to the `Stack` which contains the `VietmapGL` and other `Mark
           polygonOpacity: 0.5,
           draggable: true),
     );
-~~~  
+```  
 ### Update Polygon
 ```dart
-    _mapController?.updatePolygon(
-      polygon,
-      PolygonOptions(
-          geometry: [
-            [
-              LatLng(10.736657, 106.672240),
-              LatLng(10.766543, 106.742378),
-              LatLng(10.775818, 106.640497),
-              LatLng(10.727416, 106.735597),
-              LatLng(10.792765, 106.674143),
-              LatLng(10.736657, 106.672240),
-            ]
-          ],
-          polygonColor: Colors.blue,
-          polygonOpacity: 1,
-          draggable: true),
-    );
+      _mapController?.updatePolygon(
+        polygon,
+        PolygonOptions(
+            geometry: [
+              [
+                LatLng(10.736657, 106.672240),
+                LatLng(10.766543, 106.742378),
+                LatLng(10.775818, 106.640497),
+                LatLng(10.727416, 106.735597),
+                LatLng(10.792765, 106.674143),
+                LatLng(10.736657, 106.672240),
+              ]
+            ],
+            polygonColor: Colors.blue,
+            polygonOpacity: 1,
+            draggable: true),
+      );
 ```
 ### Remove a Polygon
-~~~dart  
-    _mapController?.removePolygon(polygon);  
-~~~  
+```dart  
+      _mapController?.removePolygon(polygon);  
+```  
 
 ### Remove all Polygon
 ```dart
@@ -487,13 +489,13 @@ Add the below code to the `Stack` which contains the `VietmapGL` and other `Mark
     // handle failure here
   }, (VietMapRoutingModel success) {
     // handle success here
-    
+    points = success.paths?.first.points ?? [];
   });
 
   /// Draw the route on the map
   Line? line = await _mapController?.addPolyline(
     PolylineOptions(
-        geometry: pointsLatLng,
+        geometry: points,
         polylineColor: Colors.red,
         polylineWidth: 14.0,
         polylineOpacity: 0.5),
@@ -502,9 +504,9 @@ Add the below code to the `Stack` which contains the `VietmapGL` and other `Mark
 
 
 ### Route simulator
-- We're created a class for simulating the route from the list of points, you can find the `RouteSimulator` class in this example code.
+- We've created a class for simulating the route from the list of points, you can find the `RouteSimulator` class in this example code.
 - Please change the `upperBound`, `duration`, and `speed` to get the best experience for the simulator.
-- Did not repeat the simulator too quick and too much, it will make the app lag.
+- Do not repeat the simulator too quickly and too often, it will make the app lag.
 <div style="width:100%; text-align:center" >
   <img src="https://github.com/vietmap-company/vietmap_flutter_gl/blob/main/gif/route_simulator.gif?raw=true" alt="drawing" width="400"/>
 </div>
@@ -560,11 +562,114 @@ Add the below code to the `Stack` which contains the `VietmapGL` and other `Mark
                       polylineWidth: 14.0,
                       polylineJoin: "round",
                     ));
-            }
+              }
           }));
   /// Start the simulator
   routeSimulator.start();
 ```
+
+<br>
+
+# API Key Registration and Management
+
+## Register a new API Key
+
+To use VietMap services, you need to register for an API key. Follow these steps:
+
+### 1. Access the Registration Page
+Navigate to the registration page at: [https://maps.vietmap.vn/console/register](https://maps.vietmap.vn/console/register)
+
+### 2. Fill in Registration Information
+You need to provide all required information:
+- **For Students**: Use your school name for Company Name, and education email for Company Email.
+- **For Individuals**: Use "Individual" for Company Name, and your personal email for Company Email.
+
+### 3. Accept Terms and Conditions
+- Read and agree to VietMap's [Terms and Conditions](https://maps.vietmap.vn/console/privacy-policy)
+- Check the box "I accept the terms and conditions"
+
+### 4. Complete Registration
+- After filling in all required information and accepting the terms, submit the form.
+- A verification email will be sent to the provided email address.
+
+### 5. Verify Your Account
+- Check your inbox or spam folder for the verification email.
+- Click the verification link within 24 hours.
+<div style="width:100%; text-align:center" >
+  <img src="https://maps.vietmap.vn/docs/assets/confirm_email.png" alt="drawing" width="600"/>
+</div>
+
+### 6. Get Your API Keys
+After successful verification, you will receive:
+- **Tilemap API Key**: For map tiles and map rendering
+- **Map API Key**: For other Map APIs (routing, geocoding, etc.)
+<div style="width:100%; text-align:center" >
+  <img src="https://maps.vietmap.vn/docs/assets/complete_email.png" alt="drawing" width="400"/>
+</div>
+Each key has its own usage limits and restrictions.
+
+---
+
+## Manage Your API Key
+
+### 1. Log in to the Console
+Go to [https://maps.vietmap.vn/console/](https://maps.vietmap.vn/console/) and enter your registered email and password.
+
+### 2. Manage API Keys by Project
+- Navigate to the **"Consumers"** section in the left side menu to view and manage your projects.
+- Click **Detail** on each project to view and manage the API keys associated with that project.
+
+You can perform the following actions:
+- Add new API keys
+- Delete existing keys
+- Add whitelisted IPs
+- Set domain restrictions
+- Limit usage per key or per IP
+- Restrict specific API features
+
+### 3. Security Best Practices
+To protect your API key from unauthorized use:
+
+1. **Restrict usage to specific domains** if the API key is used in a web application or is publicly accessible.
+2. **Add limitations per key or per IP** to prevent abuse.
+3. **Regularly review your API key usage** in the console to detect any unusual activity.
+4. **Regenerate immediately** if you suspect your API key has been compromised.
+5. **Never share your API key publicly** or include it in client-side code without restrictions.
+
+Note: You can read more detail at [https://maps.vietmap.vn/docs/map-api/console/manage-api-key](https://maps.vietmap.vn/docs/map-api/console/manage-api-key/)
+
+---
+
+## Monitor API Key Usage
+
+### 1. Access Daily Report
+- Log in to the console at [https://maps.vietmap.vn/console](https://maps.vietmap.vn/console/)
+- Navigate to the **"Daily Report"** section in the left side menu.
+
+### 2. View Usage Statistics
+The Daily Report section provides detailed statistics including:
+- Total requests made by each API key
+- Breakdown of requests by API service
+- Daily usage over time
+<div style="width:100%; text-align:center" >
+  <img src="https://maps.vietmap.vn/docs/assets/daily_usage_report.png" alt="drawing" width="600"/>
+</div>
+
+### 3. Filter by Date Range and Project
+You can filter the usage data by selecting specific date ranges and projects to analyze the performance of your applications more effectively.
+
+---
+
+## Support
+If you encounter any issues, please contact:
+- **Zalo OA**: [Vietmap Solutions](https://zalo.me/vietmapmapsapi)
+- **Email**: [maps.info@vietmap.vn](mailto:maps.info@vietmap.vn)
+- **Website**: [https://maps.vietmap.vn](https://maps.vietmap.vn)
+
+For more information:
+- [Map API Overview](https://maps.vietmap.vn/docs/map-api/overview/)
+- [API Playground](https://tools.vietmap.vn/playground)
+- [Live Map Demo](https://tools.vietmap.vn/live)
 
 <br>
 
@@ -585,7 +690,7 @@ Add the below code to the `Stack` which contains the `VietmapGL` and other `Mark
  ```
 
 Demo code [here](./example/lib/main.dart)
-## Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tags to the application works normally
+## Note: Replace all YOUR_API_KEY_HERE tags with the API key provided by VietMap so that the application works normally.
 
 <br></br>
 <br></br>
