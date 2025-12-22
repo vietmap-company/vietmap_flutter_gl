@@ -93,9 +93,9 @@ In your terminal, cd to the ios folder and run the command below to install the 
 
 |Style|Description|URL|
 |--- |--- |--- |
-|Vector Default|The default style for VIETMAP maps, suitable for general use.|`https://maps.vietmap.vn/maps/styles/tm/style.json?apikey={your-apikey}`|
-|Vector Light|A lighter version of the default style, optimized for readability in bright conditions.|`https://maps.vietmap.vn/maps/styles/lm/style.json?apikey={your-apikey}`|
-|Vector Dark|A dark-themed style for better visibility in low-light conditions.|`https://maps.vietmap.vn/maps/styles/dm/style.json?apikey={your-apikey}`|
+|Vector Default|The default style for VIETMAP maps, suitable for general use.|`https://maps.vietmap.vn/maps/styles/tm/style.json?apikey=YOUR_API_KEY_HERE`|
+|Vector Light|A lighter version of the default style, optimized for readability in bright conditions.|`https://maps.vietmap.vn/maps/styles/lm/style.json?apikey=YOUR_API_KEY_HERE`|
+|Vector Dark|A dark-themed style for better visibility in low-light conditions.|`https://maps.vietmap.vn/maps/styles/dm/style.json?apikey=YOUR_API_KEY_HERE`|
 <!-- |Raster Default|Raster tiles for the default style, suitable for traditional web mapping libraries.|`https://maps.vietmap.vn/maps/styles/tm/tiles.json?apikey={your-apikey}`|
 |Raster Light|Raster tiles for the light style, optimized for readability in bright conditions.|`https://maps.vietmap.vn/maps/styles/lm/tiles.json?apikey={your-apikey}`|
 |Raster Dark|Raster tiles for the dark style, suitable for low-light conditions.|`https://maps.vietmap.vn/maps/styles/dm/tiles.json?apikey={your-apikey}`| -->
@@ -113,18 +113,18 @@ In your terminal, cd to the ios folder and run the command below to install the 
       keepExistingAnnotations: true);
 ```
 
-VIETMAP now provides many types of custom maps, including Raster, Vector, Satellite, and Hybrid maps. More information about the types of maps can be found below:
+VIETMAP now provides many types of custom maps, including Vector, Satellite, and Hybrid maps. More information about the types of maps can be found below:
 
 https://maps.vietmap.vn/docs/map-api/tilemap/#vietmap-maps-sdk-integration
 
 
-Read more about [Raster and Vector](https://maps.vietmap.vn/docs/map-api/tilemap/)
+Read more about [Vector](https://maps.vietmap.vn/docs/map-api/tilemap/)
 
 [Email us](mailto:maps-api.support@vietmap.vn) to get the Satellite and Hybrid map style URL.
 ## Map Interactions
 The VietmapGL Maps Flutter SDK allows you to define interactions that you can activate on the map to enable gestures and click events. The following interactions are supported
 
-### Zoom Controls
+#### Zoom Controls
 The map supports the familiar two-finger pinch and zooms to change the zoom level as well as double tap to zoom in. Set zoom to 4 for country-level display and 18 for house number display. In this SDK the camera position plays an important role
 
 And following operations can be performed using the CameraPosition
@@ -391,33 +391,33 @@ Add the below code to the `Stack` which contains the `VietmapGL` and other `Mark
 ~~~  
 ### Update polyLine
 ```dart
-    _mapController?.updatePolyline(
-      line,
-      PolylineOptions(
-          geometry: [
-            LatLng(10.736657, 106.672240),
-            LatLng(10.766543, 106.742378),
-            LatLng(10.775818, 106.640497),
-            LatLng(10.727416, 106.735597),
-            LatLng(10.792765, 106.674143),
-            LatLng(10.736657, 106.672240),
-          ],
-          polylineColor: Colors.blue,
-          polylineWidth: 14.0,
-          polylineOpacity: 1,
-          draggable: true),
-    );
+      _mapController?.updatePolyline(
+        line,
+        PolylineOptions(
+            geometry: [
+              LatLng(10.736657, 106.672240),
+              LatLng(10.766543, 106.742378),
+              LatLng(10.775818, 106.640497),
+              LatLng(10.727416, 106.735597),
+              LatLng(10.792765, 106.674143),
+              LatLng(10.736657, 106.672240),
+            ],
+            polylineColor: Colors.blue,
+            polylineWidth: 14.0,
+            polylineOpacity: 1,
+            draggable: true),
+      );
 ```
 
 ### Remove a Polyline
-~~~dart  
+```dart  
     _mapController?.removePolyline(line);  
-~~~  
+```  
 
 ### Remove all Polyline
-~~~dart
-    _mapController?.clearLines();
-~~~
+```dart
+    _mapController?.clearPolylines();
+```
 
 ### Add a Fill/Polygon
 ```dart  
@@ -440,27 +440,27 @@ Add the below code to the `Stack` which contains the `VietmapGL` and other `Mark
 ```  
 ### Update Polygon
 ```dart
-    _mapController?.updatePolygon(
-      polygon,
-      PolygonOptions(
-          geometry: [
-            [
-              LatLng(10.736657, 106.672240),
-              LatLng(10.766543, 106.742378),
-              LatLng(10.775818, 106.640497),
-              LatLng(10.727416, 106.735597),
-              LatLng(10.792765, 106.674143),
-              LatLng(10.736657, 106.672240),
-            ]
-          ],
-          polygonColor: Colors.blue,
-          polygonOpacity: 1,
-          draggable: true),
-    );
+      _mapController?.updatePolygon(
+        polygon,
+        PolygonOptions(
+            geometry: [
+              [
+                LatLng(10.736657, 106.672240),
+                LatLng(10.766543, 106.742378),
+                LatLng(10.775818, 106.640497),
+                LatLng(10.727416, 106.735597),
+                LatLng(10.792765, 106.674143),
+                LatLng(10.736657, 106.672240),
+              ]
+            ],
+            polygonColor: Colors.blue,
+            polygonOpacity: 1,
+            draggable: true),
+      );
 ```
 ### Remove a Polygon
 ```dart  
-    _mapController?.removePolygon(polygon);  
+      _mapController?.removePolygon(polygon);  
 ```  
 
 ### Remove all Polygon
@@ -562,7 +562,7 @@ Add the below code to the `Stack` which contains the `VietmapGL` and other `Mark
                       polylineWidth: 14.0,
                       polylineJoin: "round",
                     ));
-            }
+              }
           }));
   /// Start the simulator
   routeSimulator.start();
@@ -690,7 +690,7 @@ For more information:
  ```
 
 Demo code [here](./example/lib/main.dart)
-## Note: Replace apikey which is provided by VietMap to all _YOUR_API_KEY_HERE_ tags to the application works normally
+## Note: Replace all YOUR_API_KEY_HERE tags with the API key provided by VietMap so that the application works normally.
 
 <br></br>
 <br></br>
