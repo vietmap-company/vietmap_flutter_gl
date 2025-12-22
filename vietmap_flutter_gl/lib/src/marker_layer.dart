@@ -38,7 +38,10 @@ class _MarkerLayerState extends State<MarkerLayer> {
     final newMarkerStates = <MarkerState>[];
     final newMarkerKey = <String, bool>{};
 
-    _mapController.toScreenLocationBatch(param).then((value) {
+    _mapController.toScreenLocationBatch(param).then((value) async {
+      if (Platform.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 20));
+      }
       if (value.isEmpty || widget.markers.isEmpty) {
       } else {
         for (var i = 0; i < widget.markers.length; i++) {
@@ -100,7 +103,10 @@ class _MarkerLayerState extends State<MarkerLayer> {
         param.add(widget.markers[i].latLng);
       }
 
-      _mapController.toScreenLocationBatch(param).then((value) {
+      _mapController.toScreenLocationBatch(param).then((value) async {
+        if (Platform.isAndroid) {
+          await Future.delayed(const Duration(milliseconds: 20));
+        }
         if (value.isEmpty || widget.markers.isEmpty) return;
         for (var i = 0; i < widget.markers.length; i++) {
           final point =
@@ -128,7 +134,10 @@ class _MarkerLayerState extends State<MarkerLayer> {
       coordinates.add(markerState.getCoordinate());
     }
 
-    _mapController.toScreenLocationBatch(coordinates).then((points) {
+    _mapController.toScreenLocationBatch(coordinates).then((points) async {
+      if (Platform.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 20));
+      }
       _markerStates.asMap().forEach((i, value) {
         if (points.length > i && _markerStates.length > i) {
           _markerStates[i].updatePosition(points[i], 0);

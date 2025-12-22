@@ -1,3 +1,5 @@
+## 4.0.1, Mar 27, 2025
+* Improve MarkerLayer performance, ensure smoother movement.
 ## 4.0.0, Mar 3, 2025
 * Update to Vietmap Native SDK v4.0.0
 ## 3.2.3, Feb 28, 2025

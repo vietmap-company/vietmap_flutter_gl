@@ -66,7 +66,10 @@ class _UserLocationLayerState extends State<UserLocationLayer> {
         });
       }
     });
-    _mapController.toScreenLocationBatch([location]).then((value) {
+    _mapController.toScreenLocationBatch([location]).then((value) async {
+      if (Platform.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 20));
+      }
       if (mounted) {
         setState(() {
           _location = location;
@@ -101,7 +104,10 @@ class _UserLocationLayerState extends State<UserLocationLayer> {
 
       final location = LatLng(_currentPosition?.position.latitude ?? 0,
           _currentPosition?.position.longitude ?? 0);
-      _mapController.toScreenLocationBatch([location]).then((value) {
+      _mapController.toScreenLocationBatch([location]).then((value) async {
+        if (Platform.isAndroid) {
+          await Future.delayed(const Duration(milliseconds: 20));
+        }
         if (mounted) {
           setState(() {
             _location = location;
@@ -136,7 +142,10 @@ class _UserLocationLayerState extends State<UserLocationLayer> {
     // if (currentPosition == null) return;
     final location =
         widget.mapController.cameraPosition?.target ?? const LatLng(0, 0);
-    _mapController.toScreenLocationBatch([location]).then((value) {
+    _mapController.toScreenLocationBatch([location]).then((value) async {
+      if (Platform.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 20));
+      }
       if (mounted) {
         setState(() {
           _location = location;
@@ -161,7 +170,10 @@ class _UserLocationLayerState extends State<UserLocationLayer> {
       coordinates.add(_positionMarkerStates!.getCoordinate());
     }
 
-    _mapController.toScreenLocationBatch(coordinates).then((points) {
+    _mapController.toScreenLocationBatch(coordinates).then((points) async {
+      if (Platform.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 20));
+      }
       if (points.isEmpty || _positionMarkerStates == null) return;
       _positionMarkerStates!.updatePosition(
           points.first,

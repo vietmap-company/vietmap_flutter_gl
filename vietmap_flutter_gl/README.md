@@ -1,7 +1,7 @@
 # Vietmap Flutter GL - Flutter map SDK
 [<img src="https://bizweb.dktcdn.net/100/415/690/themes/804206/assets/logo.png?1689561872933" height="40"/> </p>](https://bit.ly/vietmap-api)
-
-[![Flutter CI](https://github.com/vietmap-company/vietmap_flutter_gl/actions/workflows/flutter_ci.yml/badge.svg)](https://github.com/vietmap-company/vietmap_flutter_gl/actions/workflows/flutter_ci.yml)
+<!-- 
+[![Flutter CI](https://github.com/vietmap-company/vietmap_flutter_gl/actions/workflows/flutter_ci.yml/badge.svg)](https://github.com/vietmap-company/vietmap_flutter_gl/actions/workflows/flutter_ci.yml) -->
 
 Contact [vietmap.vn](https://bit.ly/vietmap-api) to register a valid key.
 
@@ -79,7 +79,7 @@ In your terminal, cd to the ios folder and run the command below to install the 
 ```dart 
     VietmapGL(
       styleString:
-          'https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE',
+          'https://maps.vietmap.vn/maps/styles/tm/style.json?apikey=YOUR_API_KEY_HERE',
       initialCameraPosition:
           CameraPosition(target: LatLng(10.762317, 106.654551)),
       onMapCreated: (VietmapController controller) {
@@ -90,35 +90,32 @@ In your terminal, cd to the ios folder and run the command below to install the 
     );
 ```
 ### Change map style
-```dart
-      // For mobile: 
-      styleString:
-          'https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE',
-      // For web:
-      styleString: 'https://maps.vietmap.vn/mt/tm/style.json?apikey=YOUR_API_KEY_HERE',
-```
+
+|Style|Description|URL|
+|--- |--- |--- |
+|Vector Default|The default style for VIETMAP maps, suitable for general use.|`https://maps.vietmap.vn/maps/styles/tm/style.json?apikey={your-apikey}`|
+|Vector Light|A lighter version of the default style, optimized for readability in bright conditions.|`https://maps.vietmap.vn/maps/styles/lm/style.json?apikey={your-apikey}`|
+|Vector Dark|A dark-themed style for better visibility in low-light conditions.|`https://maps.vietmap.vn/maps/styles/dm/style.json?apikey={your-apikey}`|
+|Raster Default|Raster tiles for the default style, suitable for traditional web mapping libraries.|`https://maps.vietmap.vn/maps/styles/tm/tiles.json?apikey={your-apikey}`|
+|Raster Light|Raster tiles for the light style, optimized for readability in bright conditions.|`https://maps.vietmap.vn/maps/styles/lm/tiles.json?apikey={your-apikey}`|
+|Raster Dark|Raster tiles for the dark style, suitable for low-light conditions.|`https://maps.vietmap.vn/maps/styles/dm/tiles.json?apikey={your-apikey}`|
+
+
 - To change the map style, you need to get the style URL from [Vietmap](https://bit.ly/vietmap-api) and use the `setStyle` function.
 ```dart
   _mapController?.setStyle(
-      "https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE");
+      "https://maps.vietmap.vn/maps/styles/tm/tiles.json?apikey==YOUR_API_KEY_HERE");
 ```
 - You can also keep/remove the annotations on the map with input params `keepExistingAnnotations`. (This function did not remove annotations inside the `MarkerLayer` and `StaticMarkerLayer`)
 ```dart
   _mapController?.setStyle(
-      "https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE",
+      "https://maps.vietmap.vn/maps/styles/tm/style.json?apikey=YOUR_API_KEY_HERE",
       keepExistingAnnotations: true);
 ```
 
-VIETMAP now provides many types of custom maps
+VIETMAP now provides many types of custom maps, including Raster, Vector, Satellite, and Hybrid maps. More information about the types of maps can be found below:
 
-|Name|Description|
-|--- |--- |
-|Raster|The map data is typically stored as raster images, which are then divided into a grid of small tiles, each containing a specific portion of the map.|
-|Raster url|```https://maps.vietmap.vn/api/maps/raster/styles.json?apikey=YOUR_API_KEY_HERE```|
-|Vector|Vector tiles are small packages of vector data that can be downloaded and rendered on a client device, such as a web browser or mobile app. The vector data can include information such as street names, building footprints, and topographic features.|
-|Vector url|```https://maps.vietmap.vn/api/maps/light/styles.json?apikey=YOUR_API_KEY_HERE```|
-|Satellite|Satellite imagery consists of photographs of Earth or other planets made by means of artificial satellites.|
-|Hybrid|Hybrid maps are a combination of satellite imagery overlaid with vector data that provides a visual reference for locations and features.|
+https://maps.vietmap.vn/docs/map-api/tilemap/#vietmap-maps-sdk-integration
 
 
 Read more about [Raster and Vector](https://maps.vietmap.vn/docs/map-api/tilemap/)

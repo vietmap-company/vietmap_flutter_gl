@@ -408,8 +408,7 @@ class VietmapPolygonUtil {
   /// @param start the beginning of the line segment
   /// @param end   the end of the line segment
   /// @return the distance in meters (assuming spherical earth)
-  static num distanceToLine(
-      final LatLng p, final LatLng start, final LatLng end) {
+  static num distanceToLine(LatLng p, LatLng start, LatLng end) {
     if (start == end) {
       return VietmapSphericalUtil.computeDistanceBetween(end, p);
     }
@@ -436,7 +435,7 @@ class VietmapPolygonUtil {
     return VietmapSphericalUtil.computeDistanceBetween(p, su);
   }
 
-  static List<LatLng> decode(final String encodedPath) {
+  static List<LatLng> decode(String encodedPath) {
     final len = encodedPath.length;
 
     // For speed we preallocate to an upper bound on the final length, then
@@ -452,8 +451,8 @@ class VietmapPolygonUtil {
 
     while (index < len) {
       var shift = 0;
-      BigInt b, result;
-      result = big0;
+      BigInt b;
+      var result = big0;
       do {
         b = BigInt.from(encodedPath.codeUnitAt(index++) - 63);
         result |= (b & big0x1f) << shift;
@@ -484,7 +483,7 @@ class VietmapPolygonUtil {
       }
       lng += dlng;
 
-      path.add(LatLng((lat / 1E5).toDouble(), (lng / 1E5).toDouble()));
+      path.add(LatLng(lat / 1E5, lng / 1E5));
     }
 
     return path;

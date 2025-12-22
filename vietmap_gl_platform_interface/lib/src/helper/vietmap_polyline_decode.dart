@@ -12,7 +12,7 @@ class VietmapPolylineDecoder {
   static String encodePolyline(List<LatLng> path, [bool isPolyline6 = true]) {
     var lastLat = 0;
     var lastLng = 0;
-    var mul = isPolyline6 ? 1e6 : 1e5;
+    final mul = isPolyline6 ? 1e6 : 1e5;
 
     final result = StringBuffer();
 
@@ -41,14 +41,14 @@ class VietmapPolylineDecoder {
 
   static List<LatLng> _decodePolyline6(String encoded, double mul) {
     // precision
-    var inv = 1.0 / mul;
-    var decoded = <LatLng>[];
-    var previous = [0, 0];
+    final inv = 1.0 / mul;
+    final decoded = <LatLng>[];
+    final previous = [0, 0];
     var i = 0;
     // for each byte
     while (i < encoded.length) {
       // for each coord (lat, lon)
-      var latLng = [0, 0];
+      final latLng = [0, 0];
       for (var j = 0; j < 2; j++) {
         var shift = 0;
         var byte = 0x20;
@@ -66,7 +66,7 @@ class VietmapPolylineDecoder {
       // scale by precision and chop off long coords also flip the positions so
       // it's the far more standard lon,lat instead of lat,lon
 
-      var temp = LatLng(latLng[0] * inv, latLng[1] * inv);
+      final temp = LatLng(latLng[0] * inv, latLng[1] * inv);
       decoded.add(temp);
     }
     // hand back the list of coordinates

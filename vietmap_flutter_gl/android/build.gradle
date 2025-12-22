@@ -49,7 +49,7 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8
     }
     dependencies {
-        implementation 'com.github.vietmap-company:maps-sdk-android:2.6.0'
+        implementation 'com.github.vietmap-company:maps-sdk-android:4.1.0'
 //        implementation 'com.github.vietmap-company:maps-sdk-plugin-localization-android:2.0.0'
         implementation 'com.github.vietmap-company:vietmap-services-geojson-android:1.0.0'
         implementation 'com.github.vietmap-company:vietmap-services-turf-android:1.0.2'

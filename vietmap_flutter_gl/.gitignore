@@ -21,7 +21,7 @@ migrate_working_dir/
 .project
 .settings/
 .vscode/
-
+/public/
 /build/
 # Flutter/Dart/Pub related
 **/doc/api/

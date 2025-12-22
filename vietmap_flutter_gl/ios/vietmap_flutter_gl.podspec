@@ -19,7 +19,7 @@ A new Flutter plugin.
   s.dependency 'Flutter'
   # When updating the dependency version,
   # make sure to also update the version in Package.swift.
-  s.dependency 'VietMap', '~> 2.0.0'
+  s.dependency 'VietMap', '~> 2.9.4'
   s.swift_version = '4.2'
   s.ios.deployment_target = '12.0'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386', 'FRAMEWORK_SEARCH_PATHS' => '$(PROJECT_DIR)/Frameworks' }

@@ -45,8 +45,7 @@ class VietMapSnapEngine {
     if (nearest == null) {
       return 0;
     }
-    var distance = 0.0;
-    distance =
+    final distance =
         calculateRouteDistance([point, ...route.sublist(nearest.index + 1)]);
     return distance;
   }
@@ -58,8 +57,7 @@ class VietMapSnapEngine {
     if (nearest == null) {
       return 0;
     }
-    var distance = 0.0;
-    distance =
+    final distance =
         calculateRouteDistance([point, ...route.sublist(0, nearest.index)]);
     return distance;
   }

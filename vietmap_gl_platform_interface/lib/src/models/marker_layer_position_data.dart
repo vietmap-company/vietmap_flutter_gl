@@ -60,6 +60,9 @@ class MarkerLayerPositionData {
   }
 
   Map toJson() {
-    return {'markers': markers.map((x) => x.toJson()).toList(), 'layerId': layerId};
+    return {
+      'markers': markers.map((x) => x.toJson()).toList(),
+      'layerId': layerId
+    };
   }
 }

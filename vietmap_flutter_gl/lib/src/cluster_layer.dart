@@ -46,7 +46,7 @@ class _ClusterLayerState extends State<ClusterLayer> {
   List<int> get sortedKeys =>
       widget.customClusterWidget.keys.toList()..sort((a, b) => b.compareTo(a));
   @override
-  didUpdateWidget(covariant ClusterLayer oldWidget) {
+  void didUpdateWidget(covariant ClusterLayer oldWidget) {
     _clusterCalculate();
     super.didUpdateWidget(oldWidget);
   }
@@ -63,16 +63,7 @@ class _ClusterLayerState extends State<ClusterLayer> {
               boundingBox.northeast.longitude,
               boundingBox.northeast.latitude,
               zoom.round())
-          .map(
-        (e) {
-          return e.map(cluster: (cluster) {
-            clusters.add(cluster);
-            return cluster;
-          }, point: (point) {
-            return point;
-          });
-        },
-      );
+          .toList();
 
       for (var i = 0; i < clustersAndMarker.length; i++) {
         if (clustersAndMarker.elementAt(i) is MutableLayerPoint<Marker>) {
@@ -99,7 +90,10 @@ class _ClusterLayerState extends State<ClusterLayer> {
     final newMarker = <MarkerWidget>[];
     final newMarkerStates = <MarkerState>[];
     final newMarkerKey = <String, bool>{};
-    _mapController.toScreenLocationBatch(param).then((value) {
+    _mapController.toScreenLocationBatch(param).then((value) async {
+      if (Platform.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 20));
+      }
       if (value.isEmpty || visibleMarkers.isEmpty) {
       } else {
         final points = <List<double>>[];
@@ -146,7 +140,10 @@ class _ClusterLayerState extends State<ClusterLayer> {
     final newMarker = <MarkerWidget>[];
     final newMarkerStates = <MarkerState>[];
     final newMarkerKey = <String, bool>{};
-    _mapController.toScreenLocationBatch(param).then((value) {
+    _mapController.toScreenLocationBatch(param).then((value) async {
+      if (Platform.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 20));
+      }
       if (value.isEmpty || clusters.isEmpty) {
       } else {
         final points = <List<double>>[];
@@ -246,7 +243,10 @@ class _ClusterLayerState extends State<ClusterLayer> {
       coordinates.add(markerState.getCoordinate());
     }
 
-    _mapController.toScreenLocationBatch(coordinates).then((points) {
+    _mapController.toScreenLocationBatch(coordinates).then((points) async {
+      if (Platform.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 20));
+      }
       _markerStates.asMap().forEach((i, value) {
         if (points.length > i && _markerStates.length > i) {
           _markerStates[i].updatePosition(points[i], 0);
@@ -262,7 +262,10 @@ class _ClusterLayerState extends State<ClusterLayer> {
       coordinates.add(markerState.getCoordinate());
     }
 
-    _mapController.toScreenLocationBatch(coordinates).then((points) {
+    _mapController.toScreenLocationBatch(coordinates).then((points) async {
+      if (Platform.isAndroid) {
+        await Future.delayed(const Duration(milliseconds: 20));
+      }
       _clusterStates.asMap().forEach((i, value) {
         if (points.length > i && _clusterStates.length > i) {
           _clusterStates[i].updatePosition(points[i], 0);

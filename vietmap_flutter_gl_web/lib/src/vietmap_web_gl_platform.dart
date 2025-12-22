@@ -270,6 +270,7 @@ class VietmapController extends VietmapGlPlatform
       Point<double> point, List<String>? layerIds, List<Object>? filter) async {
     final options = <String, dynamic>{};
 
+    // ignore: use_if_null_to_convert_nulls_to_bools
     if (layerIds?.isNotEmpty == true) {
       options['layers'] = layerIds;
     }

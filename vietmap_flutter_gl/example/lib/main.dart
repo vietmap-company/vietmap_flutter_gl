@@ -8,6 +8,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:maplibre_gl_example/cluster_marker.dart';
 import 'package:vietmap_flutter_gl/vietmap_flutter_gl.dart';
 import 'package:maplibre_gl_example/attribution.dart';
 import 'package:maplibre_gl_example/get_map_informations.dart';
@@ -38,6 +39,7 @@ import 'sources.dart';
 final List<ExamplePage> _allPages = <ExamplePage>[
   const MapUiPage(),
   const FullMapPage(),
+  const ClusterPage(),
   const LocalizedMapPage(),
   const AnimateCameraPage(),
   const MoveCameraPage(),
